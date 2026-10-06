@@ -1,0 +1,84 @@
+# Continuous integration: everything runs in the cloud (GitHub-hosted runners).
+#  - octave   : license-free check of all algorithms + a demo mission (always runs)
+#  - matlab   : MATLAB + Simulink: tests, model generation, Simulink closed loop,
+#               cross-check against the MATLAB engine (needs a MATLAB license,
+#               see README "Chạy trên cloud")
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  octave:
+    name: Algorithms (GNU Octave)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GNU Octave
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends octave libopenblas0-pthread fonts-freefont-otf xvfb xauth
+      - name: Unit tests + demo mission
+        run: xvfb-run -a octave --no-gui --eval "run('ci/ci_octave.m')"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: octave-results
+          path: results/octave
+          if-no-files-found: ignore
+
+  license:
+    name: MATLAB license available?
+    runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.check.outputs.enabled }}
+    steps:
+      - id: check
+        env:
+          TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
+          PRIVATE: ${{ github.event.repository.private }}
+        run: |
+          if [ -n "$TOKEN" ] || [ "$PRIVATE" = "false" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=MATLAB/Simulink skipped::Private repository without the MLM_LICENSE_TOKEN secret. Make the repository public or add a MATLAB batch licensing token (see README)."
+          fi
+
+  matlab:
+    name: MATLAB + Simulink
+    needs: license
+    if: needs.license.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up MATLAB + Simulink
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+          products: Simulink
+          cache: true
+      - name: Tests, Simulink model, closed-loop cross-check
+        uses: matlab-actions/run-command@v3
+        with:
+          command: run('ci/ci_matlab.m')
+      - name: Job summary
+        if: always()
+        run: |
+          if [ -f results/ci/summary.md ]; then cat results/ci/summary.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: matlab-simulink-results
+          path: results/ci
+          if-no-files-found: ignore

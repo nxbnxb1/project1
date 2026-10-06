@@ -1,0 +1,23 @@
+# MATLAB / Simulink build artefacts
+*.asv
+*.autosave
+*.slxc
+*.mexa64
+*.mexw64
+*.mexmaci64
+slprj/
+codegen/
+sccprj/
+*~
+octave-workspace
+# generated results (published as CI artifacts instead)
+results/*
+!results/.gitkeep
+# generated Simulink model (rebuilt from simulink/dart_build_model.m)
+simulink/dart_closed_loop.slx
+# LaTeX
+docs/method/*.aux
+docs/method/*.log
+docs/method/*.out
+docs/method/*.toc
+docs/method/*.synctex.gz

@@ -1,0 +1,72 @@
+# Monte-Carlo ablation study (Sec. 11 of the method), launched manually from
+# the Actions tab ("Run workflow"). One parallel job per scenario.
+name: Experiments
+
+on:
+  workflow_dispatch:
+    inputs:
+      engine:
+        description: "Simulator: matlab (MATLAB engine), simulink (Simulink model) or octave (no license)"
+        type: choice
+        options: [matlab, simulink, octave]
+        default: matlab
+      seeds:
+        description: "Seeds (MATLAB expression)"
+        default: "1:10"
+      variants:
+        description: "Variants (comma separated) or all"
+        default: "all"
+      scenarios:
+        description: "Scenarios (JSON list)"
+        default: '["S1","S2","S3"]'
+
+jobs:
+  run:
+    name: ${{ matrix.scenario }} (${{ inputs.engine }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: ${{ fromJSON(inputs.scenarios) }}
+    env:
+      MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MATLAB + Simulink
+        if: inputs.engine != 'octave'
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+          products: Simulink
+          cache: true
+      - name: Run ablation (MATLAB/Simulink)
+        if: inputs.engine != 'octave'
+        uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('ci'); ci_experiments('${{ matrix.scenario }}', '${{ inputs.seeds }}', '${{ inputs.variants }}', '${{ inputs.engine }}', fullfile(pwd, 'results', 'ablation_${{ matrix.scenario }}'))
+
+      - name: Install GNU Octave
+        if: inputs.engine == 'octave'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends octave libopenblas0-pthread fonts-freefont-otf xvfb xauth
+      - name: Run ablation (Octave)
+        if: inputs.engine == 'octave'
+        run: >
+          xvfb-run -a octave --no-gui --eval "addpath('ci');
+          ci_experiments('${{ matrix.scenario }}', '${{ inputs.seeds }}', '${{ inputs.variants }}', 'matlab',
+          fullfile(pwd, 'results', 'ablation_${{ matrix.scenario }}'))"
+
+      - name: Job summary
+        if: always()
+        run: |
+          f=results/ablation_${{ matrix.scenario }}/summary.md
+          if [ -f "$f" ]; then cat "$f" >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ablation-${{ matrix.scenario }}-${{ inputs.engine }}
+          path: results/ablation_${{ matrix.scenario }}
+          if-no-files-found: ignore
