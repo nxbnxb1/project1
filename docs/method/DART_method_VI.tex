@@ -58,7 +58,7 @@ Bảng~\ref{tab:changes} tóm tắt các chỉnh sửa. Số phương trình ``(
 \midrule\endfirsthead
 \toprule & Vấn đề & Chỉnh sửa \\ \midrule\endhead
 R1 & Vật cản là \emph{điểm}; RobustAggregate (gốc 11) cho một điểm trên \emph{bề mặt}, không phải tâm. & Vật cản là hình cầu $(\vb c_i,\rho_i)$; tâm và bán kính được trích xuất từ vùng ảnh bằng hình học tia--cầu; $d_s$ chỉ còn là biên an toàn của thân máy (Mục~\ref{sec:perception}). \\
-R2 & Hiệu chỉnh affine $d=s_dD+b_d$ (gốc 9) không đúng với mạng \emph{relative depth} (MiDaS, Depth Anything) vốn xuất ra inverse depth affine-invariant. & Phân biệt hai trường hợp; thêm mô hình sai số (lỗi thang đo theo frame, nhiễu điểm ảnh tăng theo khoảng cách, outlier) và hiệp phương sai đo $R$ phụ thuộc khoảng cách. \\
+R2 & Hiệu chỉnh affine $d=s_dD+b_d$ (gốc 9) không đúng với mạng \emph{relative depth} (MiDaS \cite{ranftl2022}, Depth Anything \cite{yang2024dav2}) vốn xuất ra inverse depth affine-invariant. & Phân biệt hai trường hợp; thêm mô hình sai số (lỗi thang đo theo frame, nhiễu điểm ảnh tăng theo khoảng cách, outlier) và hiệp phương sai đo $R$ phụ thuộc khoảng cách. \\
 R3 & Cập nhật tại thời điểm chụp (gốc 23--27) chỉ chính xác khi không có cập nhật khác xen giữa $t^c_k$ và $t^a_k$. & Giả thiết A4 (một inference engine, tối đa một frame đang xử lý) làm cập nhật trễ trở nên \emph{chính xác}; track lưu posterior tại $t_{\text{upd}}$ và predictor là dạng đóng. \\
 R4 & $T^{\max}_{\text{scan}}$ (gốc 39) kỳ dị khi $v_c\to0$ (phải dùng $\epsilon$), bỏ qua tăng bất định trong khoảng mở và gia tốc chưa mô hình hoá. & Nghiệm dạng đóng của điều kiện dừng với gia tốc xấu nhất $a_+$, hữu hạn khi $v_c=0$, suy về (gốc 39) khi $a_+\to0$; độ bất định tại \emph{cuối} khoảng mở (lặp điểm bất động); tốc độ tiếp cận bảo thủ $\bar v_c=v_c+\beta_v\sigma_v$. \\
 R5 & Không có cơ chế cho vật cản \emph{chưa nhìn thấy}; scheduler lấy min trên mọi vật cản kể cả ngoài FOV (quét thêm không giúp gì). & Ràng buộc frontier (vật cản ẩn ngay sau $R_{\max}$); chỉ vật cản trong FOV điều khiển $T_{\text{scan}}$; ràng buộc tài nguyên một frame/lần. \\
@@ -149,7 +149,7 @@ với $\vb a_q$ là lệnh gia tốc ảo. Bản rời rạc với bước $\Del
   \dot{\vb q}&=\tfrac12\vb q\otimes[0;\bm\omega],\qquad J\dot{\bm\omega}=\bm\tau-\bm\omega\times J\bm\omega,\\
   \tau_m\dot f&=\operatorname{sat}(f_{\text{cmd}})-f,\qquad \tau_m\dot{\bm\tau}=\operatorname{sat}(\bm\tau_{\text{cmd}})-\bm\tau,
 \end{align}
-với lực cản tuyến tính, gió (trung bình + gust hình sin) và trễ bậc nhất của thrust/torque. Vòng attitude dùng bộ điều khiển hình học trên SO(3) \cite{lee2010}; chuyển đổi từ gia tốc an toàn sang lệnh thrust/attitude ở Phụ lục~B (có giới hạn góc nghiêng và bù cản).
+với lực cản tuyến tính, gió (trung bình + gust hình sin) và trễ bậc nhất của thrust/torque. Vòng attitude dùng bộ điều khiển hình học trên SO(3) \cite{lee2011se3}; chuyển đổi từ gia tốc an toàn sang lệnh thrust/attitude ở Phụ lục~B (có giới hạn góc nghiêng và bù cản).
 
 %=====================================================================
 \section{Nhận thức độ sâu monocular ở tần số thấp}
@@ -226,7 +226,7 @@ Với $\vb x_{o,i}=[\vb c_i\T\;\vb v_{o,i}\T]\T$ và mô hình vận tốc hằn
   \hat{\vb x}^+&=\hat{\vb x}^-+K(\vb y_i-H\hat{\vb x}^-),\qquad
   P^+=(I-KH)P^-(I-KH)\T+KR_iK\T\quad(\text{Joseph}),
 \end{align}
-rồi $t_{\text{upd},i}\leftarrow t^c_k$; ước lượng hiện tại có ngay từ \eqref{eq:pred}. Dưới A4, không có cập nhật nào khác của track $i$ trong $(t_{\text{upd},i},t^c_k]$ vì mọi frame trước đã được xử lý xong trước khi frame $k$ được chụp; do đó cách làm này \emph{trùng khớp chính xác} với bộ lọc Kalman được chạy theo thời gian chụp (không phải xấp xỉ). Nếu bỏ A4 (pipeline nhiều frame song song), cần cơ chế out-of-sequence measurement \cite{bar2002oosm}.
+rồi $t_{\text{upd},i}\leftarrow t^c_k$; ước lượng hiện tại có ngay từ \eqref{eq:pred}. Dưới A4, không có cập nhật nào khác của track $i$ trong $(t_{\text{upd},i},t^c_k]$ vì mọi frame trước đã được xử lý xong trước khi frame $k$ được chụp; do đó cách làm này \emph{trùng khớp chính xác} với bộ lọc Kalman được chạy theo thời gian chụp (không phải xấp xỉ). Nếu bỏ A4 (pipeline nhiều frame song song), cần cơ chế out-of-sequence measurement, ví dụ retrodiction \cite{garcia2021oos}; \cite{garcia2021oos} cũng chỉ ra cập nhật OOS là chính xác trừ khi hai tập phép đo trễ rơi vào cùng một khoảng --- trường hợp mà A4 loại trừ.
 
 \paragraph{Quản lý track.} Kiểm định cổng $\bm\nu\T S^{-1}\bm\nu\le\chi^2_3(0.999)=16.27$; sau 3 lần bị loại liên tiếp thì khởi tạo lại. Track mới: $\hat{\vb x}=[\vb y;\vb 0]$, $P=\operatorname{blkdiag}(R_i,\sigma_{v0}^2I)$, trong đó $\sigma_{v0}$ là tiên nghiệm về tốc độ vật cản (0.3~m/s ở môi trường tĩnh, 1~m/s ở kịch bản động) \rev{R10}. Bán kính lọc bằng EWMA (vùng bị cắt chỉ được tăng $\hat\rho$).
 
@@ -334,14 +334,14 @@ Với khe hở $s=\|\vb r\|-d(t)$ và tốc độ tiếp cận $v_c=-\hat{\vb r}
 \begin{equation}
   h_b=\sqrt{2a_b\,s}-v_c,\qquad h_b\ge0\iff s\ge\frac{v_c^2}{2a_b}\;(v_c\ge0). \label{eq:hb}
 \end{equation}
-$h_b\ge0$ chính là điều kiện dừng \eqref{eq:stop} với $T_{\text{open}}=0$: scheduler và lớp an toàn dùng \emph{cùng một chứng chỉ vật lý} --- scheduler đảm bảo nó còn đúng sau khoảng mở, CBF đảm bảo nó đúng tại mỗi chu kỳ $f_c$. Hàm này có bậc tương đối 1 theo $\vb a_q$ và tôn trọng khả năng phanh $a_b$ (dạng barrier của \cite{wang2017}). Với $\dot s=-v_c-\dot d$ và $\dot v_c=\hat{\vb r}\T\vb a_q-\hat{\vb r}\T\vb a_o-\|\vb v_{r\perp}\|^2/\|\vb r\|$, điều kiện $\dot h_b\ge-\alpha h_b$ trở thành ràng buộc tuyến tính
+$h_b\ge0$ chính là điều kiện dừng \eqref{eq:stop} với $T_{\text{open}}=0$: scheduler và lớp an toàn dùng \emph{cùng một chứng chỉ vật lý} --- scheduler đảm bảo nó còn đúng sau khoảng mở, CBF đảm bảo nó đúng tại mỗi chu kỳ $f_c$. Hàm này có bậc tương đối 1 theo $\vb a_q$ và tôn trọng khả năng phanh $a_b$ (dạng barrier của \cite{wang2016hetero}, eq.~8, với vật cản không phanh và $D_s\to d(t)$). Với $\dot s=-v_c-\dot d$ và $\dot v_c=\hat{\vb r}\T\vb a_q-\hat{\vb r}\T\vb a_o-\|\vb v_{r\perp}\|^2/\|\vb r\|$, điều kiện $\dot h_b\ge-\alpha h_b$ trở thành ràng buộc tuyến tính
 \begin{equation}
   \boxed{\hat{\vb r}\T\vb a\le\alpha h_b-\frac{a_b(v_c+\dot d)}{\sqrt{2a_bs}}+\frac{\|\vb v_{r\perp}\|^2}{\|\vb r\|}-\bar a_o-\delta_a} \label{eq:cbfb}
 \end{equation}
 (chuẩn hoá $s\ge s_{\min}$; nếu $s<s_{\min}$, vế phải bị chặn bởi $-a_b$ để đẩy UAV ra). Tại biên $h_b=0$, \eqref{eq:cbfb} yêu cầu $\hat{\vb r}\T\vb a\lesssim-a_b$, khả thi khi $a_b$ không vượt khả năng giảm tốc.
 
 \subsection{HOCBF (tuỳ chọn, bản gốc đã sửa)}
-Với $h=\|\vb r\|^2-d(t)^2$ (bậc tương đối 2) và $d$ biến thiên:
+Với $h=\|\vb r\|^2-d(t)^2$ (bậc tương đối 2, HOCBF \cite{xiao2019}) và $d$ biến thiên:
 \begin{align}
   \dot h&=2\vb r\T\vb v_r-2d\dot d,\qquad
   \ddot h=2\|\vb v_r\|^2+2\vb r\T(\vb a_o-\vb a_q)-2\dot d^2-2d\ddot d,\\
@@ -396,7 +396,7 @@ Ràng buộc gốc $\|\vb p_j-\hat{\vb c}_{i,j}\|\ge d_{i,j}$ không lồi. Vớ
 \end{equation}
 (Cauchy--Schwarz) nên nửa không gian tiếp tuyến là điều kiện \emph{đủ} và tuyến tính trong biến quyết định. Chọn $\vb n_{ij}$ theo quỹ đạo tuyến tính hoá $\bar{\vb p}_j$ (lời giải trước dịch thời gian): $\vb n_{ij}=(\bar{\vb p}_j-\hat{\vb c}_{i,j})/\|\cdot\|$, mặc định chỉ lấy thành phần \emph{ngang} (vượt qua bên cạnh); pháp tuyến 3-D chỉ dùng khi vật cản nằm hẳn phía trên/dưới ($|\Delta z|>0.7d_{i,j}$). Ưu tiên này tránh hiện tượng UAV ``chui xuống'' dưới vật cản tới sát giới hạn độ cao rồi kẹt (đã quan sát trong mô phỏng). Khi đối đầu ($-\vb n\T\vb e_{\text{travel}}>\cos\theta_s$), pháp tuyến được xoay về phía UAV đang lệch sang (mặc định trái) để góc giữa $\vb n$ và $-\vb e_{\text{travel}}$ bằng $\theta_s=60^\circ$; do \eqref{eq:halfspace} đúng với mọi $\vb n$ đơn vị, phép xoay không làm mất tính an toàn nhưng loại bỏ deadlock ``dừng trước mặt phẳng''.
 
-Mỗi bước $j$ có một hàng trực tiếp và (với $j\le N_{\text{dcbf}}$) một hàng DCBF dùng \emph{cùng mặt phẳng}:
+Mỗi bước $j$ có một hàng trực tiếp và (với $j\le N_{\text{dcbf}}$) một hàng DCBF \cite{zeng2021} dùng \emph{cùng mặt phẳng}:
 \begin{equation}
   g_{ij}(\vb p_j)\ge-s_i,\qquad g_{ij}(\vb p_j)\ge(1-\gamma)\,g_{ij}(\vb p_{j-1})-s_i,\qquad s_i\ge0. \label{eq:dcbf}
 \end{equation}
@@ -555,7 +555,7 @@ Với quy ước $m\ddot{\vb p}=-mg\vb e_3+fR\vb e_3-k_d\vb v$:
   F_{d,z}\leftarrow\max(F_{d,z},0.2mg),\qquad
   \|\vb F_{d,xy}\|\le F_{d,z}\tan\theta_{\max},\qquad \|\vb F_d\|\le f_{\max}.
 \end{gather}
-$\vb b_{3,d}=\vb F_d/\|\vb F_d\|$, $\vb b_{2,d}=\vb b_{3,d}\times[\cos\psi_d;\sin\psi_d;0]/\|\cdot\|$, $\vb b_{1,d}=\vb b_{2,d}\times\vb b_{3,d}$, $R_d=[\vb b_{1,d}\;\vb b_{2,d}\;\vb b_{3,d}]$; $f=\vb F_d\T R\vb e_3$; mô-men $\bm\tau=-k_R\vb e_R-k_\omega\bm\omega+\bm\omega\times J\bm\omega$, $\vb e_R=\tfrac12(R_d\T R-R\T R_d)^\vee$ \cite{lee2010}.
+$\vb b_{3,d}=\vb F_d/\|\vb F_d\|$, $\vb b_{2,d}=\vb b_{3,d}\times[\cos\psi_d;\sin\psi_d;0]/\|\cdot\|$, $\vb b_{1,d}=\vb b_{2,d}\times\vb b_{3,d}$, $R_d=[\vb b_{1,d}\;\vb b_{2,d}\;\vb b_{3,d}]$; $f=\vb F_d\T R\vb e_3$; mô-men $\bm\tau=-k_R\vb e_R-k_\omega\bm\omega+\bm\omega\times J\bm\omega$, $\vb e_R=\tfrac12(R_d\T R-R\T R_d)^\vee$ \cite{lee2011se3}.
 
 \section{Hiệp phương sai dạng đóng}
 Với $P=\begin{bmatrix}P_{cc}&P_{cv}\\P_{vc}&P_{vv}\end{bmatrix}$ và \eqref{eq:cv}:
@@ -587,13 +587,14 @@ Ablation, metric & \S11 $\rightarrow$ \S\ref{sec:eval} & \code{src/config/dart\_
 }
 
 \begin{thebibliography}{9}
-\bibitem{lee2010} T.~Lee, M.~Leok, N.~H.~McClamroch, ``Geometric tracking control of a quadrotor UAV on SE(3),'' \emph{IEEE CDC}, 2010.
-\bibitem{wang2017} L.~Wang, A.~D.~Ames, M.~Egerstedt, ``Safety barrier certificates for collisions-free multirobot systems,'' \emph{IEEE Trans. Robotics}, 33(3), 2017.
-\bibitem{xiao2019} W.~Xiao, C.~Belta, ``Control barrier functions for systems with high relative degree,'' \emph{IEEE CDC}, 2019.
-\bibitem{zeng2021} J.~Zeng, B.~Zhang, K.~Sreenath, ``Safety-critical model predictive control with discrete-time control barrier function,'' \emph{ACC}, 2021.
-\bibitem{bar2002oosm} Y.~Bar-Shalom, ``Update with out-of-sequence measurements in tracking: exact solution,'' \emph{IEEE Trans. Aerospace and Electronic Systems}, 38(3), 2002.
-\bibitem{ranftl2022} R.~Ranftl et al., ``Towards robust monocular depth estimation: mixing datasets for zero-shot cross-dataset transfer,'' \emph{IEEE TPAMI}, 2022.
-\bibitem{mehrotra1992} S.~Mehrotra, ``On the implementation of a primal-dual interior point method,'' \emph{SIAM J. Optimization}, 2(4), 1992.
+% Chỉ những bài đã đọc toàn văn (docs/literature/reading_list.md, notes/).
+\bibitem{lee2011se3} T.~Lee, M.~Leok, N.~H.~McClamroch, ``Control of complex maneuvers for a quadrotor UAV using geometric methods on SE(3),'' arXiv:1003.2005v4, 2011.
+\bibitem{wang2016hetero} L.~Wang, A.~D.~Ames, M.~Egerstedt, ``Safety barrier certificates for heterogeneous multi-robot systems,'' \emph{American Control Conference}, 2016 (arXiv:1609.00651).
+\bibitem{xiao2019} W.~Xiao, C.~Belta, ``Control barrier functions for systems with high relative degree,'' \emph{IEEE CDC}, 2019 (arXiv:1903.04706).
+\bibitem{zeng2021} J.~Zeng, B.~Zhang, K.~Sreenath, ``Safety-critical model predictive control with discrete-time control barrier function,'' \emph{American Control Conference}, 2021 (arXiv:2007.11718).
+\bibitem{garcia2021oos} \'A.~F.~Garc\'ia-Fern\'andez, W.~Yi, ``Continuous-discrete multiple target tracking with out-of-sequence measurements,'' \emph{IEEE Trans. Signal Processing}, 69, 2021 (arXiv:2106.04898).
+\bibitem{ranftl2022} R.~Ranftl, K.~Lasinger, D.~Hafner, K.~Schindler, V.~Koltun, ``Towards robust monocular depth estimation: mixing datasets for zero-shot cross-dataset transfer,'' \emph{IEEE TPAMI} (arXiv:1907.01341).
+\bibitem{yang2024dav2} L.~Yang et al., ``Depth Anything V2,'' \emph{NeurIPS}, 2024 (arXiv:2406.09414).
 \end{thebibliography}
 
 \end{document}
