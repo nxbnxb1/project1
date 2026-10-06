@@ -1,5 +1,7 @@
 # Quét độ trễ suy luận — S1, S2 × 6 biến thể × 50 seed (commit `a636d14`, MATLAB engine)
 
+> **Đã bị thay thế** khi các lượt quét trên code `3438b2b` hoàn tất (đang chạy). Giữ lại để đối chiếu.
+
 * Nguồn: workflow **Sweep**, run [37486173477](https://github.com/nxbnxb1/project1/actions/runs/37486173477); tham số `latency` = thời gian suy luận trung bình (log-normal, CV 0.25). Tốc độ hành trình 3 m/s.
 * Dữ liệu thô: [`raw/sweep_latency_*.log`](raw/); bảng sinh bằng `python3 parse_sweep.py raw/sweep_latency_*.log`. Va chạm kèm khoảng tin cậy Wilson 95%.
 * `FR_SAFE_f` = đủ lớp an toàn của DART nhưng perception cố định f Hz; `G_FR_LOW` = 3 Hz.

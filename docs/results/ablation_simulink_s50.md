@@ -1,5 +1,7 @@
 # Ablation Simulink — 50 seed × 8 biến thể × 3 kịch bản (commit `a636d14`)
 
+> **Đã bị thay thế** bởi [`final_ablation_simulink.md`](final_ablation_simulink.md) (code `3438b2b`, sau khi sửa điều kiện khả thi của CBF và hai trigger của scheduler). Giữ lại để đối chiếu.
+
 * Nguồn: workflow **Experiments**, run [37486167304](https://github.com/nxbnxb1/project1/actions/runs/37486167304) (7 biến thể A–G) và run [37487736273](https://github.com/nxbnxb1/project1/actions/runs/37487736273) (`Z_ZHUYI`, commit `39efae9`: chỉ thêm biến thể, đường code của các biến thể khác không đổi). Engine `simulink`, MATLAB R2024b. Seed 1–50.
 * Dữ liệu thô: [`raw/ablation_simulink_s50_*.log`](raw/) (một dòng mỗi lượt, lấy nguyên từ log CI); bảng sinh bằng `python3 parse_ablation.py raw/ablation_simulink_s50_*.log`.
 * Code tại thời điểm chạy: tracker hai mô hình (tĩnh/động), CBF có slack mặt đất riêng + giới hạn chuyển động mù. Tỉ lệ kèm khoảng tin cậy Wilson 95%. `clr` = khoảng cách thật nhỏ nhất từ thân UAV (bán kính 0.25 m) tới bề mặt vật cản; thời gian và số suy luận chỉ tính trên các lượt về đích.
