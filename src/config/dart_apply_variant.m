@@ -10,6 +10,8 @@ function cfg = dart_apply_variant(cfg, name)
 %   G_FR_LOW  E with a fixed low perception rate (3 Hz) instead of the scheduler
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
+%   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
+%             used for the horizon study
 %
 %   Variants A-D keep the (point-estimate) obstacle constraints in the MPC
 %   but no uncertainty inflation and no CBF filter.
@@ -18,6 +20,12 @@ name = upper(name);
 if strncmp(name, 'FR_SAFE_', 8)
     cfg = set_layers(cfg, 'fixed', 'adaptive', true);
     cfg.sched.f_fixed = str2double(name(9:end));
+    cfg.variant = name;
+    return
+end
+if strncmp(name, 'FN_SAFE_', 8)
+    cfg = set_layers(cfg, 'adaptive', 'fixed', true);
+    cfg.mpc.N_fixed = str2double(name(9:end));
     cfg.variant = name;
     return
 end
