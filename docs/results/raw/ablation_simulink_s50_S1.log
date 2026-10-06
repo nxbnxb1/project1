@@ -1,0 +1,350 @@
+[  1/350] S1  A_FR_FN     seed  1  goal      clr  0.39  t  13.4  inf 126  N 20.0  mpc   4.9 ms  err 0.14
+[  2/350] S1  A_FR_FN     seed  2  goal      clr  0.35  t  13.7  inf 127  N 20.0  mpc   4.7 ms  err 0.22
+[  3/350] S1  A_FR_FN     seed  3  goal      clr  0.43  t  14.3  inf 135  N 20.0  mpc   4.5 ms  err 0.16
+[  4/350] S1  A_FR_FN     seed  4  goal      clr  0.54  t  13.6  inf 129  N 20.0  mpc   4.3 ms  err 0.13
+[  5/350] S1  A_FR_FN     seed  5  goal      clr  0.39  t  14.4  inf 130  N 20.0  mpc   4.5 ms  err 0.39
+[  6/350] S1  A_FR_FN     seed  6  goal      clr  0.43  t  13.5  inf 126  N 20.0  mpc   4.1 ms  err 0.12
+[  7/350] S1  A_FR_FN     seed  7  goal      clr  0.41  t  13.3  inf 122  N 20.0  mpc   4.1 ms  err 0.21
+[  8/350] S1  A_FR_FN     seed  8  goal      clr  0.45  t  13.9  inf 131  N 20.0  mpc   4.2 ms  err 0.16
+[  9/350] S1  A_FR_FN     seed  9  goal      clr  0.44  t  13.6  inf 127  N 20.0  mpc   4.3 ms  err 0.20
+[ 10/350] S1  A_FR_FN     seed 10  goal      clr  0.33  t  13.7  inf 125  N 20.0  mpc   4.3 ms  err 0.37
+[ 11/350] S1  A_FR_FN     seed 11  goal      clr  0.50  t  13.4  inf 121  N 20.0  mpc   4.1 ms  err 0.19
+[ 12/350] S1  A_FR_FN     seed 12  goal      clr  0.49  t  13.5  inf 126  N 20.0  mpc   4.1 ms  err 0.16
+[ 13/350] S1  A_FR_FN     seed 13  goal      clr  0.48  t  13.6  inf 129  N 20.0  mpc   4.1 ms  err 0.12
+[ 14/350] S1  A_FR_FN     seed 14  goal      clr  0.37  t  14.5  inf 136  N 20.0  mpc   4.3 ms  err 0.24
+[ 15/350] S1  A_FR_FN     seed 15  goal      clr  0.37  t  14.4  inf 133  N 20.0  mpc   4.4 ms  err 0.17
+[ 16/350] S1  A_FR_FN     seed 16  goal      clr  0.47  t  13.3  inf 126  N 20.0  mpc   4.1 ms  err 0.15
+[ 17/350] S1  A_FR_FN     seed 17  goal      clr  0.48  t  13.5  inf 129  N 20.0  mpc   4.1 ms  err 0.15
+[ 18/350] S1  A_FR_FN     seed 18  goal      clr  0.40  t  13.7  inf 128  N 20.0  mpc   4.4 ms  err 0.17
+[ 19/350] S1  A_FR_FN     seed 19  goal      clr  0.41  t  14.2  inf 134  N 20.0  mpc   4.3 ms  err 0.13
+[ 20/350] S1  A_FR_FN     seed 20  goal      clr  0.24  t  13.6  inf 127  N 20.0  mpc   4.1 ms  err 0.30
+[ 21/350] S1  A_FR_FN     seed 21  goal      clr  0.55  t  13.5  inf 125  N 20.0  mpc   4.1 ms  err 0.22
+[ 22/350] S1  A_FR_FN     seed 22  goal      clr  0.48  t  13.3  inf 126  N 20.0  mpc   4.1 ms  err 0.21
+[ 23/350] S1  A_FR_FN     seed 23  goal      clr  0.45  t  13.3  inf 123  N 20.0  mpc   4.2 ms  err 0.22
+[ 24/350] S1  A_FR_FN     seed 24  goal      clr  0.50  t  13.2  inf 123  N 20.0  mpc   4.0 ms  err 0.23
+[ 25/350] S1  A_FR_FN     seed 25  goal      clr  0.47  t  13.5  inf 125  N 20.0  mpc   4.1 ms  err 0.18
+[ 26/350] S1  A_FR_FN     seed 26  goal      clr  0.50  t  13.6  inf 126  N 20.0  mpc   4.2 ms  err 0.30
+[ 27/350] S1  A_FR_FN     seed 27  goal      clr  0.42  t  13.5  inf 124  N 20.0  mpc   4.1 ms  err 0.10
+[ 28/350] S1  A_FR_FN     seed 28  goal      clr  0.38  t  13.4  inf 126  N 20.0  mpc   4.1 ms  err 0.24
+[ 29/350] S1  A_FR_FN     seed 29  goal      clr  0.40  t  13.8  inf 130  N 20.0  mpc   4.2 ms  err 0.16
+[ 30/350] S1  A_FR_FN     seed 30  goal      clr  0.57  t  13.4  inf 123  N 20.0  mpc   4.1 ms  err 0.19
+[ 31/350] S1  A_FR_FN     seed 31  goal      clr  0.44  t  13.6  inf 127  N 20.0  mpc   4.2 ms  err 0.12
+[ 32/350] S1  A_FR_FN     seed 32  goal      clr  0.43  t  13.9  inf 130  N 20.0  mpc   4.3 ms  err 0.13
+[ 33/350] S1  A_FR_FN     seed 33  goal      clr  0.50  t  13.3  inf 124  N 20.0  mpc   4.2 ms  err 0.13
+[ 34/350] S1  A_FR_FN     seed 34  goal      clr  0.44  t  13.8  inf 131  N 20.0  mpc   4.3 ms  err 0.15
+[ 35/350] S1  A_FR_FN     seed 35  goal      clr  0.46  t  13.8  inf 130  N 20.0  mpc   4.3 ms  err 0.11
+[ 36/350] S1  A_FR_FN     seed 36  goal      clr  0.42  t  13.4  inf 127  N 20.0  mpc   4.3 ms  err 0.18
+[ 37/350] S1  A_FR_FN     seed 37  goal      clr  0.41  t  13.8  inf 129  N 20.0  mpc   4.3 ms  err 0.22
+[ 38/350] S1  A_FR_FN     seed 38  goal      clr  0.44  t  13.9  inf 129  N 20.0  mpc   4.3 ms  err 0.17
+[ 39/350] S1  A_FR_FN     seed 39  goal      clr  0.42  t  13.8  inf 126  N 20.0  mpc   4.4 ms  err 0.10
+[ 40/350] S1  A_FR_FN     seed 40  goal      clr  0.46  t  13.5  inf 127  N 20.0  mpc   4.1 ms  err 0.18
+[ 41/350] S1  A_FR_FN     seed 41  goal      clr  0.44  t  14.1  inf 131  N 20.0  mpc   4.2 ms  err 0.17
+[ 42/350] S1  A_FR_FN     seed 42  goal      clr  0.35  t  13.8  inf 129  N 20.0  mpc   4.2 ms  err 0.26
+[ 43/350] S1  A_FR_FN     seed 43  goal      clr  0.30  t  14.2  inf 131  N 20.0  mpc   4.3 ms  err 0.23
+[ 44/350] S1  A_FR_FN     seed 44  goal      clr  0.48  t  13.3  inf 122  N 20.0  mpc   4.2 ms  err 0.17
+[ 45/350] S1  A_FR_FN     seed 45  goal      clr  0.34  t  13.9  inf 129  N 20.0  mpc   4.3 ms  err 0.26
+[ 46/350] S1  A_FR_FN     seed 46  goal      clr  0.46  t  13.6  inf 125  N 20.0  mpc   4.2 ms  err 0.20
+[ 47/350] S1  A_FR_FN     seed 47  goal      clr  0.39  t  14.2  inf 131  N 20.0  mpc   4.3 ms  err 0.20
+[ 48/350] S1  A_FR_FN     seed 48  goal      clr  0.37  t  13.5  inf 127  N 20.0  mpc   4.1 ms  err 0.25
+[ 49/350] S1  A_FR_FN     seed 49  goal      clr  0.50  t  13.4  inf 128  N 20.0  mpc   4.1 ms  err 0.16
+[ 50/350] S1  A_FR_FN     seed 50  goal      clr  0.36  t  13.6  inf 128  N 20.0  mpc   4.2 ms  err 0.12
+[ 51/350] S1  B_AP_FN     seed  1  goal      clr  0.39  t  13.4  inf  99  N 20.0  mpc   4.1 ms  err 0.18
+[ 52/350] S1  B_AP_FN     seed  2  goal      clr  0.47  t  13.6  inf  98  N 20.0  mpc   4.3 ms  err 0.17
+[ 53/350] S1  B_AP_FN     seed  3  goal      clr  0.44  t  22.2  inf 193  N 20.0  mpc   4.7 ms  err 0.18
+[ 54/350] S1  B_AP_FN     seed  4  goal      clr  0.49  t  13.6  inf  86  N 20.0  mpc   4.2 ms  err 0.19
+[ 55/350] S1  B_AP_FN     seed  5  goal      clr  0.41  t  14.1  inf  96  N 20.0  mpc   4.3 ms  err 0.39
+[ 56/350] S1  B_AP_FN     seed  6  goal      clr  0.47  t  13.4  inf  85  N 20.0  mpc   4.1 ms  err 0.16
+[ 57/350] S1  B_AP_FN     seed  7  goal      clr  0.41  t  13.3  inf  88  N 20.0  mpc   4.0 ms  err 0.22
+[ 58/350] S1  B_AP_FN     seed  8  goal      clr  0.29  t  13.7  inf  99  N 20.0  mpc   4.2 ms  err 0.18
+[ 59/350] S1  B_AP_FN     seed  9  goal      clr  0.39  t  13.6  inf  87  N 20.0  mpc   4.3 ms  err 0.17
+[ 60/350] S1  B_AP_FN     seed 10  goal      clr  0.28  t  13.7  inf  96  N 20.0  mpc   4.3 ms  err 0.30
+[ 61/350] S1  B_AP_FN     seed 11  goal      clr  0.47  t  13.3  inf  88  N 20.0  mpc   4.1 ms  err 0.20
+[ 62/350] S1  B_AP_FN     seed 12  goal      clr  0.49  t  13.6  inf  96  N 20.0  mpc   4.3 ms  err 0.14
+[ 63/350] S1  B_AP_FN     seed 13  goal      clr  0.47  t  13.6  inf  96  N 20.0  mpc   4.2 ms  err 0.11
+[ 64/350] S1  B_AP_FN     seed 14  goal      clr  0.42  t  14.3  inf 104  N 20.0  mpc   4.4 ms  err 0.24
+[ 65/350] S1  B_AP_FN     seed 15  goal      clr  0.44  t  14.2  inf 105  N 20.0  mpc   4.4 ms  err 0.21
+[ 66/350] S1  B_AP_FN     seed 16  goal      clr  0.51  t  13.3  inf  85  N 20.0  mpc   4.2 ms  err 0.14
+[ 67/350] S1  B_AP_FN     seed 17  goal      clr  0.45  t  13.5  inf  87  N 20.0  mpc   4.2 ms  err 0.18
+[ 68/350] S1  B_AP_FN     seed 18  goal      clr  0.43  t  13.7  inf  95  N 20.0  mpc   4.4 ms  err 0.13
+[ 69/350] S1  B_AP_FN     seed 19  goal      clr  0.33  t  15.3  inf 100  N 20.0  mpc   4.4 ms  err 0.22
+[ 70/350] S1  B_AP_FN     seed 20  goal      clr  0.31  t  13.6  inf  92  N 20.0  mpc   4.2 ms  err 0.19
+[ 71/350] S1  B_AP_FN     seed 21  goal      clr  0.55  t  13.5  inf  87  N 20.0  mpc   4.2 ms  err 0.14
+[ 72/350] S1  B_AP_FN     seed 22  goal      clr  0.47  t  13.4  inf  84  N 20.0  mpc   4.1 ms  err 0.24
+[ 73/350] S1  B_AP_FN     seed 23  goal      clr  0.45  t  13.4  inf  95  N 20.0  mpc   4.2 ms  err 0.19
+[ 74/350] S1  B_AP_FN     seed 24  goal      clr  0.49  t  13.2  inf  83  N 20.0  mpc   4.2 ms  err 0.22
+[ 75/350] S1  B_AP_FN     seed 25  goal      clr  0.47  t  13.5  inf  91  N 20.0  mpc   4.3 ms  err 0.14
+[ 76/350] S1  B_AP_FN     seed 26  goal      clr  0.36  t  13.7  inf  94  N 20.0  mpc   4.4 ms  err 0.14
+[ 77/350] S1  B_AP_FN     seed 27  goal      clr  0.33  t  13.6  inf  89  N 20.0  mpc   4.3 ms  err 0.22
+[ 78/350] S1  B_AP_FN     seed 28  goal      clr  0.40  t  13.4  inf  87  N 20.0  mpc   4.3 ms  err 0.23
+[ 79/350] S1  B_AP_FN     seed 29  goal      clr  0.37  t  13.9  inf 106  N 20.0  mpc   4.4 ms  err 0.15
+[ 80/350] S1  B_AP_FN     seed 30  goal      clr  0.57  t  13.4  inf  87  N 20.0  mpc   4.3 ms  err 0.24
+[ 81/350] S1  B_AP_FN     seed 31  goal      clr  0.44  t  13.7  inf  97  N 20.0  mpc   4.5 ms  err 0.28
+[ 82/350] S1  B_AP_FN     seed 32  timeout   clr  0.44  t  40.0  inf  92  N 20.0  mpc   5.5 ms  err 0.65
+[ 83/350] S1  B_AP_FN     seed 33  goal      clr  0.56  t  13.3  inf  90  N 20.0  mpc   4.5 ms  err 0.15
+[ 84/350] S1  B_AP_FN     seed 34  goal      clr  0.39  t  13.7  inf  93  N 20.0  mpc   4.5 ms  err 0.15
+[ 85/350] S1  B_AP_FN     seed 35  goal      clr  0.42  t  13.8  inf 103  N 20.0  mpc   4.6 ms  err 0.17
+[ 86/350] S1  B_AP_FN     seed 36  goal      clr  0.44  t  13.4  inf  95  N 20.0  mpc   4.4 ms  err 0.21
+[ 87/350] S1  B_AP_FN     seed 37  goal      clr  0.41  t  14.0  inf  90  N 20.0  mpc   4.5 ms  err 0.16
+[ 88/350] S1  B_AP_FN     seed 38  goal      clr  0.42  t  14.6  inf 107  N 20.0  mpc   4.5 ms  err 0.21
+[ 89/350] S1  B_AP_FN     seed 39  goal      clr  0.41  t  14.0  inf 101  N 20.0  mpc   4.5 ms  err 0.08
+[ 90/350] S1  B_AP_FN     seed 40  goal      clr  0.46  t  13.5  inf  91  N 20.0  mpc   4.3 ms  err 0.21
+[ 91/350] S1  B_AP_FN     seed 41  goal      clr  0.41  t  14.1  inf 105  N 20.0  mpc   4.5 ms  err 0.15
+[ 92/350] S1  B_AP_FN     seed 42  goal      clr  0.40  t  13.8  inf 102  N 20.0  mpc   4.5 ms  err 0.22
+[ 93/350] S1  B_AP_FN     seed 43  goal      clr  0.40  t  14.0  inf  97  N 20.0  mpc   4.4 ms  err 0.25
+[ 94/350] S1  B_AP_FN     seed 44  goal      clr  0.46  t  13.2  inf  82  N 20.0  mpc   4.3 ms  err 0.15
+[ 95/350] S1  B_AP_FN     seed 45  goal      clr  0.34  t  13.9  inf  97  N 20.0  mpc   4.4 ms  err 0.35
+[ 96/350] S1  B_AP_FN     seed 46  goal      clr  0.45  t  13.5  inf  91  N 20.0  mpc   4.5 ms  err 0.20
+[ 97/350] S1  B_AP_FN     seed 47  goal      clr  0.38  t  14.2  inf  94  N 20.0  mpc   4.4 ms  err 0.24
+[ 98/350] S1  B_AP_FN     seed 48  goal      clr  0.37  t  13.6  inf 103  N 20.0  mpc   4.2 ms  err 0.26
+[ 99/350] S1  B_AP_FN     seed 49  goal      clr  0.50  t  13.4  inf  92  N 20.0  mpc   4.2 ms  err 0.13
+[100/350] S1  B_AP_FN     seed 50  goal      clr  0.35  t  13.6  inf  97  N 20.0  mpc   4.3 ms  err 0.13
+[101/350] S1  C_FR_AN     seed  1  goal      clr  0.44  t  13.7  inf 128  N 25.4  mpc   6.0 ms  err 0.13
+[102/350] S1  C_FR_AN     seed  2  goal      clr  0.34  t  13.7  inf 128  N 24.8  mpc   5.8 ms  err 0.16
+[103/350] S1  C_FR_AN     seed  3  goal      clr  0.46  t  15.8  inf 149  N 24.9  mpc   6.1 ms  err 0.18
+[104/350] S1  C_FR_AN     seed  4  goal      clr  0.57  t  13.7  inf 130  N 25.1  mpc   5.8 ms  err 0.14
+[105/350] S1  C_FR_AN     seed  5  goal      clr  0.36  t  14.5  inf 131  N 24.9  mpc   6.1 ms  err 0.31
+[106/350] S1  C_FR_AN     seed  6  goal      clr  0.50  t  13.7  inf 128  N 25.0  mpc   5.7 ms  err 0.14
+[107/350] S1  C_FR_AN     seed  7  goal      clr  0.43  t  13.5  inf 124  N 24.9  mpc   5.6 ms  err 0.17
+[108/350] S1  C_FR_AN     seed  8  goal      clr  0.44  t  14.0  inf 132  N 25.3  mpc   6.1 ms  err 0.16
+[109/350] S1  C_FR_AN     seed  9  goal      clr  0.44  t  13.7  inf 128  N 25.1  mpc   5.9 ms  err 0.19
+[110/350] S1  C_FR_AN     seed 10  goal      clr  0.36  t  13.8  inf 125  N 24.6  mpc   5.6 ms  err 0.21
+[111/350] S1  C_FR_AN     seed 11  goal      clr  0.49  t  13.6  inf 123  N 25.2  mpc   5.6 ms  err 0.21
+[112/350] S1  C_FR_AN     seed 12  goal      clr  0.43  t  13.7  inf 128  N 25.6  mpc   5.9 ms  err 0.17
+[113/350] S1  C_FR_AN     seed 13  goal      clr  0.47  t  13.7  inf 130  N 25.3  mpc   5.9 ms  err 0.13
+[114/350] S1  C_FR_AN     seed 14  goal      clr  0.41  t  14.5  inf 135  N 25.9  mpc   6.2 ms  err 0.24
+[115/350] S1  C_FR_AN     seed 15  goal      clr  0.36  t  14.6  inf 134  N 25.1  mpc   6.3 ms  err 0.15
+[116/350] S1  C_FR_AN     seed 16  goal      clr  0.50  t  13.5  inf 127  N 24.8  mpc   5.5 ms  err 0.27
+[117/350] S1  C_FR_AN     seed 17  goal      clr  0.44  t  13.6  inf 129  N 24.5  mpc   5.5 ms  err 0.14
+[118/350] S1  C_FR_AN     seed 18  goal      clr  0.36  t  13.8  inf 129  N 25.4  mpc   6.0 ms  err 0.13
+[119/350] S1  C_FR_AN     seed 19  goal      clr  0.40  t  14.1  inf 134  N 25.6  mpc   6.1 ms  err 0.15
+[120/350] S1  C_FR_AN     seed 20  goal      clr  0.24  t  13.8  inf 128  N 24.8  mpc   5.8 ms  err 0.28
+[121/350] S1  C_FR_AN     seed 21  goal      clr  0.50  t  13.7  inf 127  N 25.3  mpc   5.8 ms  err 0.14
+[122/350] S1  C_FR_AN     seed 22  goal      clr  0.47  t  13.6  inf 129  N 25.0  mpc   5.8 ms  err 0.23
+[123/350] S1  C_FR_AN     seed 23  goal      clr  0.42  t  13.6  inf 126  N 24.6  mpc   5.7 ms  err 0.22
+[124/350] S1  C_FR_AN     seed 24  goal      clr  0.51  t  13.4  inf 126  N 24.9  mpc   5.4 ms  err 0.24
+[125/350] S1  C_FR_AN     seed 25  goal      clr  0.46  t  13.6  inf 127  N 25.2  mpc   5.5 ms  err 0.22
+[126/350] S1  C_FR_AN     seed 26  goal      clr  0.48  t  13.7  inf 127  N 24.7  mpc   5.7 ms  err 0.23
+[127/350] S1  C_FR_AN     seed 27  goal      clr  0.45  t  13.7  inf 126  N 25.5  mpc   5.8 ms  err 0.11
+[128/350] S1  C_FR_AN     seed 28  goal      clr  0.40  t  13.6  inf 128  N 25.5  mpc   5.7 ms  err 0.20
+[129/350] S1  C_FR_AN     seed 29  goal      clr  0.37  t  14.0  inf 131  N 25.2  mpc   5.9 ms  err 0.29
+[130/350] S1  C_FR_AN     seed 30  goal      clr  0.61  t  13.6  inf 125  N 25.0  mpc   5.5 ms  err 0.22
+[131/350] S1  C_FR_AN     seed 31  goal      clr  0.46  t  14.0  inf 130  N 24.9  mpc   5.7 ms  err 0.15
+[132/350] S1  C_FR_AN     seed 32  goal      clr  0.40  t  14.1  inf 131  N 25.4  mpc   6.0 ms  err 0.20
+[133/350] S1  C_FR_AN     seed 33  goal      clr  0.50  t  13.5  inf 126  N 25.0  mpc   5.6 ms  err 0.16
+[134/350] S1  C_FR_AN     seed 34  goal      clr  0.53  t  13.6  inf 130  N 24.4  mpc   5.4 ms  err 0.10
+[135/350] S1  C_FR_AN     seed 35  goal      clr  0.46  t  13.9  inf 132  N 25.3  mpc   5.9 ms  err 0.15
+[136/350] S1  C_FR_AN     seed 36  goal      clr  0.46  t  13.5  inf 128  N 25.3  mpc   5.8 ms  err 0.20
+[137/350] S1  C_FR_AN     seed 37  goal      clr  0.40  t  14.1  inf 133  N 24.4  mpc   5.7 ms  err 0.17
+[138/350] S1  C_FR_AN     seed 38  goal      clr  0.49  t  13.9  inf 129  N 25.7  mpc   6.0 ms  err 0.20
+[139/350] S1  C_FR_AN     seed 39  goal      clr  0.42  t  14.1  inf 129  N 25.7  mpc   6.1 ms  err 0.09
+[140/350] S1  C_FR_AN     seed 40  goal      clr  0.45  t  13.6  inf 128  N 25.2  mpc   5.7 ms  err 0.20
+[141/350] S1  C_FR_AN     seed 41  goal      clr  0.43  t  13.8  inf 129  N 25.4  mpc   5.8 ms  err 0.17
+[142/350] S1  C_FR_AN     seed 42  goal      clr  0.52  t  13.8  inf 129  N 25.3  mpc   5.8 ms  err 0.19
+[143/350] S1  C_FR_AN     seed 43  goal      clr  0.40  t  14.1  inf 130  N 25.1  mpc   5.8 ms  err 0.23
+[144/350] S1  C_FR_AN     seed 44  goal      clr  0.50  t  13.5  inf 124  N 24.6  mpc   5.4 ms  err 0.16
+[145/350] S1  C_FR_AN     seed 45  goal      clr  0.35  t  13.9  inf 130  N 25.0  mpc   5.9 ms  err 0.28
+[146/350] S1  C_FR_AN     seed 46  goal      clr  0.45  t  13.8  inf 128  N 25.2  mpc   6.0 ms  err 0.18
+[147/350] S1  C_FR_AN     seed 47  goal      clr  0.40  t  14.3  inf 132  N 25.1  mpc   6.2 ms  err 0.16
+[148/350] S1  C_FR_AN     seed 48  goal      clr  0.34  t  13.8  inf 129  N 25.3  mpc   5.9 ms  err 0.18
+[149/350] S1  C_FR_AN     seed 49  goal      clr  0.51  t  13.6  inf 130  N 25.1  mpc   5.8 ms  err 0.14
+[150/350] S1  C_FR_AN     seed 50  goal      clr  0.37  t  13.7  inf 130  N 25.1  mpc   6.0 ms  err 0.12
+[151/350] S1  D_AP_AN     seed  1  goal      clr  0.43  t  13.7  inf  99  N 25.6  mpc   5.9 ms  err 0.20
+[152/350] S1  D_AP_AN     seed  2  goal      clr  0.40  t  13.7  inf  94  N 25.0  mpc   5.8 ms  err 0.22
+[153/350] S1  D_AP_AN     seed  3  goal      clr  0.27  t  17.1  inf 130  N 24.0  mpc   6.0 ms  err 0.21
+[154/350] S1  D_AP_AN     seed  4  goal      clr  0.47  t  13.7  inf  84  N 25.1  mpc   5.8 ms  err 0.17
+[155/350] S1  D_AP_AN     seed  5  goal      clr  0.27  t  14.3  inf  98  N 25.0  mpc   6.1 ms  err 0.42
+[156/350] S1  D_AP_AN     seed  6  goal      clr  0.49  t  13.6  inf  88  N 25.0  mpc   5.9 ms  err 0.12
+[157/350] S1  D_AP_AN     seed  7  goal      clr  0.33  t  13.5  inf  91  N 25.1  mpc   5.8 ms  err 0.29
+[158/350] S1  D_AP_AN     seed  8  goal      clr  0.36  t  14.0  inf 102  N 25.8  mpc   6.4 ms  err 0.19
+[159/350] S1  D_AP_AN     seed  9  goal      clr  0.44  t  13.8  inf  94  N 25.3  mpc   6.1 ms  err 0.17
+[160/350] S1  D_AP_AN     seed 10  goal      clr  0.13  t  13.8  inf  94  N 25.1  mpc   5.9 ms  err 0.41
+[161/350] S1  D_AP_AN     seed 11  goal      clr  0.54  t  13.6  inf  90  N 25.3  mpc   5.6 ms  err 0.23
+[162/350] S1  D_AP_AN     seed 12  goal      clr  0.44  t  13.8  inf  95  N 25.6  mpc   6.0 ms  err 0.13
+[163/350] S1  D_AP_AN     seed 13  goal      clr  0.46  t  13.8  inf  96  N 25.4  mpc   6.0 ms  err 0.12
+[164/350] S1  D_AP_AN     seed 14  goal      clr  0.41  t  14.4  inf 103  N 25.9  mpc   6.1 ms  err 0.27
+[165/350] S1  D_AP_AN     seed 15  goal      clr  0.40  t  14.4  inf 105  N 25.2  mpc   6.1 ms  err 0.18
+[166/350] S1  D_AP_AN     seed 16  goal      clr  0.49  t  13.5  inf  81  N 24.6  mpc   5.5 ms  err 0.25
+[167/350] S1  D_AP_AN     seed 17  goal      clr  0.47  t  14.2  inf  95  N 25.2  mpc   6.1 ms  err 0.29
+[168/350] S1  D_AP_AN     seed 18  goal      clr  0.42  t  14.1  inf 105  N 25.6  mpc   6.1 ms  err 0.19
+[169/350] S1  D_AP_AN     seed 19  goal      clr  0.33  t  14.2  inf  99  N 25.6  mpc   6.1 ms  err 0.17
+[170/350] S1  D_AP_AN     seed 20  goal      clr  0.27  t  13.8  inf  91  N 24.7  mpc   5.8 ms  err 0.31
+[171/350] S1  D_AP_AN     seed 21  goal      clr  0.48  t  13.5  inf  88  N 25.3  mpc   5.9 ms  err 0.16
+[172/350] S1  D_AP_AN     seed 22  goal      clr  0.48  t  13.5  inf  85  N 25.0  mpc   5.6 ms  err 0.24
+[173/350] S1  D_AP_AN     seed 23  goal      clr  0.54  t  13.6  inf  90  N 24.7  mpc   5.6 ms  err 0.29
+[174/350] S1  D_AP_AN     seed 24  goal      clr  0.50  t  13.4  inf  84  N 25.1  mpc   5.7 ms  err 0.24
+[175/350] S1  D_AP_AN     seed 25  goal      clr  0.46  t  13.6  inf  90  N 25.4  mpc   5.8 ms  err 0.15
+[176/350] S1  D_AP_AN     seed 26  goal      clr  0.39  t  13.8  inf  92  N 24.8  mpc   5.9 ms  err 0.17
+[177/350] S1  D_AP_AN     seed 27  goal      clr  0.45  t  13.8  inf  93  N 25.6  mpc   5.9 ms  err 0.14
+[178/350] S1  D_AP_AN     seed 28  goal      clr  0.42  t  13.6  inf  89  N 25.5  mpc   5.7 ms  err 0.24
+[179/350] S1  D_AP_AN     seed 29  goal      clr  0.40  t  13.8  inf 101  N 25.6  mpc   6.0 ms  err 0.15
+[180/350] S1  D_AP_AN     seed 30  goal      clr  0.57  t  13.6  inf  89  N 25.0  mpc   5.7 ms  err 0.20
+[181/350] S1  D_AP_AN     seed 31  goal      clr  0.47  t  13.9  inf 100  N 25.2  mpc   5.9 ms  err 0.24
+[182/350] S1  D_AP_AN     seed 32  goal      clr  0.40  t  14.1  inf  98  N 25.4  mpc   6.1 ms  err 0.13
+[183/350] S1  D_AP_AN     seed 33  goal      clr  0.53  t  13.5  inf  90  N 25.0  mpc   5.8 ms  err 0.16
+[184/350] S1  D_AP_AN     seed 34  goal      clr  0.45  t  13.8  inf  92  N 24.9  mpc   5.8 ms  err 0.21
+[185/350] S1  D_AP_AN     seed 35  goal      clr  0.44  t  13.9  inf 104  N 25.5  mpc   6.0 ms  err 0.16
+[186/350] S1  D_AP_AN     seed 36  goal      clr  0.48  t  13.6  inf  95  N 25.3  mpc   5.8 ms  err 0.23
+[187/350] S1  D_AP_AN     seed 37  goal      clr  0.40  t  13.9  inf  94  N 25.1  mpc   5.8 ms  err 0.27
+[188/350] S1  D_AP_AN     seed 38  goal      clr  0.37  t  13.9  inf 104  N 25.6  mpc   6.0 ms  err 0.18
+[189/350] S1  D_AP_AN     seed 39  goal      clr  0.44  t  14.1  inf 104  N 25.6  mpc   6.1 ms  err 0.10
+[190/350] S1  D_AP_AN     seed 40  goal      clr  0.45  t  13.7  inf  95  N 25.1  mpc   5.8 ms  err 0.34
+[191/350] S1  D_AP_AN     seed 41  goal      clr  0.40  t  14.2  inf 103  N 25.6  mpc   6.2 ms  err 0.22
+[192/350] S1  D_AP_AN     seed 42  goal      clr  0.47  t  13.8  inf 100  N 25.4  mpc   5.9 ms  err 0.30
+[193/350] S1  D_AP_AN     seed 43  goal      clr  0.41  t  14.1  inf  94  N 25.3  mpc   5.8 ms  err 0.21
+[194/350] S1  D_AP_AN     seed 44  goal      clr  0.48  t  13.4  inf  82  N 25.0  mpc   5.6 ms  err 0.21
+[195/350] S1  D_AP_AN     seed 45  goal      clr  0.35  t  14.0  inf  98  N 25.2  mpc   6.0 ms  err 0.37
+[196/350] S1  D_AP_AN     seed 46  goal      clr  0.44  t  13.8  inf  91  N 25.3  mpc   6.0 ms  err 0.21
+[197/350] S1  D_AP_AN     seed 47  goal      clr  0.39  t  14.1  inf  95  N 25.3  mpc   6.1 ms  err 0.26
+[198/350] S1  D_AP_AN     seed 48  goal      clr  0.29  t  13.8  inf 102  N 25.5  mpc   6.0 ms  err 0.26
+[199/350] S1  D_AP_AN     seed 49  goal      clr  0.52  t  13.6  inf  93  N 25.2  mpc   5.8 ms  err 0.16
+[200/350] S1  D_AP_AN     seed 50  goal      clr  0.37  t  13.8  inf  97  N 25.4  mpc   5.8 ms  err 0.15
+[201/350] S1  E_DART      seed  1  goal      clr  0.61  t  14.3  inf 105  N 25.8  mpc   6.6 ms  err 0.18
+[202/350] S1  E_DART      seed  2  goal      clr  0.46  t  14.5  inf  96  N 25.3  mpc   6.7 ms  err 0.19
+[203/350] S1  E_DART      seed  3  goal      clr  0.46  t  16.1  inf 113  N 25.9  mpc   7.1 ms  err 0.22
+[204/350] S1  E_DART      seed  4  goal      clr  0.60  t  14.4  inf  87  N 25.5  mpc   6.5 ms  err 0.16
+[205/350] S1  E_DART      seed  5  goal      clr  0.63  t  16.7  inf 102  N 24.7  mpc   6.4 ms  err 0.46
+[206/350] S1  E_DART      seed  6  goal      clr  0.64  t  13.9  inf  89  N 25.1  mpc   6.1 ms  err 0.16
+[207/350] S1  E_DART      seed  7  goal      clr  0.66  t  14.3  inf  90  N 25.2  mpc   6.2 ms  err 0.16
+[208/350] S1  E_DART      seed  8  goal      clr  0.57  t  15.2  inf  98  N 25.1  mpc   6.3 ms  err 0.22
+[209/350] S1  E_DART      seed  9  goal      clr  0.60  t  14.1  inf  89  N 25.2  mpc   5.9 ms  err 0.25
+[210/350] S1  E_DART      seed 10  goal      clr  0.55  t  14.4  inf  97  N 25.4  mpc   6.3 ms  err 0.25
+[211/350] S1  E_DART      seed 11  goal      clr  0.67  t  13.9  inf  91  N 25.2  mpc   5.9 ms  err 0.22
+[212/350] S1  E_DART      seed 12  goal      clr  0.55  t  14.8  inf  98  N 25.6  mpc   6.3 ms  err 0.16
+[213/350] S1  E_DART      seed 13  goal      clr  0.58  t  14.0  inf  93  N 25.5  mpc   6.3 ms  err 0.17
+[214/350] S1  E_DART      seed 14  goal      clr  0.62  t  26.0  inf 129  N 22.0  mpc   5.7 ms  err 0.23
+[215/350] S1  E_DART      seed 15  goal      clr  0.54  t  17.3  inf 103  N 24.7  mpc   6.4 ms  err 0.29
+[216/350] S1  E_DART      seed 16  goal      clr  0.70  t  13.9  inf  80  N 24.8  mpc   5.9 ms  err 0.15
+[217/350] S1  E_DART      seed 17  goal      clr  0.54  t  14.6  inf  94  N 24.8  mpc   6.2 ms  err 0.24
+[218/350] S1  E_DART      seed 18  goal      clr  0.53  t  15.6  inf 105  N 25.2  mpc   6.3 ms  err 0.17
+[219/350] S1  E_DART      seed 19  goal      clr  0.50  t  20.6  inf 127  N 24.9  mpc   6.6 ms  err 0.25
+[220/350] S1  E_DART      seed 20  goal      clr  0.55  t  14.6  inf  94  N 24.8  mpc   6.0 ms  err 0.27
+[221/350] S1  E_DART      seed 21  goal      clr  0.67  t  14.6  inf  80  N 25.0  mpc   6.2 ms  err 0.23
+[222/350] S1  E_DART      seed 22  goal      clr  0.58  t  14.0  inf  90  N 25.3  mpc   6.0 ms  err 0.30
+[223/350] S1  E_DART      seed 23  goal      clr  0.64  t  14.2  inf  94  N 24.8  mpc   6.0 ms  err 0.16
+[224/350] S1  E_DART      seed 24  goal      clr  0.58  t  13.7  inf  80  N 25.1  mpc   5.8 ms  err 0.21
+[225/350] S1  E_DART      seed 25  goal      clr  0.55  t  14.3  inf  92  N 25.5  mpc   6.2 ms  err 0.19
+[226/350] S1  E_DART      seed 26  goal      clr  0.55  t  14.2  inf  95  N 24.8  mpc   6.2 ms  err 0.20
+[227/350] S1  E_DART      seed 27  goal      clr  0.53  t  14.2  inf  93  N 25.6  mpc   6.2 ms  err 0.11
+[228/350] S1  E_DART      seed 28  goal      clr  0.59  t  14.3  inf  89  N 25.5  mpc   6.0 ms  err 0.23
+[229/350] S1  E_DART      seed 29  goal      clr  0.53  t  15.8  inf 104  N 25.7  mpc   6.7 ms  err 0.26
+[230/350] S1  E_DART      seed 30  goal      clr  0.71  t  14.3  inf  89  N 25.0  mpc   6.1 ms  err 0.22
+[231/350] S1  E_DART      seed 31  goal      clr  0.51  t  14.7  inf 102  N 25.0  mpc   6.2 ms  err 0.14
+[232/350] S1  E_DART      seed 32  goal      clr  0.56  t  14.7  inf  98  N 25.6  mpc   6.4 ms  err 0.17
+[233/350] S1  E_DART      seed 33  goal      clr  0.62  t  14.6  inf  87  N 25.1  mpc   6.2 ms  err 0.12
+[234/350] S1  E_DART      seed 34  goal      clr  0.62  t  15.0  inf  90  N 24.9  mpc   6.2 ms  err 0.16
+[235/350] S1  E_DART      seed 35  goal      clr  0.60  t  14.6  inf 101  N 25.7  mpc   6.3 ms  err 0.28
+[236/350] S1  E_DART      seed 36  goal      clr  0.56  t  14.6  inf 100  N 25.5  mpc   6.3 ms  err 0.24
+[237/350] S1  E_DART      seed 37  goal      clr  0.52  t  14.6  inf  95  N 25.2  mpc   6.1 ms  err 0.19
+[238/350] S1  E_DART      seed 38  goal      clr  0.59  t  15.2  inf 105  N 25.7  mpc   6.4 ms  err 0.14
+[239/350] S1  E_DART      seed 39  goal      clr  0.53  t  14.8  inf 102  N 25.9  mpc   6.5 ms  err 0.09
+[240/350] S1  E_DART      seed 40  goal      clr  0.56  t  14.6  inf 103  N 25.0  mpc   6.1 ms  err 0.25
+[241/350] S1  E_DART      seed 41  goal      clr  0.25  t  25.8  inf 170  N 24.6  mpc   6.8 ms  err 0.37
+[242/350] S1  E_DART      seed 42  goal      clr  0.65  t  14.7  inf 103  N 25.4  mpc   6.2 ms  err 0.19
+[243/350] S1  E_DART      seed 43  goal      clr  0.49  t  15.8  inf  97  N 24.6  mpc   5.9 ms  err 0.27
+[244/350] S1  E_DART      seed 44  goal      clr  0.49  t  14.8  inf  86  N 24.8  mpc   6.2 ms  err 0.16
+[245/350] S1  E_DART      seed 45  goal      clr  0.53  t  15.1  inf 108  N 25.4  mpc   6.5 ms  err 0.25
+[246/350] S1  E_DART      seed 46  goal      clr  0.53  t  14.2  inf  98  N 25.6  mpc   6.3 ms  err 0.18
+[247/350] S1  E_DART      seed 47  goal      clr  0.56  t  14.3  inf  88  N 24.9  mpc   6.0 ms  err 0.23
+[248/350] S1  E_DART      seed 48  goal      clr  0.47  t  16.3  inf 108  N 25.9  mpc   6.5 ms  err 0.38
+[249/350] S1  E_DART      seed 49  goal      clr  0.62  t  14.6  inf  89  N 25.6  mpc   6.1 ms  err 0.23
+[250/350] S1  E_DART      seed 50  goal      clr  0.53  t  14.4  inf  99  N 25.5  mpc   6.2 ms  err 0.14
+[251/350] S1  F_NODELAY   seed  1  goal      clr  0.64  t  19.8  inf 160  N 26.7  mpc   7.3 ms  err 0.85
+[252/350] S1  F_NODELAY   seed  2  goal      clr  0.41  t  20.3  inf 175  N 25.5  mpc   7.6 ms  err 1.52
+[253/350] S1  F_NODELAY   seed  3  collision clr -0.02  t  28.6  inf 227  N 25.3  mpc   7.4 ms  err 0.90
+[254/350] S1  F_NODELAY   seed  4  collision clr -0.03  t   8.5  inf  85  N 27.7  mpc   9.9 ms  err 2.02
+[255/350] S1  F_NODELAY   seed  5  goal      clr  0.02  t  22.3  inf 179  N 27.0  mpc   8.2 ms  err 1.03
+[256/350] S1  F_NODELAY   seed  6  goal      clr  0.73  t  18.2  inf 154  N 26.9  mpc   7.4 ms  err 1.19
+[257/350] S1  F_NODELAY   seed  7  goal      clr  0.24  t  29.0  inf 207  N 24.6  mpc   7.2 ms  err 1.05
+[258/350] S1  F_NODELAY   seed  8  collision clr -0.00  t  10.9  inf 105  N 27.9  mpc   9.1 ms  err 1.46
+[259/350] S1  F_NODELAY   seed  9  goal      clr  0.40  t  17.9  inf 149  N 25.6  mpc   6.9 ms  err 1.08
+[260/350] S1  F_NODELAY   seed 10  goal      clr  0.02  t  31.6  inf 259  N 24.2  mpc   7.0 ms  err 1.43
+[261/350] S1  F_NODELAY   seed 11  goal      clr  0.29  t  24.2  inf 173  N 24.2  mpc   6.6 ms  err 0.86
+[262/350] S1  F_NODELAY   seed 12  goal      clr  0.20  t  27.3  inf 227  N 26.1  mpc   7.6 ms  err 1.03
+[263/350] S1  F_NODELAY   seed 13  goal      clr  0.51  t  19.9  inf 172  N 25.4  mpc   7.2 ms  err 1.42
+[264/350] S1  F_NODELAY   seed 14  goal      clr  0.12  t  24.1  inf 190  N 24.2  mpc   6.6 ms  err 0.96
+[265/350] S1  F_NODELAY   seed 15  goal      clr  0.32  t  28.4  inf 226  N 26.2  mpc   7.6 ms  err 1.11
+[266/350] S1  F_NODELAY   seed 16  timeout   clr  0.42  t  40.0  inf 221  N 21.0  mpc   5.7 ms  err 0.70
+[267/350] S1  F_NODELAY   seed 17  goal      clr  0.36  t  15.2  inf 119  N 25.4  mpc   6.5 ms  err 1.08
+[268/350] S1  F_NODELAY   seed 18  goal      clr  0.29  t  19.4  inf 153  N 27.3  mpc   7.6 ms  err 1.15
+[269/350] S1  F_NODELAY   seed 19  goal      clr  0.33  t  26.6  inf 211  N 25.7  mpc   7.4 ms  err 1.06
+[270/350] S1  F_NODELAY   seed 20  goal      clr  0.03  t  25.9  inf 196  N 23.4  mpc   6.5 ms  err 0.95
+[271/350] S1  F_NODELAY   seed 21  goal      clr  0.38  t  19.1  inf 157  N 27.0  mpc   7.5 ms  err 1.14
+[272/350] S1  F_NODELAY   seed 22  goal      clr  0.82  t  21.9  inf 181  N 25.8  mpc   7.3 ms  err 1.08
+[273/350] S1  F_NODELAY   seed 23  goal      clr  0.77  t  15.6  inf 125  N 25.5  mpc   6.7 ms  err 0.93
+[274/350] S1  F_NODELAY   seed 24  timeout   clr  0.21  t  40.0  inf 356  N 22.4  mpc   6.5 ms  err 0.61
+[275/350] S1  F_NODELAY   seed 25  goal      clr  0.30  t  22.4  inf 185  N 25.3  mpc   7.5 ms  err 1.21
+[276/350] S1  F_NODELAY   seed 26  goal      clr  0.14  t  20.1  inf 159  N 24.9  mpc   7.0 ms  err 0.99
+[277/350] S1  F_NODELAY   seed 27  goal      clr  0.24  t  21.5  inf 165  N 25.1  mpc   7.0 ms  err 0.82
+[278/350] S1  F_NODELAY   seed 28  goal      clr  0.27  t  26.2  inf 229  N 26.8  mpc   8.0 ms  err 1.14
+[279/350] S1  F_NODELAY   seed 29  collision clr -0.01  t   5.2  inf  48  N 27.1  mpc   7.8 ms  err 0.98
+[280/350] S1  F_NODELAY   seed 30  goal      clr  0.49  t  19.9  inf 148  N 26.0  mpc   7.0 ms  err 0.94
+[281/350] S1  F_NODELAY   seed 31  goal      clr  0.36  t  22.3  inf 175  N 24.0  mpc   6.3 ms  err 1.22
+[282/350] S1  F_NODELAY   seed 32  goal      clr  0.24  t  18.8  inf 146  N 25.2  mpc   6.7 ms  err 1.30
+[283/350] S1  F_NODELAY   seed 33  goal      clr  0.28  t  15.8  inf 134  N 26.4  mpc   7.0 ms  err 0.93
+[284/350] S1  F_NODELAY   seed 34  goal      clr  0.35  t  19.8  inf 157  N 26.0  mpc   7.6 ms  err 0.96
+[285/350] S1  F_NODELAY   seed 35  goal      clr  0.26  t  23.5  inf 183  N 25.7  mpc   7.3 ms  err 0.92
+[286/350] S1  F_NODELAY   seed 36  goal      clr  0.78  t  14.9  inf 114  N 25.8  mpc   6.4 ms  err 0.97
+[287/350] S1  F_NODELAY   seed 37  goal      clr  0.58  t  23.1  inf 196  N 24.9  mpc   7.1 ms  err 1.10
+[288/350] S1  F_NODELAY   seed 38  goal      clr  0.16  t  37.7  inf 302  N 24.8  mpc   7.4 ms  err 1.29
+[289/350] S1  F_NODELAY   seed 39  collision clr -0.00  t  35.6  inf 270  N 23.0  mpc   6.4 ms  err 1.41
+[290/350] S1  F_NODELAY   seed 40  goal      clr  0.34  t  20.2  inf 149  N 25.4  mpc   6.6 ms  err 1.06
+[291/350] S1  F_NODELAY   seed 41  goal      clr  0.34  t  28.4  inf 240  N 25.6  mpc   7.3 ms  err 1.07
+[292/350] S1  F_NODELAY   seed 42  timeout   clr  0.39  t  40.0  inf 355  N 21.0  mpc   6.2 ms  err 1.17
+[293/350] S1  F_NODELAY   seed 43  goal      clr  0.29  t  31.8  inf 262  N 25.3  mpc   7.5 ms  err 1.10
+[294/350] S1  F_NODELAY   seed 44  collision clr -0.00  t  18.5  inf 165  N 22.1  mpc   7.0 ms  err 0.70
+[295/350] S1  F_NODELAY   seed 45  goal      clr  0.53  t  17.5  inf 143  N 26.4  mpc   7.4 ms  err 0.91
+[296/350] S1  F_NODELAY   seed 46  goal      clr  0.13  t  19.3  inf 152  N 24.2  mpc   6.8 ms  err 1.29
+[297/350] S1  F_NODELAY   seed 47  goal      clr  0.45  t  21.3  inf 166  N 24.5  mpc   6.7 ms  err 0.96
+[298/350] S1  F_NODELAY   seed 48  goal      clr  0.40  t  26.7  inf 213  N 24.2  mpc   6.9 ms  err 1.19
+[299/350] S1  F_NODELAY   seed 49  goal      clr  0.22  t  17.3  inf 134  N 25.2  mpc   6.6 ms  err 1.08
+[300/350] S1  F_NODELAY   seed 50  collision clr -0.00  t   6.3  inf  63  N 27.5  mpc   9.3 ms  err 0.94
+[301/350] S1  G_FR_LOW    seed  1  goal      clr  0.48  t  15.0  inf  45  N 26.0  mpc   6.6 ms  err 0.19
+[302/350] S1  G_FR_LOW    seed  2  goal      clr  0.51  t  15.6  inf  46  N 25.4  mpc   6.4 ms  err 0.29
+[303/350] S1  G_FR_LOW    seed  3  goal      clr  0.47  t  18.2  inf  54  N 26.0  mpc   7.1 ms  err 0.29
+[304/350] S1  G_FR_LOW    seed  4  goal      clr  0.67  t  15.7  inf  47  N 25.0  mpc   6.2 ms  err 0.11
+[305/350] S1  G_FR_LOW    seed  5  goal      clr  0.64  t  14.3  inf  43  N 25.1  mpc   6.3 ms  err 0.33
+[306/350] S1  G_FR_LOW    seed  6  goal      clr  0.69  t  14.3  inf  42  N 25.0  mpc   6.0 ms  err 0.12
+[307/350] S1  G_FR_LOW    seed  7  goal      clr  0.56  t  14.7  inf  44  N 25.1  mpc   6.2 ms  err 0.35
+[308/350] S1  G_FR_LOW    seed  8  goal      clr  0.61  t  15.6  inf  46  N 26.1  mpc   6.7 ms  err 0.28
+[309/350] S1  G_FR_LOW    seed  9  goal      clr  0.52  t  15.0  inf  44  N 24.4  mpc   6.0 ms  err 0.35
+[310/350] S1  G_FR_LOW    seed 10  goal      clr  0.60  t  14.7  inf  44  N 25.5  mpc   6.5 ms  err 0.24
+[311/350] S1  G_FR_LOW    seed 11  goal      clr  0.62  t  14.4  inf  43  N 25.5  mpc   6.1 ms  err 0.19
+[312/350] S1  G_FR_LOW    seed 12  goal      clr  0.51  t  16.0  inf  47  N 25.9  mpc   6.6 ms  err 0.21
+[313/350] S1  G_FR_LOW    seed 13  goal      clr  0.63  t  14.1  inf  42  N 25.9  mpc   6.4 ms  err 0.16
+[314/350] S1  G_FR_LOW    seed 14  goal      clr  0.48  t  17.0  inf  51  N 26.2  mpc   6.7 ms  err 0.17
+[315/350] S1  G_FR_LOW    seed 15  goal      clr  0.57  t  15.9  inf  47  N 25.2  mpc   6.6 ms  err 0.22
+[316/350] S1  G_FR_LOW    seed 16  goal      clr  0.61  t  14.9  inf  44  N 25.2  mpc   6.2 ms  err 0.18
+[317/350] S1  G_FR_LOW    seed 17  goal      clr  0.66  t  14.2  inf  42  N 25.1  mpc   6.1 ms  err 0.21
+[318/350] S1  G_FR_LOW    seed 18  goal      clr  0.70  t  14.4  inf  43  N 25.6  mpc   6.3 ms  err 0.17
+[319/350] S1  G_FR_LOW    seed 19  goal      clr  0.44  t  15.5  inf  46  N 26.0  mpc   6.6 ms  err 0.17
+[320/350] S1  G_FR_LOW    seed 20  goal      clr  0.73  t  14.4  inf  43  N 25.7  mpc   6.2 ms  err 0.35
+[321/350] S1  G_FR_LOW    seed 21  goal      clr  0.77  t  14.3  inf  42  N 25.4  mpc   6.2 ms  err 0.21
+[322/350] S1  G_FR_LOW    seed 22  goal      clr  0.64  t  14.0  inf  42  N 25.5  mpc   6.0 ms  err 0.26
+[323/350] S1  G_FR_LOW    seed 23  goal      clr  0.45  t  14.7  inf  44  N 25.1  mpc   6.4 ms  err 0.25
+[324/350] S1  G_FR_LOW    seed 24  goal      clr  0.61  t  14.6  inf  43  N 25.5  mpc   6.2 ms  err 0.22
+[325/350] S1  G_FR_LOW    seed 25  goal      clr  0.63  t  16.0  inf  48  N 25.9  mpc   6.7 ms  err 0.16
+[326/350] S1  G_FR_LOW    seed 26  goal      clr  0.34  t  19.9  inf  59  N 24.9  mpc   6.7 ms  err 0.30
+[327/350] S1  G_FR_LOW    seed 27  goal      clr  0.61  t  14.5  inf  43  N 25.6  mpc   6.4 ms  err 0.10
+[328/350] S1  G_FR_LOW    seed 28  goal      clr  0.60  t  14.2  inf  42  N 25.9  mpc   6.3 ms  err 0.28
+[329/350] S1  G_FR_LOW    seed 29  goal      clr  0.57  t  16.2  inf  48  N 26.5  mpc   7.0 ms  err 0.28
+[330/350] S1  G_FR_LOW    seed 30  goal      clr  0.62  t  14.7  inf  44  N 25.4  mpc   6.3 ms  err 0.26
+[331/350] S1  G_FR_LOW    seed 31  goal      clr  0.56  t  15.1  inf  45  N 25.4  mpc   6.5 ms  err 0.13
+[332/350] S1  G_FR_LOW    seed 32  goal      clr  0.71  t  14.8  inf  44  N 25.3  mpc   6.7 ms  err 0.22
+[333/350] S1  G_FR_LOW    seed 33  goal      clr  0.63  t  14.3  inf  42  N 25.2  mpc   6.5 ms  err 0.11
+[334/350] S1  G_FR_LOW    seed 34  goal      clr  0.66  t  15.6  inf  46  N 24.7  mpc   6.8 ms  err 0.16
+[335/350] S1  G_FR_LOW    seed 35  goal      clr  0.64  t  14.5  inf  43  N 25.8  mpc   6.5 ms  err 0.28
+[336/350] S1  G_FR_LOW    seed 36  goal      clr  0.66  t  19.5  inf  58  N 24.5  mpc   6.2 ms  err 0.47
+[337/350] S1  G_FR_LOW    seed 37  goal      clr  0.54  t  14.9  inf  44  N 25.5  mpc   6.4 ms  err 0.26
+[338/350] S1  G_FR_LOW    seed 38  goal      clr  0.57  t  15.6  inf  46  N 26.1  mpc   6.8 ms  err 0.18
+[339/350] S1  G_FR_LOW    seed 39  goal      clr  0.58  t  15.3  inf  45  N 25.8  mpc   6.9 ms  err 0.20
+[340/350] S1  G_FR_LOW    seed 40  goal      clr  0.66  t  14.8  inf  44  N 25.5  mpc   6.4 ms  err 0.21
+[341/350] S1  G_FR_LOW    seed 41  goal      clr  0.66  t  15.9  inf  47  N 26.0  mpc   6.7 ms  err 0.16
+[342/350] S1  G_FR_LOW    seed 42  goal      clr  0.62  t  15.2  inf  45  N 25.4  mpc   6.4 ms  err 0.18
+[343/350] S1  G_FR_LOW    seed 43  goal      clr  0.57  t  17.3  inf  51  N 25.3  mpc   6.5 ms  err 0.13
+[344/350] S1  G_FR_LOW    seed 44  goal      clr  0.53  t  14.9  inf  44  N 25.1  mpc   6.2 ms  err 0.23
+[345/350] S1  G_FR_LOW    seed 45  goal      clr  0.55  t  16.3  inf  48  N 26.3  mpc   6.8 ms  err 0.25
+[346/350] S1  G_FR_LOW    seed 46  goal      clr  0.59  t  14.2  inf  42  N 26.7  mpc   6.4 ms  err 0.28
+[347/350] S1  G_FR_LOW    seed 47  goal      clr  0.61  t  14.5  inf  43  N 24.9  mpc   6.2 ms  err 0.29
+[348/350] S1  G_FR_LOW    seed 48  goal      clr  0.58  t  15.0  inf  45  N 25.7  mpc   6.4 ms  err 0.23
+[349/350] S1  G_FR_LOW    seed 49  goal      clr  0.62  t  14.2  inf  42  N 25.5  mpc   6.0 ms  err 0.22
+[350/350] S1  G_FR_LOW    seed 50  goal      clr  0.43  t  16.3  inf  48  N 25.7  mpc   6.5 ms  err 0.23

@@ -1,12 +1,13 @@
 function [z, info] = dart_qp_solve(H, f, A, b, z0, opts)
 %DART_QP_SOLVE Dense convex QP
 %       min 1/2 z'Hz + f'z   s.t.  A z <= b,  lb <= z <= ub (opts.lb/opts.ub)
-%   Primal-dual interior-point method with Mehrotra predictor-corrector and
-%   an infeasible start, so z0 does not need to be feasible. Simple bounds
+%   Primal-dual interior-point method with a Mehrotra-type predictor-corrector
+%   (Mehrotra, SIAM J. Optim. 1992, applied to the QP KKT system; one common
+%   primal/dual step with factor 0.99) and an infeasible start, so z0 does not need to be feasible. Simple bounds
 %   are handled natively (diagonal contribution to the Newton system).
 %   Pure MATLAB, no toolbox required (also runs in GNU Octave).
 %
-%   info.status  0 converged, 1 max iterations (best iterate returned)
+%   info.status  0 converged, 1 max iterations (last iterate returned)
 %   info.iter    iterations
 %   info.res     [primal dual mu] residual norms at exit
 

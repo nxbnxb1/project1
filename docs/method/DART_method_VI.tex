@@ -226,7 +226,7 @@ Với $\vb x_{o,i}=[\vb c_i\T\;\vb v_{o,i}\T]\T$ và mô hình vận tốc hằn
   \hat{\vb x}^+&=\hat{\vb x}^-+K(\vb y_i-H\hat{\vb x}^-),\qquad
   P^+=(I-KH)P^-(I-KH)\T+KR_iK\T\quad(\text{Joseph}),
 \end{align}
-rồi $t_{\text{upd},i}\leftarrow t^c_k$; ước lượng hiện tại có ngay từ \eqref{eq:pred}. Dưới A4, không có cập nhật nào khác của track $i$ trong $(t_{\text{upd},i},t^c_k]$ vì mọi frame trước đã được xử lý xong trước khi frame $k$ được chụp; do đó cách làm này \emph{trùng khớp chính xác} với bộ lọc Kalman được chạy theo thời gian chụp (không phải xấp xỉ). Nếu bỏ A4 (pipeline nhiều frame song song), cần cơ chế out-of-sequence measurement, ví dụ retrodiction \cite{garcia2021oos}; \cite{garcia2021oos} cũng chỉ ra cập nhật OOS là chính xác trừ khi hai tập phép đo trễ rơi vào cùng một khoảng --- trường hợp mà A4 loại trừ.
+rồi $t_{\text{upd},i}\leftarrow t^c_k$; ước lượng hiện tại có ngay từ \eqref{eq:pred}. Dưới A4, không có cập nhật nào khác của track $i$ trong $(t_{\text{upd},i},t^c_k]$ vì mọi frame trước đã được xử lý xong trước khi frame $k$ được chụp; do đó cách làm này \emph{trùng khớp chính xác} với bộ lọc Kalman được chạy theo thời gian chụp (không phải xấp xỉ). Nếu bỏ A4 (pipeline nhiều frame song song), cần cơ chế out-of-sequence measurement \cite{barshalom2002oosm,garcia2021oos}. Theo \cite{barshalom2002oosm}, vấn đề OOS chỉ phát sinh khi track \emph{đã} được cập nhật bằng một phép đo có mốc thời gian muộn hơn; khi bỏ cập nhật xen giữa đó, lời giải chính xác của \cite{barshalom2002oosm} rút về đúng chuỗi dự đoán--cập nhật tại $t^c_k$--dự đoán của DART. Tính ``chính xác'' ở đây hiểu với các điều kiện: mô hình tuyến tính--Gauss, mốc thời gian chụp đã biết, nhiễu trắng không tương quan, liên kết dữ liệu đúng, và chưa có cập nhật nào mang mốc muộn hơn được áp dụng cho track đó (A4 là điều kiện đủ). Nó không bao gồm sai số của pose trong bộ đệm.
 
 \paragraph{Quản lý track.} Kiểm định cổng $\bm\nu\T S^{-1}\bm\nu\le\chi^2_3(0.999)=16.27$; sau 3 lần bị loại liên tiếp thì khởi tạo lại. Track mới: $\hat{\vb x}=[\vb y;\vb 0]$, $P=\operatorname{blkdiag}(R_i,\sigma_{v0}^2I)$, trong đó $\sigma_{v0}$ là tiên nghiệm về tốc độ vật cản (0.3~m/s ở môi trường tĩnh, 1~m/s ở kịch bản động) \rev{R10}. Bán kính lọc bằng EWMA (vùng bị cắt chỉ được tăng $\hat\rho$).
 
@@ -334,7 +334,7 @@ Với khe hở $s=\|\vb r\|-d(t)$ và tốc độ tiếp cận $v_c=-\hat{\vb r}
 \begin{equation}
   h_b=\sqrt{2a_b\,s}-v_c,\qquad h_b\ge0\iff s\ge\frac{v_c^2}{2a_b}\;(v_c\ge0). \label{eq:hb}
 \end{equation}
-$h_b\ge0$ chính là điều kiện dừng \eqref{eq:stop} với $T_{\text{open}}=0$: scheduler và lớp an toàn dùng \emph{cùng một chứng chỉ vật lý} --- scheduler đảm bảo nó còn đúng sau khoảng mở, CBF đảm bảo nó đúng tại mỗi chu kỳ $f_c$. Hàm này có bậc tương đối 1 theo $\vb a_q$ và tôn trọng khả năng phanh $a_b$ (dạng barrier của \cite{wang2016hetero}, eq.~8, với vật cản không phanh và $D_s\to d(t)$). Với $\dot s=-v_c-\dot d$ và $\dot v_c=\hat{\vb r}\T\vb a_q-\hat{\vb r}\T\vb a_o-\|\vb v_{r\perp}\|^2/\|\vb r\|$, điều kiện $\dot h_b\ge-\alpha h_b$ trở thành ràng buộc tuyến tính
+$h_b\ge0$ chính là điều kiện dừng \eqref{eq:stop} với $T_{\text{open}}=0$: scheduler và lớp an toàn dùng \emph{cùng một chứng chỉ vật lý} --- scheduler đảm bảo nó còn đúng sau khoảng mở, CBF đảm bảo nó đúng tại mỗi chu kỳ $f_c$. Hàm này có bậc tương đối 1 theo $\vb a_q$ và tôn trọng khả năng phanh $a_b$ (chính là barrier cho vật cản vận tốc hằng của \cite{wang2017tro}, tr.~664, với $D_s/2+R_k\to d(t)$; DART thêm $\dot d$, $\bar a_o$, $\delta_a$, dùng $\alpha h$ tuyến tính và trạng thái ước lượng). Với $\dot s=-v_c-\dot d$ và $\dot v_c=\hat{\vb r}\T\vb a_q-\hat{\vb r}\T\vb a_o-\|\vb v_{r\perp}\|^2/\|\vb r\|$, điều kiện $\dot h_b\ge-\alpha h_b$ trở thành ràng buộc tuyến tính
 \begin{equation}
   \boxed{\hat{\vb r}\T\vb a\le\alpha h_b-\frac{a_b(v_c+\dot d)}{\sqrt{2a_bs}}+\frac{\|\vb v_{r\perp}\|^2}{\|\vb r\|}-\bar a_o-\delta_a} \label{eq:cbfb}
 \end{equation}
@@ -410,7 +410,7 @@ Với $\vb U_k=[\vb u_{0|k};\dots;\vb u_{N_k-1|k}]$ và dạng ngưng tụ $\vb 
   \text{s.t.}\;&|\vb u_j|\le\vb a_{\max},\;|\vb v_j|\le\vb v_{\max}\;(j\text{ chẵn}),\;z_{\min}\le p_{z,j}\le z_{\max},\;
   \|\vb v_{N_k}\|_\infty\le\varepsilon_v,\;\eqref{eq:dcbf}\;\forall i\in\mathcal S. \nonumber
 \end{align}
-Tham chiếu là một ``carrot'' từ vị trí hiện tại hướng về đích với tốc độ $\min(v_{\text{des}},v_{\text{cap}},\sqrt{2a_{\text{dec}}s_{\text{rem}}})$. $\mathcal S$ gồm tối đa $M_{\text{obs}}=6$ vật cản gần nhất trong tầm với. Các giới hạn hộp được nới chỉ bằng phần mà phanh tối đa chưa kịp loại bỏ (tránh hiệu ứng ``ratchet'' qua các lần giải). QP được giải bằng interior-point Mehrotra viết thuần MATLAB (không cần toolbox; tuỳ chọn \code{quadprog}); có warm start. Lệnh đầu tiên $\vb u_{0|k}$ được giữ đến lần giải sau (20~Hz) và đi qua CBF.
+Tham chiếu là một ``carrot'' từ vị trí hiện tại hướng về đích với tốc độ $\min(v_{\text{des}},v_{\text{cap}},\sqrt{2a_{\text{dec}}s_{\text{rem}}})$. $\mathcal S$ gồm tối đa $M_{\text{obs}}=6$ vật cản gần nhất trong tầm với. Các giới hạn hộp được nới chỉ bằng phần mà phanh tối đa chưa kịp loại bỏ (tránh hiệu ứng ``ratchet'' qua các lần giải). QP được giải bằng phương pháp điểm trong primal--dual kiểu predictor--corrector của Mehrotra \cite{mehrotra1992} áp dụng cho hệ KKT của QP (bài gốc viết cho quy hoạch tuyến tính và nêu rằng mở rộng cho QP lồi là trực tiếp), viết thuần MATLAB (không cần toolbox; tuỳ chọn \code{quadprog}); chỉ biến primal được khởi tạo từ lời giải trước (slack và nhân tử khởi tạo lại mỗi lần giải). Lệnh đầu tiên $\vb u_{0|k}$ được giữ đến lần giải sau (20~Hz) và đi qua CBF.
 
 \subsection{Ý nghĩa của $N_k$}
 $N_k\Delta t_m\gtrsim\max\{T_{H,\text{risk}},\,T_{\text{brake}},\,T_{\text{new}}\}$: optimizer nhìn đủ xa để lập kế hoạch né, đủ dài để dừng hẳn (tập kết thúc khả thi), và bao trùm khoảng thời gian mà vật cản chỉ được dự đoán chưa được hiệu chỉnh. Chi phí QP tăng xấp xỉ $O(N^3)$ nên horizon ngắn ở vùng thoáng tiết kiệm tính toán.
@@ -589,9 +589,11 @@ Ablation, metric & \S11 $\rightarrow$ \S\ref{sec:eval} & \code{src/config/dart\_
 \begin{thebibliography}{9}
 % Chỉ những bài đã đọc toàn văn (docs/literature/reading_list.md, notes/).
 \bibitem{lee2011se3} T.~Lee, M.~Leok, N.~H.~McClamroch, ``Control of complex maneuvers for a quadrotor UAV using geometric methods on SE(3),'' arXiv:1003.2005v4, 2011.
-\bibitem{wang2016hetero} L.~Wang, A.~D.~Ames, M.~Egerstedt, ``Safety barrier certificates for heterogeneous multi-robot systems,'' \emph{American Control Conference}, 2016 (arXiv:1609.00651).
 \bibitem{xiao2019} W.~Xiao, C.~Belta, ``Control barrier functions for systems with high relative degree,'' \emph{IEEE CDC}, 2019 (arXiv:1903.04706).
 \bibitem{zeng2021} J.~Zeng, B.~Zhang, K.~Sreenath, ``Safety-critical model predictive control with discrete-time control barrier function,'' \emph{American Control Conference}, 2021 (arXiv:2007.11718).
+\bibitem{wang2017tro} L.~Wang, A.~D.~Ames, M.~Egerstedt, ``Safety barrier certificates for collisions-free multirobot systems,'' \emph{IEEE Trans. Robotics}, 33(3):661--674, 2017.
+\bibitem{barshalom2002oosm} Y.~Bar-Shalom, ``Update with out-of-sequence measurements in tracking: exact solution,'' \emph{IEEE Trans. Aerospace and Electronic Systems}, 38(3):769--777, 2002.
+\bibitem{mehrotra1992} S.~Mehrotra, ``On the implementation of a primal-dual interior point method,'' \emph{SIAM J. Optimization}, 2(4), 1992.
 \bibitem{garcia2021oos} \'A.~F.~Garc\'ia-Fern\'andez, W.~Yi, ``Continuous-discrete multiple target tracking with out-of-sequence measurements,'' \emph{IEEE Trans. Signal Processing}, 69, 2021 (arXiv:2106.04898).
 \bibitem{ranftl2022} R.~Ranftl, K.~Lasinger, D.~Hafner, K.~Schindler, V.~Koltun, ``Towards robust monocular depth estimation: mixing datasets for zero-shot cross-dataset transfer,'' \emph{IEEE TPAMI} (arXiv:1907.01341).
 \bibitem{yang2024dav2} L.~Yang et al., ``Depth Anything V2,'' \emph{NeurIPS}, 2024 (arXiv:2406.09414).

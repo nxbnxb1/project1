@@ -10,13 +10,19 @@ Quy tắc làm việc:
 
 Trạng thái: `đã đọc – dùng` · `đã đọc – dùng (hẹp)` · `đã đọc – loại` · `cần tải tay` · `chưa đọc`.
 
-## Cần bạn tải tay (không có bản mở truy cập được từ môi trường cloud)
+## Bài do bạn cung cấp PDF (paywalled) — đã đọc toàn văn
+
+PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/literature/**/*.pdf`); chỉ ghi chú được lưu. Với N13–N15, ngoài agent, Claude đã tự đọc toàn văn trước khi sửa phần định vị tính mới.
 
 | ID | Bài | Ghi chú |
 |---|---|---|
-| E5 | L. Wang, A. D. Ames, M. Egerstedt, *Safety Barrier Certificates for Collisions-Free Multirobot Systems*, IEEE T-RO 33(3):661–674, 2017, doi:10.1109/TRO.2017.2659727 | Bản hội nghị E5b đã đọc và đủ cho dạng braking barrier; chỉ cần nếu muốn trích bản tạp chí. Bản của tác giả trên ames.caltech.edu bị chặn mạng. |
-| H1 | Y. Bar-Shalom, *Update with Out-of-Sequence Measurements in Tracking: Exact Solution*, IEEE TAES 38(3):769–777, 2002, doi:10.1109/TAES.2002.1039398 | Hiện dùng H3 (TSP 2021, đã đọc, có trích H1) thay thế. |
-| – | S. Mehrotra, *On the implementation of a primal-dual interior point method*, SIAM J. Optim. 2(4), 1992 | Đang được trích trong tài liệu method cho bộ giải QP; **chưa đọc** → hoặc tải, hoặc bỏ trích dẫn. |
+| E5 | L. Wang, A. D. Ames, M. Egerstedt, *Safety Barrier Certificates for Collisions-Free Multirobot Systems*, IEEE T-RO 33(3):661–674, 2017 | [`notes/g8c_wang_mehrotra.md`](notes/g8c_wang_mehrotra.md) |
+| M1 | S. Mehrotra, *On the Implementation of a Primal-Dual Interior Point Method*, SIAM J. Optim. 2(4), 1992 | như trên |
+| H1 | Y. Bar-Shalom, *Update with Out-of-Sequence Measurements in Tracking: Exact Solution*, IEEE TAES 38(3):769–777, 2002 | [`notes/g8b_barshalom_liu.md`](notes/g8b_barshalom_liu.md) |
+| A6 | S. Liu, M. Watterson, S. Tang, V. Kumar, *High Speed Navigation for Quadrotors with Limited Onboard Sensing*, ICRA 2016 | như trên |
+| N13 | I. Gog et al., *D3: A Dynamic Deadline-Driven Approach for Building Autonomous Vehicles*, EuroSys 2022 | [`notes/g8a_d3_pant_shahsavari.md`](notes/g8a_d3_pant_shahsavari.md) |
+| N14 | Y. V. Pant et al., *Anytime Computation and Control for Autonomous Systems*, IEEE TCST 29(2):768–779, 2021 | như trên |
+| N15 | S. Shahsavari et al., *A Coordinated Approach to Control Mechanical and Computing Resources in Mobile Robots*, IEEE T-RO 41:347–363, 2025 | như trên |
 
 ## A. Độ trễ / tần số perception và an toàn
 
@@ -26,6 +32,7 @@ Trạng thái: `đã đọc – dùng` · `đã đọc – dùng (hẹp)` · `đ
 | A2 | A. Loquercio et al., *Learning High-Speed Flight in the Wild*, Science Robotics 6(59), 2021 (arXiv:2110.05113) | 23/23 | đã đọc – dùng | Số liệu latency onboard (suy luận chiếm 38.9/41.6 ms trên Jetson TX2); mở rộng cận A1 với thời gian quay. Không có thích nghi tần số, bất định, bù trễ. |
 | A3 | A. Bhattacharya et al., *Monocular Event-Based Vision for Obstacle Avoidance with a Quadrotor*, CoRL 2024 (arXiv:2411.03303) | 18/18 | đã đọc – dùng (hẹp) | Số liệu: suy luận depth học được onboard 73 ms, lớn hơn nhiều so với latency cảm biến. |
 | A4 | H. Zhao et al., *Towards Safety-Aware Computing System Design in Autonomous Vehicles* (arXiv:1905.08453) | 14/14 | đã đọc – dùng | Tương tự gần nhất bên hệ thống tính toán: điểm an toàn theo thời gian đáp ứng so với cửa sổ quãng phanh; dùng để phân bổ CPU/GPU, không quyết định khi nào perception, không có bất định. Xe mặt đất. |
+| A6 | S. Liu et al., *High Speed Navigation for Quadrotors with Limited Onboard Sensing*, ICRA 2016 | PDF người dùng, 8/8 | đã đọc – dùng | Coi vùng chưa biết là bị chiếm, "vật cản có thể hiện ra ngay sau g" (tr. 4); giới hạn tốc độ sao cho quãng bay trong thời gian xử lý + quãng phanh ≤ tầm cảm biến (Eq. 8) → cơ sở cho frontier; thời gian xử lý cố định 0.15 s, offline; có phần cứng. |
 | A5 | A. Vyas et al., *TAPAS: Throughput-adaptive Perception for Autonomous Systems*, ESWEEK-CODES 2026 (arXiv:2607.17317) | 15/15 | đã đọc – dùng (đối chứng) | Thích nghi FPS theo độ phức tạp cảnh để tiết kiệm năng lượng, **tách** perception khỏi lập luận an toàn; đánh giá open-loop, không có chỉ số va chạm. |
 
 ## B. Monocular depth (module perception)
@@ -69,7 +76,8 @@ Trạng thái: `đã đọc – dùng` · `đã đọc – dùng (hẹp)` · `đ
 | E2 | A. D. Ames et al., *Control Barrier Functions: Theory and Applications*, ECC 2019 (arXiv:1903.11199) | 12/12 | đã đọc – dùng | Khung "safety filter" can thiệp tối thiểu. |
 | E3 | W. Xiao, C. Belta, *CBFs for Systems with High Relative Degree*, CDC 2019 (arXiv:1903.04706) | 9/9 | đã đọc – dùng | HOCBF (tuỳ chọn trong DART), cho phép b(x,t) biến thiên theo thời gian; quãng phanh tối thiểu là cách xử lý xung đột với giới hạn phanh. |
 | E4 | Q. Nguyen, K. Sreenath, *Exponential CBFs for Enforcing High Relative-Degree Constraints*, ACC 2016 | bản tác giả hybrid-robotics.berkeley.edu, 7/7 | đã đọc – dùng | HOCBF của DART (k1 = p1+p2, k0 = p1·p2) chính là ECBF bậc 2 với cực −p1, −p2. |
-| E5 | L. Wang, A. D. Ames, M. Egerstedt, T-RO 2017 | – | **cần tải tay** | Xem bảng đầu trang. |
+| E5 | L. Wang, A. D. Ames, M. Egerstedt, *Safety Barrier Certificates for Collisions-Free Multirobot Systems*, IEEE T-RO 33(3), 2017 | PDF người dùng, 14/14 | đã đọc – dùng | Barrier cho vật cản vận tốc hằng (tr. 664) **trùng dạng** với braking-CBF của DART (D_s/2+R_k → d(t)); hàng ràng buộc tuyến tính khớp eq. (7); chế độ phanh + bộ điều khiển phanh lai bảo đảm khả thi. DART thêm ḋ, ā_o, δ_a, αh tuyến tính, trạng thái ước lượng. |
+| M1 | S. Mehrotra, *On the Implementation of a Primal-Dual Interior Point Method*, SIAM J. Optim. 2(4), 1992 | PDF người dùng, 27/27 | đã đọc – dùng (hẹp) | `dart_qp_solve.m` là predictor–corrector kiểu Mehrotra (σ = (μ_aff/μ)³, hiệu chỉnh bậc hai); khác: một bước chung primal/dual, hệ số 0.99 cố định, không có an toàn hàm thế. Bài viết cho LP, nêu mở rộng cho QP lồi là trực tiếp (tr. 7). |
 | E5b | L. Wang, A. D. Ames, M. Egerstedt, *Safety Barrier Certificates for Heterogeneous Multi-Robot Systems*, ACC 2016 (arXiv:1609.00651) | 8/8 | đã đọc – dùng | Dạng chính xác của braking barrier h = sqrt(2(α_i+α_j)(‖Δp‖−D_s)) + (Δpᵀ/‖Δp‖)Δv (eq. 8); với α_j = 0 và D_s → d(t) ta suy ra h của DART (suy diễn của chúng ta). |
 | E6 | J. Zeng, B. Zhang, K. Sreenath, *Safety-Critical MPC with Discrete-Time CBF*, ACC 2021 (arXiv:2007.11718) | 9/9 | đã đọc – dùng | Cơ sở hàng DCBF trong MPC; bài toán là NLP trừ khi barrier tuyến tính (ủng hộ nửa không gian tiếp tuyến). |
 | E7 | U. Rosolia, A. D. Ames, *Multi-Rate Control Design Leveraging CBFs and MPC Policies*, IEEE L-CSS 5(3), 2020 (arXiv:2004.01761) | 6/6 | đã đọc – dùng | Kiến trúc MPC chậm + CBF nhanh có bảo đảm đa tần số; không có perception/latency. (Sửa tác giả: không có Singletary.) |
@@ -106,7 +114,7 @@ Trạng thái: `đã đọc – dùng` · `đã đọc – dùng (hẹp)` · `đ
 
 | ID | Bài | Toàn văn | Trạng thái | Vai trò |
 |---|---|---|---|---|
-| H1 | Y. Bar-Shalom, TAES 2002 | – | **cần tải tay** | Xem bảng đầu trang. |
+| H1 | Y. Bar-Shalom, *Update with Out-of-Sequence Measurements in Tracking: Exact Solution*, IEEE TAES 38(3), 2002 | PDF người dùng, 10/10 | đã đọc – dùng | Lời giải chính xác cho trễ một bước; vấn đề OOS chỉ khi track đã được cập nhật bằng phép đo muộn hơn → bỏ cập nhật xen giữa thì rút về đúng chuỗi của DART (suy diễn của chúng ta từ eq. 30–39). Điều kiện "chính xác": tuyến tính–Gauss, mốc thời gian đã biết, liên kết đúng, chưa có cập nhật muộn hơn. |
 | H2 | M. Wickramasuriya et al., *Hardware- and Vision-in-the-Loop Validation of Deep Monocular Pose Estimation for Autonomous Maritime UAV Flight* (arXiv:2606.19176) | 6/6 | đã đọc – dùng | Mạng monocular trên Jetson Orin NX trễ 0.18–0.40 s; KF trễ cập nhật tại thời điểm chụp từ bộ đệm (giống thành phần 2 của DART); không tránh vật cản, không ablation bù trễ. |
 | H3 | Á. F. García-Fernández, W. Yi, *Continuous-discrete multiple target tracking with out-of-sequence measurements*, IEEE TSP 69, 2021 (arXiv:2106.04898) | 14/14 | đã đọc – dùng (hẹp) | Cập nhật OOS chính xác qua retrodiction; chính xác trừ khi hai tập trễ rơi vào cùng khoảng → phiên bản hình thức của "chính xác khi chỉ một frame đang xử lý" (A4 của DART). |
 
@@ -125,6 +133,9 @@ Trạng thái: `đã đọc – dùng` · `đã đọc – dùng (hẹp)` · `đ
 | N9 | A. Malik, *Compiling Spatial Certificates into Temporal Contracts for Latency-Aware Control* (CIPS, arXiv:2608.25228) | 6/6 | đã đọc – dùng | Biến chứng chỉ an toàn thành thời gian còn lại được chứng nhận, kích hoạt khi ≤ L + 2Δt, có định lý an toàn; biên đo hằng η = 0.5 m; bất định là hướng tương lai (tr. 6). Áp dụng cho cập nhật điều khiển, không cho perception. |
 | N10 | R. Aldana-López, R. Aragüés, C. Sagüés, *Latency vs precision: stability preserving perception scheduling*, Automatica 155, 2023 (arXiv:2401.13585) | 16/16 | đã đọc – dùng | Lan truyền hiệp phương sai dọc các lịch perception ứng viên, predictor có xét trễ, một job đang xử lý; không có ràng buộc an toàn/vật cản. |
 | N11 | C. Huang et al., *Opportunistic Intermittent Control with Safety Guarantees for Autonomous Systems*, DAC 2020 (arXiv:2005.03726) | 6/6 | đã đọc – dùng | Bỏ qua tính toán điều khiển có bảo đảm an toàn nhưng vẫn cảm nhận mỗi bước. |
+| N13 | I. Gog et al., *D3: A Dynamic Deadline-Driven Approach for Building Autonomous Vehicles*, EuroSys 2022 | PDF người dùng, 19/19 | đã đọc – dùng | Chính sách hạn chót theo quãng phanh chọn mô hình detector (20–262 ms) lúc chạy; CARLA 50 km: va chạm 78 → 25 (tr. 465). Camera tuần hoàn 30 Hz, không bất định, chính sách chỉ là baseline (tr. 464). |
+| N14 | Y. V. Pant et al., *Anytime Computation and Control for Autonomous Systems*, IEEE TCST 29(2), 2021 | PDF người dùng, 12/12 | đã đọc – dùng | MPC chọn chế độ (trễ, sai số) của bộ ước lượng thị giác mỗi bước, có chứng minh (Thm 5.1, 6.1) và 56 chuyến bay hexrotor; ảnh tuần hoàn, cận sai số cố định theo chế độ, chế độ cố định suốt horizon, không có vật cản. |
+| N15 | S. Shahsavari et al., *A Coordinated Approach to Control Mechanical and Computing Resources in Mobile Robots*, IEEE T-RO 41, 2025 | PDF người dùng, 17/17 | đã đọc – dùng (hẹp) | Đồng quản lý tốc độ rover + DVFS CPU để tiết kiệm năng lượng (tới 36.34%); không có an toàn; năng lượng tính toán có thể chiếm ưu thế ở rover nhỏ chạy chậm (tr. 351). |
 | N12 | Y. Xia et al., *Energy-Efficient Autonomous Driving with Adaptive Perception and Robust Decision* (EneAD, arXiv:2510.25205) | 14/14 | đã đọc – dùng | Bỏ khung theo lớp độ khó của cảnh, vòng kín nhưng không có cận an toàn. |
 
 ## Ứng viên tìm thấy nhưng **chưa đọc** (không được dùng cho tới khi đọc toàn văn)
@@ -134,4 +145,4 @@ Trạng thái: `đã đọc – dùng` · `đã đọc – dùng (hẹp)` · `đ
 * arXiv:2304.08685 — an toàn sample-and-hold với CBF (phía cơ cấu chấp hành).
 * Gräfe et al. 2022 (event-triggered distributed MPC cho UAV); Sun et al. 2019 (self-triggered MPC với horizon thích nghi); Page et al. 2006 (adaptive-horizon MPC cho quản lý cảm biến).
 * NanoMap; Safety Score (IV 2020); RSS (Shalev-Shwartz et al. 2017); Safety Force Field (2019).
-* Cần tải tay (ACM/IEEE, không có bản mở): Gog et al. *D3* EuroSys 2022; Pant et al. *Anytime computation and control* TCST 2021; Shahsavari et al. T-RO 2025; Liu et al. ICRA 2016.
+* Báo cáo kỹ thuật trực tuyến của Pant et al. (UPenn-ESE-04-19, 2019).
