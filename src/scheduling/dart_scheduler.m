@@ -67,7 +67,7 @@ T_scan = min(max(T_star - tau_hat, sc.T_min), sc.T_max);
 %      emergency: stopping margin M < 0 -> even immediate braking cannot keep
 %               d_s under the conservative estimate -> braking mode
 closing = rk.vc > sc.v_closing;
-urgent = any(closing & (Topen < tau_hat)) || T_front < tau_hat;
+urgent = any(vis & closing & (Topen < tau_hat)) || T_front < tau_hat;   % only re-observable obstacles
 if any(closing & (Mmarg <= 0))
     ss.emerg_until = t + sc.emergency_hold;
 end
@@ -87,10 +87,28 @@ if strcmp(sc.mode, 'fixed')
 else
     ev_time = t - ss.t_last >= T_scan - 1e-9;                         % Eq. 46
     ev_dist = any(vis & (rk.dc <= sc.d_trig));                        % Eq. 47
-    ev_sig  = sc.uncertainty && any(vis & (rk.sig_r >= sc.sigma_trig)); % Eq. 48
+    % Eq. 48, gated by information gain: a new frame is only worth it if the
+    % predicted variance clearly exceeds the variance of the measurement
+    % expected at that range (otherwise the posterior hardly shrinks), and
+    % only for obstacles close enough to matter for the safety layer
+    ev_sig = false;
+    if sc.uncertainty
+        for k = find(vis & (rk.sig_r >= sc.sigma_trig) & (rk.dc < cfg.cbf.d_active))
+            Rv = dart_expected_meas_cov(rk.d(k), ob.rho(k), cfg);
+            if rk.sig_r(k)^2 >= sc.info_gain * Rv(1, 1)
+                ev_sig = true; break
+            end
+        end
+    end
     trig = idle && (ev_time || ev_dist || ev_sig || urgent || emergency);
 end
 if trig
+    if strcmp(sc.mode, 'fixed')
+        why = [0 0 0 0 0 1];
+    else
+        why = double([ev_time, ev_dist, ev_sig, urgent, emergency, false]);
+    end
+    ss.n_why = ss.n_why + why;
     ss.t_last = t;
     ss.awaiting = true;
     ss.n_trig = ss.n_trig + 1;

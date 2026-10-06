@@ -298,11 +298,11 @@ với $\mathcal V$ là tập vật cản trong FOV. Hành vi định tính của
 \subsection{Kích hoạt theo sự kiện và hai mức khẩn cấp \rev{R6}}
 Khi engine rảnh, một suy luận mới được kích hoạt nếu bất kỳ điều kiện nào đúng:
 \begin{equation}
-  t-t^c_{\text{last}}\ge T_{\text{scan}},\qquad \min_{i\in\mathcal V}d^c_i\le d_{\text{trig}},\qquad \max_{i\in\mathcal V}\sigma_{r,i}\ge\sigma_{\text{trig}},\qquad \text{urgent}. \label{eq:events}
+  t-t^c_{\text{last}}\ge T_{\text{scan}},\qquad \min_{i\in\mathcal V}d^c_i\le d_{\text{trig}},\qquad \exists i\in\mathcal V_{\sigma}:\ \sigma_{r,i}^2\ge\max\!\big(\sigma_{\text{trig}}^2,\;g\,\sigma^2_{m}(d_i)\big),\qquad \text{urgent}, \label{eq:events}
 \end{equation}
-Gọi $\mathcal C=\{i:v_{c,i}>v_{\text{closing}}\}$ là các vật cản \emph{thực sự} đang tiếp cận (đi lướt qua biên, $v_c\approx0$, do CBF xử lý):
+với $\mathcal V$ là các vật cản trong FOV, $\mathcal V_\sigma=\{i\in\mathcal V: d^c_i<d_{\text{active}}\}$ và $\sigma_m^2(d)$ là phương sai đo kỳ vọng ở khoảng cách $d$ (\code{dart\_expected\_meas\_cov}). Điều kiện độ bất định chỉ kích hoạt khi một ảnh mới thực sự làm phương sai co lại đáng kể (với $g=2$, phương sai hậu nghiệm $\le\sigma^2_r/3$) và vật cản đủ gần để ảnh hưởng tới lớp an toàn; nếu không, vật cản ở xa (nhiễu đo tầm lớn) sẽ kích hoạt liên tục mà không giảm được bất định (đã quan sát trong mô phỏng: điều kiện này chiếm phần lớn số lần suy luận ở S2). Gọi $\mathcal C=\{i:v_{c,i}>v_{\text{closing}}\}$ là các vật cản \emph{thực sự} đang tiếp cận (đi lướt qua biên, $v_c\approx0$, do CBF xử lý):
 \begin{itemize}
-\item \textbf{urgent:} $\exists i\in\mathcal C:\;T^\star_{\text{open},i}<\hat\tau_p$ hoặc $T_F<\hat\tau_p$ --- một frame bắt đầu ngay vẫn đến muộn so với khoảng mở mong muốn $\Rightarrow$ chụp ngay;
+\item \textbf{urgent:} $\exists i\in\mathcal C\cap\mathcal V:\;T^\star_{\text{open},i}<\hat\tau_p$ hoặc $T_F<\hat\tau_p$ (chỉ vật cản trong FOV --- chụp lại không giúp gì cho vật cản ngoài FOV) --- một frame bắt đầu ngay vẫn đến muộn so với khoảng mở mong muốn $\Rightarrow$ chụp ngay;
 \item \textbf{emergency:} $\exists i\in\mathcal C:\;M_i\le0$ --- ngay cả phanh tức thời cũng không giữ được $d_s$ theo ước lượng bảo thủ $\Rightarrow$ perception tối đa, $N_k=N_{\max}$ và giới hạn tốc độ tham chiếu
 \begin{equation}
   v_{\text{cap}}=\sqrt{2a_b\,\big(\min_{i\in\mathcal C}d^c_i-d_s\big)_+}\,, \label{eq:vcap}
@@ -338,7 +338,11 @@ $h_b\ge0$ chính là điều kiện dừng \eqref{eq:stop} với $T_{\text{open}
 \begin{equation}
   \boxed{\hat{\vb r}\T\vb a\le\alpha h_b-\frac{a_b(v_c+\dot d)}{\sqrt{2a_bs}}+\frac{\|\vb v_{r\perp}\|^2}{\|\vb r\|}-\bar a_o-\delta_a} \label{eq:cbfb}
 \end{equation}
-(chuẩn hoá $s\ge s_{\min}$; nếu $s<s_{\min}$, vế phải bị chặn bởi $-a_b$ để đẩy UAV ra). Tại biên $h_b=0$, \eqref{eq:cbfb} yêu cầu $\hat{\vb r}\T\vb a\lesssim-a_b$, khả thi khi $a_b$ không vượt khả năng giảm tốc.
+(chuẩn hoá $s\ge s_{\min}$; nếu $s<s_{\min}$, vế phải bị chặn bởi $-a_b$ để đẩy UAV ra). Tại biên $h_b=0$ (với $\sqrt{2a_bs}=v_c$), \eqref{eq:cbfb} trở thành $\hat{\vb r}\T\vb a\le-(a_b+\bar a_o+\delta_a)-a_b\dot d/v_c+\|\vb v_{r\perp}\|^2/\|\vb r\|$. Với tiếp cận đối đầu dọc một trục ngang ($\vb v_{r\perp}=0$, $\dot d=0$) và hộp gia tốc $|a_x|,|a_y|\le a_{\max}$, điều kiện \emph{cần} để hàng này khả thi là
+\begin{equation}
+  a_{\max,xy}\;\ge\;a_b+\bar a_o+\delta_a , \label{eq:abcond}
+\end{equation}
+được kiểm tra khi khởi tạo (\code{dart\_check\_config}); mặc định $a_b=4$, $\delta_a=0.3$, $\bar a_o\le0.3$ nên $a_{\max,xy}=4.6$~m/s$^2$ (góc nghiêng tối đa 35° cho khoảng 6.9~m/s$^2$ ở lực đẩy treo). Khi độ phồng còn đang tăng ($\dot d>0$) cần thêm $a_b\dot d/v_c$; phần vượt quá được hấp thụ bởi slack, nên bảo đảm $h_b\ge0$ chỉ là \emph{mềm} trong trường hợp này (khác với \cite{wang2017tro}, nơi chế độ phanh lai bảo đảm khả thi).
 
 \subsection{HOCBF (tuỳ chọn, bản gốc đã sửa)}
 Với $h=\|\vb r\|^2-d(t)^2$ (bậc tương đối 2, HOCBF \cite{xiao2019}) và $d$ biến thiên:

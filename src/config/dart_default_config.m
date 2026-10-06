@@ -108,6 +108,7 @@ cfg.sched.frontier_margin = 1.0;     % surface of an unseen obstacle may be at R
 cfg.sched.v_unknown = 0.0;           % speed bound of unseen obstacles [m/s]
 cfg.sched.d_trig   = 0.7;            % event trigger on conservative distance [m]
 cfg.sched.sigma_trig = 0.6;          % event trigger on uncertainty [m]
+cfg.sched.info_gain = 2.0;           % ... only if sigma^2 >= info_gain * expected measurement variance
 cfg.sched.tau_init = 0.10;           % initial latency estimate [s]
 cfg.sched.tau_quantile_k = 2.0;      % tau_hat = mean + k*std
 cfg.sched.fixpoint_iter = 2;         % covariance-growth fixed-point iterations
@@ -131,7 +132,8 @@ cfg.mpc.Qp       = [0.4; 0.4; 2.0];  % position weights (diag)
 cfg.mpc.Qv       = [1.0; 1.0; 1.0];  % velocity weights (diag)
 cfg.mpc.R        = [0.05; 0.05; 0.05];
 cfg.mpc.S        = [0.20; 0.20; 0.20];
-cfg.mpc.a_max    = [4.0; 4.0; 3.0];
+cfg.mpc.a_max    = [4.6; 4.6; 3.0];  % >= a_b + a_bar_o + delta_a horizontally (checked by dart_check_config);
+%                                     tilt_max = 35 deg allows ~6.9 m/s^2 horizontally at hover thrust
 cfg.mpc.v_max    = [5.0; 5.0; 1.5];
 cfg.mpc.z_lim    = [0.7; 4.0];
 cfg.mpc.gamma    = 0.3;              % discrete-time CBF rate (Eq. 85), 1 = direct only

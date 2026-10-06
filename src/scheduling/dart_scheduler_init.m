@@ -5,5 +5,6 @@ ss.tau_m = cfg.sched.tau_init;
 ss.tau_v = (0.25 * cfg.sched.tau_init)^2;
 ss.emerg_until = -inf;
 ss.n_trig = 0;
+ss.n_why = zeros(1, 6);   % triggers by reason: time dist sigma urgent emergency fixed
 ss.n_lat = 0;
 end

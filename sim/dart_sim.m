@@ -78,6 +78,7 @@ res.world = world;
 res.log = L;
 res.outcome = outcome;
 res.perc = struct('n_capt', perc.n_capt, 'e_gpu', perc.e_gpu, 't_busy', perc.t_busy);
+res.sched_why = ctrl.ss.n_why;   % triggers by reason (time dist sigma urgent emergency fixed)
 res.wall_time = toc(wall);
 end
 

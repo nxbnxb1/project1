@@ -9,6 +9,7 @@ cfg = dart_apply_variant(cfg, variant);
 if nargin >= 5 && ~isempty(overrides)
     cfg = overrides(cfg);
 end
+dart_check_config(cfg);
 switch lower(engine)
     case 'matlab'
         res = dart_sim(cfg, world);
