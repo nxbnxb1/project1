@@ -25,3 +25,4 @@ docs/method/*.synctex.gz
 # Third-party papers (copyrighted) are never committed; notes only
 docs/literature/**/*.pdf
 docs/literature/*.pdf
+__pycache__/
