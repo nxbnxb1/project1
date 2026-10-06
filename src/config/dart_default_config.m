@@ -16,6 +16,7 @@ cfg.sim.goal_tol  = 0.6;     % goal reached radius [m]
 cfg.sim.seed      = 1;
 cfg.sim.stop_on_collision = true;
 cfg.sim.log_decimation = 1;  % log every n-th control tick
+cfg.sim.debug    = false;   % MATLAB engine: log the track of the truly closest obstacle
 
 % --------------------------------------------------------------- quadrotor
 cfg.quad.m        = 1.0;

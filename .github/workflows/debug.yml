@@ -1,0 +1,31 @@
+# Re-run a single case with a detailed trace (MATLAB engine).
+name: Debug case
+
+on:
+  workflow_dispatch:
+    inputs:
+      variant: { description: "Variant", default: "E_DART" }
+      scenario: { description: "Scenario", default: "S1" }
+      seed: { description: "Seed", default: "11" }
+      param: { description: "Sweep parameter (latency/speed/rate/noise/none)", default: "latency" }
+      value: { description: "Sweep value", default: "0.15" }
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+          products: Simulink
+          cache: true
+      - uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('ci'); ci_debug_case('${{ inputs.variant }}', '${{ inputs.scenario }}', '${{ inputs.seed }}', '${{ inputs.param }}', '${{ inputs.value }}')
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: debug-${{ inputs.variant }}-${{ inputs.scenario }}-${{ inputs.seed }}
+          path: results/debug
+          if-no-files-found: ignore
