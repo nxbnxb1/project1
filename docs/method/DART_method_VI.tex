@@ -68,6 +68,7 @@ R8 & Ràng buộc vật cản trong MPC không lồi $\Rightarrow$ QP (gốc 87)
 R9 & Reset hiệp phương sai dự kiến (gốc 79--80) chỉ một lần và không kiểm tra khả năng quan sát. & Reset tuần hoàn theo lịch quét, có kiểm tra vật cản nằm trong FOV dự đoán. \\
 R10 & Track không được quan sát lại có $\sigma$ tăng vô hạn $\Rightarrow$ ``quả cầu bất định'' nở ra và đẩy UAV đi mãi (đã quan sát trong mô phỏng). Ngược lại, quên track của vật cản \emph{tĩnh} ở gần làm UAV lùi vào vật cản đã từng thấy (đã quan sát: va chạm khi lùi ở S1). & Bộ hai mô hình (đứng yên / vận tốc hằng) cho mỗi track, chọn mô hình bằng xác suất kiểu IMM; track tĩnh gần như không tăng bất định và chỉ bị quên khi ở xa; track động bị quên khi $\sigma>\sigma_{\text{forget}}$ và nằm ngoài FOV; tiên nghiệm vận tốc vật cản hữu hạn. \\
 R11 & Chưa có thiết kế thí nghiệm cụ thể. & Mô hình quadrotor 6-DOF, camera ray-casting, mạng depth tổng hợp, latency log-normal, năng lượng GPU, 3 kịch bản, 7 biến thể ablation, Monte-Carlo, hai engine (MATLAB và Simulink) chạy trên GitHub Actions. \\
+R12 & Bản đề xuất không nói gì về trường hợp các ràng buộc an toàn mâu thuẫn nhau; camera chỉ nhìn phía trước. & Slack riêng, trọng số rất lớn cho ràng buộc độ cao (mặt đất không bao giờ bị nới vì xung đột giữa các vật cản); giới hạn tốc độ ``chuyển động mù'' ra xa hướng nhìn của camera (Mục~\ref{sec:cbf}). \\
 \bottomrule
 \end{longtable}
 }
@@ -348,13 +349,17 @@ Với $h=\|\vb r\|^2-d(t)^2$ (bậc tương đối 2) và $d$ biến thiên:
 \end{align}
 $k_1=p_1+p_2$, $k_0=p_1p_2$ (gốc 58--62, đã thêm $\dot d,\ddot d$). Trong thử nghiệm, HOCBF với $p_1=p_2=3$ bảo thủ hơn MPC và can thiệp $\approx$47\% thời gian; braking-CBF giảm còn $\approx$20--30\% với độ lệch trung bình nhỏ hơn.
 
-\subsection{Ràng buộc độ cao và QP}
-Mặt đất cũng là vật cản: $-a_z\le k_1v_z+k_0(z-z_{\min})$, $a_z\le-k_1v_z+k_0(z_{\max}-z)$. Bộ lọc tối thiểu can thiệp
+\subsection{Ràng buộc độ cao, chuyển động ``mù'' và QP}
+Mặt đất cũng là vật cản: $-a_z\le k_1v_z+k_0(z-z_{\min})$, $a_z\le-k_1v_z+k_0(z_{\max}-z)$.
+
+\emph{Chuyển động mù.} Camera nhìn theo trục quang $\vb f$ (chiếu lên mặt phẳng ngang); vùng phía sau UAV không được quan sát, nên tốc độ đi \emph{ra xa} hướng nhìn được giới hạn bởi $v_{\text{blind}}$: $h_b=v_{\text{blind}}+\vb f\T\vb v\ge0$, $\dot h_b=\vb f\T\vb a\ge-\alpha h_b$ (bỏ qua $\dot{\vb f}$ do tốc độ yaw). Lý do (quan sát trong mô phỏng với sai số depth lớn): khi các ràng buộc vật cản xung đột, lời giải có slack có thể đẩy UAV lùi rất nhanh (tới 5~m/s) vào vùng không quan sát và va vào vật cản không còn được theo dõi.
+
+\emph{QP.} Bộ lọc tối thiểu can thiệp
 \begin{equation}
-  \vb a_{\text{safe}}=\arg\min_{\vb a,\,\varsigma\ge0}\;\tfrac12(\vb a-\vb a_{\text{ref}})\T W(\vb a-\vb a_{\text{ref}})+\tfrac12w_\varsigma\varsigma^2
-  \;\;\text{s.t.}\;\;G\vb a\le\vb h+\varsigma\vb 1,\;\;-\vb a_{\max}\le\vb a\le\vb a_{\max}, \label{eq:cbfqp}
+  \vb a_{\text{safe}}=\arg\min_{\vb a,\,\varsigma\ge0,\,\varsigma_z\ge0}\;\tfrac12(\vb a-\vb a_{\text{ref}})\T W(\vb a-\vb a_{\text{ref}})+\tfrac12w_\varsigma\varsigma^2+\tfrac12w_z\varsigma_z^2
+  \;\;\text{s.t.}\;\;G_o\vb a\le\vb h_o+\varsigma\vb 1,\;\;G_z\vb a\le\vb h_z+\varsigma_z\vb 1,\;\;-\vb a_{\max}\le\vb a\le\vb a_{\max}, \label{eq:cbfqp}
 \end{equation}
-với $\vb a_{\text{ref}}$ là lệnh MPC; $\vb a_{\text{safe}}=\vb a_{\text{ref}}$ khi không ràng buộc nào hoạt động. Slack $\varsigma$ chỉ dương khi các ràng buộc mâu thuẫn với giới hạn gia tốc (được ghi nhận như một sự kiện).
+với $\vb a_{\text{ref}}$ là lệnh MPC; $(G_o,\vb h_o)$ gồm các hàng vật cản và hàng chuyển động mù, $(G_z,\vb h_z)$ là hai hàng độ cao; $\vb a_{\text{safe}}=\vb a_{\text{ref}}$ khi không ràng buộc nào hoạt động. Các slack chỉ dương khi các ràng buộc mâu thuẫn với nhau hoặc với giới hạn gia tốc (được ghi nhận như một sự kiện). Hàng độ cao có slack \emph{riêng} với trọng số $w_z=10^6\gg w_\varsigma=10^4$: nếu dùng một slack chung, xung đột giữa các hàng vật cản sẽ nới cả ràng buộc mặt đất (đã quan sát: độ cao giảm xuống 0.25~m $<z_{\min}=0.7$~m).
 
 %=====================================================================
 \section{MPC horizon thích nghi theo perception}

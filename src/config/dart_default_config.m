@@ -158,6 +158,8 @@ cfg.cbf.d_active = 8.0;              % only obstacles closer than this
 cfg.cbf.a_bar_o  = 0.0;              % obstacle acceleration bound (Eq. 60)
 cfg.cbf.delta_a  = 0.3;              % inner-loop tracking error bound [m/s^2]
 cfg.cbf.slack_w  = 1e4;
+cfg.cbf.slack_w_alt = 1e6;           % separate, heavier slack of the altitude (ground) rows
+cfg.cbf.v_blind  = 1.5;              % max speed away from the camera view (blind motion) [m/s]; inf = off
 cfg.cbf.fd_step  = 0.05;             % finite-difference step for d_eff rates
 
 % ------------------------------------------------------------- mission

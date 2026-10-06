@@ -1,4 +1,4 @@
-function [a_safe, info] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg)
+function [a_safe, info] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB)
 %DART_CBF_FILTER Uncertainty-aware CBF safety filter (Sec. 8, revised).
 %
 %   For every obstacle within d_active one linear constraint on the
@@ -20,11 +20,18 @@ function [a_safe, info] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg)
 %     original proposal, corrected for the time-varying d(t):
 %       2 r'a <= 2|v_r|^2 - 2|r|(a_bar_o + delta_a) - 2 ddot^2 - 2 d dddot
 %                + k1 hdot + k0 h,   hdot = 2 r'v_r - 2 d ddot.
+%   Blind-motion row (if R_IB is given and cbf.v_blind < inf): the speed
+%   AWAY from the camera's viewing direction f (horizontal optical axis) is
+%   kept below v_blind, h = v_blind + f'v, hdot = f'a >= -alpha h. Space
+%   behind the vehicle is not observed; a large escape speed into it is
+%   only as safe as the obstacle memory (Sec. 5.3).
 %   Two HOCBF rows keep the altitude inside [z_min, z_max] (the ground is
-%   an obstacle too). QP (Eq. 63): min |a - a_ref|_W^2 + w s^2 with a box
-%   on a and one slack s >= 0, used only if the rows are infeasible.
+%   an obstacle too); they have their own, much heavier slack so that a
+%   conflict among obstacle rows can never relax the ground constraint.
+%   QP (Eq. 63): min |a - a_ref|_W^2 + w s^2 + w_alt s_alt^2 with a box
+%   on a and slacks s, s_alt >= 0, used only if the rows are infeasible.
 cb = cfg.cbf;
-info = struct('active', false, 'slack', 0, 'n', 0, 'h_min', inf, 'status', 0);
+info = struct('active', false, 'slack', 0, 'slack_alt', 0, 'n', 0, 'h_min', inf, 'status', 0);
 a_safe = a_ref;
 if ~cb.enabled
     return
@@ -33,7 +40,7 @@ k1 = cb.p1 + cb.p2;
 k0 = cb.p1 * cb.p2;
 use = find(rk.dc < cb.d_active);
 n = numel(use);
-G = zeros(n + 2, 3); h_rhs = zeros(n + 2, 1);
+G = zeros(n + 3, 3); h_rhs = zeros(n + 3, 1);
 dl = cb.fd_step;
 Pq = cfg.est.sigma_p^2 * eye(3);
 beta_s = cfg.mpc.beta_s;
@@ -74,24 +81,40 @@ for m = 1:n
     info.h_min = min(info.h_min, h);
 end
 info.n = n;
+if nargin >= 7 && isfinite(cb.v_blind)
+    f = R_IB * cfg.cam.R_BC(:, 3);                % optical axis (inertial)
+    f = [f(1:2); 0];
+    if norm(f) > 1e-6
+        f = f / norm(f);
+        n = n + 1;
+        G(n, :) = -f.';
+        h_rhs(n) = cb.alpha * (cb.v_blind + f.' * v);
+    end
+end
+n_soft = n;
 zl = cfg.mpc.z_lim;
 G(n + 1, :) = [0 0 -1]; h_rhs(n + 1) = k1 * v(3) + k0 * (p(3) - zl(1));
 G(n + 2, :) = [0 0 1];  h_rhs(n + 2) = -k1 * v(3) + k0 * (zl(2) - p(3));
 n = n + 2;
+G = G(1:n, :); h_rhs = h_rhs(1:n);
 
 if all(G * a_ref <= h_rhs + 1e-9)
     return                                                   % a_safe = a_nom
 end
 W = diag(cb.W);
 amax = cfg.mpc.a_max;
-Hq = blkdiag(W, cb.slack_w);
-fq = [-W * a_ref; 0];
-A = [G, -ones(n, 1)];
-qo = struct('tol', 1e-8, 'maxIter', 60, 'lb', [-amax; 0], 'ub', [amax; inf]);
-[z, qi] = dart_qp_solve(Hq, fq, A, h_rhs, [a_ref; 0], qo);
+Hq = blkdiag(W, cb.slack_w, cb.slack_w_alt);
+fq = [-W * a_ref; 0; 0];
+S = zeros(n, 2);
+S(1:n_soft, 1) = -1;                     % obstacle + blind-motion rows
+S(n_soft + 1:n, 2) = -1;                 % altitude rows
+A = [G, S];
+qo = struct('tol', 1e-8, 'maxIter', 60, 'lb', [-amax; 0; 0], 'ub', [amax; inf; inf]);
+[z, qi] = dart_qp_solve(Hq, fq, A, h_rhs, [a_ref; 0; 0], qo);
 if all(isfinite(z))
     a_safe = min(max(z(1:3), -amax), amax);
     info.slack = max(z(4), 0);
+    info.slack_alt = max(z(5), 0);
 else
     a_safe = a_ref;
 end

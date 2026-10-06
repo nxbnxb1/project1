@@ -54,7 +54,7 @@ j = min(max(floor((t - sol.t0) / sol.dt + 1e-9) + 1, 1), sol.N);
 a_ref = sol.U(:, j);
 
 % ----------------------------------------------- 6. HOCBF safety filter
-[a_safe, cbf] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg);
+[a_safe, cbf] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB);
 ctrl.u_prev = a_safe;
 
 % ---------------------------------------------------------- 7. yaw
