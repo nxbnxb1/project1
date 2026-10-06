@@ -1,0 +1,65 @@
+# Sensitivity sweep: one parameter (latency / speed / rate / noise) over a
+# list of values, several variants and many seeds. One parallel job per
+# (scenario, value). Launched manually from the Actions tab.
+name: Sweep
+
+on:
+  workflow_dispatch:
+    inputs:
+      param:
+        description: "Swept parameter: latency [s], speed [m/s], rate [Hz], noise [-]"
+        type: choice
+        options: [latency, speed, rate, noise]
+        default: latency
+      values:
+        description: "Values (JSON list)"
+        default: "[0.05, 0.10, 0.15, 0.20, 0.25]"
+      scenarios:
+        description: "Scenarios (JSON list)"
+        default: '["S1","S2"]'
+      variants:
+        description: "Variants (comma separated)"
+        default: "A_FR_FN,E_DART,F_NODELAY,G_FR_LOW,FR_SAFE_5,FR_SAFE_10"
+      seeds:
+        description: "Seeds (MATLAB expression)"
+        default: "1:20"
+      engine:
+        description: "matlab or simulink"
+        type: choice
+        options: [matlab, simulink]
+        default: matlab
+
+jobs:
+  run:
+    name: ${{ matrix.scenario }} ${{ inputs.param }}=${{ matrix.value }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: ${{ fromJSON(inputs.scenarios) }}
+        value: ${{ fromJSON(inputs.values) }}
+    env:
+      MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up MATLAB + Simulink
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2024b
+          products: Simulink
+          cache: true
+      - name: Run sweep point
+        uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('ci'); ci_sweep('${{ matrix.scenario }}', '${{ inputs.param }}', '${{ matrix.value }}', '${{ inputs.seeds }}', '${{ inputs.variants }}', '${{ inputs.engine }}', fullfile(pwd, 'results', 'sweep'))
+      - name: Job summary
+        if: always()
+        run: |
+          if [ -f results/sweep/summary.md ]; then cat results/sweep/summary.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: sweep-${{ matrix.scenario }}-${{ inputs.param }}-${{ matrix.value }}
+          path: results/sweep
+          if-no-files-found: ignore

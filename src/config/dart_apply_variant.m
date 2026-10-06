@@ -8,11 +8,20 @@ function cfg = dart_apply_variant(cfg, name)
 %   E_DART    D + uncertainty inflation + HOCBF filter (full method)
 %   F_NODELAY E without timestamp (delay) compensation
 %   G_FR_LOW  E with a fixed low perception rate (3 Hz) instead of the scheduler
+%   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
+%             used for the rate sweep / Pareto study
 %
 %   Variants A-D keep the (point-estimate) obstacle constraints in the MPC
 %   but no uncertainty inflation and no CBF filter.
 
-switch upper(name)
+name = upper(name);
+if strncmp(name, 'FR_SAFE_', 8)
+    cfg = set_layers(cfg, 'fixed', 'adaptive', true);
+    cfg.sched.f_fixed = str2double(name(9:end));
+    cfg.variant = name;
+    return
+end
+switch name
     case 'A_FR_FN'
         cfg = set_layers(cfg, 'fixed', 'fixed', false);
     case 'B_AP_FN'

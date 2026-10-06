@@ -41,7 +41,10 @@ fclose(fid);
 % ----------------------------------------------------------- Markdown
 fid = fopen(fullfile(outdir, 'summary.md'), 'w');
 fprintf(fid, '# DART ablation summary\n\n');
-fprintf(fid, 'Mean (std) over seeds. Success = goal reached without collision.\n\n');
+if isfield(T, 'sweep_name')
+    fprintf(fid, 'Sweep: %s = %g\n\n', T(1).sweep_name, T(1).sweep_value);
+end
+fprintf(fid, 'Mean (std) over seeds; rates with Wilson 95%% interval. Success = goal reached without collision.\n\n');
 for s = 1:numel(scen)
     fprintf(fid, '## Scenario %s\n\n', scen{s});
     fprintf(fid, '| Variant | n | Success | Collision | Min clear [m] | Time [s] | Speed [m/s] | Inferences | f_v mean [Hz] | GPU energy [J] | N mean | MPC [ms] | QP cost (rel.) | CBF active | Est. err [m] |\n');
@@ -49,8 +52,8 @@ for s = 1:numel(scen)
     for i = 1:numel(S)
         if ~strcmp(S(i).scenario, scen{s}), continue, end
         r = S(i);
-        fprintf(fid, '| %s | %d | %.0f%% | %.0f%% | %s | %s | %s | %s | %s | %s | %s | %s | %s | %.0f%% | %s |\n', ...
-            r.variant, r.n, 100 * r.success_mean, 100 * r.collision_mean, ...
+        fprintf(fid, '| %s | %d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %.0f%% | %s |\n', ...
+            r.variant, r.n, rate_ci(r.success_mean, r.n), rate_ci(r.collision_mean, r.n), ...
             ms(r, 'min_clear'), ms(r, 't_end'), ms(r, 'mean_speed'), ms(r, 'n_infer', 0), ...
             ms(r, 'f_v_mean'), ms(r, 'e_gpu', 1), ms(r, 'N_mean', 1), ms(r, 'mpc_ms', 1), ...
             ms(r, 'mpc_cost'), 100 * r.cbf_frac_mean, ms(r, 'est_err'));
@@ -58,6 +61,14 @@ for s = 1:numel(scen)
     fprintf(fid, '\n');
 end
 fclose(fid);
+end
+
+function s = rate_ci(p, n)
+% proportion with its Wilson 95 % score interval
+k = round(p * n); z = 1.96;
+c = (k + z^2 / 2) / (n + z^2);
+h = z * sqrt(k * (n - k) / n + z^2 / 4) / (n + z^2);
+s = sprintf('%.0f%% [%.0f, %.0f]', 100 * p, 100 * max(c - h, 0), 100 * min(c + h, 1));
 end
 
 function s = ms(r, k, dec)

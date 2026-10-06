@@ -3,11 +3,14 @@ function T = run_ablation(varargin)
 %   T = RUN_ABLATION('scenarios', {'S1','S2','S3'}, 'seeds', 1:10, ...
 %                    'variants', dart_variant_list(), 'engine', 'matlab', ...
 %                    'outdir', 'results/ablation')
-%   Writes runs.csv, summary.csv, summary.md and figures to outdir.
+%   Optional: 'sweep', {name, value} applies DART_APPLY_SWEEP to every run.
+%   Writes runs.csv, summary.csv, summary.md and figures to outdir and
+%   prints summary.md to the console (readable from CI logs).
 %   T is a struct array with one element per run.
 op = parse_opts(varargin, struct('scenarios', {{'S1', 'S2', 'S3'}}, 'seeds', 1:10, ...
     'variants', {dart_variant_list()}, 'engine', 'matlab', ...
-    'outdir', fullfile(dart_root(), 'results', 'ablation'), 'plots', true, 't_max', []));
+    'outdir', fullfile(dart_root(), 'results', 'ablation'), 'plots', true, 't_max', [], ...
+    'sweep', {{}}));
 if ~exist(op.outdir, 'dir'), mkdir(op.outdir); end
 figdir = fullfile(op.outdir, 'figures');
 if op.plots && ~exist(figdir, 'dir'), mkdir(figdir); end
@@ -21,8 +24,7 @@ for s = 1:numel(op.scenarios)
         for seed = op.seeds(:).'
             irun = irun + 1;
             sc = op.scenarios{s}; va = op.variants{v};
-            ovr = [];
-            if ~isempty(op.t_max), ovr = @(c) setfield_t(c, op.t_max); end
+            ovr = @(c) apply_opts(c, op);
             try
                 res = dart_run_case(va, sc, seed, op.engine, ovr);
                 m = dart_metrics(res);
@@ -34,10 +36,15 @@ for s = 1:numel(op.scenarios)
             if ~ok, continue, end
             row = m;
             row.scenario = sc; row.variant = va; row.seed = seed;
+            if ~isempty(op.sweep)
+                row.sweep_name = op.sweep{1}; row.sweep_value = op.sweep{2};
+            end
             if isempty(T), T = row; else, T(end + 1) = row; end %#ok<AGROW>
             write_csv(runs_csv, T);
-            fprintf('[%3d/%3d] %-3s %-9s seed %2d  %-9s clr %5.2f  t %5.1f  inf %3d  N %4.1f  mpc %5.1f ms\n', ...
-                irun, nrun, sc, va, seed, res.outcome, m.min_clear, m.t_end, m.n_infer, m.N_mean, m.mpc_ms);
+            tag = '';
+            if ~isempty(op.sweep), tag = sprintf('%s=%g ', op.sweep{1}, op.sweep{2}); end
+            fprintf('[%3d/%3d] %s%-3s %-11s seed %2d  %-9s clr %5.2f  t %5.1f  inf %3d  N %4.1f  mpc %5.1f ms  err %4.2f\n', ...
+                irun, nrun, tag, sc, va, seed, res.outcome, m.min_clear, m.t_end, m.n_infer, m.N_mean, m.mpc_ms, m.est_err);
             if op.plots && seed == op.seeds(1)
                 try
                     dart_plot_run(res, fullfile(figdir, sprintf('traj_%s_%s.png', sc, va)));
@@ -49,6 +56,8 @@ for s = 1:numel(op.scenarios)
     end
 end
 S = dart_summarize(T, op.outdir);
+f = fullfile(op.outdir, 'summary.md');
+if exist(f, 'file'), fprintf('\n%s\n', fileread(f)); end
 if op.plots && ~isempty(S)
     try
         dart_plot_ablation(S, figdir);
@@ -58,8 +67,9 @@ if op.plots && ~isempty(S)
 end
 end
 
-function c = setfield_t(c, t)
-c.sim.t_max = t;
+function c = apply_opts(c, op)
+if ~isempty(op.t_max), c.sim.t_max = op.t_max; end
+if ~isempty(op.sweep), c = dart_apply_sweep(c, op.sweep{1}, op.sweep{2}); end
 end
 
 function op = parse_opts(args, op)
@@ -71,7 +81,9 @@ end
 function write_csv(file, T)
 fid = fopen(file, 'w');
 fn = fieldnames(T);
-fn = [{'scenario'; 'variant'; 'seed'}; setdiff(fn, {'scenario', 'variant', 'seed'}, 'stable')];
+lead = {'scenario'; 'variant'; 'seed'};
+if isfield(T, 'sweep_name'), lead = [lead; {'sweep_name'; 'sweep_value'}]; end
+fn = [lead; setdiff(fn, lead, 'stable')];
 fprintf(fid, '%s\n', strjoin_(fn, ','));
 for i = 1:numel(T)
     vals = cell(1, numel(fn));
