@@ -31,8 +31,9 @@ L.clear = zeros(1, Nt);
 L.trig = zeros(1, Nt);
 if cfg.sim.debug
     % [true idx; true clearance; track active; est. centre error; sigma_pos;
-    %  rho_hat - rho_true; in FOV; |v|; v . (c - p)/|c - p| (closing speed)]
-    L.dbg = zeros(9, Nt);
+    %  rho_hat - rho_true; in FOV; |v|; v . (c - p)/|c - p| (closing speed);
+    %  track classified static]
+    L.dbg = zeros(10, Nt);
 end
 
 outcome = 'timeout';
@@ -83,18 +84,19 @@ end
 function row = debug_row(ctrl, world, x, t, cfg)
 [clr, i] = dart_world_clearance(world, x(1:3), t, cfg.quad.r_body);
 c = world.c0(:, i) + world.v(:, i) * t;
-row = zeros(9, 1);
+row = zeros(10, 1);
 row(1) = i; row(2) = clr; row(8) = norm(x(4:6));
 u = (c - x(1:3)) / max(norm(c - x(1:3)), 1e-9);
 row(9) = x(4:6).' * u;
 row(7) = dart_in_fov(c, x(1:3), dart_quat2rotm(x(7:10)), cfg);
 trk = ctrl.trk;
 if i <= numel(trk.active) && trk.active(i)
-    [xe, P] = dart_track_predict(trk, i, t, cfg.trk.q_acc);
+    [xe, P] = dart_track_predict(trk, i, t, cfg);
     row(3) = 1;
     row(4) = norm(xe(1:3) - c);
     row(5) = sqrt(dart_lmax_sym3(P(1:3, 1:3)));
     row(6) = trk.rho(i) - world.rho(i);
+    row(10) = trk.static(i);
 else
     row(4:6) = NaN;
 end

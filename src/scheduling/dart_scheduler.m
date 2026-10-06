@@ -33,7 +33,7 @@ for k = 1:M
     for it = 1:sc.fixpoint_iter
         % uncertainty is larger at the END of the open interval
         Tp = Tk;
-        [F, Q] = dart_cv_model(Tp, cfg.trk.q_acc);
+        [F, Q] = dart_cv_model(Tp, dart_ob_q(ob, k, cfg));
         Pf = F * ob.P(:, :, k) * F.' + Q;
         sig_end = sqrt(dart_lmax_sym3(Pf(1:3, 1:3) + cfg.est.sigma_p^2 * eye(3)));
         dc_end = rk.d(k) - ob.rho(k) - sc.beta_d * sig_end;

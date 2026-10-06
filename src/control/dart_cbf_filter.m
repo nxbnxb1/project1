@@ -35,7 +35,6 @@ use = find(rk.dc < cb.d_active);
 n = numel(use);
 G = zeros(n + 2, 3); h_rhs = zeros(n + 2, 1);
 dl = cb.fd_step;
-q = cfg.trk.q_acc;
 Pq = cfg.est.sigma_p^2 * eye(3);
 beta_s = cfg.mpc.beta_s;
 a_b = cfg.sched.a_b;
@@ -45,6 +44,7 @@ for m = 1:n
     vr = ob.v(:, k) - v;
     nr = norm(r);
     P0 = ob.P(:, :, k);
+    q = dart_ob_q(ob, k, cfg);
     s0 = sqrt(dart_lmax_sym3(P0(1:3, 1:3) + Pq));
     s1 = sqrt(dart_lmax_sym3(pos_cov(P0, dl, q) + Pq));
     s2 = sqrt(dart_lmax_sym3(pos_cov(P0, 2 * dl, q) + Pq));

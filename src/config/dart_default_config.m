@@ -72,7 +72,18 @@ cfg.lat.P_gpu      = 15;             % accelerator power while inferring [W]
 cfg.trk.q_acc      = 0.02;           % white-noise acceleration PSD [m^2/s^3]
 cfg.trk.sigma_v0   = 0.3;            % initial velocity std of a new track [m/s]
 %                                     (prior on obstacle speed; 1.5 in the dynamic scenario)
-cfg.trk.sigma_forget = 1.5;          % forget an unobserved track above this position std [m]
+cfg.trk.sigma_forget = 1.5;          % forget an unobserved DYNAMIC track above this position std [m]
+cfg.trk.static_cls = true;           % two-model bank: classify stationary obstacles (Sec. 5.3)
+cfg.trk.q_static   = 1e-4;           % process-noise PSD of the stationary model [m^2/s^3]
+cfg.trk.sigma_v_static = 0.05;       % velocity prior std of the stationary model [m/s]
+cfg.trk.T_static   = 2.0;            % observation time required before a track may be classified static [s]
+cfg.trk.n_static   = 5;              % ... and number of updates
+cfg.trk.p_switch   = 0.005;          % Markov switching probability between the two models
+cfg.trk.mu_static  = 0.95;           % static if the stationary-model probability >= this
+cfg.trk.v_static   = 0.3;            % ... and the CV speed estimate <= this [m/s]
+cfg.trk.mu_revert  = 0.5;            % hysteresis: back to dynamic if the probability < this
+cfg.trk.v_revert   = 0.8;            % ... or CV speed > this [m/s]
+cfg.trk.forget_dist = 10.0;          % static tracks are forgotten only beyond this range [m]
 cfg.trk.gate       = 16.27;          % chi2(3) 99.9 % innovation gate
 cfg.trk.max_reject = 3;              % consecutive rejections before re-init
 cfg.trk.rho_alpha  = 0.3;            % EWMA factor of the radius estimate

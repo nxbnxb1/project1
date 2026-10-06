@@ -105,7 +105,7 @@ dmin_all = inf;
 for s = 1:ns
     k = sel(s);
     c0 = ob.c(:, k); vo = ob.v(:, k);
-    sig = horizon_sigma(ob.P(:, :, k), N, dt, tinfo, c0, vo, ob.rho(k), pbar, travel, cfg);
+    sig = horizon_sigma(ob.P(:, :, k), dart_ob_q(ob, k, cfg), N, dt, tinfo, c0, vo, ob.rho(k), pbar, travel, cfg);
     d = ob.rho(k) + cfg.sched.d_s + mp.beta_s * sig;            % Eq. 82, j = 0..N
     for j = 1:N
         cj = c0 + vo * (j * dt);
@@ -190,14 +190,14 @@ end
 pbar = pbar + (p0 - interp1(tp, Pp.', min(t, tp(end)), 'linear').');
 end
 
-function sig = horizon_sigma(P0, N, dt, tinfo, c0, vo, rho, pbar, travel, cfg)
+function sig = horizon_sigma(P0, q, N, dt, tinfo, c0, vo, rho, pbar, travel, cfg)
 %HORIZON_SIGMA Position std of an obstacle along the horizon. Covariance
 %   grows with the CV model and is reset at the steps where a visual result
 %   is EXPECTED (Eq. 79-80): first at j_v = ceil(T_new/dt), then every
 %   T_period, provided the obstacle is predicted to be inside the FOV. Only
 %   the covariance is corrected; the mean is never updated with an unknown
 %   innovation (causality).
-[F, Q] = dart_cv_model(dt, cfg.trk.q_acc);
+[F, Q] = dart_cv_model(dt, q);
 Pq = cfg.est.sigma_p^2 * eye(3);
 H = [eye(3), zeros(3)];
 jv = max(1, ceil(tinfo.T_new / dt - 1e-9));
