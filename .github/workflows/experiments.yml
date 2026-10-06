@@ -32,7 +32,7 @@ jobs:
     env:
       MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up MATLAB + Simulink
         if: inputs.engine != 'octave'
@@ -64,7 +64,7 @@ jobs:
         run: |
           f=results/ablation_${{ matrix.scenario }}/summary.md
           if [ -f "$f" ]; then cat "$f" >> "$GITHUB_STEP_SUMMARY"; fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: ablation-${{ matrix.scenario }}-${{ inputs.engine }}

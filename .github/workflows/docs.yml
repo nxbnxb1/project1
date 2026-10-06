@@ -10,7 +10,7 @@ jobs:
   pdf:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install TeX Live (XeLaTeX)
         run: |
           sudo apt-get update -qq
@@ -21,7 +21,7 @@ jobs:
         run: |
           xelatex -interaction=nonstopmode -halt-on-error DART_method_VI.tex
           xelatex -interaction=nonstopmode -halt-on-error DART_method_VI.tex
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: DART-method-pdf
           path: docs/method/DART_method_VI.pdf

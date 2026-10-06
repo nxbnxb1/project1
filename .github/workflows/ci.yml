@@ -20,14 +20,14 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install GNU Octave
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq --no-install-recommends octave libopenblas0-pthread fonts-freefont-otf xvfb xauth
       - name: Unit tests + demo mission
         run: xvfb-run -a octave --no-gui --eval "run('ci/ci_octave.m')"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: octave-results
@@ -61,7 +61,7 @@ jobs:
     env:
       MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up MATLAB + Simulink
         uses: matlab-actions/setup-matlab@v3
         with:
@@ -76,7 +76,7 @@ jobs:
         if: always()
         run: |
           if [ -f results/ci/summary.md ]; then cat results/ci/summary.md >> "$GITHUB_STEP_SUMMARY"; fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: matlab-simulink-results

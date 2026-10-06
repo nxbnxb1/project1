@@ -126,14 +126,21 @@ Model được sinh lại từ mã ở mỗi lần CI nên luôn khớp với m�
 | F_NODELAY | thích nghi | thích nghi | ✓ | – |
 | G_FR_LOW | cố định 3 Hz | thích nghi | ✓ | ✓ |
 
-Kết quả sơ bộ (seed 1, MATLAB engine trên Octave — chỉ để minh hoạ, cần Monte-Carlo):
+Kết quả sơ bộ — Monte-Carlo nhỏ (3 seed/kịch bản, MATLAB engine chạy trên Octave; trung bình (độ lệch chuẩn)). Bảng đầy đủ 7 biến thể × 10 seed: chạy workflow **Experiments**.
 
-| Kịch bản | Biến thể | Kết quả | Clearance thân min [m] | Số suy luận | Sai số track [m] |
-|---|---|---|---|---|---|
-| S2 | A_FR_FN | về đích | 0.09 | 130 | 0.39 |
-| S2 | **E_DART** | về đích | **0.71** | **99** | 0.50 |
-| S3 | F_NODELAY | **va chạm** (3.4 s) | −0.01 | 21 | 1.40 |
-| S3 | **E_DART** | về đích | **0.72** | 76 | **0.35** |
+| Kịch bản | Biến thể | Thành công | Va chạm | Clearance thân min [m] | Thời gian [s] | Số suy luận | Năng lượng GPU [J] | Sai số track [m] |
+|---|---|---|---|---|---|---|---|---|
+| S1 tĩnh | A_FR_FN | 100% | 0% | 0.39 (0.05) | 14.9 (2.3) | 139 (21) | 166 (26) | 0.22 (0.04) |
+| S1 tĩnh | **E_DART** | 100% | 0% | **0.59** (0.09) | 17.4 (2.1) | **110** (3) | **134** (3) | 0.30 (0.09) |
+| S1 tĩnh | F_NODELAY | 100% | 0% | 0.31 (0.13) | 24.6 (3.0) | 202 (16) | 241 (18) | 1.05 (0.19) |
+| S2 động | A_FR_FN | 67% | **33%** | 0.26 (0.23) | – | – | – | 0.65 (0.31) |
+| S2 động | **E_DART** | **100%** | 0% | **0.87** (0.39) | 20.0 (8.3) | 124 (49) | 150 (62) | 0.68 (0.10) |
+| S2 động | F_NODELAY | 100% | 0% | 0.73 (0.62) | 21.2 (9.5) | 140 (58) | 170 (69) | 1.84 (0.51) |
+| S3 trễ lớn | A_FR_FN | 100% | 0% | 0.43 (0.02) | 13.7 (0.2) | 75 (7) | 183 (3) | 0.25 (0.07) |
+| S3 trễ lớn | **E_DART** | 100% | 0% | **0.56** (0.10) | 20.6 (6.1) | 92 (27) | 222 (62) | 0.33 (0.07) |
+| S3 trễ lớn | F_NODELAY | 67% (1 timeout) | 0% | 0.31 (0.10) | 30.2 (9.4) | 162 (61) | 384 (132) | 1.35 (0.11) |
+
+Đọc nhanh: DART không va chạm lần nào và giữ biên an toàn lớn nhất; ở S1 dùng ít suy luận/năng lượng hơn perception 10 Hz cố định; bỏ bù trễ (F) làm sai số track tăng 3–5 lần và nhiệm vụ chậm hơn rõ rệt (seed đơn lẻ trước khi nới khe hẹp còn cho thấy F va chạm ở S3). Cái giá hiện tại của DART là nhiệm vụ chậm hơn ~15–50% do tính bảo thủ (độ phồng bất định, CBF) — đây là điểm cần đánh giá/tinh chỉnh tiếp bằng Monte-Carlo đầy đủ.
 
 ## 5. Tuỳ biến
 

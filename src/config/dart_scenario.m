@@ -79,8 +79,9 @@ while size(c, 2) < n && tries < 5000
     end
     ok = true;
     for j = 1:size(c, 2)
-        % keep a passage of at least 1.6 m between neighbouring spheres
-        if norm(ck - c(:, j)) < rk + r(j) + 1.6
+        % keep a passage of at least 2.0 m between neighbouring surfaces:
+        % 2 x (d_s + inflation) must fit for the forest to stay traversable
+        if norm(ck - c(:, j)) < rk + r(j) + 2.0
             ok = false; break
         end
     end

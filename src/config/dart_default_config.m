@@ -11,7 +11,7 @@ function cfg = dart_default_config()
 % ---------------------------------------------------------------- simulation
 cfg.sim.dt_plant  = 0.002;   % plant integration + attitude loop step [s]
 cfg.sim.dt_ctrl   = 0.01;    % outer loop: predictor, scheduler, CBF (f_c = 100 Hz)
-cfg.sim.t_max     = 30;      % hard stop [s]
+cfg.sim.t_max     = 40;      % hard stop [s] (nominal mission ~14 s)
 cfg.sim.goal_tol  = 0.6;     % goal reached radius [m]
 cfg.sim.seed      = 1;
 cfg.sim.stop_on_collision = true;

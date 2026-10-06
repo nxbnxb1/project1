@@ -373,7 +373,7 @@ Ràng buộc gốc $\|\vb p_j-\hat{\vb c}_{i,j}\|\ge d_{i,j}$ không lồi. Vớ
 \begin{equation}
   g_{ij}(\vb p_j)=\vb n_{ij}\T(\vb p_j-\hat{\vb c}_{i,j})-d_{i,j}\ge0\;\Longrightarrow\;\|\vb p_j-\hat{\vb c}_{i,j}\|\ge\vb n_{ij}\T(\vb p_j-\hat{\vb c}_{i,j})\ge d_{i,j}, \label{eq:halfspace}
 \end{equation}
-(Cauchy--Schwarz) nên nửa không gian tiếp tuyến là điều kiện \emph{đủ} và tuyến tính trong biến quyết định. Chọn $\vb n_{ij}$ theo quỹ đạo tuyến tính hoá $\bar{\vb p}_j$ (lời giải trước dịch thời gian): $\vb n_{ij}=(\bar{\vb p}_j-\hat{\vb c}_{i,j})/\|\cdot\|$. Khi đối đầu ($-\vb n\T\vb e_{\text{travel}}>\cos\theta_s$), pháp tuyến được xoay về phía UAV đang lệch sang (mặc định trái) để góc giữa $\vb n$ và $-\vb e_{\text{travel}}$ bằng $\theta_s=60^\circ$; do \eqref{eq:halfspace} đúng với mọi $\vb n$ đơn vị, phép xoay không làm mất tính an toàn nhưng loại bỏ deadlock ``dừng trước mặt phẳng''.
+(Cauchy--Schwarz) nên nửa không gian tiếp tuyến là điều kiện \emph{đủ} và tuyến tính trong biến quyết định. Chọn $\vb n_{ij}$ theo quỹ đạo tuyến tính hoá $\bar{\vb p}_j$ (lời giải trước dịch thời gian): $\vb n_{ij}=(\bar{\vb p}_j-\hat{\vb c}_{i,j})/\|\cdot\|$, mặc định chỉ lấy thành phần \emph{ngang} (vượt qua bên cạnh); pháp tuyến 3-D chỉ dùng khi vật cản nằm hẳn phía trên/dưới ($|\Delta z|>0.7d_{i,j}$). Ưu tiên này tránh hiện tượng UAV ``chui xuống'' dưới vật cản tới sát giới hạn độ cao rồi kẹt (đã quan sát trong mô phỏng). Khi đối đầu ($-\vb n\T\vb e_{\text{travel}}>\cos\theta_s$), pháp tuyến được xoay về phía UAV đang lệch sang (mặc định trái) để góc giữa $\vb n$ và $-\vb e_{\text{travel}}$ bằng $\theta_s=60^\circ$; do \eqref{eq:halfspace} đúng với mọi $\vb n$ đơn vị, phép xoay không làm mất tính an toàn nhưng loại bỏ deadlock ``dừng trước mặt phẳng''.
 
 Mỗi bước $j$ có một hàng trực tiếp và (với $j\le N_{\text{dcbf}}$) một hàng DCBF dùng \emph{cùng mặt phẳng}:
 \begin{equation}
@@ -410,7 +410,7 @@ $N_k\Delta t_m\gtrsim\max\{T_{H,\text{risk}},\,T_{\text{brake}},\,T_{\text{new}}
 \item $d^c,\bar v_c$ \eqref{eq:vc}--\eqref{eq:dc}; $T_{\text{scan}}$ \eqref{eq:Tscan}; sự kiện \eqref{eq:events}; urgent/emergency; nếu kích hoạt và engine rảnh: chụp ảnh tại $t^c=t$;
 \item mỗi 50~ms: $\rho_k,N_k$ \eqref{eq:risk}--\eqref{eq:N}; dự đoán vật cản và hiệp phương sai có reset \eqref{eq:reset}; giải QP \eqref{eq:mpc};
 \item $\vb a_{\text{ref}}=\vb u_{0|k}$; lọc CBF \eqref{eq:cbfqp};
-\item yaw hướng theo vận tốc ngang (camera nhìn theo hướng bay, giới hạn tốc độ yaw), gửi $(\vb a_{\text{safe}},\psi_d)$ xuống vòng attitude.
+\item yaw hướng theo vận tốc ngang (camera nhìn theo hướng bay, giới hạn tốc độ yaw); khi UAV lùi lại (vận tốc ngược hướng đích) camera vẫn nhìn về đích vì UAV đang đi vào vùng vừa quan sát --- quay camera ra sau sẽ làm mất các track phía trước và gây dao động; gửi $(\vb a_{\text{safe}},\psi_d)$ xuống vòng attitude.
 \end{enumerate}
 
 %=====================================================================
@@ -427,7 +427,7 @@ Toàn bộ mô phỏng chạy trên GitHub Actions (không cần máy local):
 
 \subsection{Kịch bản}
 \begin{itemize}
-\item \textbf{S1} -- rừng cầu tĩnh theo 3 cụm dọc hành lang 50~m, xen vùng thoáng (clutter gián đoạn);
+\item \textbf{S1} -- rừng cầu tĩnh theo 3 cụm dọc hành lang 50~m, xen vùng thoáng (clutter gián đoạn); khe tối thiểu giữa hai bề mặt 2.0~m, để $2(d_s+\beta_s\sigma)$ còn lọt;
 \item \textbf{S2} -- vật cản tĩnh thưa + 6 vật cản cắt ngang hành lang (0.6--1.5~m/s), $\bar a_o=0.3$;
 \item \textbf{S3} -- hình học S1, perception chậm và nhiễu (inference 160~ms, $\sigma_s=0.07$).
 \end{itemize}
@@ -466,7 +466,24 @@ Sai số ước lượng track quan trọng nhất & chất lượng ước lư�
 \end{enumerate}
 (A)--(D) giữ ràng buộc vật cản (ước lượng điểm, không phồng) trong MPC nhưng không có CBF. Cách tách này định lượng tiết kiệm tính toán đến từ scheduling, từ horizon thích nghi, và kiểm tra rằng an toàn không bị đánh đổi. (F) cô lập đóng góp của bù trễ, (G) kiểm tra liệu chỉ giảm tần số (không thích nghi) có đủ hay không. Mỗi cặp (kịch bản, biến thể) chạy với nhiều seed (mặc định 10).
 
-\paragraph{Kết quả sơ bộ (seed 1, Octave).} Trên S3 (perception chậm), (F) va chạm sau 3.4~s với sai số track 1.40~m, trong khi (E) về đích với clearance tối thiểu 0.72~m và sai số 0.35~m. Trên S2 (vật cản động), (A) chỉ còn clearance 0.09~m, (E) giữ 0.71~m với 99 lần suy luận (so với 130 của A). Ở môi trường tĩnh, một tần số thấp cố định (G) cũng an toàn trong seed này --- phù hợp nhận xét của bản gốc (Mục 5.1) rằng vật cản tĩnh chỉ cần cập nhật hình học thưa; câu hỏi định lượng cần Monte-Carlo là \emph{độ tin cậy} của mỗi chiến lược trên nhiều seed và độ trễ.
+\paragraph{Kết quả sơ bộ (Monte-Carlo nhỏ, 3 seed/kịch bản).}
+\begin{center}\small
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+Kịch bản & Biến thể & Thành công & Va chạm & Clearance min [m] & Số suy luận & Sai số track [m] \\ \midrule
+S1 & A & 100\% & 0\% & 0.39 & 139 & 0.22 \\
+S1 & \textbf{E (DART)} & 100\% & 0\% & \textbf{0.59} & \textbf{110} & 0.30 \\
+S1 & F (không bù trễ) & 100\% & 0\% & 0.31 & 202 & 1.05 \\
+S2 & A & 67\% & 33\% & 0.26 & -- & 0.65 \\
+S2 & \textbf{E (DART)} & \textbf{100\%} & 0\% & \textbf{0.87} & 124 & 0.68 \\
+S2 & F & 100\% & 0\% & 0.73 & 140 & 1.84 \\
+S3 & A & 100\% & 0\% & 0.43 & 75 & 0.25 \\
+S3 & \textbf{E (DART)} & 100\% & 0\% & \textbf{0.56} & 92 & 0.33 \\
+S3 & F & 67\% & 0\% & 0.31 & 162 & 1.35 \\
+\bottomrule
+\end{tabular}
+\end{center}
+DART không va chạm lần nào và giữ biên an toàn lớn nhất; ở S1 dùng ít suy luận hơn perception 10~Hz cố định. Bỏ bù trễ (F) làm sai số track tăng 3--5 lần và nhiệm vụ chậm hơn rõ rệt (trước khi nới khe hẹp của kịch bản, F còn va chạm ở S3). Cái giá hiện tại của DART là thời gian nhiệm vụ dài hơn 15--50\% do tính bảo thủ của độ phồng bất định --- cần định lượng bằng Monte-Carlo đầy đủ (7 biến thể $\times$ 10 seed, workflow \code{Experiments}).
 
 %=====================================================================
 \section{Tính chất và giới hạn}
@@ -487,7 +504,7 @@ Với vật cản tĩnh, không có phép đo mới, $d_{i,j}$ không tăng, kh�
 \end{proposition}
 \emph{Phác thảo.} Quỹ đạo dịch giữ nguyên các vị trí; nửa không gian mới được lấy tiếp tuyến \emph{tại chính} các vị trí đó, mà chúng nằm ngoài quả cầu nên thoả ràng buộc mới; bước cuối đứng yên thoả tập kết thúc và hộp. $\square$
 
-\paragraph{Giới hạn.} (i) CBF trên trạng thái ước lượng không bảo đảm qua các bước nhảy của cập nhật Kalman: an toàn mang tính xác suất qua $\beta_s$ (một innovation lớn hơn $\beta_s\sigma$ có thể làm $h$ giảm đột ngột). (ii) Ràng buộc frontier giả định camera nhìn theo hướng bay và vật cản ẩn có tốc độ $\le\bar v_{\text{unk}}$. (iii) Liên kết dữ liệu trong mô phỏng dùng định danh instance lý tưởng (A6). (iv) Vật cản dạng cầu; tường/cột cần mô hình hình học khác (ví dụ trụ: chiếu lên mặt phẳng ngang). (v) Mạng depth được thay bằng mô hình sai số tổng hợp; bước tiếp theo là dùng ảnh render (ví dụ Unreal/AirSim hoặc Simulink 3D) với mạng thật.
+\paragraph{Giới hạn.} (o) MPC là planner \emph{cục bộ} với tham chiếu ``carrot'' thẳng tới đích: khi độ phồng bất định làm các khe hẹp ``đóng lại'', UAV có thể do dự hoặc kẹt ở cực tiểu cục bộ (thời gian nhiệm vụ là một chỉ số đánh giá; planner toàn cục hoặc cơ chế thoát kẹt là hướng mở rộng). (i) CBF trên trạng thái ước lượng không bảo đảm qua các bước nhảy của cập nhật Kalman: an toàn mang tính xác suất qua $\beta_s$ (một innovation lớn hơn $\beta_s\sigma$ có thể làm $h$ giảm đột ngột). (ii) Ràng buộc frontier giả định camera nhìn theo hướng bay và vật cản ẩn có tốc độ $\le\bar v_{\text{unk}}$. (iii) Liên kết dữ liệu trong mô phỏng dùng định danh instance lý tưởng (A6). (iv) Vật cản dạng cầu; tường/cột cần mô hình hình học khác (ví dụ trụ: chiếu lên mặt phẳng ngang). (v) Mạng depth được thay bằng mô hình sai số tổng hợp; bước tiếp theo là dùng ảnh render (ví dụ Unreal/AirSim hoặc Simulink 3D) với mạng thật.
 
 %=====================================================================
 \section{Đóng góp cốt lõi}

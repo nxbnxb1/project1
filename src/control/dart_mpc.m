@@ -109,7 +109,7 @@ for s = 1:ns
     d = ob.rho(k) + cfg.sched.d_s + mp.beta_s * sig;            % Eq. 82, j = 0..N
     for j = 1:N
         cj = c0 + vo * (j * dt);
-        nj = tangent_normal(pbar(:, j) - cj, travel, mp.side_angle);
+        nj = tangent_normal(pbar(:, j) - cj, travel, mp.side_angle, d(j + 1));
         idx = 3 * j - 2:3 * j;
         rowj = nj.' * Gp(idx, :);
         kapj = nj.' * (pf(idx) - cj) - d(j + 1);
@@ -224,10 +224,17 @@ for j = 1:N
 end
 end
 
-function n = tangent_normal(w, travel, max_ang)
-%TANGENT_NORMAL Unit normal of the separating half-space. If the normal
-%   points (almost) against the direction of travel, it is rotated toward
-%   the side the vehicle is already on so that the plane can be passed.
+function n = tangent_normal(w, travel, max_ang, d)
+%TANGENT_NORMAL Unit normal of the separating half-space.
+%   Horizontal by default (pass beside the obstacle); the full 3-D normal
+%   is used only when the obstacle is clearly above or below (|dz| > 0.7 d),
+%   which avoids "diving" under obstacles toward the altitude limit. If the
+%   normal points (almost) against the direction of travel, it is rotated
+%   toward the side the vehicle is already on so that the plane can be
+%   passed. Any unit normal keeps the constraint sufficient (Eq. halfspace).
+if abs(w(3)) < 0.7 * d && norm(w(1:2)) > 1e-6
+    w(3) = 0;
+end
 n = unit(w, -travel);
 c = -(n.' * travel);                     % cos(angle(n, -travel))
 if c > cos(max_ang)
