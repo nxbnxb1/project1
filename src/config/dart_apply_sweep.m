@@ -4,6 +4,7 @@ function cfg = dart_apply_sweep(cfg, name, value)
 %   speed     cruise speed v_des [m/s]
 %   rate      perception rate of the fixed-rate variants [Hz]
 %   noise     residual monocular scale error sigma_scale [-]
+%   shift     residual inverse-depth shift error sigma_shift [1/m]
 %   none      no change (value ignored)
 switch lower(name)
     case 'latency'
@@ -16,6 +17,8 @@ switch lower(name)
         cfg.sched.f_fixed = value;
     case 'noise'
         cfg.depth.sigma_scale = value;
+    case 'shift'
+        cfg.depth.sigma_shift = value;
     case 'none'
     otherwise
         error('dart:sweep', 'Unknown sweep parameter %s', name);

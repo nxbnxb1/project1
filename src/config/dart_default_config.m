@@ -54,6 +54,8 @@ cfg.cam.min_px = 3;                  % minimum instance size for a detection
 
 % ----------------------------------------- monocular depth network (synthetic)
 cfg.depth.sigma_scale   = 0.04;      % per-frame residual scale error (log)
+cfg.depth.sigma_shift   = 0.0;       % per-frame residual inverse-depth SHIFT error [1/m]
+%                                     (affine-invariant relative-depth nets; 0 = metric/aligned net)
 cfg.depth.sigma_px      = 0.03;      % per-pixel relative noise (log)
 cfg.depth.sigma_px_slope = 0.004;    % growth of per-pixel noise with range [1/m]
 cfg.depth.p_outlier     = 0.02;      % probability of an outlier pixel

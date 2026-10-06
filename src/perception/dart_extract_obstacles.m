@@ -42,7 +42,8 @@ for k = 1:numel(ids)
     % measurement covariance in the camera frame
     sig_px = cfg.depth.sigma_px + cfg.depth.sigma_px_slope * D;
     dD_dalpha = D * cos(alpha) / max(1 - sa, 1e-3);
-    sD2 = (D * cfg.depth.sigma_scale)^2 + (D * sig_px)^2 * (pi/2) / n ...
+    sD2 = (D * cfg.depth.sigma_scale)^2 + (D^2 * cfg.depth.sigma_shift)^2 ...
+        + (D * sig_px)^2 * (pi/2) / n ...
         + (dD_dalpha * cam.pix_ang)^2 / 12;
     sT2 = D^2 * (cfg.depth.sigma_ang^2 + cam.pix_ang^2 / 12);
     if trunc
