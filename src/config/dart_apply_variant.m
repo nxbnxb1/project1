@@ -8,6 +8,10 @@ function cfg = dart_apply_variant(cfg, name)
 %   E_DART    D + uncertainty inflation + HOCBF filter (full method)
 %   F_NODELAY E without timestamp (delay) compensation
 %   G_FR_LOW  E with a fixed low perception rate (3 Hz) instead of the scheduler
+%   Z_ZHUYI   E with a Zhuyi-style scheduler: the tolerable open-loop time is
+%             derived from braking kinematics on the POINT estimate only (no
+%             covariance growth, no uncertainty trigger) and there is no
+%             frontier term for unseen obstacles (cf. Hsiao et al., DAC 2022)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
@@ -43,6 +47,10 @@ switch name
     case 'F_NODELAY'
         cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
         cfg.trk.delay_comp = false;
+    case 'Z_ZHUYI'
+        cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+        cfg.sched.uncertainty = false;
+        cfg.sched.frontier = false;
     case 'G_FR_LOW'
         cfg = set_layers(cfg, 'fixed', 'adaptive', true);
         cfg.sched.f_fixed = 3;

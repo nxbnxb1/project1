@@ -103,6 +103,7 @@ cfg.sched.beta_v   = 2.0;            % closing-speed uncertainty multiplier
 cfg.sched.T_min    = 0.05;
 cfg.sched.T_max    = 1.0;
 cfg.sched.frontier = true;           % unknown-space (frontier) constraint
+cfg.sched.uncertainty = true;        % covariance growth in the safe open-loop time (false: Zhuyi-style baseline)
 cfg.sched.frontier_margin = 1.0;     % surface of an unseen obstacle may be at R_max - margin
 cfg.sched.v_unknown = 0.0;           % speed bound of unseen obstacles [m/s]
 cfg.sched.d_trig   = 0.7;            % event trigger on conservative distance [m]

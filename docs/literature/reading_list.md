@@ -110,9 +110,22 @@ Trạng thái: `đã đọc – dùng` · `đã đọc – dùng (hẹp)` · `đ
 | H2 | M. Wickramasuriya et al., *Hardware- and Vision-in-the-Loop Validation of Deep Monocular Pose Estimation for Autonomous Maritime UAV Flight* (arXiv:2606.19176) | 6/6 | đã đọc – dùng | Mạng monocular trên Jetson Orin NX trễ 0.18–0.40 s; KF trễ cập nhật tại thời điểm chụp từ bộ đệm (giống thành phần 2 của DART); không tránh vật cản, không ablation bù trễ. |
 | H3 | Á. F. García-Fernández, W. Yi, *Continuous-discrete multiple target tracking with out-of-sequence measurements*, IEEE TSP 69, 2021 (arXiv:2106.04898) | 14/14 | đã đọc – dùng (hẹp) | Cập nhật OOS chính xác qua retrodiction; chính xác trừ khi hai tập trễ rơi vào cùng khoảng → phiên bản hình thức của "chính xác khi chỉ một frame đang xử lý" (A4 của DART). |
 
-## N. Prior art gần nhất về "khi nào cần perception" (đang đọc)
+## N. Prior art gần nhất về "khi nào cần perception" (định vị tính mới: [`novelty_positioning.md`](novelty_positioning.md))
 
-Nhóm tìm kiếm prior art đang đọc toàn văn; sẽ cập nhật (ưu tiên: Hsiao et al., *Zhuyi: perception processing rate estimation for safety in autonomous vehicles*, DAC 2022).
+| ID | Bài | Toàn văn | Trạng thái | Vai trò |
+|---|---|---|---|---|
+| N1 | Y.-S. Hsiao et al., *Zhuyi: Perception Processing Rate Estimation for Safety in Autonomous Vehicles*, DAC 2022 (arXiv:2205.03347) | 7/7 | đã đọc – dùng | **Prior art gần nhất**: tần số xử lý khung hình tối thiểu = 1/(độ trễ chịu được lớn nhất) từ điều kiện phanh gấp, tính liên tục, dùng làm kiểm tra an toàn. Tự nêu bất định perception và vật thể chưa phát hiện là hướng tương lai (tr. 6); chỉ kiểm chứng ở tần số cố định cho mọi camera (tr. 4). |
+| N2 | ≡ A5 (TAPAS) | | đã đọc – dùng | Xem A5. |
+| N3 | H. Zhao et al., *Suraksha: A Framework to Analyze the Safety Implications of Perception Design Choices in AVs*, ISSRE 2021 | bản tác giả, 12/12 | đã đọc – dùng | FPS camera là tham số perception nhạy với an toàn nhất; tần số cần thiết phụ thuộc kịch bản (phân tích offline). |
+| N4 | H. Zhao et al., *Driving Scenario Perception-Aware Computing System Design in Autonomous Vehicles*, ICCD 2020 | bản tác giả, 8/8 | đã đọc – dùng (hẹp) | Độ trễ perception phụ thuộc cấu hình vật cản xung quanh. |
+| N5 | ≡ A1 (Falanga et al. RA-L 2019) | | đã đọc – dùng | Xem A1. |
+| N6 | B. Boroujerdian et al., *RoboRun: A Robot Runtime to Exploit Spatial Heterogeneity*, DAC 2021 (arXiv:2108.13354) | 7/7 | đã đọc – dùng | Hạn chót quyết định cho drone = (tầm nhìn − quãng phanh)/vận tốc (tr. 4 Eq. 1) — dạng tất định của frontier + phanh; dùng để co tính toán, không để kích hoạt perception; an toàn thực nghiệm; năng lượng tính toán < 0.05% năng lượng drone (tr. 5). |
+| N7 | L. Liu, K. G. Shin, *MM-BEV: Enhancing Timeliness by Computing Where and When it Matters* (arXiv:2608.15437) | 12/12 | đã đọc – dùng | Dùng quãng phanh/TTC để quyết định tính ở đâu; chọn keyframe theo heuristic; open-loop. |
+| N8 | ≡ F8 (self-triggered CBF) | | đã đọc – dùng | Xem F8. |
+| N9 | A. Malik, *Compiling Spatial Certificates into Temporal Contracts for Latency-Aware Control* (CIPS, arXiv:2608.25228) | 6/6 | đã đọc – dùng | Biến chứng chỉ an toàn thành thời gian còn lại được chứng nhận, kích hoạt khi ≤ L + 2Δt, có định lý an toàn; biên đo hằng η = 0.5 m; bất định là hướng tương lai (tr. 6). Áp dụng cho cập nhật điều khiển, không cho perception. |
+| N10 | R. Aldana-López, R. Aragüés, C. Sagüés, *Latency vs precision: stability preserving perception scheduling*, Automatica 155, 2023 (arXiv:2401.13585) | 16/16 | đã đọc – dùng | Lan truyền hiệp phương sai dọc các lịch perception ứng viên, predictor có xét trễ, một job đang xử lý; không có ràng buộc an toàn/vật cản. |
+| N11 | C. Huang et al., *Opportunistic Intermittent Control with Safety Guarantees for Autonomous Systems*, DAC 2020 (arXiv:2005.03726) | 6/6 | đã đọc – dùng | Bỏ qua tính toán điều khiển có bảo đảm an toàn nhưng vẫn cảm nhận mỗi bước. |
+| N12 | Y. Xia et al., *Energy-Efficient Autonomous Driving with Adaptive Perception and Robust Decision* (EneAD, arXiv:2510.25205) | 14/14 | đã đọc – dùng | Bỏ khung theo lớp độ khó của cảnh, vòng kín nhưng không có cận an toàn. |
 
 ## Ứng viên tìm thấy nhưng **chưa đọc** (không được dùng cho tới khi đọc toàn văn)
 
@@ -120,4 +133,5 @@ Nhóm tìm kiếm prior art đang đọc toàn văn; sẽ cập nhật (ưu tiê
 * arXiv:2312.15638 — Kishida, Kalman filter + worst-case CVaR trong CBF.
 * arXiv:2304.08685 — an toàn sample-and-hold với CBF (phía cơ cấu chấp hành).
 * Gräfe et al. 2022 (event-triggered distributed MPC cho UAV); Sun et al. 2019 (self-triggered MPC với horizon thích nghi); Page et al. 2006 (adaptive-horizon MPC cho quản lý cảm biến).
-* Liu et al. 2016 (bay nhanh với cảm biến onboard hạn chế); NanoMap; Suraksha (ISSRE 2021); Zhao et al. (ICCD 2020).
+* NanoMap; Safety Score (IV 2020); RSS (Shalev-Shwartz et al. 2017); Safety Force Field (2019).
+* Cần tải tay (ACM/IEEE, không có bản mở): Gog et al. *D3* EuroSys 2022; Pant et al. *Anytime computation and control* TCST 2021; Shahsavari et al. T-RO 2025; Liu et al. ICRA 2016.

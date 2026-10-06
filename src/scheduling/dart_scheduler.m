@@ -25,19 +25,25 @@ if M > 0
 end
 
 % ---- per-obstacle maximum safe open-loop time with covariance growth
+%      (sc.uncertainty = false: deterministic braking-based tolerable time
+%      on the point estimate, as in Zhuyi-style rate estimation; baseline)
 Topen = inf(1, M);
 Mmarg = inf(1, M);
 for k = 1:M
-    dc = rk.dc(k);
-    [Tk, Mk] = dart_safe_open_time(dc, rk.vcb(k), sc.d_s, sc.a_b, a_known);
-    for it = 1:sc.fixpoint_iter
+    if sc.uncertainty
+        dc = rk.dc(k); vcb = rk.vcb(k); nfp = sc.fixpoint_iter;
+    else
+        dc = rk.d(k) - ob.rho(k); vcb = rk.vc(k); nfp = 0;
+    end
+    [Tk, Mk] = dart_safe_open_time(dc, vcb, sc.d_s, sc.a_b, a_known);
+    for it = 1:nfp
         % uncertainty is larger at the END of the open interval
         Tp = Tk;
         [F, Q] = dart_cv_model(Tp, dart_ob_q(ob, k, cfg));
         Pf = F * ob.P(:, :, k) * F.' + Q;
         sig_end = sqrt(dart_lmax_sym3(Pf(1:3, 1:3) + cfg.est.sigma_p^2 * eye(3)));
         dc_end = rk.d(k) - ob.rho(k) - sc.beta_d * sig_end;
-        [Tk, Mk] = dart_safe_open_time(min(dc, dc_end), rk.vcb(k), sc.d_s, sc.a_b, a_known);
+        [Tk, Mk] = dart_safe_open_time(min(dc, dc_end), vcb, sc.d_s, sc.a_b, a_known);
     end
     Topen(k) = Tk;
     Mmarg(k) = Mk;
@@ -81,7 +87,7 @@ if strcmp(sc.mode, 'fixed')
 else
     ev_time = t - ss.t_last >= T_scan - 1e-9;                         % Eq. 46
     ev_dist = any(vis & (rk.dc <= sc.d_trig));                        % Eq. 47
-    ev_sig  = any(vis & (rk.sig_r >= sc.sigma_trig));                 % Eq. 48
+    ev_sig  = sc.uncertainty && any(vis & (rk.sig_r >= sc.sigma_trig)); % Eq. 48
     trig = idle && (ev_time || ev_dist || ev_sig || urgent || emergency);
 end
 if trig
