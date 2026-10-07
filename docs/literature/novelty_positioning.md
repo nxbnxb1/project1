@@ -42,3 +42,15 @@ Tài liệu này chỉ dựa trên các bài **đã đọc toàn văn**; mã bà
 
 * Báo cáo kỹ thuật trực tuyến của Pant et al. (UPenn-ESE-04-19, 2019) — chứa chi tiết xây dựng tập ràng buộc siết; chưa đọc.
 * Các mục "chưa đọc" trong [`reading_list.md`](reading_list.md).
+
+## 6. Đối chiếu với bằng chứng thực nghiệm (code `3438b2b`, xem `docs/results/final_*.md`)
+
+| Khẳng định | Trạng thái bằng chứng |
+|---|---|
+| Cập nhật tại thời điểm chụp là cần thiết (thành phần 1) | **Được ủng hộ mạnh**: không bù trễ → 34/150 va chạm (Simulink), 206/900 (quét). Nhưng đây là kỹ thuật chuẩn [H1, H2, H3], không phải điểm mới. |
+| Lớp an toàn có phồng theo bất định + bộ nhớ vật cản cho phép perception tần số thấp an toàn (thành phần 4 + tracker) | **Được ủng hộ mạnh**: 2 Hz cố định + lớp an toàn: 1/900 va chạm; 10 Hz không có lớp an toàn: 25/900. |
+| Bất định + frontier trong bộ kích hoạt tốt hơn quy tắc tất định kiểu Zhuyi (thành phần 2, phần mới) | **Được ủng hộ một phần**: ít thất bại hơn khi trễ/nhiễu lớn (S3: 0/50 vs 7/50, p = 0.013; shift lớn: 5/50 vs 25/50); thất bại của Z chủ yếu là kẹt (timeout), không phải va chạm. |
+| Kích hoạt thích nghi tiết kiệm suy luận so với tần số cố định (thành phần 2) | **Không được ủng hộ** trong các kịch bản hiện tại: tần số cố định 2–5 Hz cũng an toàn; DART dùng nhiều suy luận hơn tần số cố định tốt nhất (1.35–4.7×), đổi lấy nhiệm vụ ngắn hơn 5–20%. |
+| Horizon thích nghi (thành phần 3) | **Không được ủng hộ**: không khác horizon cố định. |
+
+Hệ quả cho bài báo: hoặc (a) định vị lại đóng góp chính là "ước lượng bù trễ + lớp an toàn có xét bất định cho perception học được ở tần số thấp", với scheduler là thành phần phụ; hoặc (b) giữ scheduler làm trung tâm nhưng phải tìm và chứng minh chế độ mà tần số cố định thấp không đủ (tầm cảm biến ngắn, tốc độ cao, vật cản bị che khuất) bằng một thí nghiệm có giả thuyết được nêu trước.
