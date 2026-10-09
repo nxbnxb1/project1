@@ -14,6 +14,8 @@ w = perc.world;
 R_IB = dart_quat2rotm(x_true(7:10));
 [depth, inst] = dart_render_world(perc.cam, x_true(1:3), R_IB, cfg, w, t);
 depth_hat = dart_depth_network(depth, cfg, perc.rs);
+vis_cnt = accumarray(inst(inst > 0).', 1, [numel(perc.seen_t), 1]);   % evaluation only
+perc.seen_t(vis_cnt.' >= cfg.cam.min_px) = t;
 if ~cfg.seg.oracle
     inst = dart_segment_depth(depth_hat, perc.cam, cfg);
 end

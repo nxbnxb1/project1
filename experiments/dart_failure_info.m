@@ -15,7 +15,9 @@ function f = dart_failure_info(res)
 %   evaluated at the obstacle's centre.
 %   f.shape (sphere | box | cylinder), f.dyn (obstacle moving), f.infov,
 %   f.mode (reference mode at the end: 0 goal, 1 track, 2 rejoin),
-%   f.speed (|v| at the end), f.closing, f.static (matched track static),
+%   f.speed (|v| at the end), f.closing, f.nupd (updates of the matched
+%   track), f.seen (seconds since the hit object was last visible in a
+%   captured image, Inf if never),
 %   f.prog10 (progress in the last 10 s), f.layout (SR worlds), f.v_des.
 L = res.log;
 w = res.world;
@@ -23,7 +25,7 @@ nm = dart_diag_names();
 D = @(name) L.dg(strcmp(nm, name), :);
 shapes = {'sphere', 'box', 'cylinder'};
 f = struct('cls', res.outcome, 'shape', '-', 'dyn', NaN, 'tracked', NaN, 'infov', NaN, ...
-    'mode', NaN, 'speed', NaN, 'closing', NaN, 'static', NaN, 'prog10', NaN, ...
+    'mode', NaN, 'speed', NaN, 'closing', NaN, 'nupd', NaN, 'seen', NaN, 'prog10', NaN, ...
     'layout', '-', 'v_des', res.cfg.ref.v_des);
 if isfield(w, 'meta'), f.layout = w.meta.layout; end
 s = D('s_prog');
@@ -38,7 +40,11 @@ if isfield(res, 'fail_row')
         f.shape = shapes{typ};
         f.dyn = double(any(w.v(:, i) ~= 0));
     end
-    f.tracked = r(3); f.infov = r(7); f.speed = r(8); f.closing = r(9); f.static = r(10);
+    f.tracked = r(3); f.infov = r(7); f.speed = r(8); f.closing = r(9); f.nupd = r(10);
+    if i > 0 && isfield(res.perc, 'seen_t')
+        ob_id = 1; if isfield(w, 'obj'), ob_id = w.obj(i); else, ob_id = i; end
+        f.seen = L.t(end) - res.perc.seen_t(ob_id);
+    end
 end
 switch res.outcome
     case 'collision'

@@ -11,7 +11,7 @@ function [trk, info] = dart_tracks_process_msg(trk, hdr, det, pb, t_now, cfg)
 %
 %   Association (method §6, R13). The detections carry no identity: their id is
 %   only the index of a segment in that image. Every active track is
-%   predicted to t_meas with its selected model; a detection k may be
+%   predicted to t_meas; a detection k may be
 %   assigned to track i only if the squared Mahalanobis distance
 %   e_ik = nu' S^-1 nu, S = H P H' + R_y, is inside the chi2 gate; the
 %   assignment is greedy global nearest neighbour on the cost
@@ -24,16 +24,12 @@ function [trk, info] = dart_tracks_process_msg(trk, hdr, det, pb, t_now, cfg)
 %   cfg.trk.oracle_assoc = true (ablation only, requires cfg.seg.oracle) the
 %   ray-caster instance id selects the track slot instead.
 %
-%   Two-model bank (method §6, R10): every accepted measurement updates both the
-%   constant-velocity filter (x, P, q_acc) and the stationary filter
-%   (xs, Ps, q_static). Gating uses the currently selected model. The
-%   probability mu of the stationary model is propagated as in an IMM
-%   (Markov switching probability p_switch, Bayes update with the two
-%   innovation likelihoods) without state mixing. The track is classified
-%   static once it has been observed for T_static seconds with at least
-%   n_static updates, mu >= mu_static and the CV speed estimate is small
-%   (<= v_static); with hysteresis, it reverts to dynamic when
-%   mu < mu_revert or the CV speed exceeds v_revert.
+%   Static landmarks (method §6): obstacles are assumed static; every
+%   accepted measurement updates the track's position with a Kalman
+%   update at t_meas (velocity identically zero). An obstacle that does
+%   move is followed only through re-detection: its measurements leave
+%   the gate, start a new track, and the old one is deleted after missed
+%   detections once it is expected in view.
 H = [eye(3), zeros(3)];
 tk = cfg.trk;
 info = struct('n_upd', 0, 'n_new', 0, 'n_rej', 0, 'n_del', 0);
@@ -63,9 +59,12 @@ ids = find(trk.active & trk.t_upd <= t_meas);
 nt = numel(ids);
 C = inf(nt, nd);
 for a = 1:nt
-    [xm, Pm] = predict_sel(trk, ids(a), t_meas, tk);
+    [xm, Pm] = predict(trk, ids(a), t_meas, tk);
+    tP = trace(Pm(1:3, 1:3));
     for k = 1:nd
         nu = Y(:, k) - xm(1:3);
+        % exact prefilter: e >= |nu|^2 / lambda_max(S) >= |nu|^2 / trace(S)
+        if nu.' * nu > tk.gate * (tP + trace(RY(:, :, k))), continue, end
         S = Pm(1:3, 1:3) + RY(:, :, k);
         [Lc, bad] = chol(S);
         if bad, continue, end
@@ -136,7 +135,7 @@ for k = 1:numel(det)
         info.n_new = info.n_new + 1;
         continue
     end
-    [xm, Pm] = predict_sel(trk, i, t_meas, tk);
+    [xm, Pm] = predict(trk, i, t_meas, tk);
     nu = Y(:, k) - xm(1:3);
     e = nu.' * ((Pm(1:3, 1:3) + RY(:, :, k)) \ nu);
     if e > tk.gate
@@ -152,40 +151,18 @@ end
 end
 
 function trk = update_track(trk, i, y, Ry, d, t_meas, H, tk)
-% ---- accepted: update both models (a model whose own innovation is
-%      outside the gate is restarted at the measurement instead)
-dt = t_meas - trk.t_upd(i);
-[xm, Pm] = predict(trk.x(:, i), trk.P(:, :, i), dt, tk.q_acc);        % CV prior at t_c
-[xsm, Psm] = predict(trk.xs(:, i), trk.Ps(:, :, i), dt, tk.q_static);
-nu = y - H * xm;   S = H * Pm * H.' + Ry;
-nus = y - H * xsm; Ss = H * Psm * H.' + Ry;
-e = nu.' * (S \ nu);
-es = nus.' * (Ss \ nus);
-% model probability of "stationary" (IMM-style, no mixing)
-mu = (1 - tk.p_switch) * trk.mu(i) + tk.p_switch * (1 - trk.mu(i));
-lr = exp(-0.5 * (es - e)) * prod(diag(chol(S))) / prod(diag(chol(Ss)));  % Lambda_s / Lambda_cv
-trk.mu(i) = mu * lr / (mu * lr + 1 - mu);
-if e <= tk.gate
-    [trk.x(:, i), trk.P(:, :, i)] = update(xm, Pm, nu, S, Ry, H);       % Eq. 23-25
-else
-    [trk.x(:, i), trk.P(:, :, i)] = prior(y, Ry, tk.sigma_v0);
-end
-if es <= tk.gate
-    [trk.xs(:, i), trk.Ps(:, :, i)] = update(xsm, Psm, nus, Ss, Ry, H);
-else
-    [trk.xs(:, i), trk.Ps(:, :, i)] = prior(y, Ry, tk.sigma_v_static);
-    trk.mu(i) = 0;                    % the stationary model has just failed
-end
+% Kalman update of the static landmark at t_meas (Eq. 23-25, Joseph form)
+[xm, Pm] = predict(trk, i, t_meas, tk);
+nu = y - H * xm;
+S = H * Pm * H.' + Ry;
+K = (Pm * H.') / S;                                       % Eq. 23
+IKH = eye(6) - K * H;
+trk.x(:, i) = xm + K * nu;                                % Eq. 24
+trk.P(:, :, i) = IKH * Pm * IKH.' + K * Ry * K.';         % Eq. 25
+trk.x(4:6, i) = 0;                                        % static: no velocity state
+trk.P(4:6, :, i) = 0; trk.P(:, 4:6, i) = 0;
 trk.t_upd(i) = t_meas;
 trk.n_upd(i) = trk.n_upd(i) + 1;
-spd = norm(trk.x(4:6, i));
-if trk.static(i)
-    trk.static(i) = trk.mu(i) >= tk.mu_revert && spd <= tk.v_revert;
-else
-    trk.static(i) = tk.static_cls && trk.n_upd(i) >= tk.n_static ...
-        && t_meas - trk.t_init(i) >= tk.T_static ...
-        && trk.mu(i) >= tk.mu_static && spd <= tk.v_static;
-end
 if ~d.trunc
     a = tk.rho_alpha;
     trk.rho(i) = (1 - a) * trk.rho(i) + a * d.rho;
@@ -232,39 +209,17 @@ end
 [~, i] = max(age);
 end
 
-function [x, P] = predict_sel(trk, i, t, tk)
+function [x, P] = predict(trk, i, t, tk)
 dt = t - trk.t_upd(i);
-if trk.static(i)
-    [x, P] = predict(trk.xs(:, i), trk.Ps(:, :, i), dt, tk.q_static);
-else
-    [x, P] = predict(trk.x(:, i), trk.P(:, :, i), dt, tk.q_acc);
-end
-end
-
-function [x, P] = predict(x, P, dt, q)
-[F, Q] = dart_cv_model(dt, q);
-x = F * x;
-P = F * P * F.' + Q;
-end
-
-function [x, P] = update(xm, Pm, nu, S, Ry, H)
-K = (Pm * H.') / S;                                       % Eq. 23
-IKH = eye(6) - K * H;
-x = xm + K * nu;                                          % Eq. 24
-P = IKH * Pm * IKH.' + K * Ry * K.';                      % Eq. 25 (Joseph)
-end
-
-function [x, P] = prior(y, Ry, sigma_v)
-x = [y; 0; 0; 0];
-P = blkdiag(Ry, sigma_v^2 * eye(3));
+[F, Q] = dart_cv_model(dt, tk.q_static);
+x = F * trk.x(:, i);
+P = F * trk.P(:, :, i) * F.' + Q;
 end
 
 function trk = init_track(trk, i, y, Ry, rho, t, cfg)
 trk.active(i) = true;
-[trk.x(:, i), trk.P(:, :, i)] = prior(y, Ry, cfg.trk.sigma_v0);
-[trk.xs(:, i), trk.Ps(:, :, i)] = prior(y, Ry, cfg.trk.sigma_v_static);
-trk.static(i) = false;
-trk.mu(i) = 0.5;
+trk.x(:, i) = [y; 0; 0; 0];
+trk.P(:, :, i) = blkdiag(Ry, cfg.trk.sigma_v_static^2 * eye(3));
 trk.t_upd(i) = t;
 trk.t_init(i) = t;
 trk.rho(i) = rho;

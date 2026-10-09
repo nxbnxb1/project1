@@ -14,4 +14,7 @@ perc.n_capt = 0;
 perc.e_gpu = 0;          % accelerator energy [J]
 perc.t_busy = 0;         % accumulated inference time [s]
 perc.last_tau = 0;
+% evaluation only: last capture time at which each object (ground-truth
+% id) covered >= min_px pixels; never used by the algorithm
+perc.seen_t = -inf(1, max([perc.world.obj, 0]));
 end

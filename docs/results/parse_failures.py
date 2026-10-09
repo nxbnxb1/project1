@@ -37,6 +37,19 @@ def load(paths):
     return runs, fails, worlds
 
 
+def bucket(attr, v):
+    if attr == 'seen':                      # seconds since last visible
+        x = float(v) if v not in ('-', 'NaN', 'nan') else float('nan')
+        if x != x: return '-'
+        if x == float('inf'): return 'never'
+        return '<1 s' if x < 1 else '1-5 s' if x < 5 else '>5 s'
+    if attr == 'nupd':
+        x = float(v) if v not in ('-', 'NaN', 'nan') else float('nan')
+        if x != x: return '-'
+        return '1' if x <= 1 else '2-5' if x <= 5 else '>5'
+    return v
+
+
 def rate(k, n):
     lo, hi = wilson(k, n)
     return f'{k}/{n} ({100 * k / max(n, 1):.1f}%) [{100 * lo:.1f}, {100 * hi:.1f}]'
@@ -75,8 +88,10 @@ def main(paths):
             if not G:
                 continue
             print(f'| {grp}s by | count |\n|---|---|')
-            for attr in ['cls', 'shape', 'dyn', 'tracked', 'infov', 'mode', 'static']:
-                cc = collections.Counter(d[attr] for d in G)
+            for attr in ['cls', 'shape', 'dyn', 'tracked', 'infov', 'mode', 'static', 'nupd', 'seen']:
+                if not any(attr in d for d in G):
+                    continue
+                cc = collections.Counter(bucket(attr, d.get(attr, '-')) for d in G)
                 print(f'| {attr} | ' + ', '.join(f'{a}: {b}' for a, b in sorted(cc.items())) + ' |')
             print()
 

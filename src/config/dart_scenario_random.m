@@ -15,7 +15,9 @@ function [world, cfg] = dart_scenario_random(seed, cfg)
 %               floating), vertical cylinders (poles / pillars from the
 %               ground) and compound objects (2-3 overlapping primitives);
 %               the shape mix itself is random per world.
-%   Movers      none (40 % of the worlds) or 10-35 % of the obstacles
+%   Movers      (TEST worlds only - the method treats every obstacle as
+%               static and is not told which worlds have movers)
+%               none (40 % of the worlds) or 10-35 % of the obstacles
 %               moving at 0.3-2.0 m/s, mostly across the path and timed
 %               to meet the vehicle.
 %   Static obstacles keep a free gap >= gap_min = 2.0 m between their
@@ -125,13 +127,8 @@ world.c0 = S.c0; world.v = S.v; world.type = S.type; world.dim = S.dim;
 world.yaw = S.yaw; world.obj = S.obj; world.rho = bound_radius(S);
 world.meta = struct('layout', layout, 'nleg', nleg, 'shape_mix', pm, 'dyn_frac', dyn_frac, ...
     'n_prim', numel(S.type), 'n_obj', max([S.obj, 0]));
-if any(world.v(:))                                 % dynamic tracker prior (as S2)
-    cfg.cbf.a_bar_o = 0.3;
-    cfg.sched.v_unknown = 2.0;
-    cfg.trk.q_acc = 0.05;
-    cfg.trk.sigma_v0 = 1.0;
-    cfg.trk.sigma_forget = 2.5;
-end
+% no algorithm settings here: the method assumes static obstacles and is
+% not told whether this world contains moving ones (TEST worlds only)
 end
 
 % =====================================================================

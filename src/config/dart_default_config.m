@@ -88,28 +88,19 @@ cfg.lat.inf_max    = 0.300;
 cfg.lat.P_gpu      = 15;             % accelerator power while inferring [W]
 
 % ------------------------------------------------ obstacle tracker (method §6)
-cfg.trk.q_acc      = 0.02;           % white-noise acceleration PSD [m^2/s^3]
-cfg.trk.sigma_v0   = 0.3;            % initial velocity std of a new track [m/s]
-%                                     (prior on obstacle speed; 1.0 in S2 and in SR worlds with movers)
-cfg.trk.sigma_forget = 1.5;          % forget an unobserved DYNAMIC track above this position std [m]
-cfg.trk.static_cls = true;           % two-model bank: classify stationary obstacles (method §6)
-cfg.trk.q_static   = 1e-4;           % process-noise PSD of the stationary model [m^2/s^3]
-cfg.trk.sigma_v_static = 0.05;       % velocity prior std of the stationary model [m/s]
-cfg.trk.T_static   = 2.0;            % observation time required before a track may be classified static [s]
-cfg.trk.n_static   = 5;              % ... and number of updates
-cfg.trk.p_switch   = 0.005;          % Markov switching probability between the two models
-cfg.trk.mu_static  = 0.95;           % static if the stationary-model probability >= this
-cfg.trk.v_static   = 0.3;            % ... and the CV speed estimate <= this [m/s]
-cfg.trk.mu_revert  = 0.5;            % hysteresis: back to dynamic if the probability < this
-cfg.trk.v_revert   = 0.8;            % ... or CV speed > this [m/s]
-cfg.trk.forget_dist = 10.0;          % static tracks are forgotten only beyond this range [m]
+% Obstacles are assumed STATIC: tracks are static landmarks (no velocity,
+% no motion model). Moving obstacles exist only in some TEST worlds.
+cfg.trk.q_static   = 1e-4;           % process-noise PSD of a static landmark [m^2/s^3]
+cfg.trk.sigma_v_static = 0;          % velocity prior std (0: velocity identically zero) [m/s]
+cfg.trk.forget_dist = 0;             % memory range: a track out of view is forgotten beyond this [m]
+%                                     (0: no memory - forgotten as soon as it leaves the view; minimal compute)
 cfg.trk.gate       = 16.27;          % chi2(3) 99.9 % innovation gate
 cfg.trk.max_reject = 3;              % consecutive rejections before re-init (oracle association only)
 cfg.trk.oracle_assoc = false;        % true: slot = ray-caster instance id (needs seg.oracle; ablation only)
 cfg.trk.n_confirm  = 2;              % a track with fewer updates is tentative (deleted at its first miss)
 cfg.trk.n_miss     = 3;              % consecutive misses (expected in view, not detected) before deletion
 cfg.trk.rho_alpha  = 0.3;            % EWMA factor of the radius estimate
-cfg.trk.max_tracks = 64;
+cfg.trk.max_tracks = 128;          % local obstacle memory (pole forests: ~60 segments per image)
 cfg.trk.delay_comp = true;           % update at capture time (Eq. 23-27)
 
 % --------------------------------------- safety-driven scheduler (method §7)
@@ -125,7 +116,7 @@ cfg.sched.T_max    = 1.0;
 cfg.sched.frontier = true;           % unknown-space (frontier) constraint
 cfg.sched.uncertainty = true;        % covariance growth in the safe open-loop time (false: Zhuyi-style baseline)
 cfg.sched.frontier_margin = 1.0;     % surface of an unseen obstacle may be at R_max - margin
-cfg.sched.v_unknown = 0.0;           % speed bound of unseen obstacles [m/s]
+cfg.sched.v_unknown = 0.0;           % speed bound of unseen obstacles [m/s] (0: static obstacles)
 cfg.sched.d_trig   = 0.7;            % event trigger on conservative distance [m]
 cfg.sched.sigma_trig = 0.6;          % event trigger on uncertainty [m]
 cfg.sched.info_gain = 2.0;           % ... only if sigma^2 >= info_gain * expected measurement variance
@@ -178,7 +169,7 @@ cfg.cbf.p1       = 3.0;              % HOCBF / altitude rows: k1 = p1+p2, k0 = p
 cfg.cbf.p2       = 3.0;
 cfg.cbf.W        = [1; 1; 1];
 cfg.cbf.d_active = 8.0;              % only obstacles closer than this
-cfg.cbf.a_bar_o  = 0.0;              % obstacle acceleration bound (Eq. 60)
+cfg.cbf.a_bar_o  = 0.0;              % obstacle acceleration bound (Eq. 60); 0: static obstacles
 cfg.cbf.delta_a  = 0.3;              % inner-loop tracking error bound [m/s^2]
 cfg.cbf.slack_w  = 1e4;
 cfg.cbf.slack_w_alt = 1e6;           % separate, heavier slack of the altitude (ground) rows

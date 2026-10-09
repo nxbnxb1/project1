@@ -26,6 +26,8 @@ function cfg = dart_apply_variant(cfg, name)
 %             (e.g. K0, K25, K50 = E_DART, K100); kappa takes effect in
 %             DART_APPLY_TRADEOFF, called by DART_RUN_CASE (callers of
 %             DART_SIM must call it themselves)
+%   MEM<d>    E with an obstacle memory of d metres (cfg.trk.forget_dist = d;
+%             default 0: tracks are forgotten as soon as they leave the view)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
@@ -38,6 +40,12 @@ name = upper(name);
 if strncmp(name, 'FR_SAFE_', 8)
     cfg = set_layers(cfg, 'fixed', 'adaptive', true);
     cfg.sched.f_fixed = str2double(name(9:end));
+    cfg.variant = name;
+    return
+end
+if strncmp(name, 'MEM', 3) && numel(name) > 3 && all(isstrprop(name(4:end), 'digit'))
+    cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+    cfg.trk.forget_dist = str2double(name(4:end));
     cfg.variant = name;
     return
 end

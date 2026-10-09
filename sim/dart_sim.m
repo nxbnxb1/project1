@@ -101,7 +101,8 @@ res.cfg = cfg;
 res.world = world;
 res.log = L;
 res.outcome = outcome;
-res.perc = struct('n_capt', perc.n_capt, 'e_gpu', perc.e_gpu, 't_busy', perc.t_busy);
+res.perc = struct('n_capt', perc.n_capt, 'e_gpu', perc.e_gpu, 't_busy', perc.t_busy, ...
+    'seen_t', perc.seen_t);       % seen_t: evaluation only (last capture showing each object)
 res.sched_why = ctrl.ss.n_why;   % triggers by reason (time dist sigma urgent emergency fixed)
 res.fail_row = debug_row(ctrl, world, x, t, cfg);   % state at the end (failure analysis)
 res.ref_mode_end = ctrl.rj.mode;
@@ -111,7 +112,7 @@ end
 function row = debug_row(ctrl, world, x, t, cfg)
 % [true primitive idx; true clearance; tracked; centre error of the matched
 %  track; its sigma_pos; rho_hat - rho_true (spheres); in FOV; |v|;
-%  closing speed; matched track classified static]
+%  closing speed; number of updates of the matched track]
 % Evaluation only: tracks carry no identity, so the obstacle counts as
 % "tracked" when some track's sphere comes within 1 m of its true surface.
 [clr, i] = dart_world_clearance(world, x(1:3), t, cfg.quad.r_body);
@@ -141,6 +142,6 @@ if row(3)
     row(4) = norm(xe(1:3) - c);
     row(5) = sqrt(dart_lmax_sym3(P(1:3, 1:3)));
     if wi.type == 1, row(6) = trk.rho(best) - world.rho(i); end
-    row(10) = trk.static(best);
+    row(10) = trk.n_upd(best);
 end
 end

@@ -5,10 +5,12 @@ function [world, cfg] = dart_scenario(name, seed, cfg)
 %
 %   S1  static "forest": three clusters of spheres along a 50 m corridor,
 %       separated by open space (clutter is intermittent)
-%   S2  sparse static field + obstacles crossing the corridor (dynamic)
+%   S2  sparse static field + obstacles crossing the corridor (a TEST world
+%       with movers; the method itself assumes static obstacles)
 %   S3  S1 geometry with slow, noisy perception (latency stress test)
 %   SR  randomised world: random set path, layout, shapes (spheres,
-%       boxes, poles, compound objects), movers (DART_SCENARIO_RANDOM)
+%       boxes, poles, compound objects), movers in 60 % of the worlds
+%       (DART_SCENARIO_RANDOM; test worlds - the method assumes static obstacles)
 %
 %   world.c0   3xM initial centres       world.v  3xM constant velocities
 %   world.rho  1xM radii                 world.start, world.goal  3x1
@@ -55,11 +57,8 @@ switch upper(name)
             rd(k) = 0.4 + 0.3 * dart_rand(rs, 1, 1);
         end
         c0 = [c0, cd]; v = [v, vd]; rho = [rho, rd];
-        cfg.cbf.a_bar_o = 0.3;
-        cfg.sched.v_unknown = 1.5;
-        cfg.trk.q_acc = 0.05;
-        cfg.trk.sigma_v0 = 1.0;
-        cfg.trk.sigma_forget = 2.5;
+        % no algorithm settings here: the method assumes static obstacles
+        % and is not told that this world contains moving ones
     case 'SR'
         [world, cfg] = dart_scenario_random(seed, cfg);
         world.name = 'SR';
