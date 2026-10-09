@@ -5,6 +5,9 @@ function res = dart_run_case(variant, scenario, seed, engine, overrides)
 if nargin < 4 || isempty(engine), engine = 'matlab'; end
 cfg = dart_default_config();
 cfg = dart_apply_variant(cfg, variant);
+if nargin >= 5 && ~isempty(overrides)
+    cfg = overrides(cfg);      % also before: the scenario times its movers with cfg.ref.v_des
+end
 [world, cfg] = dart_scenario(scenario, seed, cfg);
 if nargin >= 5 && ~isempty(overrides)
     cfg = overrides(cfg);

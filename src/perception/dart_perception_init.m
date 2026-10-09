@@ -2,7 +2,7 @@ function perc = dart_perception_init(cfg, world, seed)
 %DART_PERCEPTION_INIT State of the simulated camera + depth-AI pipeline.
 %   A single inference engine (assumption A4): at most one frame in flight.
 perc.cfg = cfg;
-perc.world = world;
+perc.world = dart_world_defaults(world);
 perc.cam = dart_camera_rays(cfg);
 perc.rs = dart_rng_create(2000 + seed);
 perc.busy = false;

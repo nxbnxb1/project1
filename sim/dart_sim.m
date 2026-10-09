@@ -80,33 +80,44 @@ res.log = L;
 res.outcome = outcome;
 res.perc = struct('n_capt', perc.n_capt, 'e_gpu', perc.e_gpu, 't_busy', perc.t_busy);
 res.sched_why = ctrl.ss.n_why;   % triggers by reason (time dist sigma urgent emergency fixed)
+res.fail_row = debug_row(ctrl, world, x, t, cfg);   % state at the end (failure analysis)
+res.ref_mode_end = ctrl.rj.mode;
 res.wall_time = toc(wall);
 end
 
 function row = debug_row(ctrl, world, x, t, cfg)
+% [true primitive idx; true clearance; tracked; centre error of the matched
+%  track; its sigma_pos; rho_hat - rho_true (spheres); in FOV; |v|;
+%  closing speed; matched track classified static]
+% Evaluation only: tracks carry no identity, so the obstacle counts as
+% "tracked" when some track's sphere comes within 1 m of its true surface.
 [clr, i] = dart_world_clearance(world, x(1:3), t, cfg.quad.r_body);
+row = nan(10, 1);
+row(2) = clr; row(8) = norm(x(4:6));
+if i == 0, row(1) = 0; return, end
+row(1) = i;
 c = world.c0(:, i) + world.v(:, i) * t;
-row = zeros(10, 1);
-row(1) = i; row(2) = clr; row(8) = norm(x(4:6));
 u = (c - x(1:3)) / max(norm(c - x(1:3)), 1e-9);
-row(9) = x(4:6).' * u;
+row(9) = (x(4:6) - world.v(:, i)).' * u;
 row(7) = dart_in_fov(c, x(1:3), dart_quat2rotm(x(7:10)), cfg);
 trk = ctrl.trk;
-% evaluation only: the track nearest to the true obstacle (tracks carry no
-% identity), counted as "tracking it" within max(1 m, 2 rho_true)
-best = 0; dbest = inf;
+wa = dart_world_defaults(world);
+wi = struct();                         % the primitive alone
+for f = {'c0', 'v', 'rho', 'type', 'dim', 'yaw', 'obj'}
+    wi.(f{1}) = wa.(f{1})(:, i);
+end
+best = 0; gbest = inf;
 for j = find(trk.active)
     xe = dart_track_predict(trk, j, t, cfg);
-    if norm(xe(1:3) - c) < dbest, dbest = norm(xe(1:3) - c); best = j; end
+    g = dart_world_sdf(wi, xe(1:3), t) - trk.rho(j);   % gap track sphere -> true surface
+    if g < gbest, gbest = g; best = j; end
 end
-if best > 0 && dbest < max(1.0, 2 * world.rho(i))
+row(3) = best > 0 && gbest < 1.0;
+if row(3)
     [xe, P] = dart_track_predict(trk, best, t, cfg);
-    row(3) = 1;
     row(4) = norm(xe(1:3) - c);
     row(5) = sqrt(dart_lmax_sym3(P(1:3, 1:3)));
-    row(6) = trk.rho(best) - world.rho(i);
+    if wi.type == 1, row(6) = trk.rho(best) - world.rho(i); end
     row(10) = trk.static(best);
-else
-    row(4:6) = NaN;
 end
 end

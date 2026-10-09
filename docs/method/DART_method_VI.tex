@@ -70,6 +70,7 @@ R10 & Track không được quan sát lại có $\sigma$ tăng vô hạn $\Right
 R11 & Chưa có thiết kế thí nghiệm cụ thể. & Mô hình quadrotor 6-DOF, camera ray-casting, mạng depth tổng hợp, latency log-normal, năng lượng GPU, 3 kịch bản, 7 biến thể ablation, Monte-Carlo, hai engine (MATLAB và Simulink) chạy trên GitHub Actions. \\
 R12 & Bản đề xuất không nói gì về trường hợp các ràng buộc an toàn mâu thuẫn nhau; camera chỉ nhìn phía trước. & Slack riêng, trọng số rất lớn cho ràng buộc độ cao (mặt đất không bao giờ bị nới vì xung đột giữa các vật cản); giới hạn tốc độ ``chuyển động mù'' ra xa hướng nhìn của camera (Mục~\ref{sec:cbf}). \\
 R13 & Giả thiết định danh instance có sẵn (A6 cũ): trong mô phỏng nhãn lấy từ ray-caster, tức UAV được ``cho đáp án'' vật nào là vật nào. & UAV chỉ nhận ảnh depth của mạng: tự phân đoạn vật cản (trung vị $3\times3$, loại outlier, thành phần liên thông theo độ sâu) và liên kết dữ liệu \emph{không định danh} (cổng Mahalanobis + láng giềng gần nhất toàn cục, track tạm thời, xoá track khi đáng lẽ phải thấy mà không thấy). Nhãn thật chỉ dùng để chấm điểm và cho biến thể đối chứng (Mục~\ref{sec:seg}, \ref{sec:assoc}). \\
+R15 & Chỉ đánh giá trên vật cản hình cầu và vài kịch bản dựng tay; dễ ``tối ưu cục bộ'' theo vài trường hợp. & Bộ thế giới ngẫu nhiên SR (hình dạng: cầu, hộp mọi hướng, trụ, vật ghép; bố trí: rải, cụm, hành lang, rừng cột, hỗn hợp; vật di chuyển; quỹ đạo đặt gấp khúc) chạy ở nhiều dải tốc độ; vật cản bất kỳ được biểu diễn bằng các cầu \emph{phủ} bề mặt nhìn thấy (vùng lớn được tách); mỗi lượt thất bại được phân loại nguyên nhân để sửa lỗi mang tính hệ thống (Mục~\ref{sec:sphere}, \ref{sec:failures}). \\
 R14 & Tham chiếu ``carrot'' thẳng tới đích: nhiệm vụ không có quỹ đạo đặt; sau khi né, UAV không quay về tuyến bay. & Quỹ đạo đặt $\Gamma(s)$ với hai chế độ BÁM / QUAY VỀ: khi $\Gamma$ phía trước bị vật cản chặn, tham chiếu được vẽ lại thành một đoạn ngắn từ vị trí hiện tại tới điểm \emph{sớm nhất} của $\Gamma$ sau đoạn bị chặn; trong lúc quay về, sai lệch so với $\Gamma$ không bị phạt (Mục~\ref{sec:rejoin}). \\
 \bottomrule
 \end{longtable}
@@ -92,7 +93,7 @@ Vòng attitude đủ nhanh để vòng tịnh tiến được thiết kế với
 Ước lượng $(\vb p_q,\vb v_q,R_{IB})$ (VIO/INS) có ở tần số $f_c$ với sai số nhỏ $\sigma_p,\sigma_v,\sigma_{\text{att}}$.
 \end{assumption}
 \begin{assumption}[A3, vật cản]
-Vật cản được xấp xỉ bằng hình cầu tâm $\vb c_i$, bán kính $\rho_i$, chuyển động gần vận tốc hằng với gia tốc chưa mô hình hoá bị chặn bởi $\bar a_o$.
+Vật cản có hình dạng bất kỳ; mỗi vùng ảnh của nó được biểu diễn bằng một hoặc nhiều hình cầu tâm $\vb c_i$, bán kính $\rho_i$ \emph{phủ} phần bề mặt nhìn thấy (Mục~\ref{sec:sphere}); mỗi cầu chuyển động gần vận tốc hằng với gia tốc chưa mô hình hoá bị chặn bởi $\bar a_o$.
 \end{assumption}
 \begin{assumption}[A4, một inference engine]
 Tại mỗi thời điểm có tối đa một frame đang được suy luận. Do đó kết quả đến theo đúng thứ tự thời điểm chụp và $t^c_{k+1}\ge t^a_k$.
@@ -193,6 +194,8 @@ Với vùng $\Omega_i$ \rev{R1}: tia trung bình $\bar{\vb u}=\sum_{\Omega_i}\vb
   {}^C\hat{\vb c}_i=\hat D\,\bar{\vb u},\qquad \hat\rho_i=\hat D\sin\alpha . \label{eq:sphere}
 \end{equation}
 Trung vị chống được outlier; vùng chạm biên ảnh (vật cản bị cắt) được đánh dấu và hiệp phương sai được phóng đại.
+
+\paragraph{Vật cản hình dạng bất kỳ \rev{R15}.} \eqref{eq:sphere} chính xác cho chỏm cầu nhìn thấy, nhưng với một mặt phẳng (hộp, tường) mép của mặt nhô ra \emph{trước} quả cầu đó tới $\approx\sqrt2\hat\rho$. Hai bước tổng quát hoá: (1) \emph{tách}: vùng có nửa bề rộng ngang $R_{\text{lat}}=\max_p\|\vb X_p-(\bar{\vb u}\T\vb X_p)\bar{\vb u}\|>r_{\text{chunk}}=1$~m ($\vb X_p=r_p\vb u_p$) được cắt đôi theo trục chính của các điểm 3-D (tại trung vị), đệ quy, miễn mỗi phần còn $\ge6$ điểm ảnh --- một bức tường thành một dãy cầu thay vì một cầu khổng lồ; (2) \emph{phủ}: $\hat\rho=\max\big(\hat D\sin\alpha,\;Q_{0.9}(\|\vb X_p-{}^C\hat{\vb c}\|)-z_{0.9}\sigma_{\text{px}}\hat D\big)$, tức quả cầu chứa 90\% điểm bề mặt đo được, trừ đi phân vị tương ứng của nhiễu depth để quả cầu thật không bị phóng to vì nhiễu. Phần của vùng bị tách có thêm $(\hat\rho/2)^2$ vào phương sai (vị trí đường cắt thay đổi theo phần nhìn thấy). Với tường 6~m ở 5~m, các cầu phủ chứa 94\% điểm bề mặt (\code{tests/test\_world\_shapes.m}).
 
 \subsection{Hiệp phương sai đo}
 Theo phương tia và phương ngang,
@@ -493,13 +496,18 @@ Toàn bộ mô phỏng chạy trên GitHub Actions (không cần máy local):
 \begin{itemize}
 \item \textbf{S1} -- rừng cầu tĩnh theo 3 cụm dọc hành lang 50~m, xen vùng thoáng (clutter gián đoạn); khe tối thiểu giữa hai bề mặt 2.0~m, để $2(d_s+\beta_s\sigma)$ còn lọt;
 \item \textbf{S2} -- vật cản tĩnh thưa + 6 vật cản cắt ngang hành lang (0.6--1.5~m/s), $\bar a_o=0.3$;
-\item \textbf{S3} -- hình học S1, perception chậm và nhiễu (inference 160~ms, $\sigma_s=0.07$).
+\item \textbf{S3} -- hình học S1, perception chậm và nhiễu (inference 160~ms, $\sigma_s=0.07$);
+\item \textbf{SR} -- thế giới ngẫu nhiên theo seed (\code{dart\_scenario\_random.m}): quỹ đạo đặt 1--3 đoạn ($\pm8$~m ngang, cao 1.5--3~m); bố trí rải đều / cụm / hành lang có tường đứt quãng / rừng cột mảnh / hỗn hợp, độ lệch ngang khỏi quỹ đạo $\sim\mathcal N(0,4^2)$ (tập trung gần đường bay); hình dạng cầu, hộp (mọi góc yaw, từ tấm mỏng tới khối, đứng trên đất hoặc lơ lửng), trụ đứng (cột) và vật ghép 2--3 khối, tỉ lệ hình dạng cũng ngẫu nhiên; 60\% thế giới có 10--35\% vật di chuyển 0.3--2~m/s (đa số cắt ngang đường bay, hẹn giờ gặp UAV); khe tự do giữa các vật tĩnh $\ge2$~m. Chạy ở nhiều tốc độ hành trình (2--8~m/s, cùng tập thế giới).
 \end{itemize}
 Tham số chính: $m=1$~kg, $v_{\text{des}}=4$~m/s, camera $80\times60$, HFOV $90^\circ$, $R_{\max}=15$~m, $d_s=0.5$~m (thân 0.25~m), $a_b=4$~m/s$^2$, $\Delta t_m=0.1$~s, $N\in[10,30]$.
 
 \subsection{Kiểm tra bộ phân đoạn}
 \label{sec:segeval}
 Trên 150 khung hình ngẫu nhiên (vị trí, hướng và thời điểm ngẫu nhiên trong S1/S2/S3, seed kịch bản 100--149, không dùng trong đánh giá vòng kín), nhãn ray-caster chỉ dùng để chấm: có 836 vật cản hiện ra với $\ge3$ điểm ảnh. Bộ phân đoạn bỏ sót 45 (5.4\%): 34 trong số đó chỉ có 3--5 điểm ảnh (mảnh vật cản bị che hoặc ở xa, trung vị khoảng cách 11.7~m), 31 bị loại hết điểm ảnh như outlier/vùng quá nhỏ, 14 bị nhập vào vùng của vật cản khác. 12 vật cản (1.4\%) bị tách làm hai vùng. 12 vùng gộp hai vật cản: 10 ở S2, nơi vật cản di chuyển chạm hoặc xuyên vào vật cản tĩnh (khe bề mặt $\le0.62$~m, gộp là hợp lý về hình học khi chỉ có depth), 2 ở S1/S3 (khe 2.2~m, ở 11--14~m). Sai số tâm cầu: trung vị 0.35~m, phân vị 95\% 1.34~m, so với 0.34 và 1.28~m khi dùng nhãn thật; sai số bán kính trung vị $+0.10$~m trong cả hai trường hợp (bán kính góc cộng nửa điểm ảnh nên thiên về lớn hơn, tức an toàn).
+
+\subsection{Phân loại nguyên nhân thất bại}
+\label{sec:failures}
+Để không chỉnh tham số theo vài trường hợp, mỗi lượt thất bại được tự động phân loại (\code{experiments/dart\_failure\_info.m}) và các tỉ lệ được tổng hợp trên toàn bộ tập thế giới (\code{docs/results/parse\_failures.py}): va chạm với vật cản \emph{không được track nào phủ} (lỗi perception/liên kết) hay \emph{đã được track} (lỗi ước lượng, dự đoán hoặc lớp an toàn); kẹt (tiến độ $<2$~m trên $\Gamma$ trong 10~s cuối) hay chậm; kèm hình dạng, vật đứng yên/di chuyển, trong/ngoài FOV, chế độ BÁM/QUAY VỀ, tốc độ, kiểu bố trí. Chỉ sửa những nguyên nhân chiếm tỉ lệ đáng kể trên nhiều tầng (tốc độ, bố trí), không sửa lỗi lẻ.
 
 \subsection{Chỉ số đánh giá}
 \begin{table}[h]
@@ -574,7 +582,7 @@ Với vật cản tĩnh, không có phép đo mới, $d_{i,j}$ không tăng, kh�
 \end{proposition}
 \emph{Phác thảo.} Quỹ đạo dịch giữ nguyên các vị trí; nửa không gian mới được lấy tiếp tuyến \emph{tại chính} các vị trí đó, mà chúng nằm ngoài quả cầu nên thoả ràng buộc mới; bước cuối đứng yên thoả tập kết thúc và hộp. $\square$
 
-\paragraph{Giới hạn.} (o) MPC là planner \emph{cục bộ} với tham chiếu carrot (dọc $\Gamma$ hoặc thẳng tới điểm quay về): khi độ phồng bất định làm các khe hẹp ``đóng lại'', UAV có thể do dự hoặc kẹt ở cực tiểu cục bộ (thời gian nhiệm vụ là một chỉ số đánh giá; planner toàn cục hoặc cơ chế thoát kẹt là hướng mở rộng). (i) CBF trên trạng thái ước lượng không bảo đảm qua các bước nhảy của cập nhật Kalman: an toàn mang tính xác suất qua $\beta_s$ (một innovation lớn hơn $\beta_s\sigma$ có thể làm $h$ giảm đột ngột). (ii) Ràng buộc frontier giả định camera nhìn theo hướng bay và vật cản ẩn có tốc độ $\le\bar v_{\text{unk}}$. (iii) Phân đoạn dựa trên giả thiết vật cản nằm trước nền trống (A6): với mặt đất, tường hay vật cản sát nhau, cần phân đoạn hình học/ngữ nghĩa mạnh hơn; ở tầm xa ($\gtrsim12$~m) hai vật cản chồng nhau trong ảnh đôi khi bị gộp (Mục~\ref{sec:segeval}). (iv) Vật cản dạng cầu; tường/cột cần mô hình hình học khác (ví dụ trụ: chiếu lên mặt phẳng ngang). (v) Mạng depth được thay bằng mô hình sai số tổng hợp; bước tiếp theo là dùng ảnh render (ví dụ Unreal/AirSim hoặc Simulink 3D) với mạng thật.
+\paragraph{Giới hạn.} (o) MPC là planner \emph{cục bộ} với tham chiếu carrot (dọc $\Gamma$ hoặc thẳng tới điểm quay về): khi độ phồng bất định làm các khe hẹp ``đóng lại'', UAV có thể do dự hoặc kẹt ở cực tiểu cục bộ (thời gian nhiệm vụ là một chỉ số đánh giá; planner toàn cục hoặc cơ chế thoát kẹt là hướng mở rộng). (i) CBF trên trạng thái ước lượng không bảo đảm qua các bước nhảy của cập nhật Kalman: an toàn mang tính xác suất qua $\beta_s$ (một innovation lớn hơn $\beta_s\sigma$ có thể làm $h$ giảm đột ngột). (ii) Ràng buộc frontier giả định camera nhìn theo hướng bay và vật cản ẩn có tốc độ $\le\bar v_{\text{unk}}$. (iii) Phân đoạn dựa trên giả thiết vật cản nằm trước nền trống (A6): với mặt đất, tường hay vật cản sát nhau, cần phân đoạn hình học/ngữ nghĩa mạnh hơn; ở tầm xa ($\gtrsim12$~m) hai vật cản chồng nhau trong ảnh đôi khi bị gộp (Mục~\ref{sec:segeval}). (iv) Vật cản bất kỳ được phủ bằng cầu: bảo thủ với vật dẹt/dài (một cầu phủ mặt phẳng phồng ra trước mặt đó), và phần bị che của vật chỉ được biết khi nhìn thấy. (v) Mạng depth được thay bằng mô hình sai số tổng hợp; bước tiếp theo là dùng ảnh render (ví dụ Unreal/AirSim hoặc Simulink 3D) với mạng thật.
 
 %=====================================================================
 \section{Đóng góp cốt lõi}

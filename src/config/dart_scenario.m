@@ -7,6 +7,8 @@ function [world, cfg] = dart_scenario(name, seed, cfg)
 %       separated by open space (clutter is intermittent)
 %   S2  sparse static field + obstacles crossing the corridor (dynamic)
 %   S3  S1 geometry with slow, noisy perception (latency stress test)
+%   SR  randomised world: random set path, layout, shapes (spheres,
+%       boxes, poles, compound objects), movers (DART_SCENARIO_RANDOM)
 %
 %   world.c0   3xM initial centres       world.v  3xM constant velocities
 %   world.rho  1xM radii                 world.start, world.goal  3x1
@@ -56,6 +58,12 @@ switch upper(name)
         cfg.trk.q_acc = 0.05;
         cfg.trk.sigma_v0 = 1.0;
         cfg.trk.sigma_forget = 2.5;
+    case 'SR'
+        [world, cfg] = dart_scenario_random(seed, cfg);
+        world.name = 'SR';
+        world.seed = seed;
+        world = dart_world_defaults(world);
+        return
     otherwise
         error('dart:scenario', 'Unknown scenario %s', name);
 end
@@ -65,6 +73,7 @@ world.v   = v;
 world.rho = rho;
 world.name = upper(name);
 world.seed = seed;
+world = dart_world_defaults(world);
 end
 
 function [c, r] = place_spheres(rs, n, xr, yr, zr, rr, world)

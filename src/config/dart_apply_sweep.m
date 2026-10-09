@@ -13,6 +13,7 @@ switch lower(name)
         cfg.lat.inf_max = max(cfg.lat.inf_max, 2.5 * value);
     case 'speed'
         cfg.ref.v_des = value;
+        cfg.mpc.v_max(1:2) = max(cfg.mpc.v_max(1:2), value + 1);   % the box must not cap the cruise
     case 'rate'
         cfg.sched.f_fixed = value;
     case 'noise'

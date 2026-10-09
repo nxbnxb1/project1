@@ -11,9 +11,8 @@ if ~(trigger > 0.5) || perc.busy
 end
 cfg = perc.cfg;
 w = perc.world;
-centers = w.c0 + w.v * t;
 R_IB = dart_quat2rotm(x_true(7:10));
-[depth, inst] = dart_render_depth(perc.cam, x_true(1:3), R_IB, cfg, centers, w.rho);
+[depth, inst] = dart_render_world(perc.cam, x_true(1:3), R_IB, cfg, w, t);
 depth_hat = dart_depth_network(depth, cfg, perc.rs);
 if ~cfg.seg.oracle
     inst = dart_segment_depth(depth_hat, perc.cam, cfg);

@@ -51,6 +51,8 @@ cfg.cam.R_max = 15;                  % maximum reliable depth [m]
 cfg.cam.p_BC  = [0.10; 0; 0];        % camera lever arm in body frame
 cfg.cam.R_BC  = [0 0 1; -1 0 0; 0 -1 0]; % optical -> body (FLU)
 cfg.cam.min_px = 3;                  % minimum instance size for a detection
+cfg.cam.r_chunk = 1.0;               % segments wider than this (lateral half-extent) are split [m]
+cfg.cam.cover_q = 0.9;               % the sphere covers this quantile of the segment's surface points
 
 % ----------------------------------------- monocular depth network (synthetic)
 cfg.depth.sigma_scale   = 0.04;      % per-frame residual scale error (log)
