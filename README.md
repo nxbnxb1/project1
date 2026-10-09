@@ -115,6 +115,7 @@ Model được sinh lại từ mã ở mỗi lần CI nên luôn khớp với m�
 | S1 | rừng cầu tĩnh theo 3 cụm dọc hành lang 50 m, xen vùng thoáng |
 | S2 | vật cản tĩnh thưa + 6 vật cản cắt ngang (0.6–1.5 m/s) |
 | S3 | hình học S1, perception chậm và nhiễu (inference 160 ms) |
+| SR | **thế giới ngẫu nhiên theo seed**: quỹ đạo đặt 1–3 đoạn; bố trí rải / cụm / hành lang có tường / rừng cột / hỗn hợp; hình dạng cầu, hộp (mọi hướng, tấm mỏng tới khối), trụ, vật ghép; 60% thế giới có vật di chuyển 0.3–2 m/s; chạy ở nhiều tốc độ (quét `speed`). Mỗi lượt thất bại được phân loại nguyên nhân (`FAILINFO`, `docs/results/parse_failures.py`) |
 
 | Biến thể | Perception | Horizon | Inflation + CBF | Bù trễ |
 |---|---|---|---|---|
