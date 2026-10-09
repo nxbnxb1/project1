@@ -5,6 +5,7 @@ function cfg = dart_apply_sweep(cfg, name, value)
 %   rate      perception rate of the fixed-rate variants [Hz]
 %   noise     residual monocular scale error sigma_scale [-]
 %   shift     residual inverse-depth shift error sigma_shift [1/m]
+%   kappa     safety <-> time-to-goal trade-off (DART_APPLY_TRADEOFF) [0, 1]
 %   none      no change (value ignored)
 switch lower(name)
     case 'latency'
@@ -20,6 +21,8 @@ switch lower(name)
         cfg.depth.sigma_scale = value;
     case 'shift'
         cfg.depth.sigma_shift = value;
+    case 'kappa'
+        cfg.tradeoff.kappa = value;
     case 'none'
     otherwise
         error('dart:sweep', 'Unknown sweep parameter %s', name);

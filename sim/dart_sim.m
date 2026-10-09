@@ -19,29 +19,43 @@ ctrl = dart_controller_init(cfg, world, seed);
 dtc = cfg.sim.dt_ctrl;
 dtp = cfg.sim.dt_plant;
 nsub = round(dtc / dtp);
-Nt = floor(cfg.sim.t_max / dtc + 1e-9);
 nd = numel(dart_diag_names());
-
+% no time limit on the mission: the time to the goal is a RESULT. A run
+% ends at the goal, at a collision, or when the vehicle is stuck (no
+% progress of sim.stuck_dist along the set path for sim.stuck_window s:
+% it would never arrive). sim.t_max (default inf) is only used by short
+% tests; sim.t_cap is a compute guard that should never be reached.
+t_end = min(cfg.sim.t_max, cfg.sim.t_cap);
+if isfield(world, 'path'), Gp = dart_path_init(world.path); else, Gp = dart_path_init([world.start, world.goal]); end
+s_true = 0; s_best = 0; t_best = 0;
+chunk = 2000;
 L = struct();
-L.t = zeros(1, Nt);
-L.x = zeros(17, Nt);
-L.cmd = zeros(4, Nt);
-L.dg = zeros(nd, Nt);
-L.clear = zeros(1, Nt);
-L.trig = zeros(1, Nt);
+L.t = zeros(1, chunk);
+L.x = zeros(17, chunk);
+L.cmd = zeros(4, chunk);
+L.dg = zeros(nd, chunk);
+L.clear = zeros(1, chunk);
+L.trig = zeros(1, chunk);
 if cfg.sim.debug
-    % [true idx; true clearance; tracked (a track within max(1, 2 rho) of it);
-    %  est. centre error; sigma_pos;
-    %  rho_hat - rho_true; in FOV; |v|; v . (c - p)/|c - p| (closing speed);
-    %  track classified static]
-    L.dbg = zeros(10, Nt);
+    % see debug_row
+    L.dbg = zeros(10, chunk);
 end
 
 outcome = 'timeout';
-k_end = Nt;
+k = 0;
 wall = tic;
-for k = 1:Nt
+while true
+    k = k + 1;
     t = (k - 1) * dtc;
+    if t > t_end + 1e-9
+        k = k - 1;
+        if t_end >= cfg.sim.t_cap, outcome = 'cap'; end
+        break
+    end
+    if k > numel(L.t)                                % grow the log
+        fn = fieldnames(L);
+        for i = 1:numel(fn), L.(fn{i}) = [L.(fn{i}), zeros(size(L.(fn{i}), 1), chunk)]; end
+    end
     [perc, msg] = dart_perception_output(perc, t);
     [ctrl, cmd, trig, dg] = dart_controller_step(ctrl, t, x, msg);
     perc = dart_perception_update(perc, t, x, trig);
@@ -54,13 +68,21 @@ for k = 1:Nt
     end
 
     if clr < 0 && cfg.sim.stop_on_collision
-        outcome = 'collision'; k_end = k; break
+        outcome = 'collision'; break
     end
     if norm(x(1:3) - world.goal) < cfg.sim.goal_tol
-        outcome = 'goal'; k_end = k; break
+        outcome = 'goal'; break
     end
     if any(~isfinite(x))
-        outcome = 'diverged'; k_end = k; break
+        outcome = 'diverged'; break
+    end
+    if mod(k, 10) == 1                               % progress along the set path (true position)
+        s_true = dart_path_project(Gp, x(1:3), s_true - 2, s_true + 10);
+        if s_true > s_best + cfg.sim.stuck_dist
+            s_best = s_true; t_best = t;
+        elseif t - t_best > cfg.sim.stuck_window
+            outcome = 'stuck'; break
+        end
     end
     for i = 1:nsub
         ts = t + (i - 1) * dtp;
@@ -68,6 +90,7 @@ for k = 1:Nt
         x = dart_rk4(x, u, ts, dtp, P);
     end
 end
+k_end = k;
 fn = fieldnames(L);
 for i = 1:numel(fn)
     L.(fn{i}) = L.(fn{i})(:, 1:k_end);

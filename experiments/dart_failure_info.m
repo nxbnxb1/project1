@@ -4,10 +4,11 @@ function f = dart_failure_info(res)
 %                                  track (perception / association miss)
 %           'collision-tracked'    it was tracked (estimate, prediction or
 %                                  control / safety-layer failure)
-%           'timeout-stuck'        < 2 m progress along the set path in the
-%                                  last 10 s (deadlock / local minimum)
-%           'timeout-slow'         still progressing when time ran out
-%           'diverged', 'goal'
+%           'stuck'                no progress of sim.stuck_dist along the
+%                                  set path for sim.stuck_window seconds
+%                                  (deadlock / local minimum; there is no
+%                                  time limit, the time to the goal is measured)
+%           'diverged', 'goal', 'cap' (compute guard), 'timeout' (tests only)
 %   f.shape (sphere | box | cylinder), f.dyn (obstacle moving), f.infov,
 %   f.mode (reference mode at the end: 0 goal, 1 track, 2 rejoin),
 %   f.speed (|v| at the end), f.closing, f.static (matched track static),
@@ -38,7 +39,7 @@ end
 switch res.outcome
     case 'collision'
         if f.tracked == 1, f.cls = 'collision-tracked'; else, f.cls = 'collision-untracked'; end
-    case 'timeout'
-        if f.prog10 < 2, f.cls = 'timeout-stuck'; else, f.cls = 'timeout-slow'; end
+    case 'stuck'
+        f.cls = 'stuck';
 end
 end

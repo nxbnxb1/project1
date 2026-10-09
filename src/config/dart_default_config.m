@@ -11,7 +11,10 @@ function cfg = dart_default_config()
 % ---------------------------------------------------------------- simulation
 cfg.sim.dt_plant  = 0.002;   % plant integration + attitude loop step [s]
 cfg.sim.dt_ctrl   = 0.01;    % outer loop: predictor, scheduler, CBF (f_c = 100 Hz)
-cfg.sim.t_max     = 40;      % hard stop [s] (nominal mission ~14 s)
+cfg.sim.t_max     = inf;     % no time limit: the time to the goal is measured, not limited
+cfg.sim.stuck_window = 60;   % a run ends as 'stuck' after this long without ...
+cfg.sim.stuck_dist = 1.0;    % ... this much progress along the set path [s, m]
+cfg.sim.t_cap     = 1800;    % compute guard only (outcome 'cap'), never expected
 cfg.sim.goal_tol  = 0.6;     % goal reached radius [m]
 cfg.sim.seed      = 1;
 cfg.sim.stop_on_collision = true;
@@ -208,4 +211,12 @@ cfg.yaw.T_look   = 0.6;              % look at the MPC's predicted position this
 % -------------------------------------------------------- bookkeeping
 cfg.variant = 'DART';
 cfg.scenario = 'S1';
+
+% ------------------------------------- safety <-> time-to-goal trade-off
+% One hyperparameter (DART_APPLY_TRADEOFF, applied by DART_RUN_CASE):
+% 0 = most conservative, 0.5 = the values above, 1 = most aggressive.
+cfg.tradeoff.kappa = 0.5;
+cfg.tradeoff.nominal = struct('beta_s', cfg.mpc.beta_s, 'cbf_alpha', cfg.cbf.alpha, ...
+    'd_s', cfg.sched.d_s, 'v_blind', cfg.cbf.v_blind, 'v_blind_lat', cfg.cbf.v_blind_lat, ...
+    'ref_margin', cfg.ref.margin);
 end

@@ -505,9 +505,20 @@ Tham số chính: $m=1$~kg, $v_{\text{des}}=4$~m/s, camera $80\times60$, HFOV $9
 \label{sec:segeval}
 Trên 150 khung hình ngẫu nhiên (vị trí, hướng và thời điểm ngẫu nhiên trong S1/S2/S3, seed kịch bản 100--149, không dùng trong đánh giá vòng kín), nhãn ray-caster chỉ dùng để chấm: có 836 vật cản hiện ra với $\ge3$ điểm ảnh. Bộ phân đoạn bỏ sót 45 (5.4\%): 34 trong số đó chỉ có 3--5 điểm ảnh (mảnh vật cản bị che hoặc ở xa, trung vị khoảng cách 11.7~m), 31 bị loại hết điểm ảnh như outlier/vùng quá nhỏ, 14 bị nhập vào vùng của vật cản khác. 12 vật cản (1.4\%) bị tách làm hai vùng. 12 vùng gộp hai vật cản: 10 ở S2, nơi vật cản di chuyển chạm hoặc xuyên vào vật cản tĩnh (khe bề mặt $\le0.62$~m, gộp là hợp lý về hình học khi chỉ có depth), 2 ở S1/S3 (khe 2.2~m, ở 11--14~m). Sai số tâm cầu: trung vị 0.35~m, phân vị 95\% 1.34~m, so với 0.34 và 1.28~m khi dùng nhãn thật; sai số bán kính trung vị $+0.10$~m trong cả hai trường hợp (bán kính góc cộng nửa điểm ảnh nên thiên về lớn hơn, tức an toàn).
 
+\subsection{Không giới hạn thời gian; siêu tham số đánh đổi}
+\label{sec:tradeoff}
+Nhiệm vụ \emph{không} có giới hạn thời gian: thời gian về đích là một kết quả đo. Một lượt kết thúc khi về đích, khi va chạm, hoặc khi UAV \emph{kẹt} --- không tiến thêm được 1~m dọc quỹ đạo đặt trong 60~s (sẽ không bao giờ tới đích); giới hạn 1800~s chỉ để bảo vệ tài nguyên tính toán.
+
+Mọi biên an toàn của phương pháp được điều khiển bởi \emph{một} siêu tham số $\kappa\in[0,1]$ (\code{dart\_apply\_tradeoff.m}): $\kappa=0$ ổn định/bảo thủ nhất, $\kappa=0.5$ là cấu hình danh định, $\kappa=1$ nhanh/mạo hiểm nhất. Với $e=2\kappa-1$:
+\begin{equation}
+  \beta_s=\beta_s^0\,1.5^{-e},\quad \alpha=\alpha^0\,1.5^{e},\quad d_s-r_{\text{body}}=(d_s^0-r_{\text{body}})\,2^{-e},\quad
+  v_{\text{blind}},v_{\text{lat}}=v^0\,2^{e},\quad m_b=m_b^0\,2^{-e}, \label{eq:kappa}
+\end{equation}
+tức độ phồng bất định, hệ số rào cản phanh, biên khoảng cách, tốc độ chuyển động mù và biên ``bị chặn'' cùng thay đổi một chiều. Đánh giá quét $\kappa$ cùng với tốc độ hành trình trên cùng tập thế giới để vẽ đường đánh đổi giữa tỉ lệ thành công/va chạm và thời gian về đích.
+
 \subsection{Phân loại nguyên nhân thất bại}
 \label{sec:failures}
-Để không chỉnh tham số theo vài trường hợp, mỗi lượt thất bại được tự động phân loại (\code{experiments/dart\_failure\_info.m}) và các tỉ lệ được tổng hợp trên toàn bộ tập thế giới (\code{docs/results/parse\_failures.py}): va chạm với vật cản \emph{không được track nào phủ} (lỗi perception/liên kết) hay \emph{đã được track} (lỗi ước lượng, dự đoán hoặc lớp an toàn); kẹt (tiến độ $<2$~m trên $\Gamma$ trong 10~s cuối) hay chậm; kèm hình dạng, vật đứng yên/di chuyển, trong/ngoài FOV, chế độ BÁM/QUAY VỀ, tốc độ, kiểu bố trí. Chỉ sửa những nguyên nhân chiếm tỉ lệ đáng kể trên nhiều tầng (tốc độ, bố trí), không sửa lỗi lẻ.
+Để không chỉnh tham số theo vài trường hợp, mỗi lượt thất bại được tự động phân loại (\code{experiments/dart\_failure\_info.m}) và các tỉ lệ được tổng hợp trên toàn bộ tập thế giới (\code{docs/results/parse\_failures.py}): va chạm với vật cản \emph{không được track nào phủ} (lỗi perception/liên kết) hay \emph{đã được track} (lỗi ước lượng, dự đoán hoặc lớp an toàn); kẹt (Mục~\ref{sec:tradeoff}); kèm hình dạng, vật đứng yên/di chuyển, trong/ngoài FOV, chế độ BÁM/QUAY VỀ, tốc độ, kiểu bố trí. Chỉ sửa những nguyên nhân chiếm tỉ lệ đáng kể trên nhiều tầng (tốc độ, bố trí), không sửa lỗi lẻ.
 
 \subsection{Chỉ số đánh giá}
 \begin{table}[h]

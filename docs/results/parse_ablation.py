@@ -54,7 +54,7 @@ def main(paths):
     print(f'{len(rows)} runs from {len(paths)} file(s)\n')
     for s in sorted({r['s'] for r in rows}):
         print(f'### {s}\n')
-        print('| Variant | Success [95% CI] | Collision [95% CI] | Timeout | clr min [m] | clr mean ± sd [m] '
+        print('| Variant | Success [95% CI] | Collision [95% CI] | Stuck | clr min [m] | clr mean ± sd [m] '
               '| t goal [s] | Inferences (goal) | inf/s | N mean | MPC [ms] | XTE rms [m] | XTE max [m] | off path > 0.5 m |')
         print('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
         variants = [v for v in ORDER if any(r['v'] == v and r['s'] == s for r in rows)]
@@ -64,7 +64,7 @@ def main(paths):
             n = len(R)
             g = [r for r in R if r['out'] == 'goal']
             c = sum(r['out'] == 'collision' for r in R)
-            to = sum(r['out'] == 'timeout' for r in R)
+            to = sum(r['out'] in ('stuck', 'timeout', 'cap') for r in R)
             name = f'**{v}**' if v == 'E_DART' else v
             print(f'| {name} | {rate(len(g), n)} | {rate(c, n)} | {to} | {min(r["clr"] for r in R):.2f} '
                   f'| {ms([r["clr"] for r in R], "{:.2f}")} | {ms([r["t"] for r in g])} '

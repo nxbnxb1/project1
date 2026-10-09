@@ -20,6 +20,8 @@ function cfg = dart_apply_variant(cfg, name)
 %             penalised, no rejoin segment)
 %   R_STRAIGHT E with the rejoin segment drawn as a straight line to the
 %             rejoin point (no detour plan around the obstacles)
+%   K<k>      E with the safety <-> time trade-off kappa = k/100
+%             (e.g. K0, K25, K50 = E_DART, K100; DART_APPLY_TRADEOFF)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
@@ -32,6 +34,12 @@ name = upper(name);
 if strncmp(name, 'FR_SAFE_', 8)
     cfg = set_layers(cfg, 'fixed', 'adaptive', true);
     cfg.sched.f_fixed = str2double(name(9:end));
+    cfg.variant = name;
+    return
+end
+if numel(name) >= 2 && name(1) == 'K' && all(isstrprop(name(2:end), 'digit'))
+    cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+    cfg.tradeoff.kappa = str2double(name(2:end)) / 100;
     cfg.variant = name;
     return
 end

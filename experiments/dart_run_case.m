@@ -12,6 +12,7 @@ end
 if nargin >= 5 && ~isempty(overrides)
     cfg = overrides(cfg);
 end
+cfg = dart_apply_tradeoff(cfg);   % safety <-> time trade-off (kappa = 0.5: nominal)
 dart_check_config(cfg);
 switch lower(engine)
     case 'matlab'

@@ -22,7 +22,7 @@ in = in.setVariable('dart_x0', x0);
 in = in.setVariable('dart_plant_P', dart_plant_vector(cfg));
 in = in.setVariable('dart_dt_plant', cfg.sim.dt_plant);
 in = in.setVariable('dart_dt_ctrl', cfg.sim.dt_ctrl);
-in = in.setVariable('dart_t_max', cfg.sim.t_max - cfg.sim.dt_ctrl);
+in = in.setVariable('dart_t_max', min(cfg.sim.t_max, cfg.sim.t_cap) - cfg.sim.dt_ctrl);   % no stuck detection here
 
 wall = tic;
 out = sim(in);

@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       param:
-        description: "Swept parameter: latency [s], speed [m/s], rate [Hz], noise (scale) [-], shift (inverse depth) [1/m]"
+        description: "Swept parameter: latency [s], speed [m/s], rate [Hz], noise (scale) [-], shift (inverse depth) [1/m], kappa (safety <-> time trade-off, 0..1)"
         type: choice
-        options: [latency, speed, rate, noise, shift]
+        options: [latency, speed, rate, noise, shift, kappa]
         default: latency
       values:
         description: "Values (JSON list)"
