@@ -1,0 +1,158 @@
+[  1/ 60] speed=2 SR  E_DART      seed 61  timeout   clr  0.27  t  40.0  inf 223  N 22.5  mpc   4.2 ms  err 0.95  xte 7.03  xmax 12.96  off 0.96  nrj 1
+WORLD SR seed 61 layout mixed nleg 2 dyn 0.00 nobj 35
+FAILINFO speed=2 SR E_DART seed 61 cls timeout-slow shape box dyn 0 tracked 1 infov 1 mode 2 speed 1.76 closing 0.55 static 1 prog10 14.8 layout mixed vdes 2
+[  2/ 60] speed=2 SR  E_DART      seed 62  timeout   clr  0.65  t  40.0  inf 250  N 25.2  mpc   5.2 ms  err 1.08  xte 6.12  xmax 11.46  off 0.88  nrj 1
+WORLD SR seed 62 layout forest nleg 1 dyn 0.00 nobj 49
+FAILINFO speed=2 SR E_DART seed 62 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.00 closing -0.54 static 1 prog10 12.5 layout forest vdes 2
+[  3/ 60] speed=2 SR  E_DART      seed 63  goal      clr  1.16  t  37.1  inf 222  N 23.3  mpc   3.8 ms  err 1.87  xte 5.24  xmax 10.23  off 0.90  nrj 1
+WORLD SR seed 63 layout corridor nleg 2 dyn 0.00 nobj 16
+[  4/ 60] speed=2 SR  E_DART      seed 64  goal      clr  0.76  t  36.0  inf 187  N 22.6  mpc   3.8 ms  err 1.61  xte 7.29  xmax 12.46  off 0.93  nrj 1
+WORLD SR seed 64 layout clusters nleg 1 dyn 0.34 nobj 32
+[  5/ 60] speed=2 SR  E_DART      seed 65  timeout   clr  1.00  t  40.0  inf 255  N 22.6  mpc   3.5 ms  err 2.20  xte 8.95  xmax 14.74  off 0.95  nrj 1
+WORLD SR seed 65 layout forest nleg 3 dyn 0.33 nobj 65
+FAILINFO speed=2 SR E_DART seed 65 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 1 mode 2 speed 1.82 closing 1.73 static 0 prog10 17.2 layout forest vdes 2
+[  6/ 60] speed=2 SR  E_DART      seed 66  timeout   clr  0.60  t  40.0  inf 275  N 23.6  mpc   4.1 ms  err 1.84  xte 6.08  xmax 13.07  off 0.91  nrj 1
+WORLD SR seed 66 layout corridor nleg 3 dyn 0.26 nobj 20
+FAILINFO speed=2 SR E_DART seed 66 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 1 mode 2 speed 4.31 closing 3.55 static 1 prog10 4.0 layout corridor vdes 2
+[  7/ 60] speed=2 SR  E_DART      seed 67  timeout   clr  0.88  t  40.0  inf 200  N 22.2  mpc   3.6 ms  err 1.33  xte 6.40  xmax 12.98  off 0.87  nrj 1
+WORLD SR seed 67 layout forest nleg 1 dyn 0.00 nobj 47
+FAILINFO speed=2 SR E_DART seed 67 cls timeout-slow shape cylinder dyn 0 tracked 0 infov 0 mode 2 speed 1.21 closing -0.33 static NaN prog10 5.8 layout forest vdes 2
+[  8/ 60] speed=2 SR  E_DART      seed 68  timeout   clr  1.43  t  40.0  inf 274  N 23.3  mpc   3.9 ms  err 1.50  xte 4.84  xmax 9.55  off 0.91  nrj 1
+WORLD SR seed 68 layout forest nleg 3 dyn 0.23 nobj 58
+FAILINFO speed=2 SR E_DART seed 68 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.04 closing 0.19 static 1 prog10 2.6 layout forest vdes 2
+[  9/ 60] speed=2 SR  E_DART      seed 69  timeout   clr  0.14  t  40.0  inf 251  N 25.3  mpc   4.3 ms  err 1.38  xte 4.20  xmax 6.53  off 0.84  nrj 2
+WORLD SR seed 69 layout corridor nleg 2 dyn 0.00 nobj 17
+FAILINFO speed=2 SR E_DART seed 69 cls timeout-slow shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 2.09 closing 1.33 static 1 prog10 13.1 layout corridor vdes 2
+[ 10/ 60] speed=2 SR  E_DART      seed 70  goal      clr  1.17  t  36.5  inf 132  N 19.1  mpc   2.7 ms  err 1.44  xte 13.12  xmax 20.16  off 0.98  nrj 1
+WORLD SR seed 70 layout mixed nleg 1 dyn 0.31 nobj 54
+[ 11/ 60] speed=2 SR  E_DART      seed 71  timeout   clr  0.94  t  40.0  inf 317  N 26.1  mpc   4.7 ms  err 1.51  xte 6.19  xmax 10.71  off 0.98  nrj 1
+WORLD SR seed 71 layout mixed nleg 1 dyn 0.22 nobj 40
+FAILINFO speed=2 SR E_DART seed 71 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 1.99 closing 0.12 static 1 prog10 5.0 layout mixed vdes 2
+[ 12/ 60] speed=2 SR  E_DART      seed 72  goal      clr  0.67  t  34.7  inf 182  N 21.4  mpc   3.2 ms  err 0.58  xte 3.03  xmax 6.10  off 0.81  nrj 2
+WORLD SR seed 72 layout clusters nleg 3 dyn 0.20 nobj 24
+[ 13/ 60] speed=2 SR  E_DART      seed 73  goal      clr  0.65  t  28.5  inf  93  N 21.7  mpc   3.2 ms  err 0.81  xte 4.22  xmax 7.79  off 0.60  nrj 1
+WORLD SR seed 73 layout clusters nleg 1 dyn 0.00 nobj 21
+[ 14/ 60] speed=2 SR  E_DART      seed 74  timeout   clr  0.63  t  40.0  inf 278  N 23.0  mpc   4.3 ms  err 1.68  xte 4.75  xmax 10.84  off 0.85  nrj 1
+WORLD SR seed 74 layout corridor nleg 2 dyn 0.19 nobj 17
+FAILINFO speed=2 SR E_DART seed 74 cls timeout-slow shape box dyn 0 tracked 1 infov 0 mode 2 speed 1.60 closing 0.50 static 1 prog10 10.7 layout corridor vdes 2
+[ 15/ 60] speed=2 SR  E_DART      seed 75  timeout   clr  0.85  t  40.0  inf 291  N 24.1  mpc   4.0 ms  err 1.72  xte 5.40  xmax 12.60  off 0.87  nrj 1
+WORLD SR seed 75 layout uniform nleg 2 dyn 0.18 nobj 34
+FAILINFO speed=2 SR E_DART seed 75 cls timeout-slow shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 0.68 closing 0.31 static 1 prog10 13.1 layout uniform vdes 2
+[ 16/ 60] speed=2 SR  E_DART      seed 76  timeout   clr  0.44  t  40.0  inf 249  N 21.0  mpc   3.3 ms  err 1.67  xte 6.09  xmax 11.98  off 0.98  nrj 1
+WORLD SR seed 76 layout corridor nleg 3 dyn 0.13 nobj 16
+FAILINFO speed=2 SR E_DART seed 76 cls timeout-slow shape box dyn 0 tracked 1 infov 0 mode 2 speed 1.48 closing -1.11 static 1 prog10 2.3 layout corridor vdes 2
+[ 17/ 60] speed=2 SR  E_DART      seed 77  goal      clr  0.74  t  31.3  inf 216  N 23.2  mpc   3.5 ms  err 0.91  xte 6.17  xmax 11.98  off 0.97  nrj 1
+WORLD SR seed 77 layout uniform nleg 2 dyn 0.19 nobj 31
+[ 18/ 60] speed=2 SR  E_DART      seed 78  goal      clr  0.33  t  38.5  inf 244  N 26.5  mpc   4.4 ms  err 1.08  xte 2.34  xmax 5.78  off 0.85  nrj 1
+WORLD SR seed 78 layout corridor nleg 3 dyn 0.00 nobj 16
+[ 19/ 60] speed=2 SR  E_DART      seed 79  timeout   clr  0.67  t  40.0  inf 231  N 22.6  mpc   3.6 ms  err 1.64  xte 8.98  xmax 13.57  off 0.97  nrj 1
+WORLD SR seed 79 layout mixed nleg 2 dyn 0.18 nobj 39
+FAILINFO speed=2 SR E_DART seed 79 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.30 closing -1.56 static 0 prog10 20.3 layout mixed vdes 2
+[ 20/ 60] speed=2 SR  E_DART      seed 80  timeout   clr  0.93  t  40.0  inf 241  N 26.0  mpc   4.5 ms  err 2.06  xte 4.43  xmax 10.51  off 0.86  nrj 1
+WORLD SR seed 80 layout forest nleg 2 dyn 0.00 nobj 39
+FAILINFO speed=2 SR E_DART seed 80 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.23 closing -0.86 static 1 prog10 6.0 layout forest vdes 2
+[ 21/ 60] speed=2 SR  E_DART      seed 81  goal      clr  1.23  t  37.0  inf 186  N 19.8  mpc   2.8 ms  err 1.53  xte 12.87  xmax 22.24  off 0.98  nrj 1
+WORLD SR seed 81 layout mixed nleg 1 dyn 0.33 nobj 55
+[ 22/ 60] speed=2 SR  E_DART      seed 82  timeout   clr  0.59  t  40.0  inf 291  N 27.6  mpc   5.0 ms  err 1.05  xte 2.70  xmax 6.49  off 0.90  nrj 1
+WORLD SR seed 82 layout mixed nleg 1 dyn 0.00 nobj 31
+FAILINFO speed=2 SR E_DART seed 82 cls timeout-stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 1.89 closing 0.26 static 1 prog10 1.7 layout mixed vdes 2
+[ 23/ 60] speed=2 SR  E_DART      seed 83  timeout   clr  2.13  t  40.0  inf 142  N 19.4  mpc   2.7 ms  err 2.14  xte 11.39  xmax 16.34  off 0.98  nrj 1
+WORLD SR seed 83 layout forest nleg 2 dyn 0.26 nobj 39
+FAILINFO speed=2 SR E_DART seed 83 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 1 mode 2 speed 2.01 closing 1.92 static 0 prog10 11.1 layout forest vdes 2
+[ 24/ 60] speed=2 SR  E_DART      seed 84  timeout   clr  0.59  t  40.0  inf 282  N 26.6  mpc   4.7 ms  err 1.70  xte 1.80  xmax 4.46  off 0.68  nrj 1
+WORLD SR seed 84 layout corridor nleg 1 dyn 0.00 nobj 13
+FAILINFO speed=2 SR E_DART seed 84 cls timeout-stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 1.07 closing -0.52 static 1 prog10 1.9 layout corridor vdes 2
+[ 25/ 60] speed=2 SR  E_DART      seed 85  collision clr -0.01  t   5.7  inf  51  N 26.1  mpc   4.8 ms  err 1.08  xte 1.04  xmax 1.71  off 0.76  nrj 1
+WORLD SR seed 85 layout corridor nleg 2 dyn 0.28 nobj 26
+FAILINFO speed=2 SR E_DART seed 85 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 0.76 closing 0.66 static 0 prog10 6.2 layout corridor vdes 2
+[ 26/ 60] speed=2 SR  E_DART      seed 86  goal      clr  0.52  t  37.1  inf 176  N 22.6  mpc   3.6 ms  err 1.13  xte 3.69  xmax 9.75  off 0.81  nrj 1
+WORLD SR seed 86 layout clusters nleg 2 dyn 0.00 nobj 20
+[ 27/ 60] speed=2 SR  E_DART      seed 87  goal      clr  0.33  t  37.1  inf 159  N 21.0  mpc   3.1 ms  err 1.57  xte 8.09  xmax 13.82  off 0.96  nrj 1
+WORLD SR seed 87 layout clusters nleg 2 dyn 0.12 nobj 25
+[ 28/ 60] speed=2 SR  E_DART      seed 88  timeout   clr  0.54  t  40.0  inf 229  N 21.2  mpc   3.1 ms  err 1.95  xte 12.10  xmax 19.24  off 0.98  nrj 1
+WORLD SR seed 88 layout forest nleg 1 dyn 0.33 nobj 50
+FAILINFO speed=2 SR E_DART seed 88 cls timeout-slow shape sphere dyn 1 tracked 1 infov 0 mode 2 speed 1.70 closing -1.39 static 0 prog10 15.3 layout forest vdes 2
+[ 29/ 60] speed=2 SR  E_DART      seed 89  goal      clr  0.94  t  30.2  inf 187  N 23.2  mpc   3.7 ms  err 1.29  xte 4.36  xmax 7.64  off 0.82  nrj 1
+WORLD SR seed 89 layout clusters nleg 1 dyn 0.16 nobj 15
+[ 30/ 60] speed=2 SR  E_DART      seed 90  timeout   clr  0.58  t  40.0  inf 195  N 21.1  mpc   3.2 ms  err 1.84  xte 8.13  xmax 15.79  off 0.98  nrj 1
+WORLD SR seed 90 layout uniform nleg 1 dyn 0.24 nobj 33
+FAILINFO speed=2 SR E_DART seed 90 cls timeout-stuck shape cylinder dyn 0 tracked 1 infov 1 mode 2 speed 1.40 closing 1.25 static 0 prog10 1.6 layout uniform vdes 2
+[ 31/ 60] speed=2 SR  E_DART      seed 91  timeout   clr  0.29  t  40.0  inf 370  N 26.4  mpc   5.2 ms  err 1.97  xte 3.79  xmax 10.61  off 0.96  nrj 1
+WORLD SR seed 91 layout corridor nleg 1 dyn 0.23 nobj 18
+FAILINFO speed=2 SR E_DART seed 91 cls timeout-slow shape box dyn 0 tracked 1 infov 0 mode 2 speed 4.34 closing 1.63 static 0 prog10 16.7 layout corridor vdes 2
+[ 32/ 60] speed=2 SR  E_DART      seed 92  goal      clr  0.47  t  36.1  inf 176  N 24.7  mpc   3.9 ms  err 1.17  xte 5.53  xmax 10.13  off 0.87  nrj 1
+WORLD SR seed 92 layout uniform nleg 1 dyn 0.00 nobj 26
+[ 33/ 60] speed=2 SR  E_DART      seed 93  timeout   clr  0.53  t  40.0  inf 221  N 22.3  mpc   3.7 ms  err 1.36  xte 7.26  xmax 13.34  off 0.98  nrj 1
+WORLD SR seed 93 layout clusters nleg 1 dyn 0.21 nobj 25
+FAILINFO speed=2 SR E_DART seed 93 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.21 closing 0.46 static 1 prog10 17.8 layout clusters vdes 2
+[ 34/ 60] speed=2 SR  E_DART      seed 94  goal      clr  0.73  t  25.0  inf 135  N 26.6  mpc   4.2 ms  err 1.43  xte 1.35  xmax 2.84  off 0.61  nrj 2
+WORLD SR seed 94 layout corridor nleg 1 dyn 0.00 nobj 18
+[ 35/ 60] speed=2 SR  E_DART      seed 95  collision clr -0.00  t  37.4  inf 307  N 25.5  mpc   4.5 ms  err 1.14  xte 3.82  xmax 7.41  off 0.89  nrj 1
+WORLD SR seed 95 layout mixed nleg 1 dyn 0.20 nobj 31
+FAILINFO speed=2 SR E_DART seed 95 cls collision-tracked shape sphere dyn 0 tracked 1 infov 1 mode 2 speed 1.31 closing 0.94 static 0 prog10 11.5 layout mixed vdes 2
+[ 36/ 60] speed=2 SR  E_DART      seed 96  timeout   clr  0.41  t  40.0  inf 298  N 26.1  mpc   4.6 ms  err 1.17  xte 2.93  xmax 6.05  off 0.89  nrj 1
+WORLD SR seed 96 layout corridor nleg 3 dyn 0.00 nobj 17
+FAILINFO speed=2 SR E_DART seed 96 cls timeout-slow shape box dyn 0 tracked 1 infov 0 mode 2 speed 3.00 closing -1.06 static 1 prog10 19.8 layout corridor vdes 2
+[ 37/ 60] speed=2 SR  E_DART      seed 97  goal      clr  1.65  t  39.9  inf 153  N 18.9  mpc   2.7 ms  err 1.75  xte 9.23  xmax 14.85  off 0.96  nrj 1
+WORLD SR seed 97 layout clusters nleg 3 dyn 0.11 nobj 30
+[ 38/ 60] speed=2 SR  E_DART      seed 98  timeout   clr  1.07  t  40.0  inf 259  N 22.4  mpc   3.9 ms  err 1.83  xte 7.64  xmax 13.89  off 0.89  nrj 1
+WORLD SR seed 98 layout mixed nleg 1 dyn 0.28 nobj 50
+FAILINFO speed=2 SR E_DART seed 98 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.83 closing -2.29 static 1 prog10 7.2 layout mixed vdes 2
+[ 39/ 60] speed=2 SR  E_DART      seed 99  timeout   clr  0.37  t  40.0  inf 207  N 23.5  mpc   3.9 ms  err 1.06  xte 9.01  xmax 16.49  off 0.98  nrj 1
+WORLD SR seed 99 layout uniform nleg 1 dyn 0.18 nobj 26
+FAILINFO speed=2 SR E_DART seed 99 cls timeout-slow shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 3.68 closing 3.30 static 1 prog10 10.9 layout uniform vdes 2
+[ 40/ 60] speed=2 SR  E_DART      seed 100  goal      clr  1.49  t  39.6  inf 165  N 18.7  mpc   2.7 ms  err 1.89  xte 7.39  xmax 15.58  off 0.85  nrj 2
+WORLD SR seed 100 layout clusters nleg 3 dyn 0.24 nobj 12
+[ 41/ 60] speed=2 SR  E_DART      seed 101  goal      clr  0.13  t  37.6  inf 214  N 22.0  mpc   3.4 ms  err 1.28  xte 6.41  xmax 15.57  off 0.93  nrj 1
+WORLD SR seed 101 layout clusters nleg 3 dyn 0.19 nobj 26
+[ 42/ 60] speed=2 SR  E_DART      seed 102  collision clr -0.01  t  23.6  inf 181  N 24.9  mpc   4.5 ms  err 1.74  xte 2.14  xmax 4.86  off 0.84  nrj 2
+WORLD SR seed 102 layout clusters nleg 2 dyn 0.00 nobj 21
+FAILINFO speed=2 SR E_DART seed 102 cls collision-untracked shape box dyn 0 tracked 0 infov 0 mode 2 speed 2.22 closing 1.21 static NaN prog10 5.5 layout clusters vdes 2
+[ 43/ 60] speed=2 SR  E_DART      seed 103  goal      clr  0.74  t  34.5  inf 219  N 24.0  mpc   4.1 ms  err 1.61  xte 3.28  xmax 7.73  off 0.83  nrj 1
+WORLD SR seed 103 layout corridor nleg 3 dyn 0.00 nobj 16
+[ 44/ 60] speed=2 SR  E_DART      seed 104  timeout   clr  1.28  t  40.0  inf 208  N 23.8  mpc   3.6 ms  err 1.21  xte 8.21  xmax 13.55  off 0.97  nrj 1
+WORLD SR seed 104 layout mixed nleg 1 dyn 0.29 nobj 40
+FAILINFO speed=2 SR E_DART seed 104 cls timeout-slow shape box dyn 0 tracked 0 infov 1 mode 2 speed 0.21 closing 0.11 static NaN prog10 11.2 layout mixed vdes 2
+[ 45/ 60] speed=2 SR  E_DART      seed 105  timeout   clr  0.54  t  40.0  inf 291  N 24.1  mpc   4.2 ms  err 1.53  xte 9.26  xmax 15.88  off 0.96  nrj 1
+WORLD SR seed 105 layout uniform nleg 3 dyn 0.28 nobj 40
+FAILINFO speed=2 SR E_DART seed 105 cls timeout-slow shape cylinder dyn 1 tracked 1 infov 0 mode 2 speed 3.16 closing -1.83 static 0 prog10 34.7 layout uniform vdes 2
+[ 46/ 60] speed=2 SR  E_DART      seed 106  timeout   clr  1.46  t  40.0  inf 151  N 19.0  mpc   2.6 ms  err 2.05  xte 11.22  xmax 19.43  off 0.98  nrj 1
+WORLD SR seed 106 layout mixed nleg 3 dyn 0.28 nobj 33
+FAILINFO speed=2 SR E_DART seed 106 cls timeout-slow shape box dyn 0 tracked 0 infov 1 mode 2 speed 1.10 closing 1.10 static NaN prog10 7.6 layout mixed vdes 2
+[ 47/ 60] speed=2 SR  E_DART      seed 107  timeout   clr  0.52  t  40.0  inf 287  N 22.7  mpc   3.7 ms  err 0.79  xte 4.84  xmax 11.55  off 0.95  nrj 1
+WORLD SR seed 107 layout mixed nleg 3 dyn 0.18 nobj 42
+FAILINFO speed=2 SR E_DART seed 107 cls timeout-slow shape sphere dyn 0 tracked 1 infov 1 mode 2 speed 1.49 closing -0.06 static 1 prog10 12.7 layout mixed vdes 2
+[ 48/ 60] speed=2 SR  E_DART      seed 108  goal      clr  0.74  t  31.1  inf 143  N 24.9  mpc   3.7 ms  err 0.80  xte 1.53  xmax 4.66  off 0.57  nrj 1
+WORLD SR seed 108 layout uniform nleg 1 dyn 0.00 nobj 23
+[ 49/ 60] speed=2 SR  E_DART      seed 109  goal      clr  0.51  t  29.0  inf 112  N 23.6  mpc   3.6 ms  err 0.77  xte 3.43  xmax 7.40  off 0.87  nrj 1
+WORLD SR seed 109 layout clusters nleg 1 dyn 0.00 nobj 20
+[ 50/ 60] speed=2 SR  E_DART      seed 110  timeout   clr  1.22  t  40.0  inf 257  N 21.0  mpc   3.3 ms  err 2.02  xte 5.11  xmax 10.43  off 0.91  nrj 1
+WORLD SR seed 110 layout forest nleg 3 dyn 0.18 nobj 58
+FAILINFO speed=2 SR E_DART seed 110 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 1.98 closing -1.51 static 1 prog10 7.4 layout forest vdes 2
+[ 51/ 60] speed=2 SR  E_DART      seed 111  goal      clr  1.17  t  32.1  inf 139  N 21.3  mpc   3.2 ms  err 1.70  xte 9.37  xmax 13.60  off 0.97  nrj 1
+WORLD SR seed 111 layout forest nleg 2 dyn 0.28 nobj 54
+[ 52/ 60] speed=2 SR  E_DART      seed 112  timeout   clr  0.41  t  40.0  inf 222  N 21.9  mpc   3.4 ms  err 1.30  xte 7.79  xmax 15.78  off 0.94  nrj 1
+WORLD SR seed 112 layout clusters nleg 3 dyn 0.30 nobj 27
+FAILINFO speed=2 SR E_DART seed 112 cls timeout-slow shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 1.48 closing 0.48 static 1 prog10 21.0 layout clusters vdes 2
+[ 53/ 60] speed=2 SR  E_DART      seed 113  timeout   clr  0.78  t  40.0  inf 280  N 23.1  mpc   3.9 ms  err 1.82  xte 3.40  xmax 6.49  off 0.95  nrj 1
+WORLD SR seed 113 layout clusters nleg 1 dyn 0.19 nobj 27
+FAILINFO speed=2 SR E_DART seed 113 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 4.31 closing -1.06 static 1 prog10 6.6 layout clusters vdes 2
+[ 54/ 60] speed=2 SR  E_DART      seed 114  timeout   clr  1.48  t  40.0  inf 243  N 21.2  mpc   3.2 ms  err 1.66  xte 6.82  xmax 12.46  off 0.90  nrj 1
+WORLD SR seed 114 layout corridor nleg 1 dyn 0.30 nobj 27
+FAILINFO speed=2 SR E_DART seed 114 cls timeout-slow shape box dyn 0 tracked 1 infov 0 mode 2 speed 2.11 closing 0.18 static 0 prog10 12.7 layout corridor vdes 2
+[ 55/ 60] speed=2 SR  E_DART      seed 115  timeout   clr  0.57  t  40.0  inf 241  N 22.3  mpc   3.5 ms  err 1.60  xte 9.97  xmax 19.37  off 0.95  nrj 1
+WORLD SR seed 115 layout uniform nleg 1 dyn 0.12 nobj 31
+FAILINFO speed=2 SR E_DART seed 115 cls timeout-slow shape box dyn 0 tracked 0 infov 0 mode 2 speed 1.91 closing 1.47 static NaN prog10 22.7 layout uniform vdes 2
+[ 56/ 60] speed=2 SR  E_DART      seed 116  goal      clr  1.08  t  38.6  inf 148  N 24.2  mpc   3.5 ms  err 1.99  xte 6.82  xmax 12.74  off 0.92  nrj 1
+WORLD SR seed 116 layout corridor nleg 2 dyn 0.00 nobj 20
+[ 57/ 60] speed=2 SR  E_DART      seed 117  timeout   clr  1.04  t  40.0  inf 202  N 20.2  mpc   3.0 ms  err 1.31  xte 6.74  xmax 12.89  off 0.95  nrj 2
+WORLD SR seed 117 layout clusters nleg 3 dyn 0.17 nobj 21
+FAILINFO speed=2 SR E_DART seed 117 cls timeout-slow shape box dyn 0 tracked 1 infov 0 mode 2 speed 2.09 closing -0.47 static 1 prog10 14.9 layout clusters vdes 2
+[ 58/ 60] speed=2 SR  E_DART      seed 118  goal      clr  1.21  t  39.0  inf 185  N 20.8  mpc   3.1 ms  err 1.35  xte 6.65  xmax 13.52  off 0.91  nrj 2
+WORLD SR seed 118 layout clusters nleg 1 dyn 0.33 nobj 19
+[ 59/ 60] speed=2 SR  E_DART      seed 119  timeout   clr  0.70  t  40.0  inf 340  N 25.9  mpc   4.7 ms  err 1.62  xte 2.69  xmax 4.94  off 0.95  nrj 1
+WORLD SR seed 119 layout forest nleg 2 dyn 0.16 nobj 38
+FAILINFO speed=2 SR E_DART seed 119 cls timeout-slow shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 1.28 closing -0.35 static 1 prog10 21.2 layout forest vdes 2
+[ 60/ 60] speed=2 SR  E_DART      seed 120  timeout   clr  1.03  t  40.0  inf 255  N 21.2  mpc   3.3 ms  err 1.77  xte 7.23  xmax 11.71  off 0.95  nrj 1
+WORLD SR seed 120 layout corridor nleg 3 dyn 0.21 nobj 19
+FAILINFO speed=2 SR E_DART seed 120 cls timeout-slow shape box dyn 0 tracked 1 infov 0 mode 2 speed 2.99 closing -0.95 static 1 prog10 29.0 layout corridor vdes 2

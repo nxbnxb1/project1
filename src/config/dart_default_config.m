@@ -175,6 +175,8 @@ cfg.cbf.delta_a  = 0.3;              % inner-loop tracking error bound [m/s^2]
 cfg.cbf.slack_w  = 1e4;
 cfg.cbf.slack_w_alt = 1e6;           % separate, heavier slack of the altitude (ground) rows
 cfg.cbf.v_blind  = 1.5;              % max speed away from the camera view (blind motion) [m/s]; inf = off
+cfg.cbf.v_blind_lat = 1.0;           % max speed sideways beyond the edges of the field of view [m/s]
+cfg.cbf.fov_margin = 10 * pi/180;    % the field of view counts as hfov/2 - fov_margin
 cfg.cbf.fd_step  = 0.05;             % finite-difference step for d_eff rates
 
 % ------------------------------------------------------------- mission
@@ -201,6 +203,7 @@ cfg.ref.back     = 1.0;              % projection window behind / ahead of the l
 cfg.ref.fwd      = 8.0;
 cfg.yaw.rate_max = 1.5;              % [rad/s]
 cfg.yaw.v_thresh = 0.5;              % [m/s]
+cfg.yaw.T_look   = 0.6;              % look at the MPC's predicted position this far ahead [s]
 
 % -------------------------------------------------------- bookkeeping
 cfg.variant = 'DART';

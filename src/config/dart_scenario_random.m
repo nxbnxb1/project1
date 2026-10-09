@@ -124,6 +124,9 @@ world.c0 = S.c0; world.v = S.v; world.type = S.type; world.dim = S.dim;
 world.yaw = S.yaw; world.obj = S.obj; world.rho = bound_radius(S);
 world.meta = struct('layout', layout, 'nleg', nleg, 'shape_mix', pm, 'dyn_frac', dyn_frac, ...
     'n_prim', numel(S.type), 'n_obj', max([S.obj, 0]));
+% time limit long enough for the path at the (swept) cruise speed: a
+% timeout must mean "stuck or far too slow", not "slow cruise speed"
+cfg.sim.t_max = max(cfg.sim.t_max, 2.5 * G.L / cfg.ref.v_des + 10);
 if any(world.v(:))                                 % dynamic tracker prior (as S2)
     cfg.cbf.a_bar_o = 0.3;
     cfg.sched.v_unknown = 2.0;

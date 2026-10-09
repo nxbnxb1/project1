@@ -22,6 +22,17 @@ a = dart_cbf_filter([-1; 0; 0], p, vb, far_v, rk, cfg, eye(3));
 assert(a(1) > 0, 'blind backward motion should be braked');
 a = dart_cbf_filter([-1; 0; 0], p, vb, far_v, rk, cfg);
 assert(norm(a - [-1; 0; 0]) < 1e-12, 'no blind row without attitude');
+% field-of-view edges: flying sideways (90 deg off the optical axis, i.e.
+% into unobserved space) faster than v_blind_lat is braked; moving inside
+% the field of view (30 deg off axis) is not restricted
+vs = [0; 3; 0];
+rk = dart_risk_terms(far_v, p, vs, cfg);
+a = dart_cbf_filter([0; 1; 0], p, vs, far_v, rk, cfg, eye(3));
+assert(a(2) < 0, 'sideways motion beyond the field of view should be braked');
+vi = 3 * [cosd(30); sind(30); 0];
+rk = dart_risk_terms(far_v, p, vi, cfg);
+a = dart_cbf_filter([0.5; 0.5; 0], p, vi, far_v, rk, cfg, eye(3));
+assert(norm(a - [0.5; 0.5; 0]) < 1e-9, 'motion inside the field of view is free');
 cfg.cbf.enabled = false;
 a = dart_cbf_filter([2; 0; 0], p, v, near, rk, cfg);
 assert(isequal(a, [2; 0; 0]));

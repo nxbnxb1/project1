@@ -20,11 +20,14 @@ function [a_safe, info] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB)
 %     original proposal, corrected for the time-varying d(t):
 %       2 r'a <= 2|v_r|^2 - 2|r|(a_bar_o + delta_a) - 2 ddot^2 - 2 d dddot
 %                + k1 hdot + k0 h,   hdot = 2 r'v_r - 2 d ddot.
-%   Blind-motion row (if R_IB is given and cbf.v_blind < inf): the speed
+%   Blind-motion rows (if R_IB is given and cbf.v_blind < inf): the speed
 %   AWAY from the camera's viewing direction f (horizontal optical axis) is
-%   kept below v_blind, h = v_blind + f'v, hdot = f'a >= -alpha h. Space
-%   behind the vehicle is not observed; a large escape speed into it is
-%   only as safe as the obstacle memory (Sec. 5.3).
+%   kept below v_blind, h = v_blind + f'v, hdot = f'a >= -alpha h, and the
+%   speed SIDEWAYS beyond either edge of the field of view (half-angle
+%   hfov/2 - fov_margin, outward normal n_e) below v_blind_lat,
+%   h = v_blind_lat - n_e'v. Space outside the field of view is not
+%   observed; fast motion into it is only as safe as the obstacle memory
+%   (Sec. 5.3) - in random worlds most collisions were of this kind.
 %   Two HOCBF rows keep the altitude inside [z_min, z_max] (the ground is
 %   an obstacle too); they have their own, much heavier slack so that a
 %   conflict among obstacle rows can never relax the ground constraint.
@@ -40,7 +43,7 @@ k1 = cb.p1 + cb.p2;
 k0 = cb.p1 * cb.p2;
 use = find(rk.dc < cb.d_active);
 n = numel(use);
-G = zeros(n + 3, 3); h_rhs = zeros(n + 3, 1);
+G = zeros(n + 5, 3); h_rhs = zeros(n + 5, 1);
 dl = cb.fd_step;
 Pq = cfg.est.sigma_p^2 * eye(3);
 beta_s = cfg.mpc.beta_s;
@@ -89,6 +92,17 @@ if nargin >= 7 && isfinite(cb.v_blind)
         n = n + 1;
         G(n, :) = -f.';
         h_rhs(n) = cb.alpha * (cb.v_blind + f.' * v);
+        % lateral edges of the field of view: the velocity component beyond
+        % each edge (outward normal n_e) is kept below v_blind_lat,
+        % h = v_blind_lat - n_e'v, hdot = -n_e'a >= -alpha h
+        th = cfg.cam.hfov / 2 - cb.fov_margin;
+        for sg = [-1 1]
+            ce = cos(sg * th + sg * pi / 2); se = sin(sg * th + sg * pi / 2);
+            ne = [ce * f(1) - se * f(2); se * f(1) + ce * f(2); 0];
+            n = n + 1;
+            G(n, :) = ne.';
+            h_rhs(n) = cb.alpha * (cb.v_blind_lat - ne.' * v);
+        end
     end
 end
 n_soft = n;

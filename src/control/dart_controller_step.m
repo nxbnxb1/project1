@@ -65,7 +65,8 @@ a_ref = sol.U(:, j);
 ctrl.u_prev = a_safe;
 
 % ---------------------------------------------------------- 7. yaw
-ctrl.psi = dart_yaw_policy(ctrl.psi, v, p, ctrl.target, cfg.sim.dt_ctrl, cfg);
+jl = min(max(round((t + cfg.yaw.T_look - sol.t0) / sol.dt), 1), sol.N);
+ctrl.psi = dart_yaw_policy(ctrl.psi, v, p, ctrl.target, cfg.sim.dt_ctrl, cfg, sol.P(:, jl));
 cmd = [a_safe; ctrl.psi];
 
 % -------------------------------------------------------- diagnostics
