@@ -27,7 +27,7 @@ function cfg = dart_apply_variant(cfg, name)
 %             DART_APPLY_TRADEOFF, called by DART_RUN_CASE (callers of
 %             DART_SIM must call it themselves)
 %   MEM<d>    E with an obstacle memory of d metres (cfg.trk.forget_dist = d;
-%             default 0: tracks are forgotten as soon as they leave the view)
+%             default 10; MEM0: tracks forgotten as soon as they leave the view)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),

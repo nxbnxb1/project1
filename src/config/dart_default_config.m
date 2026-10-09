@@ -92,8 +92,9 @@ cfg.lat.P_gpu      = 15;             % accelerator power while inferring [W]
 % no motion model). Moving obstacles exist only in some TEST worlds.
 cfg.trk.q_static   = 1e-4;           % process-noise PSD of a static landmark [m^2/s^3]
 cfg.trk.sigma_v_static = 0;          % velocity prior std (0: velocity identically zero) [m/s]
-cfg.trk.forget_dist = 0;             % memory range: a track out of view is forgotten beyond this [m]
-%                                     (0: no memory - forgotten as soon as it leaves the view; minimal compute)
+cfg.trk.forget_dist = 10;            % memory range: a track out of view is forgotten beyond this [m]
+%                                     (0: no memory - an obstacle that left the view is unknown until
+%                                     the next inference; this caused collisions, see MEM<d> variants)
 cfg.trk.gate       = 16.27;          % chi2(3) 99.9 % innovation gate
 cfg.trk.max_reject = 3;              % consecutive rejections before re-init (oracle association only)
 cfg.trk.oracle_assoc = false;        % true: slot = ray-caster instance id (needs seg.oracle; ablation only)

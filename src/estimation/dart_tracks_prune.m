@@ -1,13 +1,14 @@
 function trk = dart_tracks_prune(trk, t, p, R_IB, cfg)
-%DART_TRACKS_PRUNE Forget tracks that have left the field of view (method §6).
-%   To keep the computation minimal there is no obstacle memory by
-%   default: a track is forgotten as soon as its sphere is entirely out of
-%   view (cfg.trk.forget_dist = 0). With forget_dist > 0 a track out of
-%   view is kept while it is closer than forget_dist (a local memory, at
-%   the cost of predicting, risk-checking and constraining more tracks).
-%   Without memory, sideways or backward motion into space that is out of
-%   view is protected only by the blind-motion rows of the CBF filter
-%   (speed limits beyond the field of view, method §9.3).
+%DART_TRACKS_PRUNE Forget tracks that are out of view and far (method §6).
+%   Tracks are static landmarks and form a local obstacle memory: a track
+%   whose sphere is entirely out of view is kept while it is closer than
+%   cfg.trk.forget_dist (default 10 m) and forgotten beyond. Keeping a
+%   track costs a few hundred operations per control tick, orders of
+%   magnitude less than one depth inference. With forget_dist = 0 (no
+%   memory, variant MEM0) an obstacle that left the view during a turn is
+%   unknown until the next inference when it comes back into view, and
+%   sideways or backward motion is protected only by the blind-motion rows
+%   of the CBF filter - this caused collisions.
 %   (A track of an obstacle that has moved away is removed in view, after
 %   missed detections, by DART_TRACKS_PROCESS_MSG.)
 ids = find(trk.active);

@@ -21,7 +21,7 @@ Mạng depth monocular chạy chậm (5–15 Hz) và trễ (50–200 ms) so vớ
 
 **Phạm vi:** tránh **vật cản tĩnh** với chi phí tính toán thấp nhất (suy luận ảnh là phần tốn compute nhất). Thuật toán coi mọi vật là tĩnh; vật di chuyển chỉ có trong một phần **thế giới kiểm thử** (kết quả báo cáo riêng hai nhóm), và thuật toán không được báo thế giới nào có chúng.
 
-0. **Không có "đáp án"**: UAV chỉ nhận ảnh depth của mạng; nó **tự phân đoạn** vật cản (vùng depth liên thông), biểu diễn mỗi vùng bằng một hoặc nhiều **hình cầu phủ** bề mặt (vật dài/dẹt như tường, cột bị chia), và **ghép với track không cần định danh** (cổng Mahalanobis + láng giềng gần nhất). Mỗi track là một **mốc tĩnh** (không ước lượng vận tốc); mặc định **không có bộ nhớ**: track ra khỏi trường nhìn là bị quên ngay (`cfg.trk.forget_dist = 0`).
+0. **Không có "đáp án"**: UAV chỉ nhận ảnh depth của mạng; nó **tự phân đoạn** vật cản (vùng depth liên thông), biểu diễn mỗi vùng bằng một hoặc nhiều **hình cầu phủ** bề mặt (vật dài/dẹt như tường, cột bị chia), và **ghép với track không cần định danh** (cổng Mahalanobis + láng giềng gần nhất). Mỗi track là một **mốc tĩnh** (không ước lượng vận tốc); track ra khỏi trường nhìn được giữ làm **bộ nhớ trong 10 m** (`cfg.trk.forget_dist = 10`) — quên ngay (0 m) đã được thử và gây va chạm.
 1. **Bù trễ**: mỗi ảnh được gắn thời điểm chụp `t_c`; phép đo được chuyển sang khung quán tính bằng pose tại `t_c` và cập nhật Kalman **tại `t_c`**, rồi dự đoán tới hiện tại. Với một inference engine (tối đa một frame đang xử lý) cách làm này *chính xác*, không xấp xỉ.
 2. **Lập lịch perception theo an toàn**: khoảng quét `T_scan` được tính từ khoảng cách bảo thủ, tốc độ tiếp cận, khả năng phanh, độ trễ và độ bất định — có thêm ràng buộc **frontier** cho vật cản chưa nhìn thấy. Xa/chậm/chắc chắn → quét thưa; gần/nhanh/bất định → quét dày.
 3. **MPC horizon thích nghi**: `N_k` lớn lên theo rủi ro (TTC), quãng phanh, và thời điểm có phép đo kế tiếp; ràng buộc vật cản được lồi hoá bằng nửa không gian tiếp tuyến (đủ an toàn) và tập kết thúc "dừng an toàn".
@@ -148,7 +148,7 @@ Thêm `Z_ZHUYI` (scheduler kiểu Zhuyi: không bất định, không frontier),
 
 ### Kết quả vòng 2 trên thế giới ngẫu nhiên SR (phiên bản trước khi thu hẹp về vật tĩnh)
 
-> Vòng này chạy phiên bản còn theo dõi vật di chuyển và giữ track trong 10 m; phương pháp hiện tại (chỉ vật tĩnh, không bộ nhớ) đang được đo lại.
+> Vòng này chạy phiên bản còn theo dõi vật di chuyển; phương pháp hiện tại (chỉ vật tĩnh, mốc tĩnh, bộ nhớ 10 m) đang được đo lại.
 
 120 thế giới ngẫu nhiên × 4 tốc độ × 3 mức κ = 1440 lượt (code `d3ed301`, MATLAB engine, không giới hạn thời gian). Chi tiết, phân loại nguyên nhân và log gốc: [`docs/results/random_worlds.md`](docs/results/random_worlds.md).
 
@@ -200,7 +200,7 @@ run_ablation('scenarios', {'SR'}, 'seeds', 1:5, 'variants', {'K0', 'K50'}, 'swee
 
 * Mạng depth được thay bằng mô hình sai số tổng hợp trên ảnh depth ray-casting (không render RGB). UAV **không** nhận nhãn vật thể: tự phân đoạn ảnh depth và ghép track không định danh (`dart_segment_depth.m`, `dart_tracks_process_msg.m`); nhãn thật chỉ dùng để chấm điểm và cho biến thể đối chứng `O_ORACLE`. Phân đoạn giả định vật cản (kể cả tường, cột) nằm trước nền trống: mặt đất và nền phía sau không được render.
 * Vật cản bất kỳ được phủ bằng hình cầu: bảo thủ với vật dẹt/dài; phần bị che chỉ biết khi nhìn thấy.
-* Chỉ vật cản tĩnh: vật di chuyển chỉ được theo bằng phát hiện lại. Mặc định không có bộ nhớ ngoài trường nhìn: vật vừa rời khỏi trường nhìn chỉ được biết lại sau một lần suy luận mới; cái giá an toàn của lựa chọn này đang được đo (`MEM0` / `MEM3` / `MEM10`).
+* Chỉ vật cản tĩnh: vật di chuyển chỉ được theo bằng phát hiện lại, không dự đoán chuyển động. Bộ nhớ vật cản 10 m (`MEM0` / `MEM3` / `MEM10` để so sánh).
 * MPC là planner cục bộ: ở κ nhỏ có thể kẹt trước khe hẹp (khe 2 m bị đóng có chủ đích khi κ ≲ 0.15).
 * CBF trên trạng thái ước lượng: an toàn mang tính xác suất qua hệ số `beta_s` (không bảo đảm qua bước nhảy lớn bất thường của cập nhật Kalman); khi độ phồng đang tăng, bảo đảm h ≥ 0 chỉ là mềm (slack).
 * Hai engine (MATLAB / Simulink) cho quỹ đạo khác nhau sau một quyết định rời rạc (hệ hỗn loạn sát biên); kết luận an toàn được phát biểu ở dạng thống kê.
