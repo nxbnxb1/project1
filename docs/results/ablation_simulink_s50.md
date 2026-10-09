@@ -53,4 +53,4 @@
 4. **Thành phần bất định + frontier của scheduler (E so với Z_ZHUYI).** Z_ZHUYI dùng ít suy luận hơn E nhưng ở S3 (trễ 160 ms, nhiễu lớn) có 1/50 va chạm và 5/50 timeout, so với 0 và 0 của E_DART. Bằng chứng có lợi nhưng yếu (khoảng tin cậy va chạm còn chồng nhau).
 5. **Horizon thích nghi** (C so với A, D so với B) vẫn chưa cho lợi ích an toàn rõ ràng.
 
-Hệ quả cho bài báo: với các thiết lập hiện tại (3 m/s), đóng góp "lập lịch perception theo an toàn" **chưa được chứng minh** bằng thực nghiệm. Đang chờ quét tốc độ (3–6 m/s) để kiểm tra giả thuyết rằng một tần số cố định thấp sẽ thất bại khi tốc độ/độ trễ tăng, còn scheduler thích nghi thì không.
+Hệ quả cho bài báo: với các thiết lập hiện tại (tốc độ hành trình 4 m/s), đóng góp "lập lịch perception theo an toàn" **chưa được chứng minh** bằng thực nghiệm. Đang chờ quét tốc độ (3–6 m/s) để kiểm tra giả thuyết rằng một tần số cố định thấp sẽ thất bại khi tốc độ/độ trễ tăng, còn scheduler thích nghi thì không.
