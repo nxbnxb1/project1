@@ -18,13 +18,40 @@ function rj = dart_rejoin_update(rj, G, p, ob, cfg)
 %   is clear, otherwise a new detour (blocked) or a short rejoin towards a
 %   point ref.L_min ahead. TRACK switches to such a short rejoin when the
 %   cross-track error exceeds ref.e_off.
+%   The short segment itself is planned by DART_DETOUR_PLAN (shortest
+%   collision-free polyline in the horizontal plane to Gamma(s_r), rj.W);
+%   with ref.plan = false it is the straight segment p -> Gamma(s_r).
 %   rj.mode: 1 = TRACK, 2 = REJOIN (ref.mode = 'goal' uses 0, no path).
 rf = cfg.ref;
+if ~isfield(rj, 'W'), rj.W = zeros(3, 0); rj.n_plan = 0; end
 [rj.s0, rj.e_lat] = dart_path_project(G, p, rj.s0 - rf.back, rj.s0 + rf.fwd);
 if strcmp(rf.mode, 'track')
     rj.mode = 1;
     return
 end
+rj = mode_logic(rj, G, ob, rf, cfg);
+if rj.mode ~= 2 || ~rf.plan
+    rj.W = zeros(3, 0);
+    return
+end
+% ---- the short segment: shortest collision-free polyline to Gamma(s_r),
+%      kept (committed) while it stays valid; waypoints that can be cut
+%      (the rest of the detour is visible from p) are dropped
+q = dart_path_point(G, rj.s_r);
+replan = isempty(rj.W) || norm(rj.W(:, end) - q) > 0.25;
+if ~replan
+    while size(rj.W, 2) > 1 && dart_detour_valid(p, rj.W(:, 2:end), ob, cfg)
+        rj.W = rj.W(:, 2:end);
+    end
+    replan = ~dart_detour_valid(p, rj.W, ob, cfg);
+end
+if replan
+    rj.W = dart_detour_plan(p, q, ob, cfg);
+    rj.n_plan = rj.n_plan + 1;
+end
+end
+
+function rj = mode_logic(rj, G, ob, rf, cfg)
 if rj.mode == 2 && rj.s_r > rj.s0
     % rejoining: only a blocked run that begins before the planned rejoin
     % point invalidates it and moves it further; a run farther ahead is a

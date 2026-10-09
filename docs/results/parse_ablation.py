@@ -10,7 +10,7 @@ PAT = re.compile(r'\]\s+(S\d)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s
                  r'\s+inf\s+(\d+)\s+N\s+([\d.]+)\s+mpc\s+([\d.]+)\s+ms(?:\s+err\s+([\d.]+|NaN))?'
                  r'(?:\s+xte\s+([\d.]+)\s+xmax\s+([\d.]+)\s+off\s+([\d.]+)\s+nrj\s+(\d+))?')
 ORDER = ['A_FR_FN', 'B_AP_FN', 'C_FR_AN', 'D_AP_AN', 'E_DART', 'F_NODELAY', 'G_FR_LOW', 'Z_ZHUYI',
-         'O_ORACLE', 'R_GOAL', 'R_TRACK']
+         'O_ORACLE', 'R_GOAL', 'R_TRACK', 'R_STRAIGHT']
 
 
 def wilson(k, n, z=1.96):

@@ -20,13 +20,29 @@ rj = dart_rejoin_update(rj, G, [6; 0; 2], ob, cfg);
 assert(rj.mode == 2 && rj.n_rejoin == 1, 'obstacle on the path must start a detour');
 s_exp = 10 + sqrt(d^2 - 0.3^2) + cfg.ref.m_rejoin;   % end of the blocked stretch + margin
 assert(abs(rj.s_r - s_exp) < cfg.ref.ds + 1e-9, 'rejoin point is not the earliest clear point');
-% redrawn reference: from the CURRENT (off-path) position towards Gamma(s_r)
+% redrawn reference: from the CURRENT (off-path) position, around the
+% obstacle (planned polyline keeps the body clearance rho + d_s + margin;
+% the uncertainty inflation is left to the MPC / CBF) to Gamma(s_r)
+d_plan = ob.rho + cfg.sched.d_s + cfg.ref.margin;
 p0 = [7; 1.5; 2];
 rj = dart_rejoin_update(rj, G, p0, ob, cfg);
+assert(norm(rj.W(:, end) - [rj.s_r; 0; 2]) < 1e-9, 'detour must end at the rejoin point');
+X = [p0, rj.W];
+for i = 1:size(X, 2) - 1
+    A = X(1:2, i); D = X(1:2, i + 1) - A;
+    t = min(max(D.' * (ob.c(1:2) - A) / (D.' * D), 0), 1);
+    assert(norm(A + t * D - ob.c(1:2)) >= d_plan - 1e-6, 'planned detour cuts the obstacle clearance');
+end
 [pr, ~, target] = dart_reference_path(p0, G, rj, 10, 0.1, cfg.ref.v_des, cfg.ref.a_dec, cfg.ref.L_look);
-assert(norm(target - [rj.s_r; 0; 2]) < 1e-9);
-u = (target - p0) / norm(target - p0);
+assert(norm(target - rj.W(:, 1)) < 1e-12);
+u = (rj.W(:, 1) - p0) / norm(rj.W(:, 1) - p0);
 assert(norm(pr(:, 1) - (p0 + u * cfg.ref.v_des * 0.1)) < 1e-9, 'reference must start at the vehicle');
+% without planning: straight segment to the rejoin point
+cfg2 = cfg; cfg2.ref.plan = false;
+rjs = dart_rejoin_update(rj, G, p0, ob, cfg2);
+[pr, ~, target] = dart_reference_path(p0, G, rjs, 10, 0.1, cfg.ref.v_des, cfg.ref.a_dec, cfg.ref.L_look);
+u = (target - p0) / norm(target - p0);
+assert(isempty(rjs.W) && norm(target - [rjs.s_r; 0; 2]) < 1e-9 && norm(pr(:, 1) - (p0 + u * cfg.ref.v_des * 0.1)) < 1e-9);
 % a far obstacle does not start a detour; obstacle passed + on the path -> TRACK
 ob2 = ob; ob2.c = [10 + cfg.ref.L_trig + 6; 0; 2];
 rj2 = dart_rejoin_update(struct('mode', 1, 's0', 0, 'e_lat', 0, 's_r', 0, 'n_rejoin', 0), G, [6; 0; 2], ob2, cfg);

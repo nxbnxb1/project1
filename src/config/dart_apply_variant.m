@@ -18,6 +18,8 @@ function cfg = dart_apply_variant(cfg, name)
 %   R_GOAL    E without the set path: carrot straight to the goal (old reference)
 %   R_TRACK   E tracking the set path at all times (deviation always
 %             penalised, no rejoin segment)
+%   R_STRAIGHT E with the rejoin segment drawn as a straight line to the
+%             rejoin point (no detour plan around the obstacles)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
@@ -67,6 +69,9 @@ switch name
     case 'R_TRACK'
         cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
         cfg.ref.mode = 'track';
+    case 'R_STRAIGHT'
+        cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+        cfg.ref.plan = false;
     case 'G_FR_LOW'
         cfg = set_layers(cfg, 'fixed', 'adaptive', true);
         cfg.sched.f_fixed = 3;

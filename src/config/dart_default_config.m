@@ -191,6 +191,10 @@ cfg.ref.tol_s    = 0.5;              % rejoin point reached when s0 >= s_r - tol
 cfg.ref.e_on     = 0.3;              % ... and the cross-track error <= e_on [m]
 cfg.ref.e_off    = 1.0;              % TRACK -> REJOIN when the cross-track error exceeds this [m]
 cfg.ref.L_min    = 3.0;              % rejoin point ahead when merely off the path [m]
+cfg.ref.plan     = true;             % plan the short segment around the obstacles (false: straight to the rejoin point)
+cfg.ref.n_vert   = 8;                % polygon vertices per obstacle disc in the detour plan
+cfg.ref.T_move   = 0.5;              % extra disc radius |v_o| * T_move for moving obstacles [s]
+cfg.ref.valid_tol = 0.9;             % keep the planned detour while it clears 0.9 x the disc radii
 cfg.ref.back     = 1.0;              % projection window behind / ahead of the last progress [m]
 cfg.ref.fwd      = 8.0;
 cfg.yaw.rate_max = 1.5;              % [rad/s]

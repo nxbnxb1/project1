@@ -75,8 +75,9 @@ for row in det:
                  f'{W1[j - 1, 6]:.2f}', f'{row[4]:.2f}', f'{int(row[5])}'])
 rows.sort(key=lambda r: float(r[1]))
 ta = fig.add_axes([0.52, 0.04, 0.45, 0.34]); ta.axis('off')
-tb = ta.table(cellText=rows, colLabels=['vùng → cầu thật\n(chỉ để chấm)', 'k/c tâm\nthật [m]', 'k/c tâm\nđo [m]', 'bán kính\nthật [m]', 'bán kính\nđo [m]', 'số\npixel'],
-              loc='upper center', cellLoc='center', bbox=[0, 0, 1, 1])
+tb = ta.table(cellText=rows, colLabels=['vùng → cầu thật\n(chỉ để chấm điểm)', 'k/c tâm\nthật [m]', 'k/c tâm\nđo [m]', 'bán kính\nthật [m]', 'bán kính\nđo [m]', 'số\npixel'],
+              loc='upper center', cellLoc='center', bbox=[0, 0, 1, 1],
+              colWidths=[0.24, 0.15, 0.15, 0.15, 0.15, 0.12])
 tb.auto_set_font_size(False); tb.set_fontsize(8)
 for (r, c), cell in tb.get_celld().items():
     cell.set_edgecolor(GRID); cell.set_facecolor(SURF); cell.get_text().set_color(INK if r else INK2)
