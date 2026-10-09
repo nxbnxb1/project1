@@ -61,6 +61,13 @@ cfg.depth.sigma_px_slope = 0.004;    % growth of per-pixel noise with range [1/m
 cfg.depth.p_outlier     = 0.02;      % probability of an outlier pixel
 cfg.depth.sigma_ang     = 0.5 * pi/180; % residual bearing error [rad]
 
+% ------------------------- obstacle segmentation of the depth image (Sec. 4)
+% The vehicle only sees the network's depth image: no instance labels.
+cfg.seg.oracle  = false;             % true: ray-caster instance labels (old assumption A6, ablation only)
+cfg.seg.tau_out = 0.25;              % outlier: |log d - 3x3 median| above this
+cfg.seg.tau0    = 0.05;              % neighbours joined if |dlog d| <= tau0 + k_sig * sigma_px(d)
+cfg.seg.k_sig   = 0.5;               % (calibrated on held-out scenario seeds 100-149)
+
 % ---------------------------------------------------- perception latency
 cfg.lat.t_capture  = 0.005;          % exposure + readout [s]
 cfg.lat.t_comm     = 0.010;          % transfer / middleware [s]
@@ -87,7 +94,10 @@ cfg.trk.mu_revert  = 0.5;            % hysteresis: back to dynamic if the probab
 cfg.trk.v_revert   = 0.8;            % ... or CV speed > this [m/s]
 cfg.trk.forget_dist = 10.0;          % static tracks are forgotten only beyond this range [m]
 cfg.trk.gate       = 16.27;          % chi2(3) 99.9 % innovation gate
-cfg.trk.max_reject = 3;              % consecutive rejections before re-init
+cfg.trk.max_reject = 3;              % consecutive rejections before re-init (oracle association only)
+cfg.trk.oracle_assoc = false;        % true: slot = ray-caster instance id (needs seg.oracle; ablation only)
+cfg.trk.n_confirm  = 2;              % a track with fewer updates is tentative (deleted at its first miss)
+cfg.trk.n_miss     = 3;              % consecutive misses (expected in view, not detected) before deletion
 cfg.trk.rho_alpha  = 0.3;            % EWMA factor of the radius estimate
 cfg.trk.max_tracks = 64;
 cfg.trk.delay_comp = true;           % update at capture time (Eq. 23-27)
@@ -168,6 +178,21 @@ cfg.cbf.fd_step  = 0.05;             % finite-difference step for d_eff rates
 % ------------------------------------------------------------- mission
 cfg.ref.v_des    = 4.0;              % cruise speed [m/s]
 cfg.ref.a_dec    = 1.5;              % deceleration used near the goal
+% set path (the mission's reference trajectory) and rejoin logic (Sec. 9.1)
+cfg.ref.mode     = 'rejoin';         % 'rejoin' | 'track' (always penalise deviation from the path)
+%                                      | 'goal' (old carrot straight to the goal, no path)
+cfg.ref.L_look   = 10.0;             % look-ahead along the path for blocking obstacles [m]
+cfg.ref.L_trig   = 6.0;              % a detour starts when a blocked stretch begins this close ahead [m]
+cfg.ref.ds       = 0.25;             % sampling of the path [m]
+cfg.ref.margin   = 0.20;             % extra clearance for "blocked" [m]
+cfg.ref.gap_merge = 4.0;             % blocked stretches closer than this are one (~1 s at cruise) [m]
+cfg.ref.m_rejoin = 1.0;              % rejoin this far behind the blocked stretch [m]
+cfg.ref.tol_s    = 0.5;              % rejoin point reached when s0 >= s_r - tol_s [m]
+cfg.ref.e_on     = 0.3;              % ... and the cross-track error <= e_on [m]
+cfg.ref.e_off    = 1.0;              % TRACK -> REJOIN when the cross-track error exceeds this [m]
+cfg.ref.L_min    = 3.0;              % rejoin point ahead when merely off the path [m]
+cfg.ref.back     = 1.0;              % projection window behind / ahead of the last progress [m]
+cfg.ref.fwd      = 8.0;
 cfg.yaw.rate_max = 1.5;              % [rad/s]
 cfg.yaw.v_thresh = 0.5;              % [m/s]
 

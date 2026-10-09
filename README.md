@@ -126,9 +126,13 @@ Model được sinh lại từ mã ở mỗi lần CI nên luôn khớp với m�
 | F_NODELAY | thích nghi | thích nghi | ✓ | – |
 | G_FR_LOW | cố định 3 Hz | thích nghi | ✓ | ✓ |
 
-Thêm `Z_ZHUYI` (scheduler kiểu Zhuyi: không bất định, không frontier), `FR_SAFE_f` (đủ lớp an toàn, perception cố định f Hz) và `FN_SAFE_n` (horizon cố định n).
+Thêm `Z_ZHUYI` (scheduler kiểu Zhuyi: không bất định, không frontier), `O_ORACLE` (perception "biết đáp án" như bản cũ: nhãn instance của ray-caster, ghép theo ID thật), `R_GOAL` (tham chiếu cũ thẳng tới đích, không có quỹ đạo đặt), `R_TRACK` (luôn bám quỹ đạo đặt, sai lệch luôn bị phạt), `FR_SAFE_f` (đủ lớp an toàn, perception cố định f Hz) và `FN_SAFE_n` (horizon cố định n).
+
+**Quỹ đạo đặt và đoạn quay về** (mặc định, `cfg.ref.mode = 'rejoin'`): UAV bám quỹ đạo đặt `world.path`; khi quỹ đạo phía trước bị vật cản chặn, tham chiếu được vẽ lại thành một đoạn ngắn từ vị trí hiện tại tới điểm sớm nhất của quỹ đạo đặt nằm sau đoạn bị chặn, và trong lúc quay về sai lệch khỏi quỹ đạo đặt không bị phạt (`src/planning/`).
 
 ### Kết quả (50 seed mỗi cấu hình, khoảng tin cậy Wilson 95%)
+
+> **Lưu ý:** các kết quả trong mục này được chạy với phiên bản cũ (commit `3438b2b`): perception nhận nhãn instance thật từ ray-caster và tham chiếu thẳng tới đích. Phiên bản hiện tại (UAV tự phân đoạn, không có nhãn; quỹ đạo đặt + đoạn quay về) đang được chạy lại; các con số dưới đây chưa áp dụng cho nó.
 
 Chi tiết và dữ liệu thô: [`docs/results/final_ablation_simulink.md`](docs/results/final_ablation_simulink.md) (Simulink, 1200 lượt) và [`docs/results/final_sweeps.md`](docs/results/final_sweeps.md) (quét tốc độ / độ trễ / sai số depth / horizon, 12 100 lượt).
 
@@ -161,7 +165,7 @@ run_ablation('scenarios', {'S1'}, 'seeds', 1:5);       % ghi results/ablation
 
 ## 6. Giới hạn hiện tại
 
-* Mạng depth được thay bằng mô hình sai số tổng hợp trên ảnh depth ray-casting (không render RGB); liên kết dữ liệu dùng định danh instance lý tưởng.
+* Mạng depth được thay bằng mô hình sai số tổng hợp trên ảnh depth ray-casting (không render RGB). UAV **không** nhận nhãn vật thể: tự phân đoạn ảnh depth và ghép track không định danh (`dart_segment_depth.m`, `dart_tracks_process_msg.m`); nhãn thật chỉ dùng để chấm điểm và cho biến thể đối chứng `O_ORACLE`. Phân đoạn giả định vật cản nằm trước nền trống (chưa có mặt đất/tường).
 * Vật cản dạng cầu; tường/cột cần hình học khác.
 * CBF trên trạng thái ước lượng: an toàn mang tính xác suất qua hệ số `beta_s` (không bảo đảm qua bước nhảy lớn bất thường của cập nhật Kalman); khi độ phồng đang tăng, bảo đảm h ≥ 0 chỉ là mềm (slack).
 * Hai engine (MATLAB / Simulink) cho quỹ đạo khác nhau sau một quyết định rời rạc (hệ hỗn loạn sát biên); kết luận an toàn được phát biểu ở dạng thống kê.

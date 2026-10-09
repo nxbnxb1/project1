@@ -19,6 +19,22 @@ m.clear_p05 = prctile_(L.clear, 5);
 m.mean_speed = path_len / t_end;
 m.path_eff  = norm(world.goal - world.start) / max(path_len, 1e-6) * m.success;
 
+% ---- set path: cross-track error of the TRUE position (evaluation only)
+if isfield(world, 'path'), W = world.path; else, W = [world.start, world.goal]; end
+G = dart_path_init(W);
+xte = zeros(1, size(P, 2));
+sp = 0;
+for k = 1:size(P, 2)
+    [sp, xte(k)] = dart_path_project(G, P(:, k), sp - 2, sp + 10);
+end
+m.xte_mean = mean(xte);
+m.xte_rms  = sqrt(mean(xte.^2));
+m.xte_max  = max(xte);
+m.off_frac = mean(xte > 0.5);            % fraction of time farther than 0.5 m from the path
+nr = D('n_rejoin');
+m.n_rejoin = nr(end);
+m.rejoin_frac = mean(D('ref_mode') == 2);
+
 % ---- perception load
 trig_t = L.t(L.trig > 0.5);
 m.n_infer   = res.perc.n_capt;
@@ -48,14 +64,16 @@ m.cbf_dev    = mean(D('cbf_dev'));
 m.emerg_frac = mean(D('emergency'));
 
 % ---- estimation: error of the most critical track w.r.t. ground truth
+%      (evaluation only: tracks carry no identity, so the estimate is
+%      compared with the nearest true obstacle centre at that time)
 ids = D('near_id');
 C = [D('near_cx'); D('near_cy'); D('near_cz')];
 k = find(ids > 0);
 err = zeros(1, numel(k));
 for i = 1:numel(k)
     j = k(i);
-    ct = world.c0(:, ids(j)) + world.v(:, ids(j)) * L.t(j);
-    err(i) = norm(C(:, j) - ct);
+    ct = world.c0 + world.v * L.t(j);
+    err(i) = min(sqrt(sum((ct - C(:, j)).^2, 1)));
 end
 m.est_err = mean_(err);
 m.est_err_p95 = prctile_(err, 95);

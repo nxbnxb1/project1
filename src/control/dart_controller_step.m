@@ -42,8 +42,15 @@ if t >= ctrl.t_next_mpc - 1e-9
     tinfo = struct('T_new', ctrl.hz.T_new, 'T_period', max(sch.T_scan, sch.tau_hat));
     v_cap = inf;
     if sch.emergency, v_cap = sch.v_cap; end
-    ctrl.sol = dart_mpc(p, v, ctrl.u_prev, ctrl.goal, ob, rk, N, tinfo, ...
+    if strcmp(cfg.ref.mode, 'goal')
+        ref = ctrl.goal;
+    else
+        ctrl.rj = dart_rejoin_update(ctrl.rj, ctrl.G, p, ob, cfg);   % TRACK / REJOIN
+        ref = struct('G', ctrl.G, 'rj', ctrl.rj);
+    end
+    ctrl.sol = dart_mpc(p, v, ctrl.u_prev, ref, ob, rk, N, tinfo, ...
         v_cap, ctrl.sol, t, cfg);
+    ctrl.target = ctrl.sol.target;
     ctrl.last_N = N;
     ctrl.t_next_mpc = max(ctrl.t_next_mpc, t) + cfg.mpc.period;
     if ~isfinite(ctrl.t_next_mpc), ctrl.t_next_mpc = t + cfg.mpc.period; end
@@ -58,7 +65,7 @@ a_ref = sol.U(:, j);
 ctrl.u_prev = a_safe;
 
 % ---------------------------------------------------------- 7. yaw
-ctrl.psi = dart_yaw_policy(ctrl.psi, v, p, ctrl.goal, cfg.sim.dt_ctrl, cfg);
+ctrl.psi = dart_yaw_policy(ctrl.psi, v, p, ctrl.target, cfg.sim.dt_ctrl, cfg);
 cmd = [a_safe; ctrl.psi];
 
 % -------------------------------------------------------- diagnostics
@@ -71,5 +78,6 @@ dg = [ctrl.last_N; sch.T_scan; ctrl.hz.rho; min(ctrl.hz.ttc, 99); min(min_dc, 99
       numel(ob.id); double(sch.emergency); trigger; double(cbf.active); cbf.slack; ...
       sol.time * solved; sol.iter; sol.status; norm(a_safe - a_ref); sch.tau_hat; ...
       latency; n_det; min(cbf.h_min, 999); norm(v); sol.nrow; ...
-      near_id; near_c; solved; ctrl.trk.n_gate_rej];
+      near_id; near_c; solved; ctrl.trk.n_gate_rej; ctrl.trk.n_del; ...
+      ctrl.rj.mode; ctrl.rj.e_lat; ctrl.rj.s0; ctrl.rj.s_r; ctrl.rj.n_rejoin];
 end

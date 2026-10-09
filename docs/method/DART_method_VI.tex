@@ -69,6 +69,8 @@ R9 & Reset hiệp phương sai dự kiến (gốc 79--80) chỉ một lần và 
 R10 & Track không được quan sát lại có $\sigma$ tăng vô hạn $\Rightarrow$ ``quả cầu bất định'' nở ra và đẩy UAV đi mãi (đã quan sát trong mô phỏng). Ngược lại, quên track của vật cản \emph{tĩnh} ở gần làm UAV lùi vào vật cản đã từng thấy (đã quan sát: va chạm khi lùi ở S1). & Bộ hai mô hình (đứng yên / vận tốc hằng) cho mỗi track, chọn mô hình bằng xác suất kiểu IMM; track tĩnh gần như không tăng bất định và chỉ bị quên khi ở xa; track động bị quên khi $\sigma>\sigma_{\text{forget}}$ và nằm ngoài FOV; tiên nghiệm vận tốc vật cản hữu hạn. \\
 R11 & Chưa có thiết kế thí nghiệm cụ thể. & Mô hình quadrotor 6-DOF, camera ray-casting, mạng depth tổng hợp, latency log-normal, năng lượng GPU, 3 kịch bản, 7 biến thể ablation, Monte-Carlo, hai engine (MATLAB và Simulink) chạy trên GitHub Actions. \\
 R12 & Bản đề xuất không nói gì về trường hợp các ràng buộc an toàn mâu thuẫn nhau; camera chỉ nhìn phía trước. & Slack riêng, trọng số rất lớn cho ràng buộc độ cao (mặt đất không bao giờ bị nới vì xung đột giữa các vật cản); giới hạn tốc độ ``chuyển động mù'' ra xa hướng nhìn của camera (Mục~\ref{sec:cbf}). \\
+R13 & Giả thiết định danh instance có sẵn (A6 cũ): trong mô phỏng nhãn lấy từ ray-caster, tức UAV được ``cho đáp án'' vật nào là vật nào. & UAV chỉ nhận ảnh depth của mạng: tự phân đoạn vật cản (trung vị $3\times3$, loại outlier, thành phần liên thông theo độ sâu) và liên kết dữ liệu \emph{không định danh} (cổng Mahalanobis + láng giềng gần nhất toàn cục, track tạm thời, xoá track khi đáng lẽ phải thấy mà không thấy). Nhãn thật chỉ dùng để chấm điểm và cho biến thể đối chứng (Mục~\ref{sec:seg}, \ref{sec:assoc}). \\
+R14 & Tham chiếu ``carrot'' thẳng tới đích: nhiệm vụ không có quỹ đạo đặt; sau khi né, UAV không quay về tuyến bay. & Quỹ đạo đặt $\Gamma(s)$ với hai chế độ BÁM / QUAY VỀ: khi $\Gamma$ phía trước bị vật cản chặn, tham chiếu được vẽ lại thành một đoạn ngắn từ vị trí hiện tại tới điểm \emph{sớm nhất} của $\Gamma$ sau đoạn bị chặn; trong lúc quay về, sai lệch so với $\Gamma$ không bị phạt (Mục~\ref{sec:rejoin}). \\
 \bottomrule
 \end{longtable}
 }
@@ -98,8 +100,8 @@ Tại mỗi thời điểm có tối đa một frame đang được suy luận. 
 \begin{assumption}[A5, cảm biến]
 Camera có FOV hữu hạn và tầm depth tin cậy $R_{\max}$; vật cản ngoài FOV hoặc xa hơn $R_{\max}$ không được đo.
 \end{assumption}
-\begin{assumption}[A6, liên kết dữ liệu]
-Mỗi vùng vật cản $\Omega_i$ có định danh instance (từ segmentation); trong mô phỏng định danh này lấy từ bộ ray-caster. Ngoại lai được loại bằng kiểm định Mahalanobis.
+\begin{assumption}[A6, không có nhãn vật thể]
+UAV chỉ nhận ảnh depth do mạng sinh ra, không có nhãn instance hay định danh vật cản. Trong ảnh, vật cản nằm trước nền trống (không có mặt đất/tường trong tầm $R_{\max}$), nên mỗi vật cản là một vùng depth liên thông (Mục~\ref{sec:seg}); việc ghép phép đo với track không dùng định danh (Mục~\ref{sec:assoc}). Nhãn của bộ ray-caster chỉ dùng để chấm điểm và cho biến thể đối chứng O\_ORACLE.
 \end{assumption}
 
 \paragraph{Kiến trúc và tần số.} Luồng thông tin
@@ -169,6 +171,20 @@ Trong mô phỏng, đầu ra đã hiệu chỉnh được tổng hợp từ dept
 \end{equation}
 với $\epsilon_s$ là lỗi thang đo chung của frame (đặc trưng của monocular), và một tỉ lệ $p_{\text{out}}$ điểm ảnh ngoại lai. Với điểm ảnh $\tilde{\vb z}=[u\;v\;1]\T$, tia đơn vị là $\vb u=K^{-1}\tilde{\vb z}/\|K^{-1}\tilde{\vb z}\|$ và khoảng cách dọc tia $r=\hat d/u_z$.
 
+\subsection{Phân đoạn vật cản từ ảnh depth \rev{R13}}
+\label{sec:seg}
+UAV không nhận nhãn vật thể; các vùng $\Omega_i$ được tính từ chính ảnh $\hat d$ (\code{dart\_segment\_depth.m}). Với $L=\log\hat d$ trên các điểm ảnh có depth:
+\begin{enumerate}
+\item $L^m_p$ là trung vị (dưới) của $L$ trên các điểm ảnh hợp lệ trong lân cận $3\times3$ của $p$; điểm ảnh có $|L_p-L^m_p|>\tau_{\text{out}}=0.25$ (hoặc ít hơn 3 lân cận hợp lệ) là outlier và bị bỏ. Trung vị dưới luôn là một giá trị có thật, nên ở biên giữa hai bề mặt không sinh ra giá trị ``cầu nối'' trung gian;
+\item hai điểm ảnh kề nhau (8-lân cận) được nối nếu
+\begin{equation}
+  |L^m_p-L^m_q|\le\tau_0+k_\sigma\,\sigma_{\text{px}}(\bar d_{pq}),\qquad \tau_0=0.05,\;k_\sigma=0.5, \label{eq:segedge}
+\end{equation}
+với $\sigma_{\text{px}}$ của \eqref{eq:depthnoise} --- ngưỡng nới theo khoảng cách vì nhiễu của mạng tăng theo khoảng cách;
+\item mỗi thành phần liên thông có ít nhất 3 điểm ảnh là một vùng $\Omega_i$ (thành phần liên thông tính vector hoá bằng ``hooking'' + nhảy con trỏ).
+\end{enumerate}
+Do khe giữa hai bề mặt vật cản là $\ge2$~m, hai điểm ảnh kề nhau thuộc hai vật cản khác nhau lệch nhau gần 2~m theo độ sâu, tức $\ge0.13$ theo $\log d$ ngay cả ở 15~m; ngưỡng \eqref{eq:segedge} được hiệu chỉnh trên 150 khung hình ngẫu nhiên của các seed kịch bản 100--149 (không dùng trong đánh giá), số liệu ở Mục~\ref{sec:segeval}.
+
 \subsection{Trích xuất hình cầu (RobustAggregate)}
 \label{sec:sphere}
 Với vùng $\Omega_i$ \rev{R1}: tia trung bình $\bar{\vb u}=\sum_{\Omega_i}\vb u_p/\|\cdot\|$, góc lệch $\phi_p=\angle(\vb u_p,\bar{\vb u})$, bán kính góc $\alpha=\max_p\phi_p+\tfrac12\delta_{\text{px}}$. Với hình cầu tâm ở khoảng cách $D$, bán kính $\rho=D\sin\alpha$, khoảng cách tới bề mặt dọc tia $\phi$ là $r(\phi)=D(\cos\phi-\sqrt{\sin^2\alpha-\sin^2\phi})$. Do đó mỗi điểm ảnh cho một ước lượng tâm và ta lấy trung vị:
@@ -228,7 +244,13 @@ Với $\vb x_{o,i}=[\vb c_i\T\;\vb v_{o,i}\T]\T$ và mô hình vận tốc hằn
 \end{align}
 rồi $t_{\text{upd},i}\leftarrow t^c_k$; ước lượng hiện tại có ngay từ \eqref{eq:pred}. Dưới A4, không có cập nhật nào khác của track $i$ trong $(t_{\text{upd},i},t^c_k]$ vì mọi frame trước đã được xử lý xong trước khi frame $k$ được chụp; do đó cách làm này \emph{trùng khớp chính xác} với bộ lọc Kalman được chạy theo thời gian chụp (không phải xấp xỉ). Nếu bỏ A4 (pipeline nhiều frame song song), cần cơ chế out-of-sequence measurement \cite{barshalom2002oosm,garcia2021oos}. Theo \cite{barshalom2002oosm}, vấn đề OOS chỉ phát sinh khi track \emph{đã} được cập nhật bằng một phép đo có mốc thời gian muộn hơn; khi bỏ cập nhật xen giữa đó, lời giải chính xác của \cite{barshalom2002oosm} rút về đúng chuỗi dự đoán--cập nhật tại $t^c_k$--dự đoán của DART. Tính ``chính xác'' ở đây hiểu với các điều kiện: mô hình tuyến tính--Gauss, mốc thời gian chụp đã biết, nhiễu trắng không tương quan, liên kết dữ liệu đúng, và chưa có cập nhật nào mang mốc muộn hơn được áp dụng cho track đó (A4 là điều kiện đủ). Nó không bao gồm sai số của pose trong bộ đệm.
 
-\paragraph{Quản lý track.} Kiểm định cổng $\bm\nu\T S^{-1}\bm\nu\le\chi^2_3(0.999)=16.27$; sau 3 lần bị loại liên tiếp thì khởi tạo lại. Track mới: $\hat{\vb x}=[\vb y;\vb 0]$, $P=\operatorname{blkdiag}(R_i,\sigma_{v0}^2I)$, trong đó $\sigma_{v0}$ là tiên nghiệm về tốc độ vật cản (0.3~m/s ở môi trường tĩnh, 1~m/s ở kịch bản động) \rev{R10}. Bán kính lọc bằng EWMA (vùng bị cắt chỉ được tăng $\hat\rho$).
+\paragraph{Liên kết dữ liệu không định danh \rev{R13}.}\label{sec:assoc} Phép đo không mang định danh (số hiệu vùng chỉ có nghĩa trong một ảnh). Mọi track đang hoạt động được dự đoán tới $t^c_k$ bằng mô hình đang chọn; phép đo $j$ chỉ được ghép với track $i$ nếu
+\begin{equation}
+  e_{ij}=\bm\nu_{ij}\T S_{ij}^{-1}\bm\nu_{ij}\le\chi^2_3(0.999)=16.27,\qquad S_{ij}=HP_i^-H\T+R_j,
+\end{equation}
+và phép ghép là láng giềng gần nhất toàn cục kiểu tham lam trên chi phí $e_{ij}+\ln\det S_{ij}$ (mỗi track nhận tối đa một phép đo, mỗi phép đo thuộc tối đa một track). Phép đo không được ghép mở một track mới, được lớp an toàn dùng \emph{ngay} (một vật cản mới xuất hiện gần không thể chờ xác nhận). Một track không được ghép trong khi lẽ ra phải thấy --- tâm dự đoán nằm trong ảnh (cách biên $\ge2$~px), gần hơn $R_{\max}-1$~m, bán kính biểu kiến $\ge1.5$~px và không bị che bởi một phép đo nằm trước nó trong cùng ảnh --- bị tính là \emph{bỏ lỡ}: track tạm thời ($n_{\text{upd}}<2$) bị xoá ngay lần bỏ lỡ đầu tiên (loại ``bóng ma'' do nhiễu), track đã xác nhận bị xoá sau 3 lần bỏ lỡ liên tiếp. Cơ chế này cũng thay cho việc ``khởi tạo lại sau 3 lần bị loại'': khi track lệch khỏi vật cản (ví dụ vật cản đổi hướng), phép đo vượt cổng mở track mới và track cũ bị xoá vì bỏ lỡ. Biến thể đối chứng O\_ORACLE dùng định danh của ray-caster làm chỉ số track như bản cũ.
+
+\paragraph{Khởi tạo track.} Track mới: $\hat{\vb x}=[\vb y;\vb 0]$, $P=\operatorname{blkdiag}(R_i,\sigma_{v0}^2I)$, trong đó $\sigma_{v0}$ là tiên nghiệm về tốc độ vật cản (0.3~m/s ở môi trường tĩnh, 1~m/s ở kịch bản động) \rev{R10}. Bán kính lọc bằng EWMA (vùng bị cắt chỉ được tăng $\hat\rho$).
 
 \paragraph{Bộ hai mô hình: vật cản tĩnh và động \rev{R10}.} Mỗi track chạy song song hai bộ lọc trên \emph{cùng} các phép đo: (i) vận tốc hằng (CV) \eqref{eq:cv} với $(q,\sigma_{v0})$ như trên, (ii) ``đứng yên'' cùng dạng \eqref{eq:cv} nhưng tiên nghiệm vận tốc chặt $\sigma_{v,s}=0.05$~m/s và $q_s=10^{-4}\ll q$. Kiểm định cổng dùng mô hình đang được chọn; một phép đo được chấp nhận sẽ cập nhật cả hai (mô hình nào có innovation của riêng nó vượt cổng thì được khởi tạo lại tại phép đo). Xác suất $\mu$ của mô hình đứng yên được cập nhật như trong IMM nhưng không trộn trạng thái:
 \begin{equation}
@@ -406,6 +428,23 @@ Mỗi bước $j$ có một hàng trực tiếp và (với $j\le N_{\text{dcbf}}
 \end{equation}
 Đánh giá $\vb p_j$ và $\vb p_{j-1}$ trên cùng mặt phẳng giữ hàng DCBF nhất quán khi pháp tuyến thay đổi dọc horizon (dạng chuỗi $g_{j}(\vb n_j)\ge(1-\gamma)g_{j-1}(\vb n_{j-1})$ của bản gốc trở nên bất khả thi khi $\vb n$ xoay --- đã quan sát được trong mô phỏng).
 
+\subsection{Quỹ đạo đặt và đoạn quay về \rev{R14}}
+\label{sec:rejoin}
+Nhiệm vụ cho trước một quỹ đạo đặt $\Gamma(s)$, $s\in[0,L]$ (đường gấp khúc qua các waypoint, tham số hoá theo độ dài cung; các kịch bản dùng đoạn thẳng từ điểm xuất phát tới đích). Tiến độ $s_0$ là hình chiếu của vị trí UAV lên $\Gamma$ (tìm trong cửa sổ $[s_0^{\text{trước}}-1,\,s_0^{\text{trước}}+8]$~m để không nhảy sang nhánh khác của $\Gamma$), sai lệch ngang $e_\perp=\|\vb p_q-\Gamma(s_0)\|$.
+
+\paragraph{Đoạn bị chặn.} $\Gamma$ được lấy mẫu mỗi 0.25~m trên $[s_0,s_0+L_{\text{look}}]$ ($L_{\text{look}}=10$~m); mẫu $s$ bị chặn nếu nằm trong quả cầu phồng của một track, với vật cản dự đoán (CV) tới thời điểm UAV tới mẫu đó:
+\begin{equation}
+  \big\|\Gamma(s)-\hat{\vb c}_i(t+\tfrac{s-s_0}{v_{\text{des}}})\big\|<\hat\rho_i+d_s+\beta_s\sigma_i+m_b , \label{eq:blocked}
+\end{equation}
+(cùng độ phồng như ràng buộc MPC \eqref{eq:halfspace}, $m_b=0.2$~m). Các đoạn bị chặn cách nhau dưới $g_m=4$~m (khoảng 1~s bay) được gộp làm một, vì UAV không kịp quay về trong khe đó.
+
+\paragraph{Hai chế độ.}
+\begin{itemize}
+\item \textbf{BÁM}: tham chiếu horizon là ``carrot'' chạy dọc $\Gamma$ từ $\Gamma(s_0)$ với tốc độ $\min(v_{\text{des}},v_{\text{cap}},\sqrt{2a_{\text{dec}}s_{\text{rem}}})$; sai lệch khỏi $\Gamma$ bị phạt qua $Q_p$ trong \eqref{eq:mpc}.
+\item \textbf{QUAY VỀ}: khi một đoạn bị chặn $[s_b,s_e]$ bắt đầu gần hơn $L_{\text{trig}}=6$~m phía trước, điểm quay về là điểm \emph{sớm nhất} của $\Gamma$ sau đoạn bị chặn, $s_r=s_e+m_r$ ($m_r=1$~m). Tham chiếu được vẽ lại thành đoạn ngắn từ \emph{vị trí hiện tại} tới $\Gamma(s_r)$, nối tiếp bằng $\Gamma$ từ $s_r$, và carrot chạy trên đường cong này với cùng luật tốc độ. Vì đường cong xuất phát từ $\vb p_q$ và được vẽ lại ở mỗi lần giải, sai lệch so với $\Gamma$ \emph{không bị phạt} trong lúc quay về; chi phí chỉ kéo UAV về $\Gamma(s_r)$ nhanh nhất có thể, còn các ràng buộc vật cản \eqref{eq:dcbf} và lớp CBF biến đoạn thẳng đó thành một quỹ đạo ngắn không va chạm.
+\end{itemize}
+Chuyển chế độ: trong lúc quay về, một đoạn bị chặn bắt đầu \emph{trước} $s_r$ làm điểm quay về không còn hợp lệ nên đẩy $s_r$ ra xa hơn; đoạn bị chặn nằm xa hơn $s_r$ là một lần né mới, chỉ xét sau khi đã tới $s_r$. Khi $s_0\ge s_r-0.5$~m: trở về BÁM nếu $e_\perp\le e_{\text{on}}=0.3$~m và phía trước không bị chặn; nếu còn lệch, tiếp tục quay về tới điểm $\Gamma(s_0+L_{\min})$, $L_{\min}=3$~m. Ở chế độ BÁM, nếu bị đẩy lệch $e_\perp>e_{\text{off}}=1$~m (ví dụ do lớp CBF) thì cũng chuyển sang quay về tới $\Gamma(s_0+L_{\min})$. Hướng ``đi tới'' dùng cho phép xoay pháp tuyến khi đối đầu và cho yaw là hướng tới $\Gamma(s_r)$ (QUAY VỀ) hoặc $\Gamma(s_0+L_{\text{look}})$ (BÁM). Biến thể đối chứng: R\_TRACK (luôn BÁM, sai lệch luôn bị phạt) và R\_GOAL (tham chiếu cũ: carrot thẳng tới đích, không có $\Gamma$).
+
 \subsection{Bài toán QP}
 Với $\vb U_k=[\vb u_{0|k};\dots;\vb u_{N_k-1|k}]$ và dạng ngưng tụ $\vb P=\vb p_f+G_p\vb U$, $\vb V=\vb v_f+G_v\vb U$ từ \eqref{eq:did}:
 \begin{align}
@@ -414,7 +453,7 @@ Với $\vb U_k=[\vb u_{0|k};\dots;\vb u_{N_k-1|k}]$ và dạng ngưng tụ $\vb 
   \text{s.t.}\;&|\vb u_j|\le\vb a_{\max},\;|\vb v_j|\le\vb v_{\max}\;(j\text{ chẵn}),\;z_{\min}\le p_{z,j}\le z_{\max},\;
   \|\vb v_{N_k}\|_\infty\le\varepsilon_v,\;\eqref{eq:dcbf}\;\forall i\in\mathcal S. \nonumber
 \end{align}
-Tham chiếu là một ``carrot'' từ vị trí hiện tại hướng về đích với tốc độ $\min(v_{\text{des}},v_{\text{cap}},\sqrt{2a_{\text{dec}}s_{\text{rem}}})$. $\mathcal S$ gồm tối đa $M_{\text{obs}}=6$ vật cản gần nhất trong tầm với. Các giới hạn hộp được nới chỉ bằng phần mà phanh tối đa chưa kịp loại bỏ (tránh hiệu ứng ``ratchet'' qua các lần giải). QP được giải bằng phương pháp điểm trong primal--dual kiểu predictor--corrector của Mehrotra \cite{mehrotra1992} áp dụng cho hệ KKT của QP (bài gốc viết cho quy hoạch tuyến tính và nêu rằng mở rộng cho QP lồi là trực tiếp), viết thuần MATLAB (không cần toolbox; tuỳ chọn \code{quadprog}); chỉ biến primal được khởi tạo từ lời giải trước (slack và nhân tử khởi tạo lại mỗi lần giải). Lệnh đầu tiên $\vb u_{0|k}$ được giữ đến lần giải sau (20~Hz) và đi qua CBF.
+Tham chiếu $(\vb p^{\text{ref}}_j,\vb v^{\text{ref}}_j)$ là carrot của chế độ BÁM hoặc QUAY VỀ (Mục~\ref{sec:rejoin}). $\mathcal S$ gồm tối đa $M_{\text{obs}}=6$ vật cản gần nhất trong tầm với. Các giới hạn hộp được nới chỉ bằng phần mà phanh tối đa chưa kịp loại bỏ (tránh hiệu ứng ``ratchet'' qua các lần giải). QP được giải bằng phương pháp điểm trong primal--dual kiểu predictor--corrector của Mehrotra \cite{mehrotra1992} áp dụng cho hệ KKT của QP (bài gốc viết cho quy hoạch tuyến tính và nêu rằng mở rộng cho QP lồi là trực tiếp), viết thuần MATLAB (không cần toolbox; tuỳ chọn \code{quadprog}); chỉ biến primal được khởi tạo từ lời giải trước (slack và nhân tử khởi tạo lại mỗi lần giải). Lệnh đầu tiên $\vb u_{0|k}$ được giữ đến lần giải sau (20~Hz) và đi qua CBF.
 
 \subsection{Ý nghĩa của $N_k$}
 $N_k\Delta t_m\gtrsim\max\{T_{H,\text{risk}},\,T_{\text{brake}},\,T_{\text{new}}\}$: optimizer nhìn đủ xa để lập kế hoạch né, đủ dài để dừng hẳn (tập kết thúc khả thi), và bao trùm khoảng thời gian mà vật cản chỉ được dự đoán chưa được hiệu chỉnh. Chi phí QP tăng xấp xỉ $O(N^3)$ nên horizon ngắn ở vùng thoáng tiết kiệm tính toán.
@@ -425,17 +464,17 @@ $N_k\Delta t_m\gtrsim\max\{T_{H,\text{risk}},\,T_{\text{brake}},\,T_{\text{new}}
 \textbf{Mỗi khi kết quả depth đến} (tại tick $t\ge t^a_k$):
 \begin{enumerate}
 \item đo $\tau_{p,k}=t-t^c_k$, cập nhật $\hat\tau_p$ \eqref{eq:tauhat};
-\item với mỗi vùng: trích xuất cầu \eqref{eq:sphere}, $R_C$ \eqref{eq:RC}, chuyển sang khung quán tính bằng pose tại $t^c_k$ \eqref{eq:toI};
-\item kiểm định cổng (theo mô hình đang chọn) và cập nhật Kalman cho cả hai mô hình tại $t^c_k$, đặt $t_{\text{upd}}=t^c_k$; cập nhật $\mu$ \eqref{eq:mu} và chọn lại mô hình theo \eqref{eq:static}.
+\item (trong perception) tự phân đoạn ảnh depth \eqref{eq:segedge}; với mỗi vùng: trích xuất cầu \eqref{eq:sphere}, $R_C$ \eqref{eq:RC}; chuyển sang khung quán tính bằng pose tại $t^c_k$ \eqref{eq:toI};
+\item ghép phép đo với track (cổng Mahalanobis theo mô hình đang chọn + láng giềng gần nhất toàn cục); cập nhật Kalman cho cả hai mô hình tại $t^c_k$, đặt $t_{\text{upd}}=t^c_k$; cập nhật $\mu$ \eqref{eq:mu} và chọn lại mô hình theo \eqref{eq:static}; phép đo chưa ghép mở track mới; track bị bỏ lỡ khi lẽ ra phải thấy bị đếm và xoá (Mục~\ref{sec:assoc}).
 \end{enumerate}
 \textbf{Mỗi tick điều khiển} ($f_c=100$~Hz):
 \begin{enumerate}
 \item đọc ước lượng UAV, đẩy pose vào bộ đệm;
 \item quên track động không còn thông tin và track tĩnh ở xa; predictor \eqref{eq:pred} (theo mô hình được chọn) cho mọi track;
 \item $d^c,\bar v_c$ \eqref{eq:vc}--\eqref{eq:dc}; $T_{\text{scan}}$ \eqref{eq:Tscan}; sự kiện \eqref{eq:events}; urgent/emergency; nếu kích hoạt và engine rảnh: chụp ảnh tại $t^c=t$;
-\item mỗi 50~ms: $\rho_k,N_k$ \eqref{eq:risk}--\eqref{eq:N}; dự đoán vật cản và hiệp phương sai có reset \eqref{eq:reset}; giải QP \eqref{eq:mpc};
+\item mỗi 50~ms: cập nhật tiến độ $s_0$, đoạn bị chặn \eqref{eq:blocked} và chế độ BÁM/QUAY VỀ (Mục~\ref{sec:rejoin}); $\rho_k,N_k$ \eqref{eq:risk}--\eqref{eq:N}; dự đoán vật cản và hiệp phương sai có reset \eqref{eq:reset}; giải QP \eqref{eq:mpc};
 \item $\vb a_{\text{ref}}=\vb u_{0|k}$; lọc CBF \eqref{eq:cbfqp};
-\item yaw hướng theo vận tốc ngang (camera nhìn theo hướng bay, giới hạn tốc độ yaw); khi UAV lùi lại (vận tốc ngược hướng đích) camera vẫn nhìn về đích vì UAV đang đi vào vùng vừa quan sát --- quay camera ra sau sẽ làm mất các track phía trước và gây dao động; gửi $(\vb a_{\text{safe}},\psi_d)$ xuống vòng attitude.
+\item yaw hướng theo vận tốc ngang (camera nhìn theo hướng bay, giới hạn tốc độ yaw); khi UAV lùi lại (vận tốc ngược hướng tới điểm đang nhắm, Mục~\ref{sec:rejoin}) camera vẫn nhìn về điểm đó vì UAV đang đi vào vùng vừa quan sát --- quay camera ra sau sẽ làm mất các track phía trước và gây dao động; gửi $(\vb a_{\text{safe}},\psi_d)$ xuống vòng attitude.
 \end{enumerate}
 
 %=====================================================================
@@ -458,6 +497,10 @@ Toàn bộ mô phỏng chạy trên GitHub Actions (không cần máy local):
 \end{itemize}
 Tham số chính: $m=1$~kg, $v_{\text{des}}=4$~m/s, camera $80\times60$, HFOV $90^\circ$, $R_{\max}=15$~m, $d_s=0.5$~m (thân 0.25~m), $a_b=4$~m/s$^2$, $\Delta t_m=0.1$~s, $N\in[10,30]$.
 
+\subsection{Kiểm tra bộ phân đoạn}
+\label{sec:segeval}
+Trên 150 khung hình ngẫu nhiên (vị trí, hướng và thời điểm ngẫu nhiên trong S1/S2/S3, seed kịch bản 100--149, không dùng trong đánh giá vòng kín), nhãn ray-caster chỉ dùng để chấm: có 836 vật cản hiện ra với $\ge3$ điểm ảnh. Bộ phân đoạn bỏ sót 45 (5.4\%): 34 trong số đó chỉ có 3--5 điểm ảnh (mảnh vật cản bị che hoặc ở xa, trung vị khoảng cách 11.7~m), 31 bị loại hết điểm ảnh như outlier/vùng quá nhỏ, 14 bị nhập vào vùng của vật cản khác. 12 vật cản (1.4\%) bị tách làm hai vùng. 12 vùng gộp hai vật cản: 10 ở S2, nơi vật cản di chuyển chạm hoặc xuyên vào vật cản tĩnh (khe bề mặt $\le0.62$~m, gộp là hợp lý về hình học khi chỉ có depth), 2 ở S1/S3 (khe 2.2~m, ở 11--14~m). Sai số tâm cầu: trung vị 0.35~m, phân vị 95\% 1.34~m, so với 0.34 và 1.28~m khi dùng nhãn thật; sai số bán kính trung vị $+0.10$~m trong cả hai trường hợp (bán kính góc cộng nửa điểm ảnh nên thiên về lớn hơn, tức an toàn).
+
 \subsection{Chỉ số đánh giá}
 \begin{table}[h]
 \centering\small
@@ -474,7 +517,8 @@ Latency trung bình / lớn nhất & độ trễ AI \\
 $N$ trung bình / lớn nhất, thời gian giải MPC, chi phí QP tương đối & gánh nặng tối ưu \\
 Tỉ lệ CBF hoạt động, $\|\vb a_{\text{safe}}-\vb a_{\text{ref}}\|$ & mức can thiệp an toàn \\
 Tỉ lệ emergency & tần suất chế độ khẩn \\
-Sai số ước lượng track quan trọng nhất & chất lượng ước lượng có bù trễ \\
+Sai số ước lượng track quan trọng nhất & chất lượng ước lượng có bù trễ (so với tâm thật gần nhất; track không mang định danh) \\
+Sai lệch ngang khỏi $\Gamma$: RMS, lớn nhất, \% thời gian $>0.5$~m & mức bám quỹ đạo đặt (tính từ vị trí thật) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -489,6 +533,7 @@ Sai số ước lượng track quan trọng nhất & chất lượng ước lư�
 \item (E) không bù trễ (dùng pose hiện tại cho ảnh cũ, cập nhật tại $t^a$);
 \item (E) với perception cố định tần số thấp (3~Hz).
 \end{enumerate}
+Các biến thể bổ sung: Z\_ZHUYI (scheduler kiểu Zhuyi: khoảng mở từ động học phanh trên ước lượng điểm, không có hạng bất định và frontier), O\_ORACLE ((E) với perception ``biết đáp án'' như bản cũ: nhãn instance của ray-caster và ghép theo định danh thật), R\_GOAL ((E) với tham chiếu cũ thẳng tới đích) và R\_TRACK ((E) luôn bám $\Gamma$).
 (A)--(D) giữ ràng buộc vật cản (ước lượng điểm, không phồng) trong MPC nhưng không có CBF. Cách tách này định lượng tiết kiệm tính toán đến từ scheduling, từ horizon thích nghi, và kiểm tra rằng an toàn không bị đánh đổi. (F) cô lập đóng góp của bù trễ, (G) kiểm tra liệu chỉ giảm tần số (không thích nghi) có đủ hay không. Mỗi cặp (kịch bản, biến thể) chạy với nhiều seed (mặc định 10).
 
 \paragraph{Kết quả sơ bộ (Monte-Carlo nhỏ, 3 seed/kịch bản).}
@@ -529,7 +574,7 @@ Với vật cản tĩnh, không có phép đo mới, $d_{i,j}$ không tăng, kh�
 \end{proposition}
 \emph{Phác thảo.} Quỹ đạo dịch giữ nguyên các vị trí; nửa không gian mới được lấy tiếp tuyến \emph{tại chính} các vị trí đó, mà chúng nằm ngoài quả cầu nên thoả ràng buộc mới; bước cuối đứng yên thoả tập kết thúc và hộp. $\square$
 
-\paragraph{Giới hạn.} (o) MPC là planner \emph{cục bộ} với tham chiếu ``carrot'' thẳng tới đích: khi độ phồng bất định làm các khe hẹp ``đóng lại'', UAV có thể do dự hoặc kẹt ở cực tiểu cục bộ (thời gian nhiệm vụ là một chỉ số đánh giá; planner toàn cục hoặc cơ chế thoát kẹt là hướng mở rộng). (i) CBF trên trạng thái ước lượng không bảo đảm qua các bước nhảy của cập nhật Kalman: an toàn mang tính xác suất qua $\beta_s$ (một innovation lớn hơn $\beta_s\sigma$ có thể làm $h$ giảm đột ngột). (ii) Ràng buộc frontier giả định camera nhìn theo hướng bay và vật cản ẩn có tốc độ $\le\bar v_{\text{unk}}$. (iii) Liên kết dữ liệu trong mô phỏng dùng định danh instance lý tưởng (A6). (iv) Vật cản dạng cầu; tường/cột cần mô hình hình học khác (ví dụ trụ: chiếu lên mặt phẳng ngang). (v) Mạng depth được thay bằng mô hình sai số tổng hợp; bước tiếp theo là dùng ảnh render (ví dụ Unreal/AirSim hoặc Simulink 3D) với mạng thật.
+\paragraph{Giới hạn.} (o) MPC là planner \emph{cục bộ} với tham chiếu carrot (dọc $\Gamma$ hoặc thẳng tới điểm quay về): khi độ phồng bất định làm các khe hẹp ``đóng lại'', UAV có thể do dự hoặc kẹt ở cực tiểu cục bộ (thời gian nhiệm vụ là một chỉ số đánh giá; planner toàn cục hoặc cơ chế thoát kẹt là hướng mở rộng). (i) CBF trên trạng thái ước lượng không bảo đảm qua các bước nhảy của cập nhật Kalman: an toàn mang tính xác suất qua $\beta_s$ (một innovation lớn hơn $\beta_s\sigma$ có thể làm $h$ giảm đột ngột). (ii) Ràng buộc frontier giả định camera nhìn theo hướng bay và vật cản ẩn có tốc độ $\le\bar v_{\text{unk}}$. (iii) Phân đoạn dựa trên giả thiết vật cản nằm trước nền trống (A6): với mặt đất, tường hay vật cản sát nhau, cần phân đoạn hình học/ngữ nghĩa mạnh hơn; ở tầm xa ($\gtrsim12$~m) hai vật cản chồng nhau trong ảnh đôi khi bị gộp (Mục~\ref{sec:segeval}). (iv) Vật cản dạng cầu; tường/cột cần mô hình hình học khác (ví dụ trụ: chiếu lên mặt phẳng ngang). (v) Mạng depth được thay bằng mô hình sai số tổng hợp; bước tiếp theo là dùng ảnh render (ví dụ Unreal/AirSim hoặc Simulink 3D) với mạng thật.
 
 %=====================================================================
 \section{Đóng góp cốt lõi}

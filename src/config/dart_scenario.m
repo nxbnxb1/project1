@@ -10,6 +10,7 @@ function [world, cfg] = dart_scenario(name, seed, cfg)
 %
 %   world.c0   3xM initial centres       world.v  3xM constant velocities
 %   world.rho  1xM radii                 world.start, world.goal  3x1
+%   world.path 3xK waypoints of the set path (reference trajectory)
 
 if nargin < 3 || isempty(cfg), cfg = dart_default_config(); end
 cfg.scenario = name;
@@ -18,6 +19,7 @@ rs = dart_rng_create(1000 + seed);
 
 world.start = [0; 0; 2.0];
 world.goal  = [50; 0; 2.0];
+world.path  = [world.start, world.goal];   % set path (waypoints), straight by default
 
 switch upper(name)
     case {'S1', 'S3'}

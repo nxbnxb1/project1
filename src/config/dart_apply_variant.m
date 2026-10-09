@@ -12,6 +12,12 @@ function cfg = dart_apply_variant(cfg, name)
 %             derived from braking kinematics on the POINT estimate only (no
 %             covariance growth, no uncertainty trigger) and there is no
 %             frontier term for unseen obstacles (cf. Hsiao et al., DAC 2022)
+%   O_ORACLE  E with the old oracle perception (assumption A6): ray-caster
+%             instance labels instead of segmenting the depth image, and
+%             association by the true instance id
+%   R_GOAL    E without the set path: carrot straight to the goal (old reference)
+%   R_TRACK   E tracking the set path at all times (deviation always
+%             penalised, no rejoin segment)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
@@ -51,6 +57,16 @@ switch name
         cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
         cfg.sched.uncertainty = false;
         cfg.sched.frontier = false;
+    case 'O_ORACLE'
+        cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+        cfg.seg.oracle = true;
+        cfg.trk.oracle_assoc = true;
+    case 'R_GOAL'
+        cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+        cfg.ref.mode = 'goal';
+    case 'R_TRACK'
+        cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+        cfg.ref.mode = 'track';
     case 'G_FR_LOW'
         cfg = set_layers(cfg, 'fixed', 'adaptive', true);
         cfg.sched.f_fixed = 3;

@@ -7,8 +7,10 @@ Rates are given with Wilson 95% intervals; time / inferences are over runs that 
 import re, sys, math, statistics as st
 
 PAT = re.compile(r'\]\s+(S\d)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)'
-                 r'\s+inf\s+(\d+)\s+N\s+([\d.]+)\s+mpc\s+([\d.]+)\s+ms(?:\s+err\s+([\d.]+|NaN))?')
-ORDER = ['A_FR_FN', 'B_AP_FN', 'C_FR_AN', 'D_AP_AN', 'E_DART', 'F_NODELAY', 'G_FR_LOW', 'Z_ZHUYI']
+                 r'\s+inf\s+(\d+)\s+N\s+([\d.]+)\s+mpc\s+([\d.]+)\s+ms(?:\s+err\s+([\d.]+|NaN))?'
+                 r'(?:\s+xte\s+([\d.]+)\s+xmax\s+([\d.]+)\s+off\s+([\d.]+)\s+nrj\s+(\d+))?')
+ORDER = ['A_FR_FN', 'B_AP_FN', 'C_FR_AN', 'D_AP_AN', 'E_DART', 'F_NODELAY', 'G_FR_LOW', 'Z_ZHUYI',
+         'O_ORACLE', 'R_GOAL', 'R_TRACK']
 
 
 def wilson(k, n, z=1.96):
@@ -40,7 +42,9 @@ def load(paths):
                 continue
             g = m.groups()
             r = dict(s=g[0], v=g[1], seed=int(g[2]), out=g[3], clr=float(g[4]), t=float(g[5]),
-                     inf=int(g[6]), N=float(g[7]), mpc=float(g[8]))
+                     inf=int(g[6]), N=float(g[7]), mpc=float(g[8]),
+                     xte=float(g[10]) if g[10] else float('nan'), xmax=float(g[11]) if g[11] else float('nan'),
+                     off=float(g[12]) if g[12] else float('nan'))
             runs[(r['s'], r['v'], r['seed'])] = r
     return list(runs.values())
 
@@ -51,8 +55,8 @@ def main(paths):
     for s in sorted({r['s'] for r in rows}):
         print(f'### {s}\n')
         print('| Variant | Success [95% CI] | Collision [95% CI] | Timeout | clr min [m] | clr mean ± sd [m] '
-              '| t goal [s] | Inferences (goal) | inf/s | N mean | MPC [ms] |')
-        print('|---|---|---|---|---|---|---|---|---|---|---|')
+              '| t goal [s] | Inferences (goal) | inf/s | N mean | MPC [ms] | XTE rms [m] | XTE max [m] | off path > 0.5 m |')
+        print('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
         variants = [v for v in ORDER if any(r['v'] == v and r['s'] == s for r in rows)]
         variants += sorted({r['v'] for r in rows if r['s'] == s} - set(variants))
         for v in variants:
@@ -65,7 +69,9 @@ def main(paths):
             print(f'| {name} | {rate(len(g), n)} | {rate(c, n)} | {to} | {min(r["clr"] for r in R):.2f} '
                   f'| {ms([r["clr"] for r in R], "{:.2f}")} | {ms([r["t"] for r in g])} '
                   f'| {ms([r["inf"] for r in g], "{:.0f}")} | {st.mean(r["inf"] / r["t"] for r in R):.2f} '
-                  f'| {st.mean(r["N"] for r in R):.1f} | {st.mean(r["mpc"] for r in R):.1f} |')
+                  f'| {st.mean(r["N"] for r in R):.1f} | {st.mean(r["mpc"] for r in R):.1f} '
+                  f'| {ms([r["xte"] for r in g], "{:.2f}")} | {ms([r["xmax"] for r in g], "{:.2f}")} '
+                  f'| {ms([100 * r["off"] for r in g], "{:.0f}")}% |')
         print()
 
 

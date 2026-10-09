@@ -30,7 +30,8 @@ L.dg = zeros(nd, Nt);
 L.clear = zeros(1, Nt);
 L.trig = zeros(1, Nt);
 if cfg.sim.debug
-    % [true idx; true clearance; track active; est. centre error; sigma_pos;
+    % [true idx; true clearance; tracked (a track within max(1, 2 rho) of it);
+    %  est. centre error; sigma_pos;
     %  rho_hat - rho_true; in FOV; |v|; v . (c - p)/|c - p| (closing speed);
     %  track classified static]
     L.dbg = zeros(10, Nt);
@@ -91,13 +92,20 @@ u = (c - x(1:3)) / max(norm(c - x(1:3)), 1e-9);
 row(9) = x(4:6).' * u;
 row(7) = dart_in_fov(c, x(1:3), dart_quat2rotm(x(7:10)), cfg);
 trk = ctrl.trk;
-if i <= numel(trk.active) && trk.active(i)
-    [xe, P] = dart_track_predict(trk, i, t, cfg);
+% evaluation only: the track nearest to the true obstacle (tracks carry no
+% identity), counted as "tracking it" within max(1 m, 2 rho_true)
+best = 0; dbest = inf;
+for j = find(trk.active)
+    xe = dart_track_predict(trk, j, t, cfg);
+    if norm(xe(1:3) - c) < dbest, dbest = norm(xe(1:3) - c); best = j; end
+end
+if best > 0 && dbest < max(1.0, 2 * world.rho(i))
+    [xe, P] = dart_track_predict(trk, best, t, cfg);
     row(3) = 1;
     row(4) = norm(xe(1:3) - c);
     row(5) = sqrt(dart_lmax_sym3(P(1:3, 1:3)));
-    row(6) = trk.rho(i) - world.rho(i);
-    row(10) = trk.static(i);
+    row(6) = trk.rho(best) - world.rho(i);
+    row(10) = trk.static(best);
 else
     row(4:6) = NaN;
 end

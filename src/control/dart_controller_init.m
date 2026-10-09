@@ -2,6 +2,11 @@ function ctrl = dart_controller_init(cfg, world, seed)
 %DART_CONTROLLER_INIT State of the outer-loop DART controller.
 ctrl.cfg = cfg;
 ctrl.goal = world.goal;
+if isfield(world, 'path'), W = world.path; else, W = [world.start, world.goal]; end
+ctrl.G = dart_path_init(W);              % set path
+ctrl.rj = struct('mode', 1, 's0', 0, 'e_lat', 0, 's_r', 0, 'n_rejoin', 0);
+if strcmp(cfg.ref.mode, 'goal'), ctrl.rj.mode = 0; end
+ctrl.target = world.goal;                % point the vehicle is heading for
 ctrl.rs = dart_rng_create(3000 + seed);
 ctrl.trk = dart_tracks_init(cfg);
 ctrl.pb = dart_posebuf_init(cfg.est.buffer_len);

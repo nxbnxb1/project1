@@ -19,6 +19,8 @@ function sol = dart_mpc(p0, v0, u_prev, goal, ob, rk, N, tinfo, v_cap, prev, t, 
 %   tinfo.T_new     time until the next visual result arrives (Eq. 75)
 %   tinfo.T_period  expected period of later results (max(T_scan, tau_hat))
 %   v_cap           reference-speed cap (emergency mode), inf otherwise
+%   goal            3x1 goal (carrot straight to it), or struct(G, rj): set
+%                   path G with the TRACK / REJOIN state rj (DART_REJOIN_UPDATE)
 
 mp = cfg.mpc;
 dt = mp.dt;
@@ -26,7 +28,13 @@ tic_id = tic;
 
 % ------------------------------------------------------------ reference
 v_des = min(cfg.ref.v_des, v_cap);
-[pr, vr] = dart_reference(p0, goal, N, dt, v_des, cfg.ref.a_dec);
+if isstruct(goal)                    % set path: TRACK / REJOIN (Sec. 9.1)
+    [pr, vr, target] = dart_reference_path(p0, goal.G, goal.rj, N, dt, v_des, ...
+        cfg.ref.a_dec, cfg.ref.L_look);
+else                                 % goal point (carrot straight to the goal)
+    [pr, vr] = dart_reference(p0, goal, N, dt, v_des, cfg.ref.a_dec);
+    target = goal;
+end
 
 % ------------------------------------------------ condensed prediction
 jj = (1:N).';
@@ -98,7 +106,7 @@ if mp.terminal_stop
     A(r + (1:3), 1:nU) = -GvN; b(r + (1:3)) = mp.eps_v + v0; r = r + 3;
 end
 
-travel = goal - p0;
+travel = target - p0;
 if norm(travel) > 1e-6, travel = travel / norm(travel); else, travel = [1; 0; 0]; end
 gam = mp.gamma;
 dmin_all = inf;
@@ -173,7 +181,8 @@ Vst = reshape(vf + Gv * U(:), 3, N);
 
 sol = struct('t0', t, 'dt', dt, 'N', N, 'U', U, 'P', Pst, 'V', Vst, ...
     'p0', p0, 'status', status, 'iter', iter, 'time', toc(tic_id), ...
-    'nrow', nrow, 'nvar', nz, 'slack', slack, 'n_obs', ns, 'dmin0', dmin_all);
+    'nrow', nrow, 'nvar', nz, 'slack', slack, 'n_obs', ns, 'dmin0', dmin_all, ...
+    'target', target);
 end
 
 % =====================================================================

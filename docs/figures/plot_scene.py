@@ -47,7 +47,7 @@ fig.savefig(f'{out}/scene_topview.png', dpi=160)
 
 # ---- one perception frame
 Dt = np.loadtxt(f'{d}/depth_true.csv', delimiter=','); Dh = np.loadtxt(f'{d}/depth_hat.csv', delimiter=',')
-I = np.loadtxt(f'{d}/inst.csv', delimiter=',').astype(int)
+I = np.loadtxt(f'{d}/seg.csv', delimiter=',').astype(int)      # the UAV's own segmentation
 det = np.loadtxt(f'{d}/detections.csv', delimiter=',', ndmin=2)
 W1 = np.loadtxt(f'{d}/world_S1.csv', delimiter=',', ndmin=2)
 cam = np.array([4.1, 0.0, 2.0])          # camera position (UAV at x = 4 m + 0.1 m lever arm)
@@ -56,7 +56,7 @@ fig = plt.figure(figsize=(10, 6.6))
 fig.text(0.01, 0.98, 'Perception nhận được gì: UAV ở x = 4 m (S1, seed 1); ảnh 80 × 60 px, FOV ngang 90°, tầm tối đa 15 m',
          color=INK, fontsize=11, va='top')
 a1 = fig.add_axes([0.03, 0.45, 0.45, 0.45]); a2 = fig.add_axes([0.52, 0.45, 0.45, 0.45])
-for ax, D, title in [(a1, Dt, 'a) depth thật (ray-casting)'), (a2, Dh, 'b) "đầu ra mạng depth" mô phỏng + phân đoạn instance')]:
+for ax, D, title in [(a1, Dt, 'a) depth thật (ray-casting)'), (a2, Dh, 'b) "đầu ra mạng depth" + phân đoạn do UAV tự tính')]:
     im = ax.imshow(np.ma.masked_invalid(np.where(np.isfinite(D), D, np.nan)), cmap=cmap, vmin=0, vmax=15,
                    interpolation='nearest')
     ax.set_title(title, loc='left', color=INK, fontsize=9.5); ax.set_xticks([]); ax.set_yticks([])
@@ -64,26 +64,26 @@ for ax, D, title in [(a1, Dt, 'a) depth thật (ray-casting)'), (a2, Dh, 'b) "đ
 for k in [k for k in np.unique(I) if k > 0]:
     a2.contour((I == k).astype(float), levels=[0.5], colors=[INK], linewidths=0.8)
     ys, xs = np.nonzero(I == k)
-    a2.text(xs.mean(), ys.max() + 2.0, f'#{k}', color=INK, fontsize=8, ha='center', va='top')
+    a2.text(xs.mean(), ys.max() + 2.0, f'v{k}', color=INK, fontsize=8, ha='center', va='top')
 cax = fig.add_axes([0.03, 0.40, 0.45, 0.025])
 cb = fig.colorbar(im, cax=cax, orientation='horizontal'); cb.outline.set_edgecolor(GRID)
 cb.set_label('độ sâu [m] — trắng: không có gì trong 15 m', color=INK2)
 rows = []
 for row in det:
-    k = int(row[0])
-    rows.append([f'#{k}', f'{np.linalg.norm(W1[k - 1, :3] - cam):.1f}', f'{np.linalg.norm(row[1:4] - cam):.1f}',
-                 f'{W1[k - 1, 6]:.2f}', f'{row[4]:.2f}', f'{int(row[5])}'])
+    k, j = int(row[0]), int(row[6])          # segment label, nearest true sphere (scoring only)
+    rows.append([f'v{k} → cầu {j}', f'{np.linalg.norm(W1[j - 1, :3] - cam):.1f}', f'{np.linalg.norm(row[1:4] - cam):.1f}',
+                 f'{W1[j - 1, 6]:.2f}', f'{row[4]:.2f}', f'{int(row[5])}'])
 rows.sort(key=lambda r: float(r[1]))
 ta = fig.add_axes([0.52, 0.04, 0.45, 0.34]); ta.axis('off')
-tb = ta.table(cellText=rows, colLabels=['cầu', 'k/c tâm\nthật [m]', 'k/c tâm\nđo [m]', 'bán kính\nthật [m]', 'bán kính\nđo [m]', 'số\npixel'],
+tb = ta.table(cellText=rows, colLabels=['vùng → cầu thật\n(chỉ để chấm)', 'k/c tâm\nthật [m]', 'k/c tâm\nđo [m]', 'bán kính\nthật [m]', 'bán kính\nđo [m]', 'số\npixel'],
               loc='upper center', cellLoc='center', bbox=[0, 0, 1, 1])
 tb.auto_set_font_size(False); tb.set_fontsize(8)
 for (r, c), cell in tb.get_celld().items():
     cell.set_edgecolor(GRID); cell.set_facecolor(SURF); cell.get_text().set_color(INK if r else INK2)
 fig.text(0.03, 0.30, 'Các bước (mỗi lần suy luận):\n'
-         '1. Ray-casting ảnh depth từ pose thật tại lúc chụp,\n    kèm nhãn instance cho từng pixel (lý tưởng).\n'
+         '1. Ray-casting ảnh depth từ pose thật tại lúc chụp\n    (UAV KHÔNG nhận nhãn vật thể).\n'
          '2. "Mạng depth" = mô hình sai số: thang đo ±4%/frame,\n    nhiễu pixel log-normal 3% + 0.4%/m, 2% outlier.\n'
-         '3. Mỗi vùng instance ≥ 3 px → một hình cầu:\n    hướng trung bình, bán kính góc, trung vị khoảng cách,\n    + hiệp phương sai đo.\n'
-         '4. Gắn track theo nhãn instance → Kalman tại lúc chụp.',
+         '3. UAV tự phân đoạn: trung vị 3×3, bỏ outlier, nối pixel\n    kề nhau có độ sâu gần nhau; vùng ≥ 3 px → một hình cầu.\n'
+         '4. Ghép với track bằng cổng Mahalanobis + láng giềng\n    gần nhất (không có ID) → Kalman tại lúc chụp.',
          color=INK2, fontsize=8, va='top', linespacing=1.4)
 fig.savefig(f'{out}/perception_frame.png', dpi=160)

@@ -1,7 +1,8 @@
 function det = dart_extract_obstacles(depth_hat, inst, cam, cfg)
 %DART_EXTRACT_OBSTACLES Robust sphere measurements from a depth image (Eq. 10-11).
-%   For every instance region Omega_i (segmentation is assumed available;
-%   in simulation it comes from the ray caster) the function returns the
+%   For every segment Omega_i of the label image inst (from
+%   DART_SEGMENT_DEPTH; the ray-caster labels only in the oracle ablation)
+%   the function returns the
 %   sphere centre in the CAMERA frame, its radius and a covariance:
 %
 %     u_bar  = normalise(sum of pixel rays)           mean bearing
@@ -10,7 +11,8 @@ function det = dart_extract_obstacles(depth_hat, inst, cam, cfg)
 %     D_hat  = median_p D_p                            RobustAggregate
 %     c_C    = D_hat * u_bar,  rho_hat = D_hat * sin(alpha)
 %
-%   det is a struct array with fields id, npx, rho, cC (3x1), RC (3x3), trunc.
+%   det is a struct array with fields id (segment label), npx, rho, cC (3x1),
+%   RC (3x3), trunc.
 det = struct('id', {}, 'npx', {}, 'rho', {}, 'cC', {}, 'RC', {}, 'trunc', {});
 ids = unique(inst(inst > 0));
 W = cam.W; H = cam.H;

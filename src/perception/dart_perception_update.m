@@ -1,8 +1,11 @@
 function perc = dart_perception_update(perc, t, x_true, trigger)
 %DART_PERCEPTION_UPDATE Capture a frame when triggered and the engine is idle.
 %   The image is rendered from the TRUE pose at the capture time t_c = t,
-%   passed through the synthetic depth network, converted to obstacle
-%   measurements and scheduled for release after the random latency.
+%   passed through the synthetic depth network, segmented (from the
+%   network's depth image only, DART_SEGMENT_DEPTH), converted to obstacle
+%   measurements and scheduled for release after the random latency. The
+%   ray caster's instance labels are ground truth and are NOT used, unless
+%   cfg.seg.oracle is set (ablation of the old assumption A6).
 if ~(trigger > 0.5) || perc.busy
     return
 end
@@ -12,6 +15,9 @@ centers = w.c0 + w.v * t;
 R_IB = dart_quat2rotm(x_true(7:10));
 [depth, inst] = dart_render_depth(perc.cam, x_true(1:3), R_IB, cfg, centers, w.rho);
 depth_hat = dart_depth_network(depth, cfg, perc.rs);
+if ~cfg.seg.oracle
+    inst = dart_segment_depth(depth_hat, perc.cam, cfg);
+end
 det = dart_extract_obstacles(depth_hat, inst, perc.cam, cfg);
 
 % total perception latency (Eq. 13) with a log-normal inference time
