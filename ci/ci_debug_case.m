@@ -1,6 +1,7 @@
 function ci_debug_case(variant, scenario, seed, param, value)
 %CI_DEBUG_CASE Re-run one case with the MATLAB engine and print a trace of
-%   the last seconds before the end of the run (collision / timeout).
+%   the last seconds before the end of the run (collision / stuck / cap;
+%   'timeout' only with a finite sim.t_max).
 root = fileparts(fileparts(mfilename('fullpath')));
 run(fullfile(root, 'dart_setup.m'));
 if ischar(seed), seed = str2double(seed); end

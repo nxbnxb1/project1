@@ -8,7 +8,11 @@ function f = dart_failure_info(res)
 %                                  set path for sim.stuck_window seconds
 %                                  (deadlock / local minimum; there is no
 %                                  time limit, the time to the goal is measured)
-%           'diverged', 'goal', 'cap' (compute guard), 'timeout' (tests only)
+%           'collision'            unclassified (Simulink engine: no end-state row)
+%           'diverged', 'goal', 'cap' (compute guard), 'timeout' (finite sim.t_max, tests)
+%   "Tracked" means that some track's sphere comes within 1 m of the TRUE
+%   surface of the obstacle hit (tracks carry no identity); "in FOV" is
+%   evaluated at the obstacle's centre.
 %   f.shape (sphere | box | cylinder), f.dyn (obstacle moving), f.infov,
 %   f.mode (reference mode at the end: 0 goal, 1 track, 2 rejoin),
 %   f.speed (|v| at the end), f.closing, f.static (matched track static),
@@ -38,7 +42,13 @@ if isfield(res, 'fail_row')
 end
 switch res.outcome
     case 'collision'
-        if f.tracked == 1, f.cls = 'collision-tracked'; else, f.cls = 'collision-untracked'; end
+        if f.tracked == 1
+            f.cls = 'collision-tracked';
+        elseif f.tracked == 0
+            f.cls = 'collision-untracked';
+        else
+            f.cls = 'collision';           % no end-state row (Simulink engine)
+        end
     case 'stuck'
         f.cls = 'stuck';
 end

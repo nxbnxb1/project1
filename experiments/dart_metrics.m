@@ -13,11 +13,14 @@ path_len = sum(seg);
 
 m.success   = double(strcmp(res.outcome, 'goal'));
 m.collision = double(strcmp(res.outcome, 'collision'));
-m.t_end     = t_end;
+m.t_end     = t_end;                      % end of the run (any outcome)
+m.t_goal    = t_end;                      % time to the goal (successful runs only)
+if ~m.success, m.t_goal = NaN; end
 m.min_clear = min(L.clear);
 m.clear_p05 = prctile_(L.clear, 5);
 m.mean_speed = path_len / t_end;
-m.path_eff  = norm(world.goal - world.start) / max(path_len, 1e-6) * m.success;
+if isfield(world, 'path'), Lset = sum(sqrt(sum(diff(world.path, 1, 2).^2, 1))); else, Lset = norm(world.goal - world.start); end
+m.path_eff  = Lset / max(path_len, 1e-6) * m.success;   % set-path length / flown length
 
 % ---- set path: cross-track error of the TRUE position (evaluation only)
 if isfield(world, 'path'), W = world.path; else, W = [world.start, world.goal]; end
@@ -75,6 +78,8 @@ for i = 1:numel(k)
     ct = world.c0 + world.v * L.t(j);
     err(i) = min(sqrt(sum((ct - C(:, j)).^2, 1)));
 end
+% meaningful for sphere worlds (S1-S3); for boxes / walls / poles covered
+% by several spheres the nearest primitive centre is not the estimated point
 m.est_err = mean_(err);
 m.est_err_p95 = prctile_(err, 95);
 end

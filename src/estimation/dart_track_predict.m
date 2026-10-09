@@ -1,6 +1,6 @@
 function [x, P, q] = dart_track_predict(trk, i, t, cfg)
 %DART_TRACK_PREDICT Mean and covariance of track i at time t >= t_upd,
-%   taken from the model currently selected for the track (Sec. 5.3):
+%   taken from the model currently selected for the track (method §6):
 %   the stationary filter (x_s, P_s, q_static) once the track has been
 %   classified static, the constant-velocity filter (x, P, q_acc) otherwise.
 %   q is the process-noise PSD of the selected model; every downstream

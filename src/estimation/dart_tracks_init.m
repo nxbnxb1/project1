@@ -3,7 +3,7 @@ function trk = dart_tracks_init(cfg)
 %   Slots carry no meaning: detections are associated with tracks by
 %   gating + global nearest neighbour (DART_TRACKS_PROCESS_MSG); new
 %   obstacles take the first free slot. Each track runs two filters
-%   on the same measurements (Sec. 5.3): a constant-velocity filter (x, P)
+%   on the same measurements (method §6): a constant-velocity filter (x, P)
 %   and a stationary filter (xs, Ps) with a tight velocity prior and almost
 %   no process noise. Both store their POSTERIOR at the time of the last
 %   update t_upd; any later estimate is obtained in closed form by

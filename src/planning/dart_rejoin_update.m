@@ -13,7 +13,7 @@ function rj = dart_rejoin_update(rj, G, p, ob, cfg)
 %   A detour starts when a blocked run begins less than ref.L_trig ahead.
 %   While rejoining, a blocked run that begins before s_r moves s_r
 %   further; a run farther ahead is a NEW detour,
-%   considered only once s_r is reached. At s_r (s0 >= s_r - ref.tol_s):
+%   considered only once s_r is reached. At s_r (s0 >= s_r):
 %   back to TRACK if the cross-track error is <= ref.e_on and Gamma ahead
 %   is clear, otherwise a new detour (blocked) or a short rejoin towards a
 %   point ref.L_min ahead. TRACK switches to such a short rejoin when the

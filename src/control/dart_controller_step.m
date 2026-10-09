@@ -1,5 +1,5 @@
 function [ctrl, cmd, trigger, dg] = dart_controller_step(ctrl, t, x_true, msg)
-%DART_CONTROLLER_STEP One tick (f_c) of the integrated algorithm (Sec. 10).
+%DART_CONTROLLER_STEP One tick (f_c) of the integrated algorithm (method §11).
 %   x_true  true plant state; the controller only uses a noisy copy of it
 %           (stand-in for a VIO/INS estimate)
 %   msg     perception message (DART_MSG_PACK); msg(1) = 0 means "none"
@@ -16,7 +16,7 @@ R_IB = dart_quat2rotm(x_true(7:10)) * dart_expm_so3(dth);
 q_est = dart_rotm2quat(R_IB);
 ctrl.pb = dart_posebuf_push(ctrl.pb, t, p, q_est);
 
-% -------------------------------- 2. delayed measurement -> tracks (Sec. 5)
+% -------------------------------- 2. delayed measurement -> tracks (method §6)
 latency = 0; n_det = 0;
 if msg(1) > 0.5
     [hdr, det] = dart_msg_unpack(msg);
@@ -60,7 +60,8 @@ sol = ctrl.sol;
 j = min(max(floor((t - sol.t0) / sol.dt + 1e-9) + 1, 1), sol.N);
 a_ref = sol.U(:, j);
 
-% ----------------------------------------------- 6. HOCBF safety filter
+% ------------------- 6. CBF safety filter (braking barrier per obstacle,
+%                       blind-motion / field-of-view rows, HOCBF altitude rows)
 [a_safe, cbf] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB);
 ctrl.u_prev = a_safe;
 

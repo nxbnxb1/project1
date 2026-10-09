@@ -1,5 +1,5 @@
 function test_cbf_filter()
-% HOCBF filter: inactive far away, corrective and constraint-satisfying near.
+% CBF filter (braking barrier): inactive far away, corrective and constraint-satisfying near.
 cfg = dart_default_config();
 P = blkdiag(0.01 * eye(3), 0.01 * eye(3));
 p = [0; 0; 2]; v = [3; 0; 0];

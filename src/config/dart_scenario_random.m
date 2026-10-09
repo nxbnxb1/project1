@@ -20,7 +20,8 @@ function [world, cfg] = dart_scenario_random(seed, cfg)
 %               to meet the vehicle.
 %   Static obstacles keep a free gap >= gap_min = 2.0 m between their
 %   surfaces (so that a passage always exists for the vehicle,
-%   2 (d_s + margin) < gap_min) and >= 3 m from the start and the goal.
+%   2 (d_s + margin) < gap_min at the nominal kappa = 0.5; at kappa = 0 it is
+%   2.3 m > gap_min, so some passages are closed by design) and >= 3 m from the start and the goal.
 %   world.meta records the drawn layout parameters (for stratified analysis).
 rs = dart_rng_create(5000 + seed);
 U = @(a, b) a + (b - a) * dart_rand(rs, 1, 1);

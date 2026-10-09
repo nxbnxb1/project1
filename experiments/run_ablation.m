@@ -1,9 +1,13 @@
 function T = run_ablation(varargin)
-%RUN_ABLATION Monte-Carlo ablation study (Sec. 11).
+%RUN_ABLATION Monte-Carlo ablation study (method §12.7).
 %   T = RUN_ABLATION('scenarios', {'S1','S2','S3'}, 'seeds', 1:10, ...
 %                    'variants', dart_variant_list(), 'engine', 'matlab', ...
 %                    'outdir', 'results/ablation')
-%   Optional: 'sweep', {name, value} applies DART_APPLY_SWEEP to every run.
+%   Optional: 'sweep', {name, value} applies DART_APPLY_SWEEP to every run;
+%   'plots' (true) writes trajectory figures; 't_max' sets a finite time
+%   limit (default none: runs end at goal, collision or 'stuck').
+%   Besides the run lines it prints FAILINFO lines (DART_FAILURE_INFO) for
+%   failed runs and WORLD lines (layout) for random worlds 'SR'.
 %   Writes runs.csv, summary.csv, summary.md and figures to outdir and
 %   prints summary.md to the console (readable from CI logs).
 %   T is a struct array with one element per run.

@@ -22,7 +22,7 @@ in = in.setVariable('dart_x0', x0);
 in = in.setVariable('dart_plant_P', dart_plant_vector(cfg));
 in = in.setVariable('dart_dt_plant', cfg.sim.dt_plant);
 in = in.setVariable('dart_dt_ctrl', cfg.sim.dt_ctrl);
-in = in.setVariable('dart_t_max', min(cfg.sim.t_max, cfg.sim.t_cap) - cfg.sim.dt_ctrl);   % no stuck detection here
+in = in.setVariable('dart_t_max', min(cfg.sim.t_max, cfg.sim.t_cap) - cfg.sim.dt_ctrl);   % 'stuck' is detected by DartMonitorSys
 
 wall = tic;
 out = sim(in);
@@ -37,7 +37,7 @@ dg = get_log(out, 'log_dg', T);
 st = get_log(out, 'log_status', T);
 clr = get_log(out, 'log_clear', T);
 
-% same stopping semantics as dart_sim
+% same end conditions as dart_sim (stuck: no progress along the set path)
 outcome = 'timeout';
 n = numel(t);
 for k = 1:n
@@ -49,6 +49,13 @@ for k = 1:n
     end
     if any(~isfinite(x(:, k)))
         outcome = 'diverged'; n = k; break
+    end
+end
+if strcmp(outcome, 'timeout') && n > 0
+    if t(n) < min(cfg.sim.t_max, cfg.sim.t_cap) - 2 * cfg.sim.dt_ctrl
+        outcome = 'stuck';                 % the monitor stopped the model
+    elseif ~isfinite(cfg.sim.t_max)
+        outcome = 'cap';
     end
 end
 L.t = t(1:n); L.x = x(:, 1:n); L.cmd = cmd(:, 1:n); L.dg = dg(:, 1:n);

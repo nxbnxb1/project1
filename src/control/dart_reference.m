@@ -1,5 +1,7 @@
 function [pr, vr] = dart_reference(p0, goal, N, dt, v_des, a_dec)
 %DART_REFERENCE Goal-directed reference over the horizon (x_ref in Eq. 87).
+%   Used only with ref.mode = 'goal' (variant R_GOAL); the default reference
+%   follows the set path (DART_REFERENCE_PATH).
 %   A "carrot" that starts at the current position and moves straight to
 %   the goal with speed min(v_des, sqrt(2 a_dec s_remaining)).
 e = goal - p0;

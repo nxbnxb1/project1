@@ -13,6 +13,8 @@ function [world, cfg] = dart_scenario(name, seed, cfg)
 %   world.c0   3xM initial centres       world.v  3xM constant velocities
 %   world.rho  1xM radii                 world.start, world.goal  3x1
 %   world.path 3xK waypoints of the set path (reference trajectory)
+%   world.type/dim/yaw/obj  primitive shapes (DART_WORLD_DEFAULTS); SR
+%   worlds also carry world.meta (layout parameters)
 
 if nargin < 3 || isempty(cfg), cfg = dart_default_config(); end
 cfg.scenario = name;

@@ -6,7 +6,7 @@ Usage: python3 parse_sweep.py <log>...    -> tables per scenario, rows = variant
 import re, sys, math, statistics as st
 from collections import defaultdict
 
-PAT = re.compile(r'\]\s+(\w+)=([\d.]+)\s+(S\d)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)'
+PAT = re.compile(r'\]\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)'
                  r'\s+inf\s+(\d+)\s+N\s+([\d.]+)\s+mpc\s+([\d.]+)\s+ms\s+err\s+([\d.]+|NaN)')
 
 def wilson(k, n, z=1.96):

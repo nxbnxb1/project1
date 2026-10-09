@@ -2,7 +2,7 @@
 
 For every (scenario, swept value) the oracle is the LOWEST fixed rate among
 the FR_SAFE_<f> variants (same safety layers as DART, fixed f Hz) that had
-no collision and no timeout over all seeds. A fixed rate would have to be
+no failure (collision, stuck, cap or, in old logs, timeout) over all seeds. A fixed rate would have to be
 tuned per condition to reach it; DART uses one configuration everywhere.
 
 Usage: python3 parse_oracle.py <sweep logs>...   (sweep line format, see parse_sweep.py)

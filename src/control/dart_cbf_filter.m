@@ -1,5 +1,5 @@
 function [a_safe, info] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB)
-%DART_CBF_FILTER Uncertainty-aware CBF safety filter (Sec. 8, revised).
+%DART_CBF_FILTER Uncertainty-aware CBF safety filter (method §9).
 %
 %   For every obstacle within d_active one linear constraint on the
 %   commanded acceleration a is built on the ESTIMATED relative state
@@ -27,7 +27,7 @@ function [a_safe, info] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB)
 %   hfov/2 - fov_margin, outward normal n_e) below v_blind_lat,
 %   h = v_blind_lat - n_e'v. Space outside the field of view is not
 %   observed; fast motion into it is only as safe as the obstacle memory
-%   (Sec. 5.3) - in random worlds most collisions were of this kind.
+%   (method §6) - in random worlds most collisions were of this kind.
 %   Two HOCBF rows keep the altitude inside [z_min, z_max] (the ground is
 %   an obstacle too); they have their own, much heavier slack so that a
 %   conflict among obstacle rows can never relax the ground constraint.

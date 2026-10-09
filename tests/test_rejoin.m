@@ -1,8 +1,9 @@
 function test_rejoin()
-% Set path + TRACK / REJOIN logic (Sec. 9.1): an obstacle on the path
+% Set path + TRACK / REJOIN logic (method §10.5): an obstacle on the path
 % ahead starts a detour whose rejoin point is the earliest point of the
-% path behind the blocked stretch; the redrawn reference goes from the
-% current position straight to that point; back to TRACK once rejoined.
+% path behind the blocked stretch; the redrawn reference is the shortest
+% collision-free polyline from the current position to that point
+% (straight only with ref.plan = false); back to TRACK once rejoined.
 cfg = dart_default_config();
 G = dart_path_init([0 20 20; 0 0 10; 2 2 2]);         % L-shaped polyline
 [p, tg] = dart_path_point(G, [5 25]);

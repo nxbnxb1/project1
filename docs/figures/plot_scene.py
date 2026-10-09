@@ -84,7 +84,7 @@ for (r, c), cell in tb.get_celld().items():
 fig.text(0.03, 0.30, 'Các bước (mỗi lần suy luận):\n'
          '1. Ray-casting ảnh depth từ pose thật tại lúc chụp\n    (UAV KHÔNG nhận nhãn vật thể).\n'
          '2. "Mạng depth" = mô hình sai số: thang đo ±4%/frame,\n    nhiễu pixel log-normal 3% + 0.4%/m, 2% outlier.\n'
-         '3. UAV tự phân đoạn: trung vị 3×3, bỏ outlier, nối pixel\n    kề nhau có độ sâu gần nhau; vùng ≥ 3 px → một hình cầu.\n'
+         '3. UAV tự phân đoạn: trung vị 3×3, bỏ outlier, nối pixel\n    kề nhau có độ sâu gần nhau; vùng ≥ 3 px → một hoặc nhiều cầu phủ\n    (vùng rộng hơn 1 m bị chia).\n'
          '4. Ghép với track bằng cổng Mahalanobis + láng giềng\n    gần nhất (không có ID) → Kalman tại lúc chụp.',
          color=INK2, fontsize=8, va='top', linespacing=1.4)
 fig.savefig(f'{out}/perception_frame.png', dpi=160)

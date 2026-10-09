@@ -1,4 +1,4 @@
-# Monte-Carlo ablation study (Sec. 11 of the method), launched manually from
+# Monte-Carlo ablation study (§12.7 of the method), launched manually from
 # the Actions tab ("Run workflow"). One parallel job per scenario.
 name: Experiments
 

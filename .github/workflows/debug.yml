@@ -7,7 +7,7 @@ on:
       variant: { description: "Variant", default: "E_DART" }
       scenario: { description: "Scenario", default: "S1" }
       seed: { description: "Seed", default: "11" }
-      param: { description: "Sweep parameter (latency/speed/rate/noise/shift/none)", default: "latency" }
+      param: { description: "Sweep parameter (latency/speed/rate/noise/shift/kappa/none)", default: "latency" }
       value: { description: "Sweep value", default: "0.15" }
 
 jobs:

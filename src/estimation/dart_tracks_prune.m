@@ -1,5 +1,5 @@
 function trk = dart_tracks_prune(trk, t, p, R_IB, cfg)
-%DART_TRACKS_PRUNE Forget tracks that are no longer useful (Sec. 5.3).
+%DART_TRACKS_PRUNE Forget tracks that are no longer useful (method §6).
 %   Dynamic tracks: forgotten when their position uncertainty has become
 %   uninformative while out of view (sigma > sigma_forget). Without this,
 %   the inflation d_eff of a moving obstacle that is never re-observed

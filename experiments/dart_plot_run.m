@@ -8,15 +8,24 @@ fig = dart_fig(1300, 900);
 subplot(3, 2, [1 2]); hold on; box on;
 th = linspace(0, 2*pi, 40);
 tend = t(end);
-for i = 1:size(w.c0, 2)
-    c = w.c0(:, i); 
+w = dart_world_defaults(w);
+for i = 1:size(w.c0, 2)                  % footprint of every primitive
+    c = w.c0(:, i);
     if any(w.v(:, i))
         cE = w.c0(:, i) + w.v(:, i) * tend;
         plot([c(1) cE(1)], [c(2) cE(2)], ':', 'Color', [0.6 0.6 0.6]);
         c = cE;
     end
-    fill(c(1) + w.rho(i) * cos(th), c(2) + w.rho(i) * sin(th), [0.75 0.75 0.75], 'EdgeColor', [0.4 0.4 0.4]);
+    if w.type(i) == 2                    % box: rotated rectangle
+        a = w.dim(1, i); b = w.dim(2, i); cy = cos(w.yaw(i)); sy = sin(w.yaw(i));
+        Q = [cy -sy; sy cy] * [a -a -a a; b b -b -b];
+        fill(c(1) + Q(1, :), c(2) + Q(2, :), [0.75 0.75 0.75], 'EdgeColor', [0.4 0.4 0.4]);
+    else                                 % sphere / vertical cylinder: radius dim(1)
+        r = w.dim(1, i);
+        fill(c(1) + r * cos(th), c(2) + r * sin(th), [0.75 0.75 0.75], 'EdgeColor', [0.4 0.4 0.4]);
+    end
 end
+if isfield(w, 'path'), plot(w.path(1, :), w.path(2, :), 'k--', 'LineWidth', 0.8); end
 plot(L.x(1, :), L.x(2, :), 'b-', 'LineWidth', 1.6);
 tr = L.trig > 0.5;
 plot(L.x(1, tr), L.x(2, tr), 'r.', 'MarkerSize', 8);

@@ -1,6 +1,6 @@
 function T = dart_mc_track_classification(nseed)
 %DART_MC_TRACK_CLASSIFICATION Monte-Carlo check of the static/dynamic track
-%   classification (Sec. 5.3). A stationary obstacle and a crossing
+%   classification (method §6). A stationary obstacle and a crossing
 %   obstacle (speed vm) are observed by a hovering camera every 0.15 s for
 %   6 s with isotropic measurement noise sig. Reported per case:
 %     mover_static  runs in which the moving obstacle was ever classified static
@@ -9,6 +9,10 @@ function T = dart_mc_track_classification(nseed)
 %     static_found  runs in which the stationary obstacle is static at the end
 %     t50, t90      median / 90th percentile of the first static time [s]
 %   prior 'S2' uses the dynamic-scenario CV prior (q_acc 0.05, sigma_v0 1).
+%   The classification is studied in isolation: the synthetic detections
+%   carry the true obstacle id and the oracle association (slot = id) is
+%   used, as in the run quoted in the method (§6, commit faf360e). The
+%   closed loop associates without identities (method §6, R13).
 if nargin < 1, nseed = 100; end
 cases = {0.6, 0.15, 'S2'; 0.4, 0.15, 'S2'; 0.3, 0.15, 'S2'; ...
          0.6, 0.30, 'S2'; 0.4, 0.30, 'S2'; 0.4, 0.15, 'S1'};
@@ -26,6 +30,7 @@ end
 
 function r = one_case(nseed, vm, sig, prior)
 cfg = dart_default_config();
+cfg.seg.oracle = true; cfg.trk.oracle_assoc = true;   % slot = obstacle id (see header)
 if strcmp(prior, 'S2')
     cfg.trk.q_acc = 0.05; cfg.trk.sigma_v0 = 1.0;
 end

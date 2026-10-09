@@ -1,5 +1,5 @@
 function rk = dart_risk_terms(ob, p, v, cfg)
-%DART_RISK_TERMS Per-obstacle geometric risk quantities (Sec. 6.1-6.2).
+%DART_RISK_TERMS Per-obstacle geometric risk quantities (method §7.1-7.2).
 %   rk.d      centre distance            rk.dc    conservative surface distance (Eq. 35)
 %   rk.vc     closing speed (Eq. 34)     rk.vcb   conservative closing speed
 %   rk.sig_r  sqrt(lambda_max(P_r))      rk.sig_v sqrt(lambda_max(P_v))

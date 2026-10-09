@@ -1,5 +1,9 @@
 function names = dart_diag_names()
 %DART_DIAG_NAMES Names of the entries of the controller diagnostic vector.
+%   near_id is the TRACK SLOT of the most critical track (tracks carry no
+%   obstacle identity); n_gate_rej counts detections not associated with
+%   any track (oracle association: gate rejections); n_trk_del counts tracks
+%   deleted after missed detections; ref_mode 0 goal / 1 track / 2 rejoin.
 names = {'N', 'T_scan', 'risk', 'ttc', 'min_dc', 'n_tracks', 'emergency', ...
     'trigger', 'cbf_active', 'cbf_slack', 'mpc_time', 'mpc_iter', 'mpc_status', ...
     'cbf_dev', 'tau_hat', 'latency', 'n_det', 'h_min', 'speed', 'mpc_rows', ...

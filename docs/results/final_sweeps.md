@@ -1,5 +1,7 @@
 # Các lượt quét cuối (commit `3438b2b`, MATLAB engine, 50 seed mỗi ô)
 
+> **Phiên bản cũ của phương pháp (code `3438b2b`):** nhãn thật, tham chiếu thẳng tới đích, chỉ vật cản cầu, giới hạn 40 s, quét tốc độ chưa nới hộp vận tốc 5 m/s. "Oracle" ở đây là tần số cố định tốt nhất, không phải biến thể `O_ORACLE`. Không áp dụng cho phương pháp hiện tại; kết quả hiện tại: [`random_worlds.md`](random_worlds.md).
+
 * Nguồn: workflow **Sweep** — tốc độ [37492153231](https://github.com/nxbnxb1/project1/actions/runs/37492153231), độ trễ [37492157907](https://github.com/nxbnxb1/project1/actions/runs/37492157907), sai số shift của depth [37492163108](https://github.com/nxbnxb1/project1/actions/runs/37492163108), horizon [37492166271](https://github.com/nxbnxb1/project1/actions/runs/37492166271). 12 100 lượt.
 * Dữ liệu thô: [`raw/final_{speed,latency,shift,horizon}_*.log`](raw/). Bảng chi tiết theo từng giá trị: `python3 parse_sweep.py raw/final_speed_*.log` (tương tự cho các lượt khác); so sánh với tần số cố định tốt nhất: `python3 parse_oracle.py raw/final_speed_*.log`.
 * `FR_SAFE_f`: **đủ** các lớp an toàn của DART (bù trễ, tracker hai mô hình, inflation, braking-CBF, emergency) nhưng perception cố định f Hz. `A_FR_FN`: 10 Hz, **không** có lớp an toàn. `F_NODELAY`: DART không bù trễ. `Z_ZHUYI`: scheduler kiểu Zhuyi (không bất định, không frontier).

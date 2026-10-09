@@ -1,5 +1,7 @@
 # Ablation đầy đủ — Simulink (7 biến thể × 3 kịch bản × 10 seed = 210 lượt)
 
+> **Lỗi thời (lịch sử):** code `cc7650d`, 10 seed, nhãn thật, tham chiếu thẳng tới đích, giới hạn 40 s; đã bị thay thế bởi `ablation_simulink_s50.md` rồi `final_ablation_simulink.md` (`3438b2b`) và không áp dụng cho phương pháp hiện tại. Giữ lại để đối chiếu.
+
 * Nguồn: workflow **Experiments**, run [37429810971](https://github.com/nxbnxb1/project1/actions/runs/37429810971) (engine `simulink`, MATLAB R2024b), commit `cc7650d`.
 * Dữ liệu thô: [`ablation_simulink_runs.log`](ablation_simulink_runs.log) (một dòng cho mỗi lượt, trích từ log CI); tổng hợp bằng [`parse_runs.py`](parse_runs.py).
 * `clr` = khoảng cách thật nhỏ nhất từ **thân** UAV (bán kính 0.25 m) tới bề mặt vật cản; biên thiết kế `d_s − r_body = 0.25 m`. Thời gian và số suy luận chỉ tính trên các lượt về đích. `inf/s` = số suy luận / thời gian bay.

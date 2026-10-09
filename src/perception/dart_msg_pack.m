@@ -1,8 +1,14 @@
 function msg = dart_msg_pack(t_c, t_a, det, cfg)
 %DART_MSG_PACK Fixed-length numeric perception message.
 %   Layout: [valid t_c t_a n | n_max x (id npx rho cC(3) RC(xx xy xz yy yz zz) trunc)]
+%   If a frame has more than n_max detections the NEAREST n_max are kept
+%   (a dropped detection would be counted as a miss by the tracker).
 nmax = dart_msg_size();
 msg = zeros(4 + 13 * nmax, 1);
+if numel(det) > nmax
+    [~, o] = sort(arrayfun(@(d) norm(d.cC), det));
+    det = det(o(1:nmax));
+end
 n = min(numel(det), nmax);
 msg(1:4) = [1; t_c; t_a; n];
 for k = 1:n

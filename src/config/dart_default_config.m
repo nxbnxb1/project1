@@ -1,9 +1,14 @@
 function cfg = dart_default_config()
 %DART_DEFAULT_CONFIG Default parameters of the DART simulation study.
 %   cfg = DART_DEFAULT_CONFIG() returns a nested struct with every tunable
-%   parameter. "Eq. n" in code comments refers to the numbering of the
-%   ORIGINAL proposal; docs/method/DART_method_VI.tex (Appendix D) maps
-%   every equation of the revised method to its implementation.
+%   parameter. Conventions in code comments: "Eq. n" is the equation
+%   numbering of the ORIGINAL proposal; "method §n" is a section of the
+%   revised method docs/method/DART_method_VI.tex, whose Appendix D maps
+%   its equations and components to the implementing files.
+%   Six safety margins below (mpc.beta_s, cbf.alpha, sched.d_s,
+%   cbf.v_blind, cbf.v_blind_lat, ref.margin) are NOMINAL values: the
+%   trade-off hyperparameter tradeoff.kappa rescales them in
+%   DART_APPLY_TRADEOFF (called by DART_RUN_CASE); kappa = 0.5 keeps them.
 %
 %   Units: SI (m, s, rad, kg, N). Inertial frame is ENU (z up), body frame
 %   is FLU, camera optical frame is (x right, y down, z forward).
@@ -19,7 +24,7 @@ cfg.sim.goal_tol  = 0.6;     % goal reached radius [m]
 cfg.sim.seed      = 1;
 cfg.sim.stop_on_collision = true;
 cfg.sim.log_decimation = 1;  % log every n-th control tick
-cfg.sim.debug    = false;   % MATLAB engine: log the track of the truly closest obstacle
+cfg.sim.debug    = false;   % MATLAB engine: log the track nearest to the truly closest obstacle (tracks have no identity)
 
 % --------------------------------------------------------------- quadrotor
 cfg.quad.m        = 1.0;
@@ -53,7 +58,7 @@ cfg.cam.hfov  = 90 * pi/180;
 cfg.cam.R_max = 15;                  % maximum reliable depth [m]
 cfg.cam.p_BC  = [0.10; 0; 0];        % camera lever arm in body frame
 cfg.cam.R_BC  = [0 0 1; -1 0 0; 0 -1 0]; % optical -> body (FLU)
-cfg.cam.min_px = 3;                  % minimum instance size for a detection
+cfg.cam.min_px = 3;                  % minimum segment size for a detection [px]
 cfg.cam.r_chunk = 1.0;               % segments wider than this (lateral half-extent) are split [m]
 cfg.cam.cover_q = 0.9;               % the sphere covers this quantile of the segment's surface points
 
@@ -66,7 +71,7 @@ cfg.depth.sigma_px_slope = 0.004;    % growth of per-pixel noise with range [1/m
 cfg.depth.p_outlier     = 0.02;      % probability of an outlier pixel
 cfg.depth.sigma_ang     = 0.5 * pi/180; % residual bearing error [rad]
 
-% ------------------------- obstacle segmentation of the depth image (Sec. 4)
+% ------------------------- obstacle segmentation of the depth image (method §4.2)
 % The vehicle only sees the network's depth image: no instance labels.
 cfg.seg.oracle  = false;             % true: ray-caster instance labels (old assumption A6, ablation only)
 cfg.seg.tau_out = 0.25;              % outlier: |log d - 3x3 median| above this
@@ -82,12 +87,12 @@ cfg.lat.inf_min    = 0.040;
 cfg.lat.inf_max    = 0.300;
 cfg.lat.P_gpu      = 15;             % accelerator power while inferring [W]
 
-% ------------------------------------------------ obstacle tracker (Sec. 5)
+% ------------------------------------------------ obstacle tracker (method §6)
 cfg.trk.q_acc      = 0.02;           % white-noise acceleration PSD [m^2/s^3]
 cfg.trk.sigma_v0   = 0.3;            % initial velocity std of a new track [m/s]
-%                                     (prior on obstacle speed; 1.5 in the dynamic scenario)
+%                                     (prior on obstacle speed; 1.0 in S2 and in SR worlds with movers)
 cfg.trk.sigma_forget = 1.5;          % forget an unobserved DYNAMIC track above this position std [m]
-cfg.trk.static_cls = true;           % two-model bank: classify stationary obstacles (Sec. 5.3)
+cfg.trk.static_cls = true;           % two-model bank: classify stationary obstacles (method §6)
 cfg.trk.q_static   = 1e-4;           % process-noise PSD of the stationary model [m^2/s^3]
 cfg.trk.sigma_v_static = 0.05;       % velocity prior std of the stationary model [m/s]
 cfg.trk.T_static   = 2.0;            % observation time required before a track may be classified static [s]
@@ -107,7 +112,7 @@ cfg.trk.rho_alpha  = 0.3;            % EWMA factor of the radius estimate
 cfg.trk.max_tracks = 64;
 cfg.trk.delay_comp = true;           % update at capture time (Eq. 23-27)
 
-% --------------------------------------- safety-driven scheduler (Sec. 6)
+% --------------------------------------- safety-driven scheduler (method §7)
 cfg.sched.mode     = 'adaptive';     % 'adaptive' | 'fixed'
 cfg.sched.f_fixed  = 10;             % rate of the fixed-rate baseline [Hz]
 cfg.sched.d_s      = 0.50;           % required clearance (body + margin) [m]
@@ -131,7 +136,7 @@ cfg.sched.emergency_hold = 0.3;      % hysteresis of the emergency mode [s]
 cfg.sched.v_closing = 0.2;           % an obstacle is 'closing' above this speed [m/s]
 cfg.sched.emergency_enabled = true;  % emergency mode (max-rate perception, N_max, speed cap)
 
-% -------------------------------------- adaptive-horizon MPC (Sec. 9)
+% -------------------------------------- adaptive-horizon MPC (method §10)
 cfg.mpc.dt       = 0.10;             % prediction step Delta t_m
 cfg.mpc.period   = 0.05;             % re-solve period (20 Hz)
 cfg.mpc.N_mode   = 'adaptive';       % 'adaptive' | 'fixed'
@@ -164,7 +169,7 @@ cfg.mpc.expected_reset = true;       % Eq. 79-80
 cfg.mpc.side_angle = 60 * pi/180;    % max angle between half-space normal and -travel dir
 cfg.mpc.solver   = 'ipm';            % 'ipm' (built-in) | 'quadprog'
 
-% ------------------------------------------------ CBF safety filter (Sec. 8)
+% ------------------------------------------------ CBF safety filter (method §9)
 cfg.cbf.enabled  = true;
 cfg.cbf.type     = 'braking';        % 'braking' (default) | 'hocbf' (original proposal)
 cfg.cbf.alpha    = 3.0;              % class-K gain of the braking barrier [1/s]
@@ -185,7 +190,7 @@ cfg.cbf.fd_step  = 0.05;             % finite-difference step for d_eff rates
 % ------------------------------------------------------------- mission
 cfg.ref.v_des    = 4.0;              % cruise speed [m/s]
 cfg.ref.a_dec    = 1.5;              % deceleration used near the goal
-% set path (the mission's reference trajectory) and rejoin logic (Sec. 9.1)
+% set path (the mission's reference trajectory) and rejoin logic (method §10.5)
 cfg.ref.mode     = 'rejoin';         % 'rejoin' | 'track' (always penalise deviation from the path)
 %                                      | 'goal' (old carrot straight to the goal, no path)
 cfg.ref.L_look   = 10.0;             % look-ahead along the path for blocking obstacles [m]
@@ -194,7 +199,6 @@ cfg.ref.ds       = 0.25;             % sampling of the path [m]
 cfg.ref.margin   = 0.20;             % extra clearance for "blocked" [m]
 cfg.ref.gap_merge = 4.0;             % blocked stretches closer than this are one (~1 s at cruise) [m]
 cfg.ref.m_rejoin = 1.0;              % rejoin this far behind the blocked stretch [m]
-cfg.ref.tol_s    = 0.5;              % rejoin point reached when s0 >= s_r - tol_s [m]
 cfg.ref.e_on     = 0.3;              % ... and the cross-track error <= e_on [m]
 cfg.ref.e_off    = 1.0;              % TRACK -> REJOIN when the cross-track error exceeds this [m]
 cfg.ref.L_min    = 3.0;              % rejoin point ahead when merely off the path [m]

@@ -1,4 +1,4 @@
-# Sensitivity sweep: one parameter (latency / speed / rate / noise) over a
+# Sensitivity sweep: one parameter (latency / speed / rate / noise / shift / kappa) over a
 # list of values, several variants and many seeds. One parallel job per
 # (scenario, value). Launched manually from the Actions tab.
 name: Sweep

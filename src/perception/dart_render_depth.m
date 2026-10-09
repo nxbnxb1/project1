@@ -1,5 +1,7 @@
 function [depth, inst] = dart_render_depth(cam, p, R_IB, cfg, centers, radii)
 %DART_RENDER_DEPTH Ray-cast a z-depth image of a set of spheres (Eq. 7).
+%   Legacy sphere-only renderer (unit tests, dart_export_scene); the
+%   simulation uses DART_RENDER_WORLD (spheres, boxes, cylinders).
 %   p, R_IB    true vehicle position and attitude at capture time
 %   centers    3 x M sphere centres, radii 1 x M
 %   depth      1 x (W*H) optical-axis depth (Inf where nothing is hit)

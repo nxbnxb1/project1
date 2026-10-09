@@ -1,12 +1,15 @@
 """Aggregate per-run lines printed by run_ablation (no sweep) into markdown tables.
 
-Line format: [ k/ n] <scenario> <variant> seed <s> <outcome> clr <c> t <t> inf <i> N <N> mpc <m> ms [err <e>]
+Line format: [ k/ n] <scenario> <variant> seed <s> <outcome> clr <c> t <t> inf <i> N <N> mpc <m> ms
+             [err <e>] [xte <x> xmax <x> off <f> nrj <n>]
+Outcomes: goal, collision, stuck (no progress, no time limit since d3ed301), cap, diverged;
+'timeout' only in logs of older versions (fixed 40 s limit).
 Usage: python3 parse_ablation.py <log>...   (runs printed twice are de-duplicated)
 Rates are given with Wilson 95% intervals; time / inferences are over runs that reached the goal.
 """
 import re, sys, math, statistics as st
 
-PAT = re.compile(r'\]\s+(S\d)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)'
+PAT = re.compile(r'\]\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)'
                  r'\s+inf\s+(\d+)\s+N\s+([\d.]+)\s+mpc\s+([\d.]+)\s+ms(?:\s+err\s+([\d.]+|NaN))?'
                  r'(?:\s+xte\s+([\d.]+)\s+xmax\s+([\d.]+)\s+off\s+([\d.]+)\s+nrj\s+(\d+))?')
 ORDER = ['A_FR_FN', 'B_AP_FN', 'C_FR_AN', 'D_AP_AN', 'E_DART', 'F_NODELAY', 'G_FR_LOW', 'Z_ZHUYI',

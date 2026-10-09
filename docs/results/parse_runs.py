@@ -1,3 +1,5 @@
+"""LEGACY parser for logs up to commit cc7650d (S1-S3, variants A-G, 40 s limit -> timeout).
+Current logs: use parse_ablation.py / parse_sweep.py / parse_failures.py."""
 import re, sys, statistics as st
 rows=[]
 pat=re.compile(r'\]\s+(S\d)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)\s+inf\s+(\d+)\s+N\s+([\d.]+)\s+mpc\s+([\d.]+)')

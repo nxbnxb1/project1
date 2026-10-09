@@ -9,7 +9,7 @@ function [trk, info] = dart_tracks_process_msg(trk, hdr, det, pb, t_now, cfg)
 %     the stale image is interpreted with the CURRENT pose and treated as a
 %     measurement at the arrival time.
 %
-%   Association (Sec. 5.2). The detections carry no identity: their id is
+%   Association (method §6, R13). The detections carry no identity: their id is
 %   only the index of a segment in that image. Every active track is
 %   predicted to t_meas with its selected model; a detection k may be
 %   assigned to track i only if the squared Mahalanobis distance
@@ -24,7 +24,7 @@ function [trk, info] = dart_tracks_process_msg(trk, hdr, det, pb, t_now, cfg)
 %   cfg.trk.oracle_assoc = true (ablation only, requires cfg.seg.oracle) the
 %   ray-caster instance id selects the track slot instead.
 %
-%   Two-model bank (Sec. 5.3): every accepted measurement updates both the
+%   Two-model bank (method §6, R10): every accepted measurement updates both the
 %   constant-velocity filter (x, P, q_acc) and the stationary filter
 %   (xs, Ps, q_static). Gating uses the currently selected model. The
 %   probability mu of the stationary model is propagated as in an IMM

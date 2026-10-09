@@ -70,7 +70,7 @@ def main(paths):
         if any((k[0], k[3]) in worlds for k in keys):
             table('layout', keys, F, lambda k: worlds.get((k[0], k[3]), {}).get('layout', '?'))
             table('movers', keys, F, lambda k: 'yes' if float(worlds.get((k[0], k[3]), {}).get('dyn', 0)) > 0 else 'no')
-        for grp in ['collision', 'stuck', 'timeout']:
+        for grp in ['collision', 'stuck', 'timeout', 'cap', 'diverged']:
             G = [d for d in F.values() if d['cls'].startswith(grp)]
             if not G:
                 continue

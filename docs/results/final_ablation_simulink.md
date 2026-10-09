@@ -1,5 +1,7 @@
 # Ablation Simulink cuối — 50 seed × 8 biến thể × 3 kịch bản (commit `3438b2b`)
 
+> **Phiên bản cũ của phương pháp (code `3438b2b`):** nhãn instance thật từ ray-caster + ghép theo ID, tham chiếu thẳng tới đích, chỉ vật cản cầu, giới hạn 40 s (cột Timeout). Không áp dụng cho phương pháp hiện tại; kết quả hiện tại: [`random_worlds.md`](random_worlds.md).
+
 * Nguồn: workflow **Experiments**, run [37492148397](https://github.com/nxbnxb1/project1/actions/runs/37492148397), engine `simulink`, MATLAB R2024b, seed 1–50, 1200 lượt.
 * Code: tracker hai mô hình; CBF có slack mặt đất riêng + giới hạn chuyển động mù; hộp gia tốc ngang 4.6 m/s² (điều kiện khả thi `a_max ≥ a_b + ā_o + δ_a`); trigger "urgent" chỉ cho vật cản trong FOV; trigger độ bất định có điều kiện lợi ích thông tin.
 * Dữ liệu thô: [`raw/final_ablation_simulink_S*.log`](raw/); bảng: `python3 parse_ablation.py raw/final_ablation_simulink_S*.log`. Tỉ lệ kèm khoảng tin cậy Wilson 95%; `clr` là khoảng cách thật nhỏ nhất từ thân UAV tới bề mặt vật cản (biên thiết kế d_s − r_body = 0.25 m).

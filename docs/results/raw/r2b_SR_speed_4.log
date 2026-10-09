@@ -1,0 +1,130 @@
+[  1/ 90] speed=4 SR  K0          seed 31  collision clr -0.00  t  87.7  inf 579  N 24.1  mpc   5.3 ms  err 1.72  xte 2.56  xmax 5.94  off 0.96  nrj 1
+WORLD SR seed 31 layout forest nleg 2 dyn 0.00 nobj 36
+FAILINFO speed=4 SR K0 seed 31 cls collision-untracked shape cylinder dyn 0 tracked 0 infov 0 mode 2 speed 2.01 closing 0.37 static NaN prog10 -1.1 layout forest vdes 4
+[  2/ 90] speed=4 SR  K0          seed 32  goal      clr  2.39  t  39.5  inf 151  N 19.5  mpc   3.3 ms  err 2.03  xte 13.66  xmax 21.98  off 0.97  nrj 1
+WORLD SR seed 32 layout forest nleg 3 dyn 0.29 nobj 65
+[  3/ 90] speed=4 SR  K0          seed 33  goal      clr  1.85  t  47.1  inf 211  N 19.0  mpc   3.2 ms  err 1.58  xte 9.04  xmax 18.26  off 0.95  nrj 1
+WORLD SR seed 33 layout clusters nleg 2 dyn 0.31 nobj 33
+[  4/ 90] speed=4 SR  K0          seed 34  goal      clr  0.95  t  80.7  inf 419  N 20.0  mpc   3.6 ms  err 1.35  xte 5.02  xmax 14.29  off 0.88  nrj 1
+WORLD SR seed 34 layout forest nleg 2 dyn 0.00 nobj 52
+[  5/ 90] speed=4 SR  K0          seed 35  goal      clr  0.63  t  57.2  inf 286  N 23.2  mpc   4.1 ms  err 0.58  xte 4.53  xmax 13.90  off 0.93  nrj 1
+WORLD SR seed 35 layout clusters nleg 3 dyn 0.00 nobj 25
+[  6/ 90] speed=4 SR  K0          seed 36  goal      clr  1.45  t  39.9  inf 226  N 21.8  mpc   3.8 ms  err 1.68  xte 6.86  xmax 11.82  off 0.97  nrj 1
+WORLD SR seed 36 layout mixed nleg 2 dyn 0.00 nobj 25
+[  7/ 90] speed=4 SR  K0          seed 37  goal      clr  1.56  t  17.0  inf  57  N 21.6  mpc   3.2 ms  err 1.39  xte 6.39  xmax 9.53  off 0.92  nrj 1
+WORLD SR seed 37 layout clusters nleg 3 dyn 0.00 nobj 16
+[  8/ 90] speed=4 SR  K0          seed 38  goal      clr  0.79  t  95.5  inf 717  N 22.7  mpc   4.3 ms  err 2.42  xte 5.02  xmax 11.91  off 0.99  nrj 1
+WORLD SR seed 38 layout corridor nleg 3 dyn 0.27 nobj 22
+[  9/ 90] speed=4 SR  K0          seed 39  goal      clr  0.20  t  94.7  inf 627  N 23.9  mpc   4.7 ms  err 1.24  xte 5.39  xmax 16.22  off 0.95  nrj 1
+WORLD SR seed 39 layout mixed nleg 1 dyn 0.00 nobj 28
+[ 10/ 90] speed=4 SR  K0          seed 40  goal      clr  0.69  t  27.3  inf 127  N 22.0  mpc   3.6 ms  err 1.16  xte 6.60  xmax 11.69  off 0.97  nrj 1
+WORLD SR seed 40 layout mixed nleg 3 dyn 0.00 nobj 37
+[ 11/ 90] speed=4 SR  K0          seed 41  goal      clr  1.60  t  61.9  inf 333  N 20.6  mpc   3.6 ms  err 1.67  xte 8.77  xmax 18.62  off 0.98  nrj 1
+WORLD SR seed 41 layout mixed nleg 1 dyn 0.17 nobj 40
+[ 12/ 90] speed=4 SR  K0          seed 42  goal      clr  1.77  t  43.1  inf 176  N 19.4  mpc   3.3 ms  err 1.58  xte 8.88  xmax 14.48  off 0.98  nrj 1
+WORLD SR seed 42 layout uniform nleg 3 dyn 0.20 nobj 23
+[ 13/ 90] speed=4 SR  K0          seed 43  stuck     clr  1.50  t  96.6  inf 622  N 21.2  mpc   3.7 ms  err 2.43  xte 8.29  xmax 22.07  off 0.98  nrj 1
+WORLD SR seed 43 layout corridor nleg 1 dyn 0.24 nobj 20
+FAILINFO speed=4 SR K0 seed 43 cls stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 2.60 closing -0.25 static 0 prog10 0.0 layout corridor vdes 4
+[ 14/ 90] speed=4 SR  K0          seed 44  goal      clr  2.23  t  25.3  inf  86  N 17.8  mpc   2.7 ms  err 1.36  xte 10.59  xmax 16.01  off 0.91  nrj 1
+WORLD SR seed 44 layout clusters nleg 1 dyn 0.28 nobj 27
+[ 15/ 90] speed=4 SR  K0          seed 45  goal      clr  0.96  t  23.0  inf  88  N 20.8  mpc   3.4 ms  err 1.34  xte 7.91  xmax 11.43  off 0.97  nrj 1
+WORLD SR seed 45 layout mixed nleg 2 dyn 0.00 nobj 31
+[ 16/ 90] speed=4 SR  K0          seed 46  goal      clr  2.10  t  65.4  inf 292  N 19.3  mpc   3.4 ms  err 2.24  xte 10.45  xmax 21.66  off 0.99  nrj 1
+WORLD SR seed 46 layout corridor nleg 3 dyn 0.14 nobj 22
+[ 17/ 90] speed=4 SR  K0          seed 47  goal      clr  1.56  t  25.7  inf 138  N 23.0  mpc   4.0 ms  err 0.92  xte 9.70  xmax 13.40  off 0.97  nrj 1
+WORLD SR seed 47 layout mixed nleg 2 dyn 0.00 nobj 39
+[ 18/ 90] speed=4 SR  K0          seed 48  goal      clr  1.11  t  21.6  inf 104  N 23.8  mpc   4.4 ms  err 1.70  xte 7.92  xmax 13.07  off 0.96  nrj 1
+WORLD SR seed 48 layout uniform nleg 3 dyn 0.00 nobj 25
+[ 19/ 90] speed=4 SR  K0          seed 49  collision clr -0.01  t  10.0  inf  88  N 23.7  mpc   4.5 ms  err 1.42  xte 2.47  xmax 5.22  off 0.78  nrj 1
+WORLD SR seed 49 layout mixed nleg 2 dyn 0.23 nobj 42
+FAILINFO speed=4 SR K0 seed 49 cls collision-untracked shape cylinder dyn 0 tracked 0 infov 0 mode 2 speed 3.61 closing 0.75 static NaN prog10 4.4 layout mixed vdes 4
+[ 20/ 90] speed=4 SR  K0          seed 50  goal      clr  2.91  t  24.6  inf  86  N 19.9  mpc   3.0 ms  err 1.19  xte 13.39  xmax 18.54  off 0.96  nrj 1
+WORLD SR seed 50 layout clusters nleg 1 dyn 0.25 nobj 34
+[ 21/ 90] speed=4 SR  K0          seed 51  goal      clr  3.45  t  47.4  inf 189  N 18.9  mpc   3.0 ms  err 2.01  xte 9.59  xmax 18.51  off 0.97  nrj 1
+WORLD SR seed 51 layout corridor nleg 2 dyn 0.26 nobj 19
+[ 22/ 90] speed=4 SR  K0          seed 52  goal      clr  1.10  t  89.8  inf 529  N 23.5  mpc   4.4 ms  err 1.13  xte 6.87  xmax 14.71  off 0.96  nrj 1
+WORLD SR seed 52 layout uniform nleg 3 dyn 0.00 nobj 30
+[ 23/ 90] speed=4 SR  K0          seed 53  goal      clr  1.73  t  50.3  inf 241  N 19.8  mpc   3.3 ms  err 1.39  xte 9.83  xmax 17.53  off 0.96  nrj 1
+WORLD SR seed 53 layout forest nleg 1 dyn 0.14 nobj 38
+[ 24/ 90] speed=4 SR  K0          seed 54  goal      clr  2.45  t  35.5  inf 125  N 19.5  mpc   2.9 ms  err 1.66  xte 12.51  xmax 24.70  off 0.95  nrj 1
+WORLD SR seed 54 layout mixed nleg 2 dyn 0.19 nobj 37
+[ 25/ 90] speed=4 SR  K0          seed 55  goal      clr  2.48  t  41.1  inf 195  N 21.6  mpc   3.6 ms  err 1.61  xte 11.02  xmax 19.93  off 0.93  nrj 1
+WORLD SR seed 55 layout mixed nleg 3 dyn 0.30 nobj 54
+[ 26/ 90] speed=4 SR  K0          seed 56  goal      clr  2.49  t  53.6  inf 213  N 17.8  mpc   2.7 ms  err 1.61  xte 10.88  xmax 21.20  off 0.96  nrj 1
+WORLD SR seed 56 layout clusters nleg 1 dyn 0.26 nobj 32
+[ 27/ 90] speed=4 SR  K0          seed 57  goal      clr  1.16  t  31.6  inf 165  N 22.7  mpc   4.1 ms  err 1.51  xte 8.29  xmax 15.60  off 0.95  nrj 1
+WORLD SR seed 57 layout forest nleg 3 dyn 0.00 nobj 42
+[ 28/ 90] speed=4 SR  K0          seed 58  stuck     clr  0.45  t  89.1  inf 408  N 18.4  mpc   3.0 ms  err 1.98  xte 9.28  xmax 25.91  off 0.97  nrj 1
+WORLD SR seed 58 layout mixed nleg 3 dyn 0.34 nobj 56
+FAILINFO speed=4 SR K0 seed 58 cls stuck shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 4.18 closing -2.07 static 1 prog10 0.0 layout mixed vdes 4
+[ 29/ 90] speed=4 SR  K0          seed 59  goal      clr  0.47  t  44.6  inf 261  N 23.9  mpc   4.2 ms  err 1.65  xte 4.86  xmax 11.37  off 0.95  nrj 1
+WORLD SR seed 59 layout corridor nleg 2 dyn 0.00 nobj 17
+[ 30/ 90] speed=4 SR  K0          seed 60  goal      clr  3.94  t  29.0  inf  97  N 18.1  mpc   2.6 ms  err 1.89  xte 12.32  xmax 20.90  off 0.96  nrj 1
+WORLD SR seed 60 layout clusters nleg 3 dyn 0.14 nobj 23
+[ 31/ 90] speed=4 SR  K50         seed 31  goal      clr  0.60  t  45.5  inf 331  N 25.3  mpc   5.0 ms  err 1.32  xte 3.02  xmax 6.77  off 0.95  nrj 1
+[ 32/ 90] speed=4 SR  K50         seed 32  goal      clr  2.31  t  31.1  inf 177  N 23.2  mpc   4.1 ms  err 2.39  xte 10.92  xmax 19.76  off 0.97  nrj 1
+[ 33/ 90] speed=4 SR  K50         seed 33  goal      clr  0.78  t  34.2  inf 231  N 24.3  mpc   4.4 ms  err 1.79  xte 6.44  xmax 14.21  off 0.92  nrj 1
+[ 34/ 90] speed=4 SR  K50         seed 34  goal      clr  0.06  t  51.6  inf 359  N 26.1  mpc   5.1 ms  err 1.44  xte 5.67  xmax 11.80  off 0.96  nrj 1
+[ 35/ 90] speed=4 SR  K50         seed 35  goal      clr  0.66  t  22.6  inf 153  N 26.1  mpc   4.4 ms  err 0.69  xte 3.11  xmax 7.98  off 0.64  nrj 1
+[ 36/ 90] speed=4 SR  K50         seed 36  goal      clr  1.19  t  23.6  inf 170  N 24.6  mpc   4.5 ms  err 1.33  xte 5.27  xmax 9.55  off 0.87  nrj 1
+[ 37/ 90] speed=4 SR  K50         seed 37  goal      clr  1.00  t  40.8  inf 262  N 23.9  mpc   4.2 ms  err 1.40  xte 5.57  xmax 10.74  off 0.93  nrj 1
+[ 38/ 90] speed=4 SR  K50         seed 38  goal      clr  0.15  t  45.1  inf 408  N 27.8  mpc   5.6 ms  err 1.80  xte 2.35  xmax 6.01  off 0.92  nrj 1
+[ 39/ 90] speed=4 SR  K50         seed 39  goal      clr  0.56  t  15.5  inf 120  N 28.2  mpc   4.8 ms  err 1.34  xte 2.04  xmax 4.41  off 0.77  nrj 1
+[ 40/ 90] speed=4 SR  K50         seed 40  goal      clr  0.23  t 110.9  inf 895  N 27.3  mpc   5.6 ms  err 1.31  xte 3.14  xmax 9.15  off 0.97  nrj 1
+[ 41/ 90] speed=4 SR  K50         seed 41  goal      clr  0.48  t  41.1  inf 352  N 26.8  mpc   5.3 ms  err 1.63  xte 3.81  xmax 9.45  off 0.93  nrj 1
+[ 42/ 90] speed=4 SR  K50         seed 42  goal      clr  1.07  t  22.3  inf 183  N 27.1  mpc   4.9 ms  err 1.86  xte 4.18  xmax 8.79  off 0.93  nrj 1
+[ 43/ 90] speed=4 SR  K50         seed 43  goal      clr  0.54  t  50.5  inf 416  N 26.9  mpc   5.1 ms  err 2.50  xte 5.62  xmax 13.78  off 0.94  nrj 1
+[ 44/ 90] speed=4 SR  K50         seed 44  goal      clr  1.22  t  21.9  inf 121  N 21.9  mpc   3.4 ms  err 2.14  xte 8.80  xmax 15.17  off 0.92  nrj 1
+[ 45/ 90] speed=4 SR  K50         seed 45  goal      clr  0.38  t  31.3  inf 226  N 26.7  mpc   4.6 ms  err 0.85  xte 2.22  xmax 4.43  off 0.90  nrj 1
+[ 46/ 90] speed=4 SR  K50         seed 46  goal      clr  0.13  t  41.0  inf 360  N 26.7  mpc   5.1 ms  err 2.04  xte 4.18  xmax 9.37  off 0.89  nrj 1
+[ 47/ 90] speed=4 SR  K50         seed 47  goal      clr  0.62  t  39.8  inf 281  N 26.3  mpc   4.8 ms  err 1.14  xte 5.08  xmax 9.96  off 0.95  nrj 1
+[ 48/ 90] speed=4 SR  K50         seed 48  goal      clr  0.79  t  16.7  inf 126  N 27.0  mpc   4.3 ms  err 1.02  xte 1.69  xmax 2.96  off 0.82  nrj 1
+[ 49/ 90] speed=4 SR  K50         seed 49  collision clr -0.00  t  20.2  inf 186  N 27.4  mpc   5.6 ms  err 1.77  xte 2.04  xmax 4.72  off 0.90  nrj 1
+FAILINFO speed=4 SR K50 seed 49 cls collision-tracked shape sphere dyn 0 tracked 1 infov 1 mode 2 speed 1.26 closing 1.06 static 0 prog10 13.9 layout mixed vdes 4
+[ 50/ 90] speed=4 SR  K50         seed 50  goal      clr  0.58  t  24.9  inf 168  N 24.7  mpc   4.0 ms  err 1.87  xte 5.38  xmax 9.97  off 0.95  nrj 1
+[ 51/ 90] speed=4 SR  K50         seed 51  goal      clr  0.37  t  38.2  inf 303  N 25.8  mpc   4.7 ms  err 2.11  xte 5.52  xmax 9.55  off 0.93  nrj 1
+[ 52/ 90] speed=4 SR  K50         seed 52  goal      clr  0.26  t  62.4  inf 460  N 25.2  mpc   4.8 ms  err 1.43  xte 5.53  xmax 11.86  off 0.97  nrj 1
+[ 53/ 90] speed=4 SR  K50         seed 53  goal      clr  1.75  t  24.7  inf 154  N 23.5  mpc   3.7 ms  err 2.00  xte 8.72  xmax 14.06  off 0.97  nrj 1
+[ 54/ 90] speed=4 SR  K50         seed 54  goal      clr  0.61  t  67.5  inf 534  N 25.2  mpc   4.6 ms  err 1.67  xte 6.06  xmax 12.78  off 0.95  nrj 1
+[ 55/ 90] speed=4 SR  K50         seed 55  goal      clr  0.63  t  48.2  inf 357  N 25.4  mpc   5.0 ms  err 1.35  xte 6.53  xmax 13.12  off 0.94  nrj 1
+[ 56/ 90] speed=4 SR  K50         seed 56  goal      clr  0.22  t  36.3  inf 212  N 23.0  mpc   3.8 ms  err 1.68  xte 11.35  xmax 22.79  off 0.97  nrj 1
+[ 57/ 90] speed=4 SR  K50         seed 57  collision clr -0.00  t  25.3  inf 167  N 23.9  mpc   4.5 ms  err 1.75  xte 4.14  xmax 8.48  off 0.91  nrj 1
+FAILINFO speed=4 SR K50 seed 57 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.48 closing 0.50 static 0 prog10 1.4 layout forest vdes 4
+[ 58/ 90] speed=4 SR  K50         seed 58  goal      clr  0.14  t  44.2  inf 378  N 27.6  mpc   5.1 ms  err 1.41  xte 5.43  xmax 14.07  off 0.90  nrj 1
+[ 59/ 90] speed=4 SR  K50         seed 59  goal      clr  0.44  t  16.2  inf 126  N 27.9  mpc   4.5 ms  err 1.44  xte 1.92  xmax 4.36  off 0.66  nrj 2
+[ 60/ 90] speed=4 SR  K50         seed 60  goal      clr  0.80  t  17.9  inf 114  N 24.1  mpc   3.9 ms  err 1.66  xte 6.23  xmax 8.42  off 0.92  nrj 1
+[ 61/ 90] speed=4 SR  K100        seed 31  goal      clr  0.83  t  31.8  inf 269  N 27.8  mpc   4.7 ms  err 1.20  xte 2.28  xmax 4.92  off 0.88  nrj 1
+[ 62/ 90] speed=4 SR  K100        seed 32  collision clr -0.01  t  45.8  inf 404  N 27.2  mpc   5.2 ms  err 1.70  xte 4.23  xmax 8.85  off 0.97  nrj 1
+FAILINFO speed=4 SR K100 seed 32 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 1.93 closing 0.97 static 1 prog10 15.3 layout forest vdes 4
+[ 63/ 90] speed=4 SR  K100        seed 33  goal      clr  0.57  t  34.1  inf 282  N 26.1  mpc   4.6 ms  err 2.18  xte 5.47  xmax 10.74  off 0.92  nrj 1
+[ 64/ 90] speed=4 SR  K100        seed 34  goal      clr  0.64  t  51.7  inf 411  N 26.9  mpc   4.9 ms  err 1.22  xte 4.57  xmax 9.56  off 0.90  nrj 1
+[ 65/ 90] speed=4 SR  K100        seed 35  goal      clr  0.01  t  30.2  inf 243  N 27.1  mpc   4.9 ms  err 1.30  xte 1.51  xmax 3.71  off 0.65  nrj 3
+[ 66/ 90] speed=4 SR  K100        seed 36  goal      clr  0.58  t  24.7  inf 204  N 27.2  mpc   4.5 ms  err 1.63  xte 1.89  xmax 4.49  off 0.69  nrj 2
+[ 67/ 90] speed=4 SR  K100        seed 37  goal      clr  0.19  t  34.4  inf 276  N 27.7  mpc   4.8 ms  err 1.84  xte 2.01  xmax 5.52  off 0.78  nrj 3
+[ 68/ 90] speed=4 SR  K100        seed 38  goal      clr  0.58  t  22.8  inf 208  N 29.0  mpc   5.0 ms  err 1.83  xte 3.60  xmax 9.07  off 0.82  nrj 2
+[ 69/ 90] speed=4 SR  K100        seed 39  goal      clr  0.34  t  19.5  inf 165  N 28.2  mpc   4.5 ms  err 1.53  xte 1.92  xmax 3.88  off 0.68  nrj 3
+[ 70/ 90] speed=4 SR  K100        seed 40  collision clr -0.02  t  15.3  inf 141  N 28.4  mpc   5.1 ms  err 1.49  xte 1.90  xmax 3.06  off 0.90  nrj 1
+FAILINFO speed=4 SR K100 seed 40 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 3.21 closing 1.91 static 0 prog10 15.1 layout mixed vdes 4
+[ 71/ 90] speed=4 SR  K100        seed 41  goal      clr  0.18  t  50.8  inf 452  N 27.6  mpc   5.0 ms  err 1.59  xte 3.18  xmax 5.71  off 0.93  nrj 1
+[ 72/ 90] speed=4 SR  K100        seed 42  goal      clr  1.33  t  21.2  inf 171  N 26.1  mpc   4.1 ms  err 1.82  xte 4.44  xmax 8.19  off 0.97  nrj 1
+[ 73/ 90] speed=4 SR  K100        seed 43  goal      clr  0.64  t  21.4  inf 198  N 29.4  mpc   4.9 ms  err 2.82  xte 2.32  xmax 4.96  off 0.83  nrj 3
+[ 74/ 90] speed=4 SR  K100        seed 44  goal      clr  0.87  t  16.5  inf 137  N 27.8  mpc   4.4 ms  err 1.60  xte 5.65  xmax 8.24  off 0.92  nrj 1
+[ 75/ 90] speed=4 SR  K100        seed 45  collision clr -0.01  t   5.9  inf  36  N 23.4  mpc   4.0 ms  err 1.11  xte 2.00  xmax 3.48  off 0.76  nrj 1
+FAILINFO speed=4 SR K100 seed 45 cls collision-tracked shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 2.20 closing 0.94 static 0 prog10 5.3 layout mixed vdes 4
+[ 76/ 90] speed=4 SR  K100        seed 46  goal      clr  0.30  t  35.0  inf 301  N 26.6  mpc   4.6 ms  err 2.13  xte 3.99  xmax 8.17  off 0.77  nrj 2
+[ 77/ 90] speed=4 SR  K100        seed 47  goal      clr  0.45  t  32.9  inf 279  N 27.5  mpc   5.0 ms  err 0.92  xte 3.10  xmax 6.23  off 0.88  nrj 2
+[ 78/ 90] speed=4 SR  K100        seed 48  goal      clr  0.36  t  16.8  inf 132  N 27.4  mpc   4.2 ms  err 1.00  xte 1.58  xmax 3.07  off 0.70  nrj 2
+[ 79/ 90] speed=4 SR  K100        seed 49  goal      clr  0.37  t  45.1  inf 395  N 27.6  mpc   5.1 ms  err 1.90  xte 5.74  xmax 12.64  off 0.92  nrj 2
+[ 80/ 90] speed=4 SR  K100        seed 50  goal      clr  0.46  t  19.5  inf 150  N 26.9  mpc   4.5 ms  err 2.15  xte 5.72  xmax 9.60  off 0.91  nrj 1
+[ 81/ 90] speed=4 SR  K100        seed 51  goal      clr  0.76  t  28.4  inf 256  N 28.6  mpc   5.0 ms  err 2.19  xte 2.88  xmax 7.04  off 0.76  nrj 1
+[ 82/ 90] speed=4 SR  K100        seed 52  goal      clr  0.56  t  35.0  inf 275  N 27.1  mpc   4.8 ms  err 1.54  xte 2.67  xmax 5.01  off 0.80  nrj 2
+[ 83/ 90] speed=4 SR  K100        seed 53  collision clr -0.00  t  23.1  inf 207  N 27.7  mpc   5.2 ms  err 1.02  xte 6.15  xmax 9.24  off 0.96  nrj 1
+FAILINFO speed=4 SR K100 seed 53 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 1.37 closing 0.26 static 0 prog10 1.5 layout forest vdes 4
+[ 84/ 90] speed=4 SR  K100        seed 54  goal      clr  0.21  t  37.9  inf 342  N 28.4  mpc   5.2 ms  err 1.48  xte 2.48  xmax 5.25  off 0.87  nrj 1
+[ 85/ 90] speed=4 SR  K100        seed 55  goal      clr  0.04  t  74.7  inf 661  N 28.0  mpc   5.3 ms  err 1.58  xte 4.29  xmax 11.08  off 0.97  nrj 1
+[ 86/ 90] speed=4 SR  K100        seed 56  goal      clr  0.28  t  42.9  inf 369  N 27.7  mpc   4.8 ms  err 1.52  xte 2.84  xmax 7.19  off 0.88  nrj 1
+[ 87/ 90] speed=4 SR  K100        seed 57  goal      clr  0.20  t  32.6  inf 266  N 27.1  mpc   4.9 ms  err 1.18  xte 2.22  xmax 6.52  off 0.82  nrj 1
+[ 88/ 90] speed=4 SR  K100        seed 58  goal      clr  0.51  t  19.1  inf 172  N 29.2  mpc   4.5 ms  err 2.16  xte 7.18  xmax 10.66  off 0.83  nrj 1
+[ 89/ 90] speed=4 SR  K100        seed 59  goal      clr  0.36  t  15.4  inf 105  N 27.2  mpc   3.8 ms  err 1.29  xte 1.38  xmax 3.11  off 0.56  nrj 2
+[ 90/ 90] speed=4 SR  K100        seed 60  goal      clr  0.33  t  21.5  inf 178  N 27.0  mpc   4.2 ms  err 1.37  xte 4.39  xmax 9.08  off 0.89  nrj 1

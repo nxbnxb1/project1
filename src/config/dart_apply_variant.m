@@ -1,18 +1,20 @@
 function cfg = dart_apply_variant(cfg, name)
-%DART_APPLY_VARIANT Configure one method of the ablation study (Sec. 11).
+%DART_APPLY_VARIANT Configure one method of the ablation study (method §12.7).
 %
 %   A_FR_FN   fixed-rate perception (10 Hz) + fixed-N MPC
 %   B_AP_FN   adaptive perception          + fixed-N MPC
 %   C_FR_AN   fixed-rate perception        + adaptive-N MPC
 %   D_AP_AN   adaptive perception          + adaptive-N MPC
-%   E_DART    D + uncertainty inflation + HOCBF filter (full method)
+%   E_DART    D + uncertainty inflation + braking-CBF filter + emergency mode,
+%             set path with planned detour (full method)
 %   F_NODELAY E without timestamp (delay) compensation
 %   G_FR_LOW  E with a fixed low perception rate (3 Hz) instead of the scheduler
 %   Z_ZHUYI   E with a Zhuyi-style scheduler: the tolerable open-loop time is
 %             derived from braking kinematics on the POINT estimate only (no
 %             covariance growth, no uncertainty trigger) and there is no
 %             frontier term for unseen obstacles (cf. Hsiao et al., DAC 2022)
-%   O_ORACLE  E with the old oracle perception (assumption A6): ray-caster
+%   O_ORACLE  E with the oracle perception of the OLD assumption A6 (the
+%             current A6 states that no labels are available): ray-caster
 %             instance labels instead of segmenting the depth image, and
 %             association by the true instance id
 %   R_GOAL    E without the set path: carrot straight to the goal (old reference)
@@ -21,7 +23,9 @@ function cfg = dart_apply_variant(cfg, name)
 %   R_STRAIGHT E with the rejoin segment drawn as a straight line to the
 %             rejoin point (no detour plan around the obstacles)
 %   K<k>      E with the safety <-> time trade-off kappa = k/100
-%             (e.g. K0, K25, K50 = E_DART, K100; DART_APPLY_TRADEOFF)
+%             (e.g. K0, K25, K50 = E_DART, K100); kappa takes effect in
+%             DART_APPLY_TRADEOFF, called by DART_RUN_CASE (callers of
+%             DART_SIM must call it themselves)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),

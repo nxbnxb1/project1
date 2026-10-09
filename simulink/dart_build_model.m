@@ -9,7 +9,7 @@ function mdl = dart_build_model(mdl, outdir)
 %     Plant (continuous, ode4 @ dt_plant) ............ MATLAB Function + Integrator
 %     Attitude controller (dt_plant) ................. MATLAB Function (Lee SO(3))
 %     DART Controller (dt_ctrl) ...................... MATLAB System (interpreted)
-%        delay-aware tracker, scheduler, adaptive-N MPC (20 Hz inside), HOCBF
+%        delay-aware tracker, scheduler, adaptive-N MPC (20 Hz inside), CBF filter
 %     Camera + Depth AI (dt_ctrl, event-driven) ...... MATLAB System (interpreted)
 %     Ground-truth monitor (dt_ctrl) ................. MATLAB System -> Stop
 %

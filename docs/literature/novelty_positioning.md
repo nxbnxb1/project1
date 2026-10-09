@@ -1,5 +1,7 @@
 # Định vị tính mới của DART (dựa trên các bài đã đọc toàn văn)
 
+> **Cần cập nhật:** định vị và bằng chứng (Mục 6) dựa trên code `3438b2b` (nhãn thật, tham chiếu thẳng tới đích, chỉ vật cản cầu, giới hạn 40 s). Từ `4499394` phương pháp đã đổi: tự phân đoạn + ghép không định danh, vật cản nhiều hình dạng phủ bằng cầu, quỹ đạo đặt + đoạn vòng có lập kế hoạch, giới hạn tốc độ ra ngoài trường nhìn, yaw nhìn trước, không giới hạn thời gian, siêu tham số κ, thế giới ngẫu nhiên SR. Các thành phần mới chưa được định vị so với tài liệu đã đọc; kết quả hiện tại ở [`../results/random_worlds.md`](../results/random_worlds.md).
+
 Tài liệu này chỉ dựa trên các bài **đã đọc toàn văn**; mã bài (A1, N1, …) trỏ tới [`reading_list.md`](reading_list.md) và ghi chú chi tiết có số trang + trích nguyên văn trong [`notes/`](notes/). Hai bài được đọc hai lần dưới hai mã: N5 ≡ A1 (Falanga et al. RA-L 2019), N2 ≡ A5 (TAPAS), N8 ≡ F8 (self-triggered CBF). Ba bài N13–N15 (D3, Pant et al., Shahsavari et al.) do người dùng cung cấp bản PDF; ngoài agent, Claude đã tự đọc toàn văn cả ba trước khi sửa tài liệu này.
 
 ## 1. Kết luận ngắn
@@ -25,7 +27,7 @@ Tài liệu này chỉ dựa trên các bài **đã đọc toàn văn**; mã bà
 * **Chỉ mô phỏng.** A1, A2, A3, A6, B5, C2, C3, G5–G8 và một số bài nhóm N (N2, N6 HIL, N7, N14 với 56 chuyến bay hexrotor, N15 rover thật) có thử nghiệm phần cứng hoặc HIL.
 * **Không có chứng minh hình thức cho scheduler** như F8 (safe period), N9 (định lý 5.1–5.2), C3 (khả thi đệ quy), N14 (khả thi đệ quy + thoả ràng buộc bền vững / xác suất). An toàn của DART là bằng chứng Monte-Carlo. Nên phát biểu một mệnh đề có điều kiện (ví dụ: nếu ước lượng nằm trong vùng β-sigma và trễ ≤ τ̂ thì điều kiện dừng còn đúng trong khoảng mở) và nói rõ giả thiết.
 * **Không có chứng chỉ xác suất an toàn** như G2, G3, G4, G8.
-* **Chỉ vật cản cầu**; G1, G6 xử lý hình lồi tổng quát.
+* **Vật cản bất kỳ được phủ bằng (nhiều) hình cầu** (vật dài/dẹt bị chia, bảo thủ); G1, G6 xử lý hình lồi tổng quát trực tiếp.
 * **Lập luận tiết kiệm năng lượng cần thận trọng**: RoboRun [N6] cho thấy năng lượng tính toán dưới 0.05% năng lượng drone (tr. 5); Shahsavari et al. [N15] cho thấy năng lượng tính toán có thể chiếm ưu thế ở rover mặt đất nhỏ chạy chậm (tr. 351), nhưng tự nêu điều kiện là hai phần năng lượng phải tương đương nhau (tr. 361). Nên lập luận theo khả dụng của bộ tăng tốc (chia sẻ với các tác vụ khác), nhiệt, và khả năng dùng mô hình depth lớn hơn ở cùng mức an toàn.
 * **Giả thiết độ trễ lớn cần dẫn chứng**: FastDepth chỉ 5.6 ms trên TX2 GPU [B4]; dẫn chứng cho trễ hàng chục–hàng trăm ms: Depth Anything V2 60–213 ms trên V100 [B3], ZoeDepth trong MonoNav 0.11–0.16 s [B5], depth học onboard 73 ms [A3], mạng pose monocular 0.18–0.40 s trên Orin NX [H2].
 * **Phanh là cận bảo thủ**: phụ lục của A1 cho thấy né ngang nhanh hơn phanh ở tốc độ cao.

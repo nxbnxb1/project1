@@ -1,5 +1,5 @@
 function [ss, out] = dart_scheduler(ss, ob, rk, p, v, R_IB, t, cfg)
-%DART_SCHEDULER Safety-driven adaptive perception scheduling (Sec. 6).
+%DART_SCHEDULER Safety-driven adaptive perception scheduling (method §7).
 %   ss  scheduler state: t_last (last capture), awaiting (frame in flight),
 %       tau_m / tau_v (latency statistics), emerg_until
 %   out.trigger   start a depth inference now
