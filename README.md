@@ -146,6 +146,20 @@ Thêm `Z_ZHUYI` (scheduler kiểu Zhuyi: không bất định, không frontier),
 
 **Quỹ đạo đặt và đoạn quay về** (mặc định, `cfg.ref.mode = 'rejoin'`): UAV bám quỹ đạo đặt `world.path`; khi quỹ đạo phía trước bị vật cản chặn, tham chiếu được vẽ lại thành đường gấp khúc ngắn nhất không va chạm từ vị trí hiện tại tới điểm sớm nhất của quỹ đạo đặt nằm sau đoạn bị chặn, và trong lúc quay về sai lệch khỏi quỹ đạo đặt không bị phạt (`src/planning/`).
 
+### Kết quả với phương pháp hiện tại (vòng 3, chỉ vật tĩnh)
+
+120 thế giới ngẫu nhiên × 4 tốc độ (2/4/6/8 m/s) × 5 biến thể = 2400 lượt (code `b377220`, MATLAB engine, κ = 0.5, không giới hạn thời gian). Trên **39 thế giới chỉ có vật tĩnh** (156 lượt mỗi biến thể; chi tiết và phần thế giới có vật di chuyển: [`docs/results/random_worlds.md`](docs/results/random_worlds.md)):
+
+| Biến thể | Về đích | Va chạm | Kẹt | Suy luận mỗi nhiệm vụ (trung vị, 2/4/6/8 m/s) |
+|---|---|---|---|---|
+| DART (bộ nhớ 10 m, mặc định) | 155 | 1 | 0 | 106 / 105 / 120 / 108 |
+| bộ nhớ 3 m | 147 | 8 | 1 | 105 / 107 / 114 / 114 |
+| không bộ nhớ | 129 | 27 | 0 | 86 / 102 / 106 / 94 |
+| cố định 3 Hz (cùng lớp an toàn, bộ nhớ) | 155 | 0 | 1 | 99 / 57 / 58 / 57 |
+| cố định 10 Hz | 155 | 1 | 0 | 310 / 167 / 160 / 145 |
+
+**Kết luận:** bộ nhớ vật cản là cần thiết; nhưng bộ lập lịch thích nghi hiện tại **chưa tối thiểu hoá tính toán** — tần số cố định 3 Hz an toàn như nhau với khoảng một nửa số suy luận ở 4–8 m/s. Ở thế giới có vật di chuyển (ngoài phạm vi) mọi biến thể về đích 52–83%, va chạm là với vật di chuyển.
+
 ### Kết quả vòng 2 trên thế giới ngẫu nhiên SR (phiên bản trước khi thu hẹp về vật tĩnh)
 
 > Vòng này chạy phiên bản còn theo dõi vật di chuyển; phương pháp hiện tại (chỉ vật tĩnh, mốc tĩnh, bộ nhớ 10 m) đang được đo lại.

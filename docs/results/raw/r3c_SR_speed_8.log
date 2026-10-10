@@ -1,0 +1,207 @@
+[  1/150] speed=8 SR  MEM10       seed 61  goal      clr  0.73  t  15.6  inf 119  N 27.0  mpc   5.5 ms  err 0.99  xte 3.22  xmax 7.01  off 0.84  nrj 2
+WORLD SR seed 61 layout mixed nleg 2 dyn 0.00 nobj 35
+[  2/150] speed=8 SR  MEM10       seed 62  goal      clr  0.96  t  26.0  inf 149  N 25.1  mpc   4.4 ms  err 1.34  xte 5.06  xmax 7.92  off 0.94  nrj 1
+WORLD SR seed 62 layout forest nleg 1 dyn 0.00 nobj 49
+[  3/150] speed=8 SR  MEM10       seed 63  goal      clr  1.04  t  12.2  inf  90  N 27.4  mpc   4.2 ms  err 1.50  xte 1.48  xmax 3.31  off 0.53  nrj 2
+WORLD SR seed 63 layout corridor nleg 2 dyn 0.00 nobj 16
+[  4/150] speed=8 SR  MEM10       seed 64  goal      clr  0.69  t  14.0  inf  87  N 25.8  mpc   4.2 ms  err 0.73  xte 1.42  xmax 2.66  off 0.75  nrj 1
+WORLD SR seed 64 layout clusters nleg 1 dyn 0.34 nobj 32
+[  5/150] speed=8 SR  MEM10       seed 65  goal      clr  0.32  t  37.6  inf 220  N 25.2  mpc   4.1 ms  err 1.36  xte 4.61  xmax 10.26  off 0.90  nrj 1
+WORLD SR seed 65 layout forest nleg 3 dyn 0.33 nobj 65
+[  6/150] speed=8 SR  MEM10       seed 66  goal      clr  0.55  t  19.3  inf 137  N 27.4  mpc   4.7 ms  err 1.64  xte 1.73  xmax 3.55  off 0.80  nrj 2
+WORLD SR seed 66 layout corridor nleg 3 dyn 0.26 nobj 20
+[  7/150] speed=8 SR  MEM10       seed 67  goal      clr  0.79  t  37.5  inf 216  N 24.8  mpc   4.5 ms  err 1.54  xte 5.57  xmax 10.49  off 0.98  nrj 1
+WORLD SR seed 67 layout forest nleg 1 dyn 0.00 nobj 47
+[  8/150] speed=8 SR  MEM10       seed 68  goal      clr  0.56  t  22.7  inf 127  N 25.9  mpc   4.3 ms  err 1.58  xte 8.33  xmax 12.81  off 0.95  nrj 1
+WORLD SR seed 68 layout forest nleg 3 dyn 0.23 nobj 58
+[  9/150] speed=8 SR  MEM10       seed 69  goal      clr  0.47  t  16.5  inf  95  N 26.2  mpc   4.2 ms  err 1.06  xte 1.16  xmax 2.04  off 0.74  nrj 2
+WORLD SR seed 69 layout corridor nleg 2 dyn 0.00 nobj 17
+[ 10/150] speed=8 SR  MEM10       seed 70  collision clr -0.00  t  10.7  inf  62  N 22.1  mpc   4.4 ms  err 0.63  xte 5.17  xmax 10.48  off 0.93  nrj 1
+WORLD SR seed 70 layout mixed nleg 1 dyn 0.31 nobj 54
+FAILINFO speed=8 SR MEM10 seed 70 cls collision-tracked shape cylinder dyn 1 tracked 1 infov 0 mode 2 speed 2.98 closing 0.56 nupd 10 seen 0.15 prog10 8.0 layout mixed vdes 8
+[ 11/150] speed=8 SR  MEM10       seed 71  collision clr -0.01  t   2.9  inf  25  N 25.4  mpc   4.4 ms  err 1.60  xte 1.36  xmax 2.12  off 0.61  nrj 1
+WORLD SR seed 71 layout mixed nleg 1 dyn 0.22 nobj 40
+FAILINFO speed=8 SR MEM10 seed 71 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 2.13 closing 0.77 nupd 9 seen 0.08 prog10 8.6 layout mixed vdes 8
+[ 12/150] speed=8 SR  MEM10       seed 72  goal      clr  0.75  t  13.7  inf  82  N 26.7  mpc   4.0 ms  err 0.61  xte 2.09  xmax 4.09  off 0.75  nrj 2
+WORLD SR seed 72 layout clusters nleg 3 dyn 0.20 nobj 24
+[ 13/150] speed=8 SR  MEM10       seed 73  goal      clr  1.01  t  12.8  inf  89  N 25.2  mpc   3.7 ms  err 0.63  xte 1.63  xmax 4.04  off 0.65  nrj 2
+WORLD SR seed 73 layout clusters nleg 1 dyn 0.00 nobj 21
+[ 14/150] speed=8 SR  MEM10       seed 74  goal      clr  0.39  t  15.2  inf  94  N 26.4  mpc   3.9 ms  err 1.48  xte 2.26  xmax 4.04  off 0.76  nrj 2
+WORLD SR seed 74 layout corridor nleg 2 dyn 0.19 nobj 17
+[ 15/150] speed=8 SR  MEM10       seed 75  goal      clr  0.53  t  32.0  inf 152  N 23.4  mpc   3.7 ms  err 0.92  xte 4.97  xmax 10.24  off 0.90  nrj 2
+WORLD SR seed 75 layout uniform nleg 2 dyn 0.18 nobj 34
+[ 16/150] speed=8 SR  MEM10       seed 76  goal      clr  0.70  t  15.5  inf 106  N 26.7  mpc   4.1 ms  err 1.36  xte 1.35  xmax 2.92  off 0.65  nrj 2
+WORLD SR seed 76 layout corridor nleg 3 dyn 0.13 nobj 16
+[ 17/150] speed=8 SR  MEM10       seed 77  goal      clr  0.52  t  17.4  inf 109  N 25.9  mpc   4.2 ms  err 0.78  xte 2.04  xmax 4.06  off 0.68  nrj 2
+WORLD SR seed 77 layout uniform nleg 2 dyn 0.19 nobj 31
+[ 18/150] speed=8 SR  MEM10       seed 78  goal      clr  0.74  t  12.8  inf  89  N 26.7  mpc   3.9 ms  err 0.78  xte 1.37  xmax 2.11  off 0.81  nrj 1
+WORLD SR seed 78 layout corridor nleg 3 dyn 0.00 nobj 16
+[ 19/150] speed=8 SR  MEM10       seed 79  goal      clr  0.73  t  17.8  inf 136  N 26.1  mpc   4.1 ms  err 1.04  xte 2.05  xmax 4.52  off 0.87  nrj 1
+WORLD SR seed 79 layout mixed nleg 2 dyn 0.18 nobj 39
+[ 20/150] speed=8 SR  MEM10       seed 80  goal      clr  0.91  t  15.7  inf 114  N 26.7  mpc   4.1 ms  err 1.74  xte 4.04  xmax 7.70  off 0.83  nrj 1
+WORLD SR seed 80 layout forest nleg 2 dyn 0.00 nobj 39
+[ 21/150] speed=8 SR  MEM10       seed 81  goal      clr  0.41  t  27.3  inf 166  N 26.4  mpc   4.5 ms  err 1.12  xte 3.54  xmax 7.03  off 0.87  nrj 1
+WORLD SR seed 81 layout mixed nleg 1 dyn 0.33 nobj 55
+[ 22/150] speed=8 SR  MEM10       seed 82  goal      clr  0.80  t  19.2  inf 120  N 26.1  mpc   4.2 ms  err 0.79  xte 2.29  xmax 4.67  off 0.91  nrj 2
+WORLD SR seed 82 layout mixed nleg 1 dyn 0.00 nobj 31
+[ 23/150] speed=8 SR  MEM10       seed 83  goal      clr  0.30  t  23.0  inf 148  N 27.4  mpc   4.6 ms  err 1.76  xte 4.18  xmax 6.88  off 0.97  nrj 1
+WORLD SR seed 83 layout forest nleg 2 dyn 0.26 nobj 39
+[ 24/150] speed=8 SR  MEM10       seed 84  goal      clr  1.35  t  10.7  inf  64  N 25.2  mpc   3.5 ms  err 1.83  xte 0.83  xmax 2.08  off 0.30  nrj 1
+WORLD SR seed 84 layout corridor nleg 1 dyn 0.00 nobj 13
+[ 25/150] speed=8 SR  MEM10       seed 85  goal      clr  0.77  t  20.2  inf 117  N 24.4  mpc   3.8 ms  err 1.04  xte 1.48  xmax 3.56  off 0.76  nrj 2
+WORLD SR seed 85 layout corridor nleg 2 dyn 0.28 nobj 26
+[ 26/150] speed=8 SR  MEM10       seed 86  goal      clr  0.46  t  13.0  inf  89  N 25.0  mpc   4.0 ms  err 0.64  xte 1.14  xmax 2.72  off 0.51  nrj 2
+WORLD SR seed 86 layout clusters nleg 2 dyn 0.00 nobj 20
+[ 27/150] speed=8 SR  MEM10       seed 87  collision clr -0.01  t   2.7  inf  20  N 25.4  mpc   4.3 ms  err 0.32  xte 1.47  xmax 3.08  off 0.72  nrj 1
+WORLD SR seed 87 layout clusters nleg 2 dyn 0.12 nobj 25
+FAILINFO speed=8 SR MEM10 seed 87 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 5.03 closing 0.22 nupd 18 seen 0.01 prog10 9.5 layout clusters vdes 8
+[ 28/150] speed=8 SR  MEM10       seed 88  collision clr -0.02  t  15.1  inf 118  N 26.7  mpc   4.5 ms  err 1.40  xte 6.51  xmax 11.40  off 0.94  nrj 1
+WORLD SR seed 88 layout forest nleg 1 dyn 0.33 nobj 50
+FAILINFO speed=8 SR MEM10 seed 88 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 2.91 closing 0.10 nupd 11 seen 0.10 prog10 22.7 layout forest vdes 8
+[ 29/150] speed=8 SR  MEM10       seed 89  goal      clr  0.87  t  11.8  inf  72  N 24.9  mpc   3.7 ms  err 0.78  xte 0.60  xmax 1.34  off 0.41  nrj 2
+WORLD SR seed 89 layout clusters nleg 1 dyn 0.16 nobj 15
+[ 30/150] speed=8 SR  MEM10       seed 90  goal      clr  0.84  t  27.9  inf 172  N 26.6  mpc   4.5 ms  err 0.93  xte 2.64  xmax 5.73  off 0.90  nrj 1
+WORLD SR seed 90 layout uniform nleg 1 dyn 0.24 nobj 33
+[ 31/150] speed=8 SR  MEM3        seed 61  goal      clr  0.51  t  19.3  inf 129  N 26.7  mpc   4.7 ms  err 1.09  xte 3.26  xmax 7.08  off 0.89  nrj 2
+[ 32/150] speed=8 SR  MEM3        seed 62  goal      clr  0.90  t  36.4  inf 217  N 26.8  mpc   5.2 ms  err 1.40  xte 4.30  xmax 8.07  off 0.95  nrj 1
+[ 33/150] speed=8 SR  MEM3        seed 63  goal      clr  1.14  t  12.3  inf  86  N 26.8  mpc   3.8 ms  err 1.30  xte 1.54  xmax 3.37  off 0.53  nrj 3
+[ 34/150] speed=8 SR  MEM3        seed 64  goal      clr  0.75  t  13.7  inf  87  N 24.8  mpc   3.8 ms  err 0.79  xte 1.51  xmax 3.03  off 0.74  nrj 1
+[ 35/150] speed=8 SR  MEM3        seed 65  collision clr -0.01  t   5.9  inf  46  N 25.2  mpc   4.7 ms  err 0.87  xte 1.65  xmax 3.02  off 0.74  nrj 1
+FAILINFO speed=8 SR MEM3 seed 65 cls collision-tracked shape sphere dyn 1 tracked 1 infov 1 mode 2 speed 0.67 closing 1.55 nupd 4 seen 0.00 prog10 10.1 layout forest vdes 8
+[ 36/150] speed=8 SR  MEM3        seed 66  collision clr -0.01  t   6.6  inf  36  N 25.0  mpc   4.0 ms  err 1.47  xte 2.59  xmax 4.08  off 0.86  nrj 1
+FAILINFO speed=8 SR MEM3 seed 66 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 3.84 closing -1.08 nupd 16 seen 0.21 prog10 19.4 layout corridor vdes 8
+[ 37/150] speed=8 SR  MEM3        seed 67  goal      clr  0.11  t  61.4  inf 432  N 25.5  mpc   4.9 ms  err 1.29  xte 3.92  xmax 10.56  off 0.96  nrj 1
+[ 38/150] speed=8 SR  MEM3        seed 68  goal      clr  0.65  t  69.4  inf 416  N 25.2  mpc   4.7 ms  err 1.20  xte 4.51  xmax 10.14  off 0.85  nrj 1
+[ 39/150] speed=8 SR  MEM3        seed 69  goal      clr  0.86  t  12.1  inf  85  N 25.6  mpc   3.5 ms  err 1.03  xte 0.95  xmax 2.04  off 0.65  nrj 3
+[ 40/150] speed=8 SR  MEM3        seed 70  goal      clr  0.32  t  37.7  inf 274  N 26.4  mpc   4.6 ms  err 0.88  xte 1.53  xmax 2.86  off 0.79  nrj 1
+[ 41/150] speed=8 SR  MEM3        seed 71  goal      clr  0.01  t  34.7  inf 219  N 25.1  mpc   4.3 ms  err 1.22  xte 3.53  xmax 7.68  off 0.97  nrj 1
+[ 42/150] speed=8 SR  MEM3        seed 72  goal      clr  0.75  t  14.3  inf  83  N 26.1  mpc   3.9 ms  err 0.55  xte 2.23  xmax 4.22  off 0.80  nrj 2
+[ 43/150] speed=8 SR  MEM3        seed 73  goal      clr  0.24  t  19.3  inf 119  N 24.5  mpc   3.9 ms  err 0.87  xte 2.17  xmax 4.34  off 0.76  nrj 2
+[ 44/150] speed=8 SR  MEM3        seed 74  goal      clr  0.35  t  13.6  inf  92  N 26.5  mpc   3.9 ms  err 1.19  xte 1.96  xmax 3.62  off 0.76  nrj 1
+[ 45/150] speed=8 SR  MEM3        seed 75  collision clr -0.02  t   7.3  inf  40  N 23.3  mpc   4.1 ms  err 1.01  xte 0.89  xmax 1.90  off 0.65  nrj 1
+FAILINFO speed=8 SR MEM3 seed 75 cls collision-untracked shape sphere dyn 0 tracked 0 infov 0 mode 2 speed 4.72 closing 2.78 nupd NaN seen 0.04 prog10 13.9 layout uniform vdes 8
+[ 46/150] speed=8 SR  MEM3        seed 76  collision clr -0.02  t  33.3  inf 145  N 21.3  mpc   3.7 ms  err 1.14  xte 1.20  xmax 2.67  off 0.91  nrj 1
+FAILINFO speed=8 SR MEM3 seed 76 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 4.71 closing -0.06 nupd 5 seen 0.80 prog10 -4.7 layout corridor vdes 8
+[ 47/150] speed=8 SR  MEM3        seed 77  goal      clr  0.61  t  15.9  inf  88  N 25.6  mpc   4.0 ms  err 0.77  xte 1.25  xmax 2.61  off 0.63  nrj 1
+[ 48/150] speed=8 SR  MEM3        seed 78  goal      clr  0.91  t  12.0  inf  80  N 26.0  mpc   3.7 ms  err 0.51  xte 1.35  xmax 2.35  off 0.75  nrj 1
+[ 49/150] speed=8 SR  MEM3        seed 79  goal      clr  0.56  t  25.1  inf 169  N 26.2  mpc   4.2 ms  err 0.78  xte 1.86  xmax 4.17  off 0.81  nrj 1
+[ 50/150] speed=8 SR  MEM3        seed 80  goal      clr  0.15  t  20.4  inf 123  N 24.4  mpc   3.8 ms  err 1.55  xte 3.55  xmax 7.74  off 0.91  nrj 1
+[ 51/150] speed=8 SR  MEM3        seed 81  goal      clr  0.64  t  26.0  inf 183  N 26.4  mpc   4.2 ms  err 0.90  xte 3.38  xmax 5.70  off 0.90  nrj 1
+[ 52/150] speed=8 SR  MEM3        seed 82  goal      clr  0.83  t  28.2  inf 140  N 22.1  mpc   3.4 ms  err 0.88  xte 1.98  xmax 5.20  off 0.95  nrj 1
+[ 53/150] speed=8 SR  MEM3        seed 83  goal      clr  0.14  t  26.1  inf 190  N 27.3  mpc   4.4 ms  err 1.35  xte 3.15  xmax 8.61  off 0.84  nrj 1
+[ 54/150] speed=8 SR  MEM3        seed 84  goal      clr  1.42  t  10.4  inf  62  N 24.2  mpc   3.0 ms  err 1.51  xte 0.82  xmax 1.97  off 0.29  nrj 1
+[ 55/150] speed=8 SR  MEM3        seed 85  goal      clr  0.32  t  16.0  inf 114  N 25.7  mpc   3.8 ms  err 1.09  xte 1.74  xmax 4.08  off 0.71  nrj 3
+[ 56/150] speed=8 SR  MEM3        seed 86  goal      clr  0.43  t  19.6  inf 115  N 24.6  mpc   3.9 ms  err 0.73  xte 1.50  xmax 3.02  off 0.70  nrj 2
+[ 57/150] speed=8 SR  MEM3        seed 87  goal      clr  0.12  t  14.4  inf 106  N 25.9  mpc   3.9 ms  err 0.60  xte 1.96  xmax 4.38  off 0.72  nrj 2
+[ 58/150] speed=8 SR  MEM3        seed 88  goal      clr  0.34  t  21.2  inf 150  N 25.4  mpc   4.0 ms  err 1.30  xte 5.27  xmax 10.39  off 0.87  nrj 1
+[ 59/150] speed=8 SR  MEM3        seed 89  goal      clr  0.64  t  12.9  inf  77  N 25.1  mpc   3.6 ms  err 0.77  xte 0.93  xmax 2.53  off 0.45  nrj 2
+[ 60/150] speed=8 SR  MEM3        seed 90  collision clr -0.00  t   6.2  inf  43  N 27.1  mpc   4.6 ms  err 0.78  xte 1.12  xmax 1.88  off 0.86  nrj 1
+FAILINFO speed=8 SR MEM3 seed 90 cls collision-tracked shape box dyn 1 tracked 1 infov 1 mode 2 speed 0.88 closing 2.11 nupd 17 seen 0.04 prog10 23.1 layout uniform vdes 8
+[ 61/150] speed=8 SR  MEM0        seed 61  goal      clr  0.21  t  16.4  inf  98  N 25.3  mpc   3.9 ms  err 1.03  xte 3.15  xmax 6.86  off 0.82  nrj 2
+[ 62/150] speed=8 SR  MEM0        seed 62  goal      clr  0.19  t  37.4  inf 272  N 24.5  mpc   4.2 ms  err 1.08  xte 1.88  xmax 3.40  off 0.87  nrj 1
+[ 63/150] speed=8 SR  MEM0        seed 63  goal      clr  1.17  t  13.5  inf  89  N 26.7  mpc   3.8 ms  err 1.41  xte 1.57  xmax 3.11  off 0.65  nrj 2
+[ 64/150] speed=8 SR  MEM0        seed 64  goal      clr  0.32  t  14.2  inf  88  N 24.2  mpc   3.3 ms  err 0.58  xte 1.83  xmax 4.02  off 0.77  nrj 1
+[ 65/150] speed=8 SR  MEM0        seed 65  goal      clr  0.50  t  21.9  inf 151  N 24.6  mpc   3.9 ms  err 1.21  xte 3.01  xmax 6.69  off 0.75  nrj 1
+[ 66/150] speed=8 SR  MEM0        seed 66  goal      clr  0.37  t  13.1  inf  83  N 24.8  mpc   3.5 ms  err 1.18  xte 1.61  xmax 3.98  off 0.62  nrj 2
+[ 67/150] speed=8 SR  MEM0        seed 67  collision clr -0.01  t  10.7  inf  83  N 24.7  mpc   4.6 ms  err 1.61  xte 1.13  xmax 1.81  off 0.94  nrj 1
+FAILINFO speed=8 SR MEM0 seed 67 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 1.80 closing -0.14 nupd 3 seen 0.04 prog10 8.1 layout forest vdes 8
+[ 68/150] speed=8 SR  MEM0        seed 68  goal      clr  0.20  t  24.7  inf 170  N 24.6  mpc   4.0 ms  err 1.23  xte 1.70  xmax 5.14  off 0.67  nrj 1
+[ 69/150] speed=8 SR  MEM0        seed 69  goal      clr  0.54  t  12.9  inf  90  N 25.6  mpc   3.9 ms  err 1.06  xte 0.93  xmax 2.04  off 0.57  nrj 2
+[ 70/150] speed=8 SR  MEM0        seed 70  collision clr -0.02  t  10.6  inf  76  N 25.8  mpc   4.5 ms  err 1.18  xte 4.49  xmax 7.47  off 0.94  nrj 1
+FAILINFO speed=8 SR MEM0 seed 70 cls collision-untracked shape cylinder dyn 0 tracked 0 infov 0 mode 2 speed 2.34 closing 0.83 nupd NaN seen 1.78 prog10 20.4 layout mixed vdes 8
+[ 71/150] speed=8 SR  MEM0        seed 71  collision clr -0.03  t  24.3  inf 180  N 21.8  mpc   4.1 ms  err 1.17  xte 1.14  xmax 2.68  off 0.69  nrj 1
+FAILINFO speed=8 SR MEM0 seed 71 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 3.80 closing 1.48 nupd 2 seen 0.05 prog10 7.2 layout mixed vdes 8
+[ 72/150] speed=8 SR  MEM0        seed 72  goal      clr  0.62  t  14.1  inf  81  N 25.4  mpc   3.9 ms  err 0.39  xte 2.36  xmax 5.09  off 0.78  nrj 2
+[ 73/150] speed=8 SR  MEM0        seed 73  goal      clr  1.07  t  12.4  inf  81  N 24.6  mpc   3.5 ms  err 0.60  xte 1.78  xmax 4.07  off 0.71  nrj 2
+[ 74/150] speed=8 SR  MEM0        seed 74  goal      clr  0.87  t  15.5  inf 102  N 25.0  mpc   4.0 ms  err 1.28  xte 1.90  xmax 4.09  off 0.71  nrj 2
+[ 75/150] speed=8 SR  MEM0        seed 75  collision clr -0.03  t   4.5  inf  28  N 23.1  mpc   4.2 ms  err 0.88  xte 0.72  xmax 2.25  off 0.50  nrj 1
+FAILINFO speed=8 SR MEM0 seed 75 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 4.98 closing 1.64 nupd 1 seen 0.04 prog10 10.8 layout uniform vdes 8
+[ 76/150] speed=8 SR  MEM0        seed 76  goal      clr  0.68  t  14.3  inf  94  N 25.9  mpc   4.0 ms  err 1.15  xte 1.58  xmax 3.49  off 0.65  nrj 1
+[ 77/150] speed=8 SR  MEM0        seed 77  goal      clr  0.36  t  14.8  inf 101  N 25.8  mpc   4.0 ms  err 0.96  xte 1.37  xmax 2.61  off 0.71  nrj 1
+[ 78/150] speed=8 SR  MEM0        seed 78  goal      clr  0.87  t  12.5  inf  94  N 25.6  mpc   3.8 ms  err 0.86  xte 1.36  xmax 2.45  off 0.75  nrj 1
+[ 79/150] speed=8 SR  MEM0        seed 79  goal      clr  0.57  t  16.9  inf 110  N 25.6  mpc   4.2 ms  err 0.96  xte 1.85  xmax 4.23  off 0.77  nrj 1
+[ 80/150] speed=8 SR  MEM0        seed 80  goal      clr  0.75  t  14.3  inf 104  N 24.2  mpc   3.9 ms  err 1.42  xte 4.33  xmax 7.04  off 0.95  nrj 1
+[ 81/150] speed=8 SR  MEM0        seed 81  goal      clr  0.07  t  23.3  inf 159  N 24.6  mpc   4.1 ms  err 0.74  xte 1.30  xmax 2.52  off 0.80  nrj 1
+[ 82/150] speed=8 SR  MEM0        seed 82  goal      clr  0.51  t  13.8  inf  94  N 26.3  mpc   4.3 ms  err 0.62  xte 1.69  xmax 3.32  off 0.84  nrj 2
+[ 83/150] speed=8 SR  MEM0        seed 83  collision clr -0.00  t   5.8  inf  46  N 25.6  mpc   4.9 ms  err 0.93  xte 2.52  xmax 4.41  off 0.59  nrj 1
+FAILINFO speed=8 SR MEM0 seed 83 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 2.47 closing 2.02 nupd 1 seen 0.02 prog10 13.9 layout forest vdes 8
+[ 84/150] speed=8 SR  MEM0        seed 84  goal      clr  1.42  t  10.6  inf  63  N 24.5  mpc   3.3 ms  err 1.34  xte 0.80  xmax 1.93  off 0.30  nrj 1
+[ 85/150] speed=8 SR  MEM0        seed 85  goal      clr  0.61  t  14.3  inf  92  N 24.5  mpc   3.7 ms  err 0.92  xte 1.21  xmax 2.18  off 0.72  nrj 2
+[ 86/150] speed=8 SR  MEM0        seed 86  collision clr -0.02  t  14.3  inf  90  N 22.9  mpc   4.0 ms  err 0.93  xte 1.89  xmax 3.31  off 0.95  nrj 1
+FAILINFO speed=8 SR MEM0 seed 86 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 3.74 closing 2.87 nupd 9 seen 0.07 prog10 2.6 layout clusters vdes 8
+[ 87/150] speed=8 SR  MEM0        seed 87  collision clr -0.02  t   3.5  inf  23  N 24.1  mpc   3.9 ms  err 0.57  xte 2.03  xmax 3.48  off 0.78  nrj 1
+FAILINFO speed=8 SR MEM0 seed 87 cls collision-untracked shape box dyn 1 tracked 0 infov 0 mode 2 speed 2.20 closing 2.53 nupd NaN seen 0.80 prog10 8.9 layout clusters vdes 8
+[ 88/150] speed=8 SR  MEM0        seed 88  goal      clr  0.45  t  17.1  inf 108  N 27.2  mpc   4.3 ms  err 1.42  xte 3.23  xmax 7.17  off 0.86  nrj 1
+[ 89/150] speed=8 SR  MEM0        seed 89  goal      clr  0.77  t  12.1  inf  73  N 24.7  mpc   3.4 ms  err 0.72  xte 0.63  xmax 1.73  off 0.34  nrj 2
+[ 90/150] speed=8 SR  MEM0        seed 90  goal      clr  0.39  t  16.2  inf 102  N 25.9  mpc   4.1 ms  err 0.83  xte 1.95  xmax 4.71  off 0.90  nrj 1
+[ 91/150] speed=8 SR  FR_SAFE_3   seed 61  goal      clr  0.65  t  16.9  inf  50  N 27.1  mpc   4.3 ms  err 1.16  xte 3.22  xmax 7.05  off 0.84  nrj 2
+[ 92/150] speed=8 SR  FR_SAFE_3   seed 62  goal      clr  0.87  t  81.7  inf 241  N 22.4  mpc   4.1 ms  err 0.86  xte 2.85  xmax 7.63  off 0.91  nrj 1
+[ 93/150] speed=8 SR  FR_SAFE_3   seed 63  goal      clr  0.98  t  17.2  inf  51  N 25.4  mpc   3.9 ms  err 1.57  xte 2.78  xmax 6.56  off 0.70  nrj 3
+[ 94/150] speed=8 SR  FR_SAFE_3   seed 64  goal      clr  0.79  t  20.4  inf  61  N 26.8  mpc   4.3 ms  err 1.03  xte 1.89  xmax 3.99  off 0.82  nrj 1
+[ 95/150] speed=8 SR  FR_SAFE_3   seed 65  collision clr -0.02  t   5.3  inf  16  N 27.5  mpc   5.2 ms  err 1.10  xte 0.84  xmax 1.43  off 0.65  nrj 1
+FAILINFO speed=8 SR FR_SAFE_3 seed 65 cls collision-tracked shape sphere dyn 1 tracked 1 infov 0 mode 2 speed 1.32 closing 2.02 nupd 3 seen 0.20 prog10 10.8 layout forest vdes 8
+[ 96/150] speed=8 SR  FR_SAFE_3   seed 66  goal      clr  0.26  t  15.6  inf  46  N 27.5  mpc   4.4 ms  err 1.62  xte 1.88  xmax 3.75  off 0.75  nrj 2
+[ 97/150] speed=8 SR  FR_SAFE_3   seed 67  goal      clr  0.73  t  36.3  inf 107  N 25.3  mpc   4.4 ms  err 1.62  xte 4.71  xmax 10.91  off 0.95  nrj 1
+[ 98/150] speed=8 SR  FR_SAFE_3   seed 68  goal      clr  0.42  t  40.6  inf 120  N 27.3  mpc   4.8 ms  err 1.63  xte 5.52  xmax 12.07  off 0.94  nrj 1
+[ 99/150] speed=8 SR  FR_SAFE_3   seed 69  goal      clr  0.84  t  22.2  inf  66  N 26.8  mpc   4.6 ms  err 1.02  xte 1.49  xmax 2.44  off 0.80  nrj 3
+[100/150] speed=8 SR  FR_SAFE_3   seed 70  goal      clr  0.53  t  43.5  inf 129  N 27.3  mpc   4.9 ms  err 1.84  xte 5.73  xmax 10.95  off 0.94  nrj 1
+[101/150] speed=8 SR  FR_SAFE_3   seed 71  collision clr -0.02  t  11.0  inf  33  N 25.2  mpc   4.6 ms  err 1.29  xte 4.43  xmax 8.50  off 0.89  nrj 1
+FAILINFO speed=8 SR FR_SAFE_3 seed 71 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 2.63 closing 1.80 nupd 2 seen 1.50 prog10 8.6 layout mixed vdes 8
+[102/150] speed=8 SR  FR_SAFE_3   seed 72  collision clr -0.01  t   6.2  inf  19  N 28.7  mpc   4.6 ms  err 0.69  xte 3.59  xmax 5.77  off 0.80  nrj 1
+FAILINFO speed=8 SR FR_SAFE_3 seed 72 cls collision-tracked shape box dyn 1 tracked 1 infov 1 mode 2 speed 3.66 closing 3.35 nupd 4 seen 0.10 prog10 29.2 layout clusters vdes 8
+[103/150] speed=8 SR  FR_SAFE_3   seed 73  goal      clr  0.69  t  18.7  inf  55  N 25.2  mpc   3.9 ms  err 1.13  xte 1.86  xmax 4.51  off 0.58  nrj 1
+[104/150] speed=8 SR  FR_SAFE_3   seed 74  goal      clr  1.06  t  15.5  inf  46  N 27.2  mpc   4.2 ms  err 1.47  xte 1.87  xmax 3.88  off 0.78  nrj 2
+[105/150] speed=8 SR  FR_SAFE_3   seed 75  collision clr -0.02  t   2.8  inf   9  N 24.5  mpc   4.0 ms  err 1.23  xte 1.75  xmax 3.91  off 0.45  nrj 1
+FAILINFO speed=8 SR FR_SAFE_3 seed 75 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 4.57 closing 1.95 nupd 8 seen 0.11 prog10 8.8 layout uniform vdes 8
+[106/150] speed=8 SR  FR_SAFE_3   seed 76  goal      clr  0.73  t  24.7  inf  73  N 27.4  mpc   4.7 ms  err 1.51  xte 1.24  xmax 2.08  off 0.78  nrj 2
+[107/150] speed=8 SR  FR_SAFE_3   seed 77  goal      clr  0.33  t  20.4  inf  61  N 26.6  mpc   4.4 ms  err 0.73  xte 2.55  xmax 4.74  off 0.73  nrj 1
+[108/150] speed=8 SR  FR_SAFE_3   seed 78  goal      clr  0.77  t  12.3  inf  37  N 25.7  mpc   3.7 ms  err 0.94  xte 1.57  xmax 2.59  off 0.76  nrj 1
+[109/150] speed=8 SR  FR_SAFE_3   seed 79  goal      clr  0.69  t  19.1  inf  57  N 26.7  mpc   4.7 ms  err 0.97  xte 2.35  xmax 5.30  off 0.81  nrj 1
+[110/150] speed=8 SR  FR_SAFE_3   seed 80  goal      clr  1.05  t  25.3  inf  75  N 26.0  mpc   4.6 ms  err 1.00  xte 5.43  xmax 11.36  off 0.96  nrj 1
+[111/150] speed=8 SR  FR_SAFE_3   seed 81  goal      clr  0.26  t  82.4  inf 243  N 24.9  mpc   4.4 ms  err 1.00  xte 4.81  xmax 10.48  off 0.95  nrj 1
+[112/150] speed=8 SR  FR_SAFE_3   seed 82  goal      clr  0.75  t  20.5  inf  61  N 27.0  mpc   4.5 ms  err 0.63  xte 1.78  xmax 3.24  off 0.85  nrj 1
+[113/150] speed=8 SR  FR_SAFE_3   seed 83  collision clr -0.00  t  99.1  inf 292  N 20.8  mpc   3.9 ms  err 1.31  xte 2.62  xmax 4.64  off 0.76  nrj 1
+FAILINFO speed=8 SR FR_SAFE_3 seed 83 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 0.76 closing -0.34 nupd 38 seen 0.19 prog10 1.2 layout forest vdes 8
+[114/150] speed=8 SR  FR_SAFE_3   seed 84  goal      clr  1.35  t  11.0  inf  33  N 25.3  mpc   3.7 ms  err 1.38  xte 0.79  xmax 1.99  off 0.36  nrj 1
+[115/150] speed=8 SR  FR_SAFE_3   seed 85  goal      clr  0.22  t  63.1  inf 186  N 19.4  mpc   3.2 ms  err 1.26  xte 3.61  xmax 6.80  off 0.93  nrj 2
+[116/150] speed=8 SR  FR_SAFE_3   seed 86  goal      clr  0.81  t  12.7  inf  38  N 25.3  mpc   3.8 ms  err 0.60  xte 1.53  xmax 3.75  off 0.53  nrj 2
+[117/150] speed=8 SR  FR_SAFE_3   seed 87  goal      clr  0.68  t  16.8  inf  50  N 25.0  mpc   4.1 ms  err 1.09  xte 4.27  xmax 7.89  off 0.86  nrj 1
+[118/150] speed=8 SR  FR_SAFE_3   seed 88  collision clr -0.01  t  12.4  inf  37  N 27.2  mpc   4.9 ms  err 1.68  xte 6.19  xmax 13.75  off 0.92  nrj 1
+FAILINFO speed=8 SR FR_SAFE_3 seed 88 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 3.96 closing 0.24 nupd 4 seen 0.18 prog10 25.2 layout forest vdes 8
+[119/150] speed=8 SR  FR_SAFE_3   seed 89  goal      clr  0.99  t  12.6  inf  38  N 25.4  mpc   3.9 ms  err 1.02  xte 0.70  xmax 1.52  off 0.44  nrj 2
+[120/150] speed=8 SR  FR_SAFE_3   seed 90  goal      clr  0.71  t  15.0  inf  45  N 27.1  mpc   4.2 ms  err 1.23  xte 1.93  xmax 3.44  off 0.91  nrj 1
+[121/150] speed=8 SR  FR_SAFE_10  seed 61  goal      clr  0.54  t  19.2  inf 178  N 27.4  mpc   4.7 ms  err 1.11  xte 3.29  xmax 6.58  off 0.85  nrj 2
+[122/150] speed=8 SR  FR_SAFE_10  seed 62  goal      clr  0.62  t  24.5  inf 225  N 25.6  mpc   4.4 ms  err 1.00  xte 4.96  xmax 8.29  off 0.88  nrj 1
+[123/150] speed=8 SR  FR_SAFE_10  seed 63  goal      clr  0.98  t  13.1  inf 123  N 27.0  mpc   4.3 ms  err 1.38  xte 1.48  xmax 3.25  off 0.59  nrj 3
+[124/150] speed=8 SR  FR_SAFE_10  seed 64  goal      clr  0.71  t  14.9  inf 138  N 25.6  mpc   4.1 ms  err 0.69  xte 1.60  xmax 2.94  off 0.73  nrj 1
+[125/150] speed=8 SR  FR_SAFE_10  seed 65  collision clr -0.01  t   4.3  inf  40  N 26.7  mpc   5.0 ms  err 1.17  xte 0.76  xmax 1.18  off 0.67  nrj 1
+FAILINFO speed=8 SR FR_SAFE_10 seed 65 cls collision-tracked shape sphere dyn 1 tracked 1 infov 0 mode 2 speed 1.31 closing 1.63 nupd 26 seen 0.08 prog10 11.9 layout forest vdes 8
+[126/150] speed=8 SR  FR_SAFE_10  seed 66  collision clr -0.00  t   7.2  inf  67  N 26.8  mpc   4.7 ms  err 1.10  xte 2.39  xmax 3.62  off 0.87  nrj 1
+FAILINFO speed=8 SR FR_SAFE_10 seed 66 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 1.10 closing 1.37 nupd 2 seen 0.94 prog10 19.8 layout corridor vdes 8
+[127/150] speed=8 SR  FR_SAFE_10  seed 67  goal      clr  0.85  t  39.1  inf 361  N 27.4  mpc   5.1 ms  err 1.32  xte 4.45  xmax 9.03  off 0.94  nrj 1
+[128/150] speed=8 SR  FR_SAFE_10  seed 68  goal      clr  0.65  t  44.1  inf 412  N 27.7  mpc   5.4 ms  err 1.33  xte 2.87  xmax 6.78  off 0.90  nrj 1
+[129/150] speed=8 SR  FR_SAFE_10  seed 69  goal      clr  0.77  t  12.9  inf 120  N 26.6  mpc   4.5 ms  err 1.03  xte 0.86  xmax 1.71  off 0.51  nrj 3
+[130/150] speed=8 SR  FR_SAFE_10  seed 70  goal      clr  0.97  t  22.6  inf 211  N 26.2  mpc   4.9 ms  err 1.06  xte 5.40  xmax 11.62  off 0.89  nrj 1
+[131/150] speed=8 SR  FR_SAFE_10  seed 71  goal      clr  0.95  t  21.9  inf 203  N 26.8  mpc   5.1 ms  err 1.52  xte 3.91  xmax 7.34  off 0.92  nrj 1
+[132/150] speed=8 SR  FR_SAFE_10  seed 72  goal      clr  0.78  t  13.8  inf 129  N 26.6  mpc   4.4 ms  err 0.57  xte 2.08  xmax 4.41  off 0.72  nrj 2
+[133/150] speed=8 SR  FR_SAFE_10  seed 73  goal      clr  0.58  t  16.0  inf 145  N 25.9  mpc   4.4 ms  err 0.94  xte 1.51  xmax 4.15  off 0.65  nrj 2
+[134/150] speed=8 SR  FR_SAFE_10  seed 74  goal      clr  0.38  t  13.5  inf 125  N 26.7  mpc   4.3 ms  err 1.26  xte 1.80  xmax 3.27  off 0.75  nrj 2
+[135/150] speed=8 SR  FR_SAFE_10  seed 75  collision clr -0.00  t   3.3  inf  29  N 25.3  mpc   4.4 ms  err 1.23  xte 2.48  xmax 4.56  off 0.58  nrj 1
+FAILINFO speed=8 SR FR_SAFE_10 seed 75 cls collision-tracked shape box dyn 1 tracked 1 infov 0 mode 2 speed 0.89 closing 1.00 nupd 7 seen 0.96 prog10 8.9 layout uniform vdes 8
+[136/150] speed=8 SR  FR_SAFE_10  seed 76  goal      clr  0.85  t  36.2  inf 335  N 23.1  mpc   4.1 ms  err 1.02  xte 1.29  xmax 4.08  off 0.69  nrj 2
+[137/150] speed=8 SR  FR_SAFE_10  seed 77  goal      clr  0.29  t  17.4  inf 162  N 25.8  mpc   4.2 ms  err 1.04  xte 3.91  xmax 6.91  off 0.80  nrj 1
+[138/150] speed=8 SR  FR_SAFE_10  seed 78  goal      clr  0.66  t  13.1  inf 123  N 26.1  mpc   4.0 ms  err 0.63  xte 1.30  xmax 2.37  off 0.68  nrj 2
+[139/150] speed=8 SR  FR_SAFE_10  seed 79  goal      clr  0.73  t  17.6  inf 165  N 26.4  mpc   4.5 ms  err 1.08  xte 3.42  xmax 6.21  off 0.92  nrj 1
+[140/150] speed=8 SR  FR_SAFE_10  seed 80  goal      clr  0.82  t  16.6  inf 155  N 26.5  mpc   4.6 ms  err 1.60  xte 5.63  xmax 11.96  off 0.88  nrj 1
+[141/150] speed=8 SR  FR_SAFE_10  seed 81  collision clr -0.02  t   2.8  inf  27  N 25.2  mpc   4.3 ms  err 0.71  xte 2.63  xmax 4.92  off 0.75  nrj 1
+FAILINFO speed=8 SR FR_SAFE_10 seed 81 cls collision-tracked shape sphere dyn 1 tracked 1 infov 0 mode 2 speed 3.18 closing 1.96 nupd 1 seen 0.04 prog10 8.4 layout mixed vdes 8
+[142/150] speed=8 SR  FR_SAFE_10  seed 82  goal      clr  0.74  t  17.0  inf 158  N 27.4  mpc   4.6 ms  err 0.86  xte 1.35  xmax 2.92  off 0.60  nrj 1
+[143/150] speed=8 SR  FR_SAFE_10  seed 83  collision clr -0.02  t   7.5  inf  67  N 27.3  mpc   4.8 ms  err 1.20  xte 1.90  xmax 3.35  off 0.78  nrj 1
+FAILINFO speed=8 SR FR_SAFE_10 seed 83 cls collision-tracked shape box dyn 1 tracked 1 infov 1 mode 2 speed 1.84 closing 2.17 nupd 1 seen 0.06 prog10 20.4 layout forest vdes 8
+[144/150] speed=8 SR  FR_SAFE_10  seed 84  goal      clr  1.36  t  11.1  inf 100  N 24.7  mpc   3.7 ms  err 1.71  xte 0.76  xmax 1.84  off 0.31  nrj 1
+[145/150] speed=8 SR  FR_SAFE_10  seed 85  goal      clr  0.74  t  23.3  inf 214  N 23.6  mpc   3.9 ms  err 1.16  xte 2.22  xmax 4.10  off 0.81  nrj 3
+[146/150] speed=8 SR  FR_SAFE_10  seed 86  goal      clr  0.87  t  12.1  inf 112  N 24.9  mpc   3.8 ms  err 0.48  xte 1.19  xmax 2.79  off 0.53  nrj 2
+[147/150] speed=8 SR  FR_SAFE_10  seed 87  goal      clr  0.07  t  15.2  inf 144  N 26.3  mpc   4.4 ms  err 0.92  xte 1.57  xmax 3.56  off 0.76  nrj 2
+[148/150] speed=8 SR  FR_SAFE_10  seed 88  goal      clr  0.95  t  25.3  inf 238  N 25.6  mpc   4.4 ms  err 1.33  xte 5.09  xmax 9.74  off 0.94  nrj 1
+[149/150] speed=8 SR  FR_SAFE_10  seed 89  goal      clr  0.92  t  11.3  inf 107  N 24.7  mpc   3.6 ms  err 0.91  xte 0.89  xmax 2.46  off 0.34  nrj 2
+[150/150] speed=8 SR  FR_SAFE_10  seed 90  goal      clr  0.33  t  14.9  inf 139  N 26.7  mpc   4.2 ms  err 0.97  xte 1.37  xmax 2.83  off 0.80  nrj 1

@@ -559,6 +559,22 @@ Sai lệch ngang khỏi $\Gamma$: RMS, lớn nhất, \% thời gian $>0.5$~m; s�
 Các biến thể bổ sung: Z\_ZHUYI (scheduler kiểu Zhuyi: khoảng mở từ động học phanh trên ước lượng điểm, không có hạng bất định và frontier), MEM$d$ ((E) với bộ nhớ $d$~m ngoài trường nhìn), O\_ORACLE ((E) với perception ``biết đáp án'' như bản cũ: nhãn instance của ray-caster và ghép theo định danh thật), R\_GOAL ((E) với tham chiếu cũ thẳng tới đích), R\_TRACK ((E) luôn bám $\Gamma$), R\_STRAIGHT ((E) với đoạn quay về thẳng), K$k$ ((E) với $\kappa=k/100$, ví dụ K0, K50 $\equiv$ E, K100), FR\_SAFE\_$f$ ((E) với perception cố định $f$~Hz) và FN\_SAFE\_$n$ ((E) với horizon cố định $n$ bước); danh sách chạy mặc định ở \code{dart\_variant\_list.m}.
 (A)--(D) giữ ràng buộc vật cản (ước lượng điểm, không phồng) trong MPC nhưng không có CBF và không có chế độ emergency. Cách tách này định lượng tiết kiệm tính toán đến từ scheduling, từ horizon thích nghi, và kiểm tra rằng an toàn không bị đánh đổi. (F) cô lập đóng góp của bù trễ, (G) kiểm tra liệu chỉ giảm tần số (không thích nghi) có đủ hay không. Mỗi cặp (kịch bản, biến thể) chạy với nhiều seed (mặc định 10).
 
+\paragraph{Kết quả với phương pháp hiện tại (vòng 3, chỉ vật tĩnh).}
+Code \texttt{b377220}, MATLAB engine, 120 thế giới SR $\times$ 4 tốc độ $\times$ 5 biến thể = 2400 lượt, $\kappa=0.5$, không giới hạn thời gian; thế giới được chia theo việc có vật di chuyển hay không (39 thế giới chỉ vật tĩnh, 81 có vật di chuyển; \code{docs/results/random\_worlds.md}). Trên 39 thế giới chỉ vật tĩnh (156 lượt mỗi biến thể, gộp 2/4/6/8~m/s):
+\begin{center}\footnotesize
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Biến thể & Về đích & Va chạm & Kẹt & Suy luận mỗi nhiệm vụ (trung vị, 2/4/6/8~m/s) & Suy luận/s \\ \midrule
+E (bộ nhớ 10~m) & 155 & 1 & 0 & 106 / 105 / 120 / 108 & 3.3--6.6 \\
+bộ nhớ 3~m & 147 & 8 & 1 & 105 / 107 / 114 / 114 & 3.4--6.5 \\
+không bộ nhớ & 129 & 27 & 0 & 86 / 102 / 106 / 94 & 3.5--6.9 \\
+cố định 3~Hz & 155 & 0 & 1 & 99 / 57 / 58 / 57 & 3.0 \\
+cố định 10~Hz & 155 & 1 & 0 & 310 / 167 / 160 / 145 & 9.3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Bộ nhớ là cần thiết. Nhưng bộ lập lịch thích nghi hiện tại \emph{không} tối thiểu hoá tính toán: tần số cố định 3~Hz, cùng lớp an toàn và bộ nhớ, an toàn như nhau với khoảng \emph{một nửa} số suy luận ở 4--8~m/s. Phần lớn lần kích hoạt là do khoảng mở $T^\star_{\text{open}}$ của các vật cản \emph{đã biết}; với vật cản tĩnh đã có trong bộ nhớ, nhìn lại chúng không thêm an toàn. Ở thế giới có vật di chuyển (ngoài phạm vi), mọi biến thể chỉ về đích 52--83\% và va chạm là với vật di chuyển, như dự kiến.
+
 \paragraph{Kết quả vòng 2 (thế giới ngẫu nhiên SR; phiên bản \emph{trước} khi thu hẹp phạm vi về vật tĩnh).}
 Phiên bản này còn theo dõi vật di chuyển (bộ hai mô hình) và giữ track tĩnh trong 10~m; nó không còn là phương pháp hiện tại (Mục~\ref{sec:est}). Code \texttt{d3ed301}, MATLAB engine, 120 thế giới SR (seed 1--120) $\times$ 4 tốc độ $\times$ 3 mức $\kappa$ = 1440 lượt, không giới hạn thời gian (\code{docs/results/random\_worlds.md}, log gốc trong \code{docs/results/raw/r2*}):
 \begin{center}\footnotesize

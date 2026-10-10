@@ -87,7 +87,7 @@ Cross-tabulation (goal / collision-untracked / collision-tracked / timeout-slow 
    concentrate in pole forests / mixed layouts (54 %) and corridors (38 %).
 
 
-## Round 2 — commit d3ed301 (CI runs 37924654187, 37924662662, 37924670369, 37924678333)
+## Round 2 — commit d3ed301 (previous algorithm: still tracked movers, two-model bank) (CI runs 37924654187, 37924662662, 37924670369, 37924678333)
 
 Same 120 worlds (seeds 1-120; movers are re-timed with each run's cruise speed) × 2/4/6/8 m/s × kappa = 0 / 0.5 / 1
 (variants K0, K50 = E_DART, K100) = 1440 runs, MATLAB engine, **no time limit** (a run ends at the goal, at a
@@ -254,3 +254,94 @@ edge rows and the look-ahead yaw. Raw logs: `raw/r2{a,b,c,d}_SR_speed_*.log` (se
 | static | 0: 27, 1: 6, NaN: 20 |
 
 ```
+
+
+## Round 3 — commit b377220: static-only algorithm (CI runs 37960562670, 37960572524, 37960582125, 37960591610)
+
+Algorithm: obstacles assumed static (tracks are static landmarks, no velocity), obstacle memory 10 m
+(MEM10 = default = E_DART), kappa = 0.5, no time limit. Same 120 worlds as rounds 1-2 (MATLAB
+generator) x 2/4/6/8 m/s x 5 variants = 2400 runs: memory 10 / 3 / 0 m, and fixed perception rates
+3 Hz and 10 Hz with the same safety layers and memory. The worlds are split with the WORLD lines of
+the logs: 39 static-only worlds (in scope) and 81 worlds with movers (test only; the algorithm is not
+told). Tables: `python3 parse_r3.py 'raw/r3[abcd]_SR_speed_*.log'`.
+
+Note: GNU Octave has no RandStream, so worlds and noise generated in Octave differ from MATLAB;
+all reported results use the MATLAB engine.
+
+2400 runs; 81 of 120 worlds with movers
+
+### static-only worlds
+
+| variant | speed | n | goal [95% CI] | collision | stuck | time to goal, median [s] | inferences per mission (goal), median | inferences / s |
+|---|---|---|---|---|---|---|---|---|
+| MEM10 | 2 | 39 | 39 (100% [91, 100]) | 0 | 0 | 31.6 | 106 | 3.25 |
+| MEM10 | 4 | 39 | 39 (100% [91, 100]) | 0 | 0 | 18.6 | 105 | 5.61 |
+| MEM10 | 6 | 39 | 39 (100% [91, 100]) | 0 | 0 | 17.5 | 120 | 6.49 |
+| MEM10 | 8 | 39 | 38 (97% [87, 100]) | 1 | 0 | 15.9 | 108 | 6.55 |
+| MEM3 | 2 | 39 | 37 (95% [83, 99]) | 1 | 1 | 30.4 | 105 | 3.41 |
+| MEM3 | 4 | 39 | 38 (97% [87, 100]) | 1 | 0 | 18.4 | 107 | 5.66 |
+| MEM3 | 6 | 39 | 36 (92% [80, 97]) | 3 | 0 | 16.9 | 114 | 6.47 |
+| MEM3 | 8 | 39 | 36 (92% [80, 97]) | 3 | 0 | 18.2 | 114 | 6.36 |
+| MEM0 | 2 | 39 | 32 (82% [67, 91]) | 7 | 0 | 28.4 | 86 | 3.51 |
+| MEM0 | 4 | 39 | 36 (92% [80, 97]) | 3 | 0 | 17.8 | 102 | 5.77 |
+| MEM0 | 6 | 39 | 32 (82% [67, 91]) | 7 | 0 | 15.8 | 106 | 6.64 |
+| MEM0 | 8 | 39 | 29 (74% [59, 85]) | 10 | 0 | 14.3 | 94 | 6.86 |
+| FR_SAFE_3 | 2 | 39 | 39 (100% [91, 100]) | 0 | 0 | 33.3 | 99 | 2.96 |
+| FR_SAFE_3 | 4 | 39 | 38 (97% [87, 100]) | 0 | 1 | 19.1 | 57 | 2.96 |
+| FR_SAFE_3 | 6 | 39 | 39 (100% [91, 100]) | 0 | 0 | 19.5 | 58 | 2.97 |
+| FR_SAFE_3 | 8 | 39 | 39 (100% [91, 100]) | 0 | 0 | 19.1 | 57 | 2.97 |
+| FR_SAFE_10 | 2 | 39 | 38 (97% [87, 100]) | 1 | 0 | 33.5 | 310 | 9.28 |
+| FR_SAFE_10 | 4 | 39 | 39 (100% [91, 100]) | 0 | 0 | 18.0 | 167 | 9.29 |
+| FR_SAFE_10 | 6 | 39 | 39 (100% [91, 100]) | 0 | 0 | 17.0 | 160 | 9.29 |
+| FR_SAFE_10 | 8 | 39 | 39 (100% [91, 100]) | 0 | 0 | 16.0 | 145 | 9.30 |
+
+MEM10 collisions (1): dyn {'0': 1}; infov {'0': 1}; shape {'cylinder': 1}; nupd {'>5': 1}; seen {'<1 s': 1}
+MEM3 collisions (8): dyn {'0': 8}; infov {'0': 6, '1': 2}; shape {'cylinder': 8}; nupd {'-': 3, '1': 2, '2-5': 3}; seen {'<1 s': 7, '>5 s': 1}
+MEM0 collisions (27): dyn {'0': 27}; infov {'0': 25, '1': 2}; shape {'box': 4, 'cylinder': 21, 'sphere': 2}; nupd {'-': 9, '1': 8, '2-5': 9, '>5': 1}; seen {'<1 s': 23, '1-5 s': 4}
+FR_SAFE_10 collisions (1): dyn {'0': 1}; infov {'0': 1}; shape {'cylinder': 1}; nupd {'>5': 1}; seen {'<1 s': 1}
+
+### worlds with movers
+
+| variant | speed | n | goal [95% CI] | collision | stuck | time to goal, median [s] | inferences per mission (goal), median | inferences / s |
+|---|---|---|---|---|---|---|---|---|
+| MEM10 | 2 | 81 | 57 (70% [60, 79]) | 24 | 0 | 38.4 | 122 | 3.36 |
+| MEM10 | 4 | 81 | 55 (68% [57, 77]) | 26 | 0 | 23.0 | 126 | 5.70 |
+| MEM10 | 6 | 81 | 59 (73% [62, 81]) | 22 | 0 | 19.5 | 119 | 6.52 |
+| MEM10 | 8 | 81 | 67 (83% [73, 89]) | 14 | 0 | 19.6 | 129 | 6.52 |
+| MEM3 | 2 | 81 | 50 (62% [51, 72]) | 29 | 2 | 36.2 | 132 | 3.85 |
+| MEM3 | 4 | 81 | 60 (74% [64, 82]) | 19 | 2 | 23.9 | 137 | 5.84 |
+| MEM3 | 6 | 81 | 62 (77% [66, 84]) | 19 | 0 | 20.8 | 126 | 6.59 |
+| MEM3 | 8 | 81 | 68 (84% [74, 90]) | 13 | 0 | 20.4 | 131 | 6.56 |
+| MEM0 | 2 | 81 | 47 (58% [47, 68]) | 34 | 0 | 33.3 | 125 | 3.92 |
+| MEM0 | 4 | 81 | 42 (52% [41, 62]) | 39 | 0 | 20.8 | 116 | 6.24 |
+| MEM0 | 6 | 81 | 55 (68% [57, 77]) | 26 | 0 | 18.1 | 119 | 6.53 |
+| MEM0 | 8 | 81 | 57 (70% [60, 79]) | 24 | 0 | 16.5 | 103 | 6.76 |
+| FR_SAFE_3 | 2 | 81 | 53 (65% [55, 75]) | 28 | 0 | 36.9 | 109 | 2.96 |
+| FR_SAFE_3 | 4 | 81 | 64 (79% [69, 86]) | 17 | 0 | 24.2 | 72 | 2.97 |
+| FR_SAFE_3 | 6 | 81 | 66 (81% [72, 88]) | 15 | 0 | 21.6 | 64 | 2.97 |
+| FR_SAFE_3 | 8 | 81 | 64 (79% [69, 86]) | 16 | 1 | 19.9 | 59 | 2.98 |
+| FR_SAFE_10 | 2 | 81 | 52 (64% [53, 74]) | 29 | 0 | 37.2 | 345 | 9.31 |
+| FR_SAFE_10 | 4 | 81 | 54 (67% [56, 76]) | 27 | 0 | 21.9 | 202 | 9.32 |
+| FR_SAFE_10 | 6 | 81 | 57 (70% [60, 79]) | 24 | 0 | 19.0 | 178 | 9.32 |
+| FR_SAFE_10 | 8 | 81 | 67 (83% [73, 89]) | 14 | 0 | 18.1 | 168 | 9.32 |
+
+MEM10 collisions (86): dyn {'1': 86}; infov {'0': 67, '1': 19}; shape {'cylinder': 30, 'sphere': 29, 'box': 27}; nupd {'2-5': 36, '>5': 44, '-': 1, '1': 5}; seen {'<1 s': 77, '1-5 s': 7, '>5 s': 2}
+MEM3 collisions (80): dyn {'1': 59, '0': 21}; infov {'1': 13, '0': 67}; shape {'sphere': 23, 'box': 28, 'cylinder': 29}; nupd {'1': 12, '2-5': 30, '>5': 34, '-': 4}; seen {'1-5 s': 8, '<1 s': 70, '>5 s': 1, 'never': 1}
+MEM0 collisions (123): dyn {'1': 65, '0': 58}; infov {'1': 18, '0': 105}; shape {'sphere': 31, 'cylinder': 50, 'box': 42}; nupd {'-': 45, '2-5': 47, '1': 17, '>5': 14}; seen {'<1 s': 103, '1-5 s': 17, '>5 s': 2, 'never': 1}
+FR_SAFE_3 collisions (76): dyn {'1': 73, '0': 3}; infov {'0': 62, '1': 14}; shape {'sphere': 23, 'box': 39, 'cylinder': 14}; nupd {'1': 14, '>5': 18, '2-5': 43, '-': 1}; seen {'<1 s': 72, '>5 s': 1, '1-5 s': 3}
+FR_SAFE_10 collisions (94): dyn {'1': 94}; infov {'0': 81, '1': 13}; shape {'cylinder': 25, 'sphere': 28, 'box': 41}; nupd {'>5': 46, '2-5': 33, '1': 14, '-': 1}; seen {'<1 s': 86, '1-5 s': 6, '>5 s': 1, 'never': 1}
+
+
+### Findings
+
+1. **Static-only worlds (the scope): the default is safe.** MEM10: 155/156 runs reach the goal,
+   1 collision (a pole, out of view). The memory is needed: 3 m -> 8 collisions, no memory -> 27
+   collisions (mostly poles out of view, tracks lost when they left the view).
+2. **The adaptive scheduler is NOT compute-minimal.** A fixed 3 Hz rate with the same safety layers
+   and memory is as safe (155/156, 0 collisions, 1 stuck) with about HALF the inferences at 4-8 m/s
+   (57-58 vs 105-120 per mission; 2.97 vs 5.6-6.6 inferences/s), at the cost of 0-3 s longer
+   missions. At 2 m/s both need ~100 per mission (3 Hz: 99; adaptive: 106). The scheduler fires far
+   more often than the static problem requires - this is the core gap for the research question
+   (minimal computation for static-obstacle avoidance).
+3. **Worlds with movers (out of scope):** 52-83 % success for every variant; the collisions are with
+   moving obstacles (MEM10: 86/86), as expected for a static-only algorithm.
