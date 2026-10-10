@@ -16,7 +16,9 @@ function [ss, out] = dart_scheduler(ss, ob, rk, p, v, R_IB, t, cfg, path)
 %       (DART_SCHEDULER_OBSERVED, registered when the result arrives) in
 %       front of the measured surface by at least d_s, within R_eff of
 %       DART_PERCEPTION_RANGE (space behind an obstacle - occluded - is not
-%       observed). Known obstacles do
+%       observed). Frames are taken at most at the compute budget
+%       sched.f_budget (the rate the perception speed cap assumes): a
+%       frame is skipped while the path ahead is observed free. Known obstacles do
 %       not trigger frames because they are close (they stay in the
 %       memory); the uncertainty (information-gain) and emergency events
 %       are kept (sched.cov_events = true also keeps the distance event).
@@ -115,7 +117,12 @@ elseif strcmp(sc.mode, 'coverage')
     ev_dist = sc.cov_events && any(vis & (rk.dc <= sc.d_trig));
     ev_sig = sigma_event(ob, rk, vis, cfg);
     T_scan = sc.T_max;                 % nominal (horizon and expected covariance reset only)
-    trig = idle && (ev_cov || ev_dist || ev_sig || emergency);
+    % compute budget: at most f_budget frames per second - the rate the
+    % perception speed cap (DART_PERCEPTION_SPEED) is computed for. Space
+    % occluded by a known obstacle cannot be observed before the vehicle has
+    % moved, so back-to-back frames would add cost but no information.
+    trig = idle && (t - ss.t_last >= 1 / sc.f_budget - 1e-9) ...
+        && (ev_cov || ev_dist || ev_sig || emergency);
 else
     ev_time = t - ss.t_last >= T_scan - 1e-9;                         % Eq. 46
     ev_dist = any(vis & (rk.dc <= sc.d_trig));                        % Eq. 47
