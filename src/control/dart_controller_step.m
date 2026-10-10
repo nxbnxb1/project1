@@ -19,11 +19,15 @@ ctrl.pb = dart_posebuf_push(ctrl.pb, t, p, q_est);
 % -------------------------------- 2. delayed measurement -> tracks (method §6)
 latency = 0; n_det = 0;
 if msg(1) > 0.5
-    [hdr, det] = dart_msg_unpack(msg);
+    [hdr, det, grid] = dart_msg_unpack(msg);
     latency = t - hdr.t_c;                       % measured tau_p
     n_det = hdr.n;
     ctrl.ss = dart_scheduler_latency(ctrl.ss, latency);
     ctrl.trk = dart_tracks_process_msg(ctrl.trk, hdr, det, ctrl.pb, t, cfg);
+    if strcmp(cfg.sched.mode, 'coverage')            % observed free space of this frame
+        [pc, Rc] = dart_posebuf_lookup(ctrl.pb, hdr.t_c);
+        ctrl.ss = dart_scheduler_observed(ctrl.ss, pc + Rc * cfg.cam.p_BC, Rc * cfg.cam.R_BC, grid, cfg);
+    end
 end
 
 % --------------------------------------- 3. predictor at f_c (Eq. 28)

@@ -164,7 +164,8 @@ cfg.sched.range_bias = 1.15;         % large objects read up to 15 % too far (90
 % up to the stopping distance, leaves the space observed by recent frames
 cfg.sched.cov_frames = 8;            % recent frames kept as observed space
 cfg.sched.cov_ds     = 0.25;         % sampling of the planned path [m]
-cfg.sched.cov_margin = 5 * pi/180;   % the frames' field of view counts as shrunk by this angle
+cfg.sched.grid_q     = 0.2;          % free-space grid: low quantile of the depths in a cell
+cfg.sched.grid_minvalid = 0.2;       % ... cells with fewer valid pixels than this fraction count as empty
 cfg.sched.cov_react  = 0.0;          % extra reaction time in the needed distance [s]
 cfg.sched.cov_events = false;        % coverage mode: also trigger on distance / uncertainty of known obstacles
 cfg.sched.f_budget   = 3;            % compute budget [Hz]: the speed cap (DART_PERCEPTION_SPEED) lets the

@@ -9,7 +9,7 @@ from parse_failures import load, bucket
 files = sorted(glob.glob(sys.argv[1]))
 runs, fails, worlds = load(files)
 R = {}
-pat = re.compile(r'\]\s+speed=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)\s+inf\s+(\d+)')
+pat = re.compile(r'\]\s+speed=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+(-?Inf|[-\d.]+)\s+t\s+([\d.]+)\s+inf\s+(\d+)')
 for p in files:
     for line in open(p):
         m = pat.search(line)

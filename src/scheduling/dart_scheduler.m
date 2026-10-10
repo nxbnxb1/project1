@@ -11,9 +11,12 @@ function [ss, out] = dart_scheduler(ss, ob, rk, p, v, R_IB, t, cfg, path)
 %       the obstacles are static, so a frame is needed only when the
 %       planned path ahead - up to the distance needed to stop after the
 %       next result, v (tau_hat + cov_react) + v^2 / (2 a_b) + d_s - is no
-%       longer inside the space observed by the recent frames (their view
-%       frusta, shrunk by cov_margin and by the clearance d_s, up to the
-%       reliable range R_eff of DART_PERCEPTION_RANGE). Known obstacles do
+%       longer inside the FREE space observed by the recent frames: a point
+%       is observed free when it projects into a frame's coarse depth grid
+%       (DART_SCHEDULER_OBSERVED, registered when the result arrives) in
+%       front of the measured surface by at least d_s, within R_eff of
+%       DART_PERCEPTION_RANGE (space behind an obstacle - occluded - is not
+%       observed). Known obstacles do
 %       not trigger frames because they are close (they stay in the
 %       memory); the uncertainty (information-gain) and emergency events
 %       are kept (sched.cov_events = true also keeps the distance event).
@@ -142,13 +145,6 @@ if trig
     ss.n_why = ss.n_why + why;
     ss.t_last = t;
     ss.awaiting = true;
-    % observed space: view frustum of this frame (kept for the coverage test)
-    ss.cov_o = [ss.cov_o, p + R_IB * cfg.cam.p_BC];
-    ss.cov_R = cat(3, ss.cov_R, R_IB * cfg.cam.R_BC);
-    if size(ss.cov_o, 2) > sc.cov_frames
-        ss.cov_o = ss.cov_o(:, end - sc.cov_frames + 1:end);
-        ss.cov_R = ss.cov_R(:, :, end - sc.cov_frames + 1:end);
-    end
     ss.n_trig = ss.n_trig + 1;
 end
 
@@ -205,18 +201,22 @@ P = zeros(3, numel(s));
 for a = 1:3
     P(a, :) = interp1(cs, X(a, :), s, 'linear');
 end
-R_eff = dart_perception_range(cfg);
 fpx = (cfg.cam.W / 2) / tan(cfg.cam.hfov / 2);
-th = cfg.cam.hfov / 2 - sc.cov_margin;
-tv = atan((cfg.cam.H / 2) / fpx) - sc.cov_margin;
+cx = (cfg.cam.W + 1) / 2; cy = (cfg.cam.H + 1) / 2;
+[gh, gw, ~] = size(ss.cov_G);
 cov = false(1, numel(s));
 for k = 1:size(ss.cov_o, 2)
     c = ss.cov_R(:, :, k).' * (P - ss.cov_o(:, k));
     z = c(3, :);
-    in = z > 0.3 & z <= R_eff ...
-        & abs(c(1, :)) + sc.d_s / cos(th) <= tan(th) * z ...
-        & abs(c(2, :)) + sc.d_s / cos(tv) <= tan(tv) * z;
-    cov = cov | in;
+    zs = max(z, 1e-6);
+    iu = ceil((fpx * c(1, :) ./ zs + cx) * gw / cfg.cam.W);
+    iv = ceil((fpx * c(2, :) ./ zs + cy) * gh / cfg.cam.H);
+    in = z > 0.3 & iu >= 2 & iu <= gw - 1 & iv >= 2 & iv <= gh - 1;
+    if ~any(in), continue, end
+    Gk = ss.cov_G(:, :, k);
+    fr = false(1, numel(s));
+    fr(in) = z(in) + sc.d_s <= Gk(sub2ind([gh, gw], iv(in), iu(in)));
+    cov = cov | fr;
     if all(cov), return, end
 end
 ok = all(cov);

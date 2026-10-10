@@ -1,4 +1,4 @@
-function [hdr, det] = dart_msg_unpack(msg)
+function [hdr, det, grid] = dart_msg_unpack(msg)
 %DART_MSG_UNPACK Inverse of DART_MSG_PACK.
 %   hdr = struct(valid, t_c, t_a, n);  det = struct array (id npx rho cC RC trunc)
 hdr = struct('valid', msg(1) > 0.5, 't_c', msg(2), 't_a', msg(3), 'n', round(msg(4)));
@@ -9,4 +9,6 @@ for k = 1:hdr.n
     det(k) = struct('id', round(r(1)), 'npx', r(2), 'rho', r(3), 'cC', r(4:6), ...
         'RC', RC, 'trunc', r(13) > 0.5);
 end
+[nmax, ~, gs] = dart_msg_size();
+grid = reshape(msg(4 + 13 * nmax + (1:prod(gs))), gs);
 end

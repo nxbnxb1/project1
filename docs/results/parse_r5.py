@@ -11,7 +11,7 @@ from parse_failures import load, bucket
 CAM = {1: 'v2 62x49', 2: 'cm3 66x41', 3: 'cm3w 102x67', 4: 'cm3w 640x360'}
 files = sorted(glob.glob(sys.argv[1]))
 runs, fails, worlds = load(files)
-pat = re.compile(r'\]\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+([-\d.]+)\s+t\s+([\d.]+)'
+pat = re.compile(r'\]\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+(-?Inf|[-\d.]+)\s+t\s+([\d.]+)'
                  r'\s+inf\s+(\d+)')
 R = {}
 for p in files:

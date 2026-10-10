@@ -27,9 +27,22 @@ for k = 1:2
     assert(abs(det(k).rho - rho(i)) < 0.25 * rho(i), 'radius error too large');
 end
 % message round trip
-msg = dart_msg_pack(1.0, 1.1, det, cfg);
-[hdr, d2] = dart_msg_unpack(msg);
+G = dart_depth_grid(depth_hat, cfg);
+msg = dart_msg_pack(1.0, 1.1, det, cfg, G);
+[hdr, d2, G2] = dart_msg_unpack(msg);
 assert(hdr.valid && hdr.n == 2 && norm(d2(2).cC - det(2).cC) < 1e-12);
+assert(isequal(G2, G), 'depth grid round trip');
+% observed free space (coverage scheduler): the cell through which the
+% near sphere is seen is free only up to its surface (~5.4 m along the
+% optical axis), cells seeing nothing are free up to R_eff
+ss = dart_scheduler_observed(dart_scheduler_init(cfg), o, R_IC, G, cfg);
+F = ss.cov_G(:, :, 1);
+cc = R_IC.' * (C(:, 1) - o);                  % near sphere centre, optical frame
+fpx = cam.K(1, 1); [gh, gw] = size(F);
+iu = ceil((fpx * cc(1) / cc(3) + cam.K(1, 3)) * gw / cfg.cam.W);
+iv = ceil((fpx * cc(2) / cc(3) + cam.K(2, 3)) * gh / cfg.cam.H);
+assert(F(iv, iu) > 4.5 && F(iv, iu) < cc(3), 'space behind the sphere counted as free');
+assert(max(F(:)) == dart_perception_range(cfg), 'empty cells must be free up to R_eff');
 % two spheres whose images overlap but which are ~2.6 m apart in depth
 % (8 m and 10.6 m): whatever the segmentation does at their blurred common
 % edge, the extracted spheres (inflated by 2 sigma of their measurement
