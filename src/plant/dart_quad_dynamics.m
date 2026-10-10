@@ -4,7 +4,8 @@ function xdot = dart_quad_dynamics(x, u, t, P) %#codegen
 %        f (actual collective thrust); tau(3) (actual body torques)]   (17)
 %   u = [f_cmd; tau_cmd(3)]
 %
-%   m pdd = -m g e3 + f R e3 - kd (v - w_wind)                (Eq. B.1)
+%   m pdd = -m g e3 + f R e3 - kd v_a - cq |v_a| v_a,  v_a = v - w_wind
+%   (linear rotor drag + quadratic body drag)
 %   J omegad = tau - omega x J omega
 %   thrust and torques follow their commands with a first-order lag.
 m = P(1); g = P(2); J = P(3:5); kd = P(6); tau_m = P(7);
@@ -18,7 +19,9 @@ f = x(14);
 tau = x(15:17);
 
 R = dart_quat2rotm(q);
-vdot = [0; 0; -g] + (f / m) * R(:, 3) - (kd / m) * (v - wind);
+va = v - wind;
+cq = P(28);
+vdot = [0; 0; -g] + (f / m) * R(:, 3) - (kd / m) * va - (cq / m) * sqrt(va(1)^2 + va(2)^2 + va(3)^2) * va;
 
 % quaternion kinematics with a normalisation-stabilising term
 qn2 = q(1)^2 + q(2)^2 + q(3)^2 + q(4)^2;

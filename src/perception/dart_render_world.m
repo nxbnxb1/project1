@@ -18,6 +18,13 @@ rmax = d_far / min(cam.cosz) + 1;
 for i = 1:size(C, 2)
     oc = C(:, i) - o;
     if norm(oc) - world.rho(i) > rmax, continue, end
+    % frustum culling with the bounding sphere (camera frame)
+    cc = R_IC.' * oc;
+    if cc(3) < -world.rho(i) || ...
+            abs(cc(1)) > tan(cam.hfov / 2) * max(cc(3), 0) + world.rho(i) / cos(cam.hfov / 2) || ...
+            abs(cc(2)) > tan(cam.vfov / 2) * max(cc(3), 0) + world.rho(i) / cos(cam.vfov / 2)
+        continue
+    end
     % cull with the bounding sphere first
     b = oc.' * d;
     hitb = b.^2 - (oc.' * oc - world.rho(i)^2) >= 0 & b > -world.rho(i);

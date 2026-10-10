@@ -14,9 +14,9 @@ function [ss, out] = dart_scheduler(ss, ob, rk, p, v, R_IB, t, cfg, path)
 %       longer inside the space observed by the recent frames (their view
 %       frusta, shrunk by cov_margin and by the clearance d_s, up to the
 %       reliable range R_eff of DART_PERCEPTION_RANGE). Known obstacles do
-%       not trigger frames by themselves (they stay in the memory); only
-%       the emergency event is kept (sched.cov_events = true also keeps the
-%       distance and uncertainty events).
+%       not trigger frames because they are close (they stay in the
+%       memory); the uncertainty (information-gain) and emergency events
+%       are kept (sched.cov_events = true also keeps the distance event).
 sc = cfg.sched;
 tau_hat = ss.tau_m + sc.tau_quantile_k * sqrt(max(ss.tau_v, 0));
 % worst-case growth of the closing speed during the open interval:
@@ -79,7 +79,10 @@ T_scan = min(max(T_star - tau_hat, sc.T_min), sc.T_max);
 %               d_s under the conservative estimate -> braking mode
 closing = rk.vc > sc.v_closing;
 urgent = any(vis & closing & (Topen < tau_hat)) || T_front < tau_hat;   % only re-observable obstacles
-if any(closing & (Mmarg <= 0))
+% emergency only for obstacles on a collision course (passing beside an
+% obstacle has a positive closing speed toward its centre but no collision)
+oncourse = rk.miss < ob.rho + sc.d_s + sc.beta_d * rk.sig_r + sc.course_margin;
+if any(closing & oncourse & (Mmarg <= 0))
     ss.emerg_until = t + sc.emergency_hold;
 end
 emergency = sc.emergency_enabled && (t < ss.emerg_until);
@@ -100,11 +103,14 @@ elseif strcmp(sc.mode, 'coverage')
     if nargin < 9, path = zeros(3, 0); end
     need = norm(v) * (tau_hat + sc.cov_react) + norm(v)^2 / (2 * sc.a_b) + sc.d_s;
     ev_cov = ~path_covered(ss, p, v, path, need, cfg);
-    % known static obstacles are not re-imaged on purpose (they stay in the
-    % memory and are seen again by the coverage frames); cov_events = true
-    % keeps the distance and uncertainty events of the adaptive scheduler
+    % known static obstacles are not re-imaged because they are close
+    % (cov_events = true restores the distance event); the information-gain
+    % gated uncertainty event is kept: an obstacle first seen far away keeps
+    % a large covariance (inflated sphere) until it is measured again from
+    % closer, and without that measurement the inflated spheres can close
+    % the gaps of a cluster for good
     ev_dist = sc.cov_events && any(vis & (rk.dc <= sc.d_trig));
-    ev_sig = sc.cov_events && sigma_event(ob, rk, vis, cfg);
+    ev_sig = sigma_event(ob, rk, vis, cfg);
     T_scan = sc.T_max;                 % nominal (horizon and expected covariance reset only)
     trig = idle && (ev_cov || ev_dist || ev_sig || emergency);
 else

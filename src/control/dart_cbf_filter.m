@@ -41,7 +41,8 @@ if ~cb.enabled
 end
 k1 = cb.p1 + cb.p2;
 k0 = cb.p1 * cb.p2;
-use = find(rk.dc < cb.d_active);
+% obstacles within d_active, extended to the braking distance at the current speed
+use = find(rk.dc < max(cb.d_active, (v.' * v) / (2 * cfg.sched.a_b) + 5));
 n = numel(use);
 G = zeros(n + 5, 3); h_rhs = zeros(n + 5, 1);
 dl = cb.fd_step;

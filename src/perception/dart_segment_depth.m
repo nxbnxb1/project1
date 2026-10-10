@@ -26,13 +26,15 @@ valid = reshape(isfinite(depth_hat) & depth_hat > 0, H, W);
 L = nan(H, W);
 L(valid) = log(depth_hat(valid(:).'));
 
-% ---- 3x3 median over the valid neighbours (NaN-aware, vectorised)
-Lp = nan(H + 2, W + 2);
-Lp(2:H + 1, 2:W + 1) = L;
-S = zeros(9, P);
+% ---- k x k median over the valid neighbours (NaN-aware, vectorised);
+%      k = seg.med_win (odd; larger for higher-resolution images)
+kw = cfg.seg.med_win; hw = (kw - 1) / 2; nk = kw * kw;
+Lp = nan(H + 2 * hw, W + 2 * hw);
+Lp(hw + 1:H + hw, hw + 1:W + hw) = L;
+S = zeros(nk, P);
 k = 0;
-for dr = 0:2
-    for dc = 0:2
+for dr = 0:kw - 1
+    for dc = 0:kw - 1
         k = k + 1;
         S(k, :) = reshape(Lp(1 + dr:H + dr, 1 + dc:W + dc), 1, P);
     end
@@ -40,10 +42,25 @@ end
 S = sort(S, 1);                        % NaN are sorted last
 c = sum(~isnan(S), 1);
 im = max(floor((c + 1) / 2), 1);       % lower median: never an average of two
-col = 0:9:9 * (P - 1);                 % surfaces (no bridge values at boundaries)
+col = 0:nk:nk * (P - 1);               % surfaces (no bridge values at boundaries)
 Lm = reshape(S(im + col), H, W);
 ok = valid & reshape(c, H, W) >= 3 & abs(L - Lm) <= cfg.seg.tau_out;
 Lm(~ok) = NaN;
+% ---- edge pixels: the network blur turns a depth step between two objects
+%      into a ramp of a few pixels whose single steps can be smaller than
+%      the joining threshold; a pixel whose (central-difference) log-depth
+%      gradient exceeds tau_e0 + k_e sigma_px(d) per pixel lies on such a
+%      ramp or on the rim of an object and is not used
+if cfg.seg.tau_e0 > 0
+    Lq = nan(H + 2, W + 2);
+    Lq(2:H + 1, 2:W + 1) = Lm;
+    gx = abs(Lq(2:H + 1, 3:W + 2) - Lq(2:H + 1, 1:W)) / 2;
+    gy = abs(Lq(3:H + 2, 2:W + 1) - Lq(1:H, 2:W + 1)) / 2;
+    gx(isnan(gx)) = 0; gy(isnan(gy)) = 0;
+    te = cfg.seg.tau_e0 + cfg.seg.k_e * (cfg.depth.sigma_px + cfg.depth.sigma_px_slope * exp(Lm));
+    ok = ok & ~(max(gx, gy) > te);
+    Lm(~ok) = NaN;
+end
 % ---- flying pixels: the network blurs depth edges, so pixels just behind
 %      the edge of a nearer surface carry depths between the two surfaces
 %      ("flying pixels"); a pixel with a clearly NEARER valid neighbour is

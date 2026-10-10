@@ -20,12 +20,13 @@ assert(max(min(abs(S), [], 1)) < 1e-9, 'hit points must lie on the surface');
 assert(j == 1 || j == 2);
 assert(abs(c - (min(dart_world_sdf(W, [6; 2.2; 2], 0)) - 0.25)) < 1e-12);
 % a 6 m wall seen at 5 m: split into several spheres that cover its face
+% (split while the lateral half-extent exceeds r_chunk + r_chunk_slope * range)
 Wl = struct('c0', [5; 0; 2], 'v', zeros(3, 1), 'rho', norm([0.15 3 1]), 'type', 2, ...
     'dim', [0.15; 3; 1], 'yaw', 0, 'obj', 1);
 [d, ~] = dart_render_world(cam, p, R, cfg, Wl, 0);
 lab = dart_segment_depth(d, cam, cfg);
 det = dart_extract_obstacles(d, lab, cam, cfg);
-assert(numel(det) >= 3, 'a long wall must be split into several spheres');
+assert(numel(det) >= 2, 'a long wall must be split into several spheres');   % r_chunk 2 m + 0.1 m/m
 k = find(isfinite(d));
 X = o + cfg.cam.R_BC * (cam.dirC(:, k) .* (d(k) ./ cam.cosz(k)));
 inside = false(1, size(X, 2));

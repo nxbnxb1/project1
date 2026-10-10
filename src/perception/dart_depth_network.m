@@ -1,4 +1,4 @@
-function [depth_hat, depth_blur] = dart_depth_network(depth, cfg, rs)
+function [depth_hat, depth_blur] = dart_depth_network(depth, cfg, rs, motion)
 %DART_DEPTH_NETWORK Synthetic stand-in for a small monocular depth network
 %   (low-resolution output, metric calibration) on a cheap UAV.
 %
@@ -14,9 +14,15 @@ function [depth_hat, depth_blur] = dart_depth_network(depth, cfg, rs)
 %      thinner than a pixel is mixed with the background behind it (free
 %      space has disparity 0).
 %   2. Network smoothing that grows with range ("the farther, the
-%      blurrier"): Gaussian blur of the disparity image with
-%        sigma_psf(d) = psf_px0 + psf_px1 * min(d / R_max, 1)   [px],
-%      d the local depth. Thin or small far objects are diluted - their
+%      blurrier") and motion blur during the exposure t_exp: Gaussian blur
+%      of the disparity image with the local width
+%        sigma(d) = sqrt(sigma_net(d)^2 + sigma_rot^2 + sigma_tr(d)^2)  [px]
+%        sigma_net(d) = psf_px0 + psf_px1 * min(d / psf_d, 1)
+%        sigma_rot   = t_exp |omega_perp| f_px / sqrt(12)  (camera rotation)
+%        sigma_tr(d) = t_exp |v| f_px / (d sqrt(12))     (translation, bound)
+%      d the local depth; motion = struct('w', omega_perp [rad/s], 'v', speed
+%      [m/s]) (optional, default at rest). The spatially varying blur is
+%      interpolated between Gaussian blurs at fixed widths. Thin or small far objects are diluted - their
 %      disparity drops, so they read farther away than they are or vanish
 %      (cf. MiDaS: "Thin structures can be missed", "Results tend to get
 %      blurred in background regions ... in the far range").
@@ -45,11 +51,30 @@ Q = reshape(q, H * ss, W * ss);
 if ss > 1
     Q = reshape(mean(mean(reshape(Q, ss, H, ss, W), 1), 3), H, W);
 end
-% ---- 2. range-dependent network blur (blend of two Gaussian blurs)
+% ---- 2. range-dependent network blur + motion blur (spatially varying)
+if nargin < 4 || isempty(motion), motion = struct('w', 0, 'v', 0); end
+fpx = (W / 2) / tan(cfg.cam.hfov / 2);
+te = cfg.cam.t_exp;
 Qa = gblur(Q, dp.psf_px0);
-Qb = gblur(Q, dp.psf_px0 + dp.psf_px1);
-wf = min(1 ./ max(Qa, 1e-9) / cfg.cam.R_max, 1);       % local depth / R_max
-Q = (1 - wf) .* Qa + wf .* Qb;
+dl = 1 ./ max(Qa, 1e-9);                                % local depth
+sig = sqrt((dp.psf_px0 + dp.psf_px1 * min(dl / dp.psf_d, 1)).^2 ...
+    + (te * motion.w * fpx)^2 / 12 + (te * motion.v * fpx ./ max(dl, 0.5)).^2 / 12);
+lev = [dp.psf_px0, 1, 1.5, 2, 3, 4];
+sig = min(max(sig, lev(1)), lev(end));
+Qs = zeros(H, W, numel(lev));
+Qs(:, :, 1) = Qa;
+for k = 2:numel(lev)
+    if any(sig(:) > lev(k - 1)), Qs(:, :, k) = gblur(Q, lev(k)); end
+end
+Qn = Qa;
+for k = 1:numel(lev) - 1
+    m = sig > lev(k) & sig <= lev(k + 1);
+    if ~any(m(:)), continue, end
+    a = (sig - lev(k)) / (lev(k + 1) - lev(k));
+    B = (1 - a) .* Qs(:, :, k) + a .* Qs(:, :, k + 1);
+    Qn(m) = B(m);
+end
+Q = Qn;
 db = 1 ./ Q;
 db(Q < 1e-9) = Inf;
 % ---- 3. metric depth errors (all random draws are always made: the

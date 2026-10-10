@@ -8,10 +8,10 @@ function [world, cfg] = dart_scenario(name, seed, cfg)
 %   S2  sparse static field + obstacles crossing the corridor (a TEST world
 %       with movers; the method itself assumes static obstacles)
 %   S3  S1 geometry with slow, noisy perception (latency stress test)
-%   SN  normal flight: long route, few far-apart static obstacles (trees,
-%       lamp posts, canopies, buildings beside the path) - the main
-%       benchmark of the scope (DART_SCENARIO_NORMAL)
-%   SH  hard cases: dense random layouts, movers, fog (a few runs only)
+%   SN  normal flight: 300 m route through open, sparse and dense zones of
+%       LARGE static obstacles (trees with low canopies, bushes, buildings,
+%       vehicles, rocks) - the main benchmark (DART_SCENARIO_NORMAL)
+%   SH  hard cases: dense zones everywhere, fog, crossing vehicles (few runs)
 %   SR  randomised world: random set path, layout, shapes (spheres,
 %       boxes, poles, compound objects), movers in 60 % of the worlds
 %       (DART_SCENARIO_RANDOM; test worlds - the method assumes static obstacles)
@@ -76,15 +76,11 @@ switch upper(name)
         world = dart_world_defaults(world);
         return
     case 'SH'
-        % hard cases (few runs): dense layouts of the random generator,
-        % movers in 60 % of the worlds, fog (visibility 200 m) in odd seeds
-        [world, cfg] = dart_scenario_random(seed, cfg, {'clusters', 'corridor', 'forest', 'mixed'});
-        if mod(seed, 2) == 1
-            cfg.depth.visibility = 200;
-        end
+        % hard cases (few runs): dense zones of large objects along the whole
+        % route, fog in odd seeds, crossing vehicles in seeds divisible by 3
+        [world, cfg] = dart_scenario_normal(seed, cfg, 'hard');
         world.name = 'SH';
         world.seed = seed;
-        world.meta.fog = mod(seed, 2) == 1;
         world = dart_world_defaults(world);
         return
     otherwise

@@ -1,4 +1,4 @@
-function [depth_hat, inst, depth_true] = dart_capture(cam, p, R_IB, cfg, world, t, rs)
+function [depth_hat, inst, depth_true] = dart_capture(cam, p, R_IB, cfg, world, t, rs, motion)
 %DART_CAPTURE One camera frame through the synthetic depth network.
 %   The scene is ray-cast on the supersampled rays cam.sub from the TRUE
 %   pose (p, R_IB) at time t and passed through DART_DEPTH_NETWORK.
@@ -8,7 +8,8 @@ function [depth_hat, inst, depth_true] = dart_capture(cam, p, R_IB, cfg, world, 
 %               beyond R_max)
 %   depth_true  1 x (W*H) true depth at each pixel centre (Inf beyond R_max)
 [dS, iS] = dart_render_world(cam.sub, p, R_IB, cfg, world, t);
-depth_hat = dart_depth_network(dS, cfg, rs);
+if nargin < 8, motion = []; end
+depth_hat = dart_depth_network(dS, cfg, rs, motion);   % motion: struct(w, v) for motion blur
 ss = cam.ss;
 c = ceil(ss / 2);
 rows = (0:cam.H - 1) * ss + c;

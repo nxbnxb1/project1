@@ -32,7 +32,7 @@ function [trk, info] = dart_tracks_process_msg(trk, hdr, det, pb, t_now, cfg)
 %   detections once it is expected in view.
 H = [eye(3), zeros(3)];
 tk = cfg.trk;
-info = struct('n_upd', 0, 'n_new', 0, 'n_rej', 0, 'n_del', 0);
+info = struct('n_upd', 0, 'n_new', 0, 'n_rej', 0, 'n_del', 0, 'n_red', 0);
 if tk.delay_comp
     t_meas = hdr.t_c;
 else
@@ -113,7 +113,22 @@ for a = find(~done)
 end
 
 % ------------------------------------- unassigned detections: new tracks
+% (a detection whose sphere lies inside the sphere of an existing track adds
+%  no occupied space - e.g. another cut of a large object - and is dropped)
+act = find(trk.active);
+Cact = zeros(3, numel(act));
+for a = 1:numel(act)
+    xa = dart_track_predict(trk, act(a), t_meas, cfg);
+    Cact(:, a) = xa(1:3);
+end
 for k = find(asg == 0)
+    if ~isempty(act)
+        dk = sqrt(sum((Cact - Y(:, k)).^2, 1));
+        if any(dk + det(k).rho <= trk.rho(act) + tk.contain_tol * det(k).rho)
+            info.n_red = info.n_red + 1;
+            continue
+        end
+    end
     i = free_slot(trk, t_meas, tk.n_confirm);
     trk = init_track(trk, i, Y(:, k), RY(:, :, k), det(k).rho, t_meas, cfg);
     trk.n_gate_rej = trk.n_gate_rej + 1;

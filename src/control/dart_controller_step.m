@@ -50,14 +50,25 @@ if t >= ctrl.t_next_mpc - 1e-9
     if cfg.ref.perc_speed                         % not faster than the camera can see
         v_cap = min(v_cap, dart_perception_speed(cfg, sch.tau_hat));
     end
+    if cfg.ref.clutter_speed                      % slow in clutter, fast in open space
+        dir = v;
+        if norm(v) < 1, dir = ctrl.target - p; end
+        v_cap = min(v_cap, dart_clutter_speed(ob, rk, p, dir, cfg));
+    end
+    % look-ahead of the set-path logic scales with the planned speed
+    cfr = cfg;
+    vpl = min([cfg.ref.v_des, v_cap, cfg.mpc.v_max(1)]);
+    vpl = max(vpl, norm(v));
+    cfr.ref.L_look = max(cfg.ref.L_look, cfg.ref.T_ahead * vpl);
+    cfr.ref.L_trig = max(cfg.ref.L_trig, vpl^2 / (2 * cfg.sched.a_b) + cfg.ref.T_trig * vpl);
     if strcmp(cfg.ref.mode, 'goal')
         ref = ctrl.goal;
     else
-        ctrl.rj = dart_rejoin_update(ctrl.rj, ctrl.G, p, ob, cfg);   % TRACK / REJOIN
+        ctrl.rj = dart_rejoin_update(ctrl.rj, ctrl.G, p, ob, cfr);   % TRACK / REJOIN
         ref = struct('G', ctrl.G, 'rj', ctrl.rj);
     end
     ctrl.sol = dart_mpc(p, v, ctrl.u_prev, ref, ob, rk, N, tinfo, ...
-        v_cap, ctrl.sol, t, cfg);
+        v_cap, ctrl.sol, t, cfr);
     ctrl.target = ctrl.sol.target;
     ctrl.last_N = N;
     ctrl.t_next_mpc = max(ctrl.t_next_mpc, t) + cfg.mpc.period;

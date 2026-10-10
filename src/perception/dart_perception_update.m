@@ -13,7 +13,8 @@ end
 cfg = perc.cfg;
 w = perc.world;
 R_IB = dart_quat2rotm(x_true(7:10));
-[depth_hat, inst] = dart_capture(perc.cam, x_true(1:3), R_IB, cfg, w, t, perc.rs);
+motion = struct('w', norm(x_true(12:13)), 'v', norm(x_true(4:6)));   % body rates about y, z move the image
+[depth_hat, inst] = dart_capture(perc.cam, x_true(1:3), R_IB, cfg, w, t, perc.rs, motion);
 vis_cnt = accumarray(inst(inst > 0).', 1, [numel(perc.seen_t), 1]);   % evaluation only
 perc.seen_t(vis_cnt.' >= cfg.cam.min_px) = t;
 if ~cfg.seg.oracle

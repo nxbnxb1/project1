@@ -27,7 +27,7 @@ dt = mp.dt;
 tic_id = tic;
 
 % ------------------------------------------------------------ reference
-v_des = min(cfg.ref.v_des, v_cap);
+v_des = min([cfg.ref.v_des, v_cap, cfg.mpc.v_max(1)]);   % never above the physical top speed
 if isstruct(goal)                    % set path: TRACK / REJOIN (method §12)
     [pr, vr, target] = dart_reference_path(p0, goal.G, goal.rj, N, dt, v_des, ...
         cfg.ref.a_dec, cfg.ref.L_look);

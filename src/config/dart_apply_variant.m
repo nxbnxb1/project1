@@ -19,6 +19,7 @@ function cfg = dart_apply_variant(cfg, name)
 %             COVB5; E_COV = COVB3): the speed cap follows from the budget
 %   E_NOCAP   E without the perception speed cap (ref.perc_speed = false)
 %   FRNC<f>   fixed rate f Hz with the safety layers but WITHOUT the speed cap
+%   COV_NOCLUT E_COV without the clutter speed (no slow-down among obstacles)
 %   COV_EV    E_COV that also re-images known obstacles (distance and
 %             uncertainty events, as in round 4a)
 %   COV_NOCAP E_COV without the perception speed cap
@@ -120,6 +121,9 @@ switch name
     case 'E_NOCAP'
         cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
         cfg.ref.perc_speed = false;
+    case 'COV_NOCLUT'
+        cfg = set_layers(cfg, 'coverage', 'adaptive', true);
+        cfg.ref.clutter_speed = false;
     case 'COV_EV'
         cfg = set_layers(cfg, 'coverage', 'adaptive', true);
         cfg.sched.cov_events = true;

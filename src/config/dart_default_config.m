@@ -30,11 +30,16 @@ cfg.sim.debug    = false;   % MATLAB engine: log the track nearest to the truly 
 cfg.quad.m        = 1.0;
 cfg.quad.g        = 9.81;
 cfg.quad.J        = [0.0082; 0.0082; 0.0149];
-cfg.quad.kd       = 0.10;            % linear aerodynamic drag [N/(m/s)]
+cfg.quad.kd       = 0.10;            % linear rotor drag [N/(m/s)]
+cfg.quad.cq       = 0.0306;          % quadratic body drag 1/2 rho C_D A (C_D = 1, A = 0.05 m^2) [N/(m/s)^2]
 cfg.quad.tau_mot  = 0.02;            % thrust/torque first-order lag [s]
-cfg.quad.f_max    = 2.2 * 1.0 * 9.81;
+cfg.quad.f_max    = 2.4 * 1.0 * 9.81; % thrust-to-weight 2.4 (AscTec Pelican class, Liu et al. ICRA 2016)
 cfg.quad.tau_lim  = [1.0; 1.0; 0.3]; % body torque limits [N m]
-cfg.quad.tilt_max = 35 * pi/180;
+cfg.quad.tilt_max = 35 * pi/180;     % overwritten by DART_DERIVE_LIMITS
+cfg.quad.thrust_reserve = 0.4;       % thrust kept for attitude control in level flight at the tilt limit
+cfg.quad.brake_frac = 0.9;           % guaranteed braking a_b = brake_frac (a_xy - a_bar_o - delta_a)
+cfg.quad.speed_frac = 0.9;           % top speed = speed_frac * terminal speed at the tilt limit
+cfg.quad.view_margin = 5 * pi/180;   % the path ahead must stay this far inside the vertical FOV in cruise
 cfg.quad.r_body   = 0.25;            % collision radius of the vehicle [m]
 cfg.quad.wind_mean = [0; 0; 0];      % mean wind velocity [m/s]
 cfg.quad.wind_gust = [0.0; 0.0; 0];  % gust amplitude [m/s]
@@ -52,21 +57,31 @@ cfg.est.sigma_att = 0.3 * pi/180;    % attitude noise std [rad]
 cfg.est.buffer_len = 200;            % pose buffer length (control ticks)
 
 % ------------------------------------------------------------------ camera
-cfg.cam.W     = 128;                 % depth network OUTPUT width  [px] (small network on a cheap UAV)
-cfg.cam.H     = 96;                  % depth network OUTPUT height [px]
-cfg.cam.ss    = 3;                   % sub-rays per pixel side (scene rendered on (W ss) x (H ss) rays,
+% Raspberry Pi Camera Module 3 Wide (Sony IMX708, 2.75 mm lens): 102 x 67 deg field of view
+% (120 deg diagonal), video mode 1536 x 864 at 120 fps (retailer specification tables; the
+% official page was not reachable). The frame is downscaled 4.8x to the input of a small depth
+% network (16:9). The wide lens keeps the path ahead in view while the quadrotor pitches
+% forward at speed (the standard 66 x 41 deg lens loses it beyond ~25 deg of pitch).
+cfg.cam.model = 'RPi Camera Module 3 Wide (IMX708, 102x67 deg), 1536x864@120fps -> 320x180 network input';
+cfg.cam.W     = 320;                 % depth network input/output width  [px]
+cfg.cam.H     = 180;                 % depth network input/output height [px]
+cfg.cam.ss    = 2;                   % sub-rays per pixel side (scene rendered on (W ss) x (H ss) rays,
 %                                      averaged over each pixel's footprint)
-cfg.cam.hfov  = 90 * pi/180;
-cfg.cam.R_max = 15;                  % maximum reliable depth [m]
+cfg.cam.hfov  = 102 * pi/180;        % horizontal field of view (pinhole: vertical 2 atan(90/129.6) = 69 deg)
+cfg.cam.uptilt = 15 * pi/180;        % camera mounted pitched up (compensates the forward pitch in cruise)
+cfg.cam.t_exp = 0.004;               % exposure time [s] (motion blur)
+cfg.cam.R_max = 40;                  % maximum depth used [m] (large obstacles are seen this far)
 cfg.cam.p_BC  = [0.10; 0; 0];        % camera lever arm in body frame
-cfg.cam.R_BC  = [0 0 1; -1 0 0; 0 -1 0]; % optical -> body (FLU)
-cfg.cam.min_px = 3;                  % minimum segment size for a detection [px]
-cfg.cam.r_chunk = 1.0;               % segments wider than this (lateral half-extent) are split [m]
+cfg.cam.R_BC  = [cos(cfg.cam.uptilt) 0 -sin(cfg.cam.uptilt); 0 1 0; sin(cfg.cam.uptilt) 0 cos(cfg.cam.uptilt)] ...
+    * [0 0 1; -1 0 0; 0 -1 0];     % optical -> body (FLU), optical axis pitched up by uptilt
+cfg.cam.min_px = 12;                 % minimum segment size [px] (large objects only: r >= 1 m at 40 m covers ~75 px)
+cfg.cam.r_chunk = 2.0;               % segments wider than r_chunk + r_chunk_slope * range (lateral
+cfg.cam.r_chunk_slope = 0.1;         %   half-extent) are split [m, m/m]: coarse far away, finer when close
 cfg.cam.cover_q = 0.9;               % the sphere covers this quantile of the segment's surface points
 % detection range (>= 90 % of frames) of an obstacle of a given radius for THIS camera, depth
 % network and segmentation, measured by experiments/dart_eval_detection_range.m:
-% [radius (pole; spheres for >= 1 m) [m], range [m]]
-cfg.cam.det_table = [0.05 1.5; 0.08 4.0; 0.12 4.5; 0.2 6.0; 0.3 8.0; 1.0 12.0; 2.0 14.0];
+% [sphere radius [m], range [m]] (RPi Camera Module 3 Wide model, 320x180 network output)
+cfg.cam.det_table = [0.5 10.0; 1.0 30.0; 2.0 35.0; 3.0 40.0];   % spheres (blobs), wide camera, final segmentation
 
 % ----------------------------------------- monocular depth network (synthetic)
 cfg.depth.sigma_scale   = 0.04;      % per-frame residual scale error (log)
@@ -75,11 +90,12 @@ cfg.depth.sigma_shift   = 0.002;     % per-frame residual inverse-depth SHIFT er
 cfg.depth.sigma_corr    = 0.03;      % smooth, spatially correlated log-depth error (local bias)
 cfg.depth.corr_grid     = [3 4];     % nodes of the correlated error field (rows x cols)
 cfg.depth.psf_px0       = 0.5;       % network blur of the disparity image near the camera [px] ...
-cfg.depth.psf_px1       = 1.5;       % ... growing by this much at R_max: the farther, the blurrier [px]
+cfg.depth.psf_px1       = 1.5;       % ... growing by this much at psf_d and beyond: the farther, the blurrier [px]
+cfg.depth.psf_d         = 20;        % range at which the network blur reaches psf_px0 + psf_px1 [m]
 cfg.depth.visibility    = Inf;       % meteorological visibility [m] (haze / fog; Inf = clear air)
 cfg.depth.far_factor    = 1.3;       % the scene is rendered up to far_factor * R_max
-cfg.depth.sigma_bias    = 0.12;      % range bias of thin / small objects (dilution), as a relative std
-%                                     in the measurement covariance (est/true distance up to 1.3)
+cfg.depth.sigma_bias    = 0.07;      % range bias of far / small objects (dilution), as a relative std
+%                                     in the measurement covariance (est/true distance up to 1.15)
 cfg.depth.sigma_px      = 0.03;      % per-pixel relative noise (log)
 cfg.depth.sigma_px_slope = 0.004;    % growth of per-pixel noise with range [1/m]
 cfg.depth.p_outlier     = 0.02;      % probability of an outlier pixel
@@ -88,16 +104,19 @@ cfg.depth.sigma_ang     = 0.5 * pi/180; % residual bearing error [rad]
 % ------------------------- obstacle segmentation of the depth image (method §5.4)
 % The vehicle only sees the network's depth image: no instance labels.
 cfg.seg.oracle  = false;             % true: ray-caster instance labels (old assumption A6, ablation only)
-cfg.seg.tau_out = 0.25;              % outlier: |log d - 3x3 median| above this
+cfg.seg.tau_out = 0.25;              % outlier: |log d - k x k median| above this
+cfg.seg.med_win = 3;                 % median window k (odd)
+cfg.seg.tau_e0  = 0.04;              % edge pixels: log-depth gradient > tau_e0 + k_e sigma_px(d) per pixel
+cfg.seg.k_e     = 0.5;               %   (blurred depth steps between objects; 0: off)
 cfg.seg.tau0    = 0.05;              % neighbours joined if |dlog d| <= tau0 + k_sig * sigma_px(d)
 cfg.seg.k_sig   = 0.5;               % (calibrated on held-out scenario seeds 100-149)
 cfg.seg.tau_fly = 0.10;              % flying-pixel filter: drop a pixel with a neighbour nearer by
 cfg.seg.k_fly   = 0.5;               %   more than tau_fly + k_fly * sigma_px(d) in log-depth (0: off)
 %                                     (calibrated on held-out SN/SH seeds 100-149: merges 35 -> 22)
-cfg.seg.frag_px = 8;                % segments of <= frag_px pixels touching a nearer segment are rim fragments
+cfg.seg.frag_px = 16;               % segments of <= frag_px pixels touching a nearer segment are rim fragments (scaled with W)
 
 % ---------------------------------------------------- perception latency
-cfg.lat.t_capture  = 0.005;          % exposure + readout [s]
+cfg.lat.t_capture  = 0.010;          % exposure + readout of one 120 fps frame [s]
 cfg.lat.t_comm     = 0.010;          % transfer / middleware [s]
 cfg.lat.inf_mean   = 0.080;          % mean depth-network inference time [s]
 cfg.lat.inf_cv     = 0.25;           % coefficient of variation (log-normal)
@@ -119,7 +138,9 @@ cfg.trk.oracle_assoc = false;        % true: slot = ray-caster instance id (need
 cfg.trk.n_confirm  = 2;              % a track with fewer updates is tentative (deleted at its first miss)
 cfg.trk.n_miss     = 3;              % consecutive misses (expected in view, not detected) before deletion
 cfg.trk.rho_alpha  = 0.3;            % EWMA factor of the radius estimate
-cfg.trk.max_tracks = 128;          % local obstacle memory (pole forests: ~60 segments per image)
+cfg.trk.contain_tol = 0.25;          % an unassigned detection inside an existing track sphere (up to this
+%                                     fraction of its radius) is redundant and creates no track
+cfg.trk.max_tracks = 256;          % local obstacle memory (large objects are covered by several spheres)
 cfg.trk.delay_comp = true;           % update at capture time (Eq. 23-27)
 
 % --------------------------------------- safety-driven scheduler (method §8)
@@ -136,8 +157,8 @@ cfg.sched.frontier = true;           % unknown-space (frontier) constraint
 cfg.sched.uncertainty = true;        % covariance growth in the safe open-loop time (false: Zhuyi-style baseline)
 cfg.sched.frontier_margin = 1.0;     % surface of an unseen obstacle may be at R_max - margin
 cfg.sched.v_unknown = 0.0;           % speed bound of unseen obstacles [m/s] (0: static obstacles)
-cfg.sched.r_min    = 0.08;           % smallest obstacle the mission must avoid (lamp post) [m]
-cfg.sched.range_bias = 1.3;          % thin far objects read up to 30 % too far (90th percentile)
+cfg.sched.r_min    = 1.0;            % smallest obstacle the mission must avoid (large objects only) [m]
+cfg.sched.range_bias = 1.15;         % large objects read up to 15 % too far (90th percentile)
 %                                     -> reliable range R_eff = det_range(r_min) / range_bias
 % coverage scheduler (sched.mode = 'coverage'): infer only when the planned path ahead,
 % up to the stopping distance, leaves the space observed by recent frames
@@ -156,6 +177,7 @@ cfg.sched.tau_quantile_k = 2.0;      % tau_hat = mean + k*std
 cfg.sched.fixpoint_iter = 2;         % covariance-growth fixed-point iterations
 cfg.sched.emergency_hold = 0.3;      % hysteresis of the emergency mode [s]
 cfg.sched.v_closing = 0.2;           % an obstacle is 'closing' above this speed [m/s]
+cfg.sched.course_margin = 0.5;       % on a collision course: miss distance < rho + d_s + beta_d sigma + this [m]
 cfg.sched.emergency_enabled = true;  % emergency mode (max-rate perception, N_max, speed cap)
 
 % -------------------------------------- adaptive-horizon MPC (method §11)
@@ -181,7 +203,7 @@ cfg.mpc.z_lim    = [0.7; 4.0];
 cfg.mpc.gamma    = 0.3;              % discrete-time CBF rate (Eq. 85), 1 = direct only
 cfg.mpc.N_dcbf   = 10;               % DCBF rows on the first N_dcbf steps
 cfg.mpc.beta_s   = 2.0;              % uncertainty inflation (Eq. 82), 0 = off
-cfg.mpc.M_obs    = 6;                % max obstacles in the QP
+cfg.mpc.M_obs    = 8;                % max obstacles in the QP
 cfg.mpc.relevance = 2.0;             % extra distance for obstacle selection [m]
 cfg.mpc.slack_w1 = 1e3;
 cfg.mpc.slack_w2 = 1e4;
@@ -213,6 +235,12 @@ cfg.cbf.fd_step  = 0.05;             % finite-difference step for d_eff rates
 cfg.ref.v_des    = 4.0;              % cruise speed [m/s]
 cfg.ref.a_dec    = 1.5;              % deceleration used near the goal
 cfg.ref.perc_speed = true;           % cap the speed by the perception range (DART_PERCEPTION_SPEED)
+cfg.ref.clutter_speed = true;        % slow down in clutter (DART_CLUTTER_SPEED)
+cfg.ref.clutter_k = 0.9;             % clutter speed: margin below the braking (emergency) boundary
+cfg.ref.clutter_w = 2.0;             % clutter corridor: obstacles within this much beyond their inflated radius [m]
+cfg.ref.v_clutter_min = 1.5;         % the clutter speed never goes below this [m/s]
+cfg.ref.T_ahead  = 3.0;              % look-ahead for blocking obstacles >= T_ahead * planned speed [s]
+cfg.ref.T_trig   = 1.0;              % detour trigger distance >= braking distance + T_trig * speed [s]
 % set path (the mission's reference trajectory) and rejoin logic (method §12)
 cfg.ref.mode     = 'rejoin';         % 'rejoin' | 'track' (always penalise deviation from the path)
 %                                      | 'goal' (old carrot straight to the goal, no path)
@@ -243,6 +271,8 @@ cfg.scenario = 'S1';
 % One hyperparameter (DART_APPLY_TRADEOFF, applied by DART_RUN_CASE):
 % 0 = most conservative, 0.5 = the values above, 1 = most aggressive.
 cfg.tradeoff.kappa = 0.5;
+cfg = dart_camera_preset(cfg, 3);    % RPi Camera Module 3 Wide; also derives a_max, v_max, a_b, tilt
+%                                     from the quadrotor model and the camera view (DART_DERIVE_LIMITS)
 cfg.tradeoff.nominal = struct('beta_s', cfg.mpc.beta_s, 'cbf_alpha', cfg.cbf.alpha, ...
     'd_s', cfg.sched.d_s, 'v_blind', cfg.cbf.v_blind, 'v_blind_lat', cfg.cbf.v_blind_lat, ...
     'ref_margin', cfg.ref.margin);

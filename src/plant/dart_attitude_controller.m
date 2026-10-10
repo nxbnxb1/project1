@@ -10,7 +10,8 @@ v = x(4:6);
 w = x(11:13);
 R = dart_quat2rotm(x(7:10));
 
-Fd = m * (cmd(1:3) + [0; 0; g]) + drag_comp * kd_hat * v;
+cq_hat = P(29);
+Fd = m * (cmd(1:3) + [0; 0; g]) + drag_comp * (kd_hat * v + cq_hat * sqrt(v(1)^2 + v(2)^2 + v(3)^2) * v);
 % keep a minimum positive vertical force and limit the tilt angle
 Fd(3) = max(Fd(3), 0.2 * m * g);
 fxy = sqrt(Fd(1)^2 + Fd(2)^2);

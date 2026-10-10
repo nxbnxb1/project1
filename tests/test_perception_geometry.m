@@ -30,26 +30,36 @@ end
 msg = dart_msg_pack(1.0, 1.1, det, cfg);
 [hdr, d2] = dart_msg_unpack(msg);
 assert(hdr.valid && hdr.n == 2 && norm(d2(2).cC - det(2).cC) < 1e-12);
-% two spheres whose images overlap but which are ~2 m apart in depth
-% (8 m and 10 m) are rarely merged under the default depth noise (a merge
-% = one segment with >= 3 pixels of each sphere). The network blurs depth
-% edges (range-dependent blur), so the bound is looser than for a sharp
-% depth image: <= 8 merges and >= 28/40 frames with both found.
+% two spheres whose images overlap but which are ~2.6 m apart in depth
+% (8 m and 10.6 m): whatever the segmentation does at their blurred common
+% edge, the extracted spheres (inflated by 2 sigma of their measurement
+% covariance, as the safety layer does) must cover >= 90 % of the visible
+% surface of EACH sphere in >= 30 of 40 frames
 cfg = dart_default_config();
 C = [8 10.6; 0 0.9; 2 2]; rho = [0.6 0.6];
 [depth, inst] = dart_render_depth(cam, p, R, cfg, C, rho);
 assert(numel(unique(inst(inst > 0))) == 2);
-nmerge = 0; nfound = 0;
+R_IC = R * cfg.cam.R_BC; o = p + R * cfg.cam.p_BC;
+ncov = 0;
 for s = 1:40
-    [lab, n] = dart_segment_depth(dart_depth_network(depth, cfg, rs), cam, cfg);
-    for c = 1:n
-        m = inst(lab == c);
-        nmerge = nmerge + (min(nnz(m == 1), nnz(m == 2)) >= 3);
+    dh = dart_depth_network(depth, cfg, rs);
+    lab = dart_segment_depth(dh, cam, cfg);
+    det = dart_extract_obstacles(dh, lab, cam, cfg);
+    okj = false(1, 2);
+    for j = 1:2
+        k = find(inst == j);
+        X = o + R_IC * (cam.dirC(:, k) .* (depth(k) ./ cam.cosz(k)));
+        in = false(1, numel(k));
+        for q = 1:numel(det)
+            cq = o + R_IC * det(q).cC;
+            in = in | sqrt(sum((X - cq).^2, 1)) <= det(q).rho + 2 * sqrt(max(eig(det(q).RC)));
+        end
+        okj(j) = mean(in) >= 0.9;
     end
-    nfound = nfound + (n >= 2);
+    ncov = ncov + all(okj);
 end
-assert(nmerge <= 8 && nfound >= 28, 'adjacent spheres at different depths merged too often');
+assert(ncov >= 30, 'adjacent spheres at different depths not covered');
 % outside range -> no detection
-[depth, inst] = dart_render_depth(cam, p, R, cfg, [40; 0; 2], 0.5);
+[depth, inst] = dart_render_depth(cam, p, R, cfg, [60; 0; 2], 0.5);
 assert(~any(inst > 0));
 end

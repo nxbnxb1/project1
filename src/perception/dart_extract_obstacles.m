@@ -59,7 +59,10 @@ X = points(pix, depth_hat, cam);
 ub = sum(cam.dirC(:, pix), 2); ub = ub / norm(ub);
 lat = X - ub * (ub.' * X);
 R_lat = max(sqrt(sum(lat.^2, 1)));
-if R_lat <= cfg.cam.r_chunk || numel(pix) < 2 * 2 * cfg.cam.min_px
+% far segments are split more coarsely: the shape detail matters only close
+% to the vehicle (passing between obstacles); r_chunk grows with the range
+r_ch = cfg.cam.r_chunk + cfg.cam.r_chunk_slope * median(sqrt(sum(X.^2, 1)));
+if R_lat <= r_ch || numel(pix) < 2 * 2 * cfg.cam.min_px
     parts = {pix};
     return
 end
