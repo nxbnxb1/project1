@@ -13,6 +13,12 @@ function cfg = dart_apply_variant(cfg, name)
 %             derived from braking kinematics on the POINT estimate only (no
 %             covariance growth, no uncertainty trigger) and there is no
 %             frontier term for unseen obstacles (cf. Hsiao et al., DAC 2022)
+%   E_COV     E with the coverage scheduler (sched.mode = 'coverage'): infer
+%             only when the planned path ahead leaves the observed space
+%   COVB<f>   E_COV with a compute budget of f Hz (sched.f_budget; e.g. COVB1,
+%             COVB5; E_COV = COVB3): the speed cap follows from the budget
+%   E_NOCAP   E without the perception speed cap (ref.perc_speed = false)
+%   COV_NOCAP E_COV without the perception speed cap
 %   O_ORACLE  E with the oracle perception of the OLD assumption A6 (the
 %             current A6 states that no labels are available): ray-caster
 %             instance labels instead of segmenting the depth image, and
@@ -55,6 +61,12 @@ if numel(name) >= 2 && name(1) == 'K' && all(isstrprop(name(2:end), 'digit'))
     cfg.variant = name;
     return
 end
+if strncmp(name, 'COVB', 4) && numel(name) > 4
+    cfg = set_layers(cfg, 'coverage', 'adaptive', true);
+    cfg.sched.f_budget = str2double(name(5:end));
+    cfg.variant = name;
+    return
+end
 if strncmp(name, 'FN_SAFE_', 8)
     cfg = set_layers(cfg, 'adaptive', 'fixed', true);
     cfg.mpc.N_fixed = str2double(name(9:end));
@@ -92,6 +104,14 @@ switch name
     case 'R_STRAIGHT'
         cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
         cfg.ref.plan = false;
+    case 'E_COV'
+        cfg = set_layers(cfg, 'coverage', 'adaptive', true);
+    case 'E_NOCAP'
+        cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
+        cfg.ref.perc_speed = false;
+    case 'COV_NOCAP'
+        cfg = set_layers(cfg, 'coverage', 'adaptive', true);
+        cfg.ref.perc_speed = false;
     case 'G_FR_LOW'
         cfg = set_layers(cfg, 'fixed', 'adaptive', true);
         cfg.sched.f_fixed = 3;
@@ -104,6 +124,7 @@ end
 function cfg = set_layers(cfg, sched_mode, n_mode, safety)
 cfg.sched.mode = sched_mode;
 cfg.mpc.N_mode = n_mode;
+cfg.ref.perc_speed = safety;
 cfg.cbf.enabled = safety;
 cfg.sched.emergency_enabled = safety;
 if safety

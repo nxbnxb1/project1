@@ -6,6 +6,9 @@ function cfg = dart_apply_sweep(cfg, name, value)
 %   noise     residual monocular scale error sigma_scale [-]
 %   shift     residual inverse-depth shift error sigma_shift [1/m]
 %   kappa     safety <-> time-to-goal trade-off (DART_APPLY_TRADEOFF) [0, 1]
+%   rmin      smallest obstacle the mission must avoid, sched.r_min [m]
+%             (0.08 lamp posts, 0.2 tree trunks, 1 canopies only)
+%   fog       meteorological visibility cfg.depth.visibility [m]
 %   none      no change (value ignored)
 switch lower(name)
     case 'latency'
@@ -23,6 +26,10 @@ switch lower(name)
         cfg.depth.sigma_shift = value;
     case 'kappa'
         cfg.tradeoff.kappa = value;
+    case 'rmin'
+        cfg.sched.r_min = value;
+    case 'fog'
+        cfg.depth.visibility = value;
     case 'none'
     otherwise
         error('dart:sweep', 'Unknown sweep parameter %s', name);

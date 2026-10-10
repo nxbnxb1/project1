@@ -1,4 +1,4 @@
-function S = dart_eval_segmentation(scenarios, seeds, nframes)
+function S = dart_eval_segmentation(scenarios, seeds, nframes, cfg0)
 %DART_EVAL_SEGMENTATION Quality of the UAV's own segmentation (method §16.7).
 %   S = DART_EVAL_SEGMENTATION({'S1','S2','S3'}, 100:149, 150) renders
 %   nframes random frames (random pose, heading and time) of the given
@@ -15,25 +15,26 @@ function S = dart_eval_segmentation(scenarios, seeds, nframes)
 if nargin < 1, scenarios = {'S1', 'S2', 'S3'}; end
 if nargin < 2, seeds = 100:149; end
 if nargin < 3, nframes = 150; end
+if nargin < 4 || isempty(cfg0), cfg0 = dart_default_config(); end
 rs = dart_rng_create(11);
 S = struct('nobj', 0, 'miss', 0, 'miss_small', 0, 'split', 0, 'merge', 0, 'ncomp', 0, ...
     'eo', [], 'es', [], 'ro', [], 'rsg', [], 'cover', [], 'cover_inf', []);
 for f = 1:nframes
     sname = scenarios{mod(f - 1, numel(scenarios)) + 1};
     seed = seeds(1 + mod(floor((f - 1) / numel(scenarios)), numel(seeds)));
-    cfg = dart_apply_variant(dart_default_config(), 'E_DART');
+    cfg = dart_apply_variant(cfg0, 'E_DART');
     [w, cfg] = dart_scenario(sname, seed, cfg);
     cam = dart_camera_rays(cfg);
     t = 8 * dart_rand(rs, 1, 1);
+    G = dart_path_init(w.path);
     for tries = 1:50
-        L = max(w.path(1, :));
-        p = [L * dart_rand(rs, 1, 1); 4 * dart_rand(rs, 1, 1) - 2; 1.5 + dart_rand(rs, 1, 1)];
+        [p0, tg] = dart_path_point(G, G.L * dart_rand(rs, 1, 1));
+        p = p0 + [-tg(2); tg(1); 0] * (4 * dart_rand(rs, 1, 1) - 2) + [0; 0; dart_rand(rs, 1, 1) - 0.5];
         if min(dart_world_sdf(w, p, t)) > 0.5, break, end
     end
-    psi = (dart_rand(rs, 1, 1) - 0.5) * 0.7;
+    psi = atan2(tg(2), tg(1)) + (dart_rand(rs, 1, 1) - 0.5) * 0.7;
     R = [cos(psi) -sin(psi) 0; sin(psi) cos(psi) 0; 0 0 1];
-    [depth, inst] = dart_render_world(cam, p, R, cfg, w, t);
-    dh = dart_depth_network(depth, cfg, rs);
+    [dh, inst, depth] = dart_capture(cam, p, R, cfg, w, t, rs);
     [lab, n] = dart_segment_depth(dh, cam, cfg);
     S.ncomp = S.ncomp + n;
     deto = dart_extract_obstacles(dh, inst, cam, cfg);
@@ -57,7 +58,7 @@ for f = 1:nframes
         S.split = S.split + (numel(own) > 1);
         % covering: fraction of the object's visible surface points inside
         % the spheres extracted from its own segments
-        k = find(px);
+        k = find(px & isfinite(depth));
         X = o + R_IC * (cam.dirC(:, k) .* (depth(k) ./ cam.cosz(k)));
         D = dets(ismember([dets.id], own));
         inside = false(1, size(X, 2)); inside2 = inside;

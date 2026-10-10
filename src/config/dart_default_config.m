@@ -52,8 +52,10 @@ cfg.est.sigma_att = 0.3 * pi/180;    % attitude noise std [rad]
 cfg.est.buffer_len = 200;            % pose buffer length (control ticks)
 
 % ------------------------------------------------------------------ camera
-cfg.cam.W     = 80;                  % synthetic depth image width  [px]
-cfg.cam.H     = 60;                  % synthetic depth image height [px]
+cfg.cam.W     = 128;                 % depth network OUTPUT width  [px] (small network on a cheap UAV)
+cfg.cam.H     = 96;                  % depth network OUTPUT height [px]
+cfg.cam.ss    = 3;                   % sub-rays per pixel side (scene rendered on (W ss) x (H ss) rays,
+%                                      averaged over each pixel's footprint)
 cfg.cam.hfov  = 90 * pi/180;
 cfg.cam.R_max = 15;                  % maximum reliable depth [m]
 cfg.cam.p_BC  = [0.10; 0; 0];        % camera lever arm in body frame
@@ -61,11 +63,23 @@ cfg.cam.R_BC  = [0 0 1; -1 0 0; 0 -1 0]; % optical -> body (FLU)
 cfg.cam.min_px = 3;                  % minimum segment size for a detection [px]
 cfg.cam.r_chunk = 1.0;               % segments wider than this (lateral half-extent) are split [m]
 cfg.cam.cover_q = 0.9;               % the sphere covers this quantile of the segment's surface points
+% detection range (>= 90 % of frames) of an obstacle of a given radius for THIS camera, depth
+% network and segmentation, measured by experiments/dart_eval_detection_range.m:
+% [radius (pole; spheres for >= 1 m) [m], range [m]]
+cfg.cam.det_table = [0.05 1.5; 0.08 4.0; 0.12 4.5; 0.2 6.0; 0.3 8.0; 1.0 12.0; 2.0 14.0];
 
 % ----------------------------------------- monocular depth network (synthetic)
 cfg.depth.sigma_scale   = 0.04;      % per-frame residual scale error (log)
-cfg.depth.sigma_shift   = 0.0;       % per-frame residual inverse-depth SHIFT error [1/m]
-%                                     (affine-invariant relative-depth nets; 0 = metric/aligned net)
+cfg.depth.sigma_shift   = 0.002;     % per-frame residual inverse-depth SHIFT error [1/m]
+%                                     (affine-invariant relative-depth nets: 3 % depth error at 15 m)
+cfg.depth.sigma_corr    = 0.03;      % smooth, spatially correlated log-depth error (local bias)
+cfg.depth.corr_grid     = [3 4];     % nodes of the correlated error field (rows x cols)
+cfg.depth.psf_px0       = 0.5;       % network blur of the disparity image near the camera [px] ...
+cfg.depth.psf_px1       = 1.5;       % ... growing by this much at R_max: the farther, the blurrier [px]
+cfg.depth.visibility    = Inf;       % meteorological visibility [m] (haze / fog; Inf = clear air)
+cfg.depth.far_factor    = 1.3;       % the scene is rendered up to far_factor * R_max
+cfg.depth.sigma_bias    = 0.12;      % range bias of thin / small objects (dilution), as a relative std
+%                                     in the measurement covariance (est/true distance up to 1.3)
 cfg.depth.sigma_px      = 0.03;      % per-pixel relative noise (log)
 cfg.depth.sigma_px_slope = 0.004;    % growth of per-pixel noise with range [1/m]
 cfg.depth.p_outlier     = 0.02;      % probability of an outlier pixel
@@ -77,6 +91,10 @@ cfg.seg.oracle  = false;             % true: ray-caster instance labels (old ass
 cfg.seg.tau_out = 0.25;              % outlier: |log d - 3x3 median| above this
 cfg.seg.tau0    = 0.05;              % neighbours joined if |dlog d| <= tau0 + k_sig * sigma_px(d)
 cfg.seg.k_sig   = 0.5;               % (calibrated on held-out scenario seeds 100-149)
+cfg.seg.tau_fly = 0.10;              % flying-pixel filter: drop a pixel with a neighbour nearer by
+cfg.seg.k_fly   = 0.5;               %   more than tau_fly + k_fly * sigma_px(d) in log-depth (0: off)
+%                                     (calibrated on held-out SN/SH seeds 100-149: merges 35 -> 22)
+cfg.seg.frag_px = 8;                % segments of <= frag_px pixels touching a nearer segment are rim fragments
 
 % ---------------------------------------------------- perception latency
 cfg.lat.t_capture  = 0.005;          % exposure + readout [s]
@@ -105,7 +123,7 @@ cfg.trk.max_tracks = 128;          % local obstacle memory (pole forests: ~60 se
 cfg.trk.delay_comp = true;           % update at capture time (Eq. 23-27)
 
 % --------------------------------------- safety-driven scheduler (method §8)
-cfg.sched.mode     = 'adaptive';     % 'adaptive' | 'fixed'
+cfg.sched.mode     = 'adaptive';     % 'adaptive' | 'fixed' | 'coverage'
 cfg.sched.f_fixed  = 10;             % rate of the fixed-rate baseline [Hz]
 cfg.sched.d_s      = 0.50;           % required clearance (body + margin) [m]
 cfg.sched.a_b      = 4.0;            % guaranteed braking deceleration [m/s^2]
@@ -118,6 +136,17 @@ cfg.sched.frontier = true;           % unknown-space (frontier) constraint
 cfg.sched.uncertainty = true;        % covariance growth in the safe open-loop time (false: Zhuyi-style baseline)
 cfg.sched.frontier_margin = 1.0;     % surface of an unseen obstacle may be at R_max - margin
 cfg.sched.v_unknown = 0.0;           % speed bound of unseen obstacles [m/s] (0: static obstacles)
+cfg.sched.r_min    = 0.08;           % smallest obstacle the mission must avoid (lamp post) [m]
+cfg.sched.range_bias = 1.3;          % thin far objects read up to 30 % too far (90th percentile)
+%                                     -> reliable range R_eff = det_range(r_min) / range_bias
+% coverage scheduler (sched.mode = 'coverage'): infer only when the planned path ahead,
+% up to the stopping distance, leaves the space observed by recent frames
+cfg.sched.cov_frames = 8;            % recent frames kept as observed space
+cfg.sched.cov_ds     = 0.25;         % sampling of the planned path [m]
+cfg.sched.cov_margin = 5 * pi/180;   % the frames' field of view counts as shrunk by this angle
+cfg.sched.cov_react  = 0.0;          % extra reaction time in the needed distance [s]
+cfg.sched.f_budget   = 3;            % compute budget [Hz]: the speed cap (DART_PERCEPTION_SPEED) lets the
+%                                     observed space be renewed at this rate (Inf: back-to-back frames)
 cfg.sched.d_trig   = 0.7;            % event trigger on conservative distance [m]
 cfg.sched.sigma_trig = 0.6;          % event trigger on uncertainty [m]
 cfg.sched.info_gain = 2.0;           % ... only if sigma^2 >= info_gain * expected measurement variance
@@ -182,6 +211,7 @@ cfg.cbf.fd_step  = 0.05;             % finite-difference step for d_eff rates
 % ------------------------------------------------------------- mission
 cfg.ref.v_des    = 4.0;              % cruise speed [m/s]
 cfg.ref.a_dec    = 1.5;              % deceleration used near the goal
+cfg.ref.perc_speed = true;           % cap the speed by the perception range (DART_PERCEPTION_SPEED)
 % set path (the mission's reference trajectory) and rejoin logic (method §12)
 cfg.ref.mode     = 'rejoin';         % 'rejoin' | 'track' (always penalise deviation from the path)
 %                                      | 'goal' (old carrot straight to the goal, no path)

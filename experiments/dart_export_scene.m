@@ -17,9 +17,8 @@ cfg = dart_default_config(); cfg = dart_apply_variant(cfg, 'E_DART');
 [w, cfg] = dart_scenario('S1', 1, cfg);
 perc = dart_perception_init(cfg, w, 1);
 p = [4; 0; 2]; R_IB = eye(3);
-[depth, inst] = dart_render_depth(perc.cam, p, R_IB, cfg, w.c0, w.rho);
 rs = dart_rng_create(7);
-depth_hat = dart_depth_network(depth, cfg, rs);
+[depth_hat, inst, depth] = dart_capture(perc.cam, p, R_IB, cfg, w, 0, rs);
 lab = dart_segment_depth(depth_hat, perc.cam, cfg);          % what the UAV computes
 det = dart_extract_obstacles(depth_hat, lab, perc.cam, cfg);
 dlmwrite(fullfile(out, 'depth_true.csv'), reshape(depth, cfg.cam.H, cfg.cam.W), 'precision', 6);

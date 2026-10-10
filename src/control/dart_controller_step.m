@@ -32,7 +32,12 @@ ob = dart_tracks_now(ctrl.trk, t, cfg);
 rk = dart_risk_terms(ob, p, v, cfg);
 
 % ----------------------------------------- 4. perception scheduling
-[ctrl.ss, sch] = dart_scheduler(ctrl.ss, ob, rk, p, v, R_IB, t, cfg);
+path = zeros(3, 0);                              % planned positions ahead (coverage scheduler)
+if ~isempty(ctrl.sol)
+    j0 = min(max(floor((t - ctrl.sol.t0) / ctrl.sol.dt + 1e-9) + 1, 1), ctrl.sol.N);
+    path = ctrl.sol.P(:, j0:end);
+end
+[ctrl.ss, sch] = dart_scheduler(ctrl.ss, ob, rk, p, v, R_IB, t, cfg, path);
 trigger = double(sch.trigger);
 
 % --------------------------------------- 5. adaptive-horizon MPC (20 Hz)
@@ -42,6 +47,9 @@ if t >= ctrl.t_next_mpc - 1e-9
     tinfo = struct('T_new', ctrl.hz.T_new, 'T_period', max(sch.T_scan, sch.tau_hat));
     v_cap = inf;
     if sch.emergency, v_cap = sch.v_cap; end
+    if cfg.ref.perc_speed                         % not faster than the camera can see
+        v_cap = min(v_cap, dart_perception_speed(cfg, sch.tau_hat));
+    end
     if strcmp(cfg.ref.mode, 'goal')
         ref = ctrl.goal;
     else

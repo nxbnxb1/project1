@@ -1,7 +1,8 @@
 function [depth, inst] = dart_render_world(cam, p, R_IB, cfg, world, t)
 %DART_RENDER_WORLD Ray-cast a z-depth image of the world's primitives
 %   (spheres, yaw-rotated boxes, vertical cylinders) at time t (Eq. 7).
-%   depth  1 x (W*H) optical-axis depth (Inf where nothing is hit)
+%   depth  1 x (W*H) optical-axis depth (Inf where nothing is hit or
+%          beyond cam.d_far, default cfg.cam.R_max)
 %   inst   1 x (W*H) object id of the visible surface (0 = background);
 %          ground truth, used only for scoring and the oracle ablation
 R_IC = R_IB * cfg.cam.R_BC;
@@ -11,7 +12,9 @@ P = size(d, 2);
 range = inf(1, P);
 inst = zeros(1, P);
 C = world.c0 + world.v * t;
-rmax = cfg.cam.R_max / min(cam.cosz) + 1;
+d_far = cfg.cam.R_max;
+if isfield(cam, 'd_far'), d_far = cam.d_far; end    % supersampled render: beyond R_max
+rmax = d_far / min(cam.cosz) + 1;
 for i = 1:size(C, 2)
     oc = C(:, i) - o;
     if norm(oc) - world.rho(i) > rmax, continue, end
@@ -67,7 +70,7 @@ for i = 1:size(C, 2)
     inst(idx(closer)) = world.obj(i);
 end
 depth = range .* cam.cosz;
-far = depth > cfg.cam.R_max;
+far = depth > d_far;
 depth(far) = inf;
 inst(far) = 0;
 end

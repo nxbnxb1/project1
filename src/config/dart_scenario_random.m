@@ -1,4 +1,4 @@
-function [world, cfg] = dart_scenario_random(seed, cfg)
+function [world, cfg] = dart_scenario_random(seed, cfg, layouts)
 %DART_SCENARIO_RANDOM Randomised world (scenario 'SR'): everything is drawn
 %   from the seed, so a batch of seeds is a sample of a broad distribution
 %   of worlds rather than a few hand-made cases.
@@ -43,7 +43,9 @@ world.path = W;
 G = dart_path_init(W);
 
 % ------------------------------------------------------------ layout draw
-layouts = {'uniform', 'clusters', 'corridor', 'forest', 'mixed'};
+if nargin < 3 || isempty(layouts)
+    layouts = {'uniform', 'clusters', 'corridor', 'forest', 'mixed'};
+end
 layout = layouts{pick(numel(layouts))};
 pm = dart_rand(rs, 1, 4).^2; pm = pm / sum(pm);   % shape mix: sphere box cylinder compound
 dyn_frac = 0;
