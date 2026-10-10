@@ -1,5 +1,5 @@
 function cfg = dart_apply_variant(cfg, name)
-%DART_APPLY_VARIANT Configure one method of the ablation study (method §12.7).
+%DART_APPLY_VARIANT Configure one method of the ablation study (method §16.6).
 %
 %   A_FR_FN   fixed-rate perception (10 Hz) + fixed-N MPC
 %   B_AP_FN   adaptive perception          + fixed-N MPC

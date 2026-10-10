@@ -3,7 +3,7 @@ function cfg = dart_default_config()
 %   cfg = DART_DEFAULT_CONFIG() returns a nested struct with every tunable
 %   parameter. Conventions in code comments: "Eq. n" is the equation
 %   numbering of the ORIGINAL proposal; "method §n" is a section of the
-%   revised method docs/method/DART_method_VI.tex, whose Appendix D maps
+%   revised method docs/method/DART_method_VI.tex, whose Appendix E maps
 %   its equations and components to the implementing files.
 %   Six safety margins below (mpc.beta_s, cbf.alpha, sched.d_s,
 %   cbf.v_blind, cbf.v_blind_lat, ref.margin) are NOMINAL values: the
@@ -71,7 +71,7 @@ cfg.depth.sigma_px_slope = 0.004;    % growth of per-pixel noise with range [1/m
 cfg.depth.p_outlier     = 0.02;      % probability of an outlier pixel
 cfg.depth.sigma_ang     = 0.5 * pi/180; % residual bearing error [rad]
 
-% ------------------------- obstacle segmentation of the depth image (method §4.2)
+% ------------------------- obstacle segmentation of the depth image (method §5.4)
 % The vehicle only sees the network's depth image: no instance labels.
 cfg.seg.oracle  = false;             % true: ray-caster instance labels (old assumption A6, ablation only)
 cfg.seg.tau_out = 0.25;              % outlier: |log d - 3x3 median| above this
@@ -104,7 +104,7 @@ cfg.trk.rho_alpha  = 0.3;            % EWMA factor of the radius estimate
 cfg.trk.max_tracks = 128;          % local obstacle memory (pole forests: ~60 segments per image)
 cfg.trk.delay_comp = true;           % update at capture time (Eq. 23-27)
 
-% --------------------------------------- safety-driven scheduler (method §7)
+% --------------------------------------- safety-driven scheduler (method §8)
 cfg.sched.mode     = 'adaptive';     % 'adaptive' | 'fixed'
 cfg.sched.f_fixed  = 10;             % rate of the fixed-rate baseline [Hz]
 cfg.sched.d_s      = 0.50;           % required clearance (body + margin) [m]
@@ -128,7 +128,7 @@ cfg.sched.emergency_hold = 0.3;      % hysteresis of the emergency mode [s]
 cfg.sched.v_closing = 0.2;           % an obstacle is 'closing' above this speed [m/s]
 cfg.sched.emergency_enabled = true;  % emergency mode (max-rate perception, N_max, speed cap)
 
-% -------------------------------------- adaptive-horizon MPC (method §10)
+% -------------------------------------- adaptive-horizon MPC (method §11)
 cfg.mpc.dt       = 0.10;             % prediction step Delta t_m
 cfg.mpc.period   = 0.05;             % re-solve period (20 Hz)
 cfg.mpc.N_mode   = 'adaptive';       % 'adaptive' | 'fixed'
@@ -161,7 +161,7 @@ cfg.mpc.expected_reset = true;       % Eq. 79-80
 cfg.mpc.side_angle = 60 * pi/180;    % max angle between half-space normal and -travel dir
 cfg.mpc.solver   = 'ipm';            % 'ipm' (built-in) | 'quadprog'
 
-% ------------------------------------------------ CBF safety filter (method §9)
+% ------------------------------------------------ CBF safety filter (method §10)
 cfg.cbf.enabled  = true;
 cfg.cbf.type     = 'braking';        % 'braking' (default) | 'hocbf' (original proposal)
 cfg.cbf.alpha    = 3.0;              % class-K gain of the braking barrier [1/s]
@@ -182,7 +182,7 @@ cfg.cbf.fd_step  = 0.05;             % finite-difference step for d_eff rates
 % ------------------------------------------------------------- mission
 cfg.ref.v_des    = 4.0;              % cruise speed [m/s]
 cfg.ref.a_dec    = 1.5;              % deceleration used near the goal
-% set path (the mission's reference trajectory) and rejoin logic (method §10.5)
+% set path (the mission's reference trajectory) and rejoin logic (method §12)
 cfg.ref.mode     = 'rejoin';         % 'rejoin' | 'track' (always penalise deviation from the path)
 %                                      | 'goal' (old carrot straight to the goal, no path)
 cfg.ref.L_look   = 10.0;             % look-ahead along the path for blocking obstacles [m]

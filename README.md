@@ -46,7 +46,7 @@ flowchart LR
   PLANT --> KF
 ```
 
-Danh sách đầy đủ các chỉnh sửa so với bản đề xuất (R1–R15) ở **Mục 1** của tài liệu phương pháp. Quy ước trong chú thích mã nguồn: "Eq. n" là số phương trình của bản đề xuất gốc, "method §n" là mục của tài liệu phương pháp; Phụ lục D ánh xạ phương trình → file.
+Danh sách đầy đủ các chỉnh sửa so với bản đề xuất (R1–R16) ở **Phụ lục F** của tài liệu phương pháp (bản 3, viết lại toàn bộ; bảng tham số đầy đủ ở Phụ lục D). Quy ước trong chú thích mã nguồn: "Eq. n" là số phương trình của bản đề xuất gốc, "method §n" là mục của tài liệu phương pháp; Phụ lục E ánh xạ phương trình (gốc và bản 3) → file.
 
 ## 2. Chạy trên cloud (GitHub Actions)
 
@@ -219,6 +219,6 @@ run_ablation('scenarios', {'SR'}, 'seeds', 1:5, 'variants', {'K0', 'K50'}, 'swee
 * CBF trên trạng thái ước lượng: an toàn mang tính xác suất qua hệ số `beta_s` (không bảo đảm qua bước nhảy lớn bất thường của cập nhật Kalman); khi độ phồng đang tăng, bảo đảm h ≥ 0 chỉ là mềm (slack).
 * Hai engine (MATLAB / Simulink) cho quỹ đạo khác nhau sau một quyết định rời rạc (hệ hỗn loạn sát biên); kết luận an toàn được phát biểu ở dạng thống kê.
 * Phân loại nguyên nhân thất bại cần trạng thái bộ điều khiển lúc kết thúc nên chỉ đầy đủ với MATLAB engine.
-* Chỉ mô phỏng. Kết luận cũ (code `3438b2b`) rằng tần số perception cố định thấp vẫn an toàn được rút ra ở S1–S3 (tầm 15 m, ≤ 6 m/s); chưa kiểm lại trên thế giới ngẫu nhiên và tốc độ 8 m/s.
+* Chỉ mô phỏng. Vòng 3 (thế giới ngẫu nhiên chỉ vật tĩnh, 2–8 m/s) xác nhận tần số perception cố định 3 Hz, cùng lớp an toàn và bộ nhớ, an toàn như cấu hình mặc định với khoảng một nửa số suy luận: bộ lập lịch thích nghi hiện tại chưa tối thiểu hoá tính toán (đề xuất sửa ở Mục 19 của tài liệu phương pháp, chưa triển khai).
 
-Chi tiết và các mệnh đề lý thuyết: Mục 13 của tài liệu phương pháp.
+Chi tiết và các mệnh đề lý thuyết: Mục 17 của tài liệu phương pháp.

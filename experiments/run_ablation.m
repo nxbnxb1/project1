@@ -1,5 +1,5 @@
 function T = run_ablation(varargin)
-%RUN_ABLATION Monte-Carlo ablation study (method §12.7).
+%RUN_ABLATION Monte-Carlo ablation study (method §16.6).
 %   T = RUN_ABLATION('scenarios', {'S1','S2','S3'}, 'seeds', 1:10, ...
 %                    'variants', dart_variant_list(), 'engine', 'matlab', ...
 %                    'outdir', 'results/ablation')

@@ -1,5 +1,5 @@
 function test_rejoin()
-% Set path + TRACK / REJOIN logic (method §10.5): an obstacle on the path
+% Set path + TRACK / REJOIN logic (method §12): an obstacle on the path
 % ahead starts a detour whose rejoin point is the earliest point of the
 % path behind the blocked stretch; the redrawn reference is the shortest
 % collision-free polyline from the current position to that point

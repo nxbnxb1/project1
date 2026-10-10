@@ -1,5 +1,5 @@
 function sol = dart_mpc(p0, v0, u_prev, goal, ob, rk, N, tinfo, v_cap, prev, t, cfg)
-%DART_MPC Perception-aware adaptive-horizon MPC (method §10), one solve.
+%DART_MPC Perception-aware adaptive-horizon MPC (method §11), one solve.
 %
 %   Double-integrator prediction (Eq. 65), condensed into a dense QP in the
 %   stacked accelerations U. Obstacle constraints use a tangent half-space
@@ -28,7 +28,7 @@ tic_id = tic;
 
 % ------------------------------------------------------------ reference
 v_des = min(cfg.ref.v_des, v_cap);
-if isstruct(goal)                    % set path: TRACK / REJOIN (method §10.5)
+if isstruct(goal)                    % set path: TRACK / REJOIN (method §12)
     [pr, vr, target] = dart_reference_path(p0, goal.G, goal.rj, N, dt, v_des, ...
         cfg.ref.a_dec, cfg.ref.L_look);
 else                                 % goal point (carrot straight to the goal)

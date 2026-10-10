@@ -1,6 +1,6 @@
 function dart_check_config(cfg)
 %DART_CHECK_CONFIG Consistency checks between parameters of different layers.
-%   Braking-CBF feasibility (method §9.1): at the safety boundary h = 0 a head-on
+%   Braking-CBF feasibility (method §10.1): at the safety boundary h = 0 a head-on
 %   approach along a horizontal axis requires a deceleration of
 %   a_b + a_bar_o + delta_a (plus a_b*ddot/v_c while the inflation grows),
 %   so the commanded acceleration box must admit at least

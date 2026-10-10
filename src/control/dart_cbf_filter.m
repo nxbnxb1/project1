@@ -1,5 +1,5 @@
 function [a_safe, info] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB)
-%DART_CBF_FILTER Uncertainty-aware CBF safety filter (method §9).
+%DART_CBF_FILTER Uncertainty-aware CBF safety filter (method §10).
 %
 %   For every obstacle within d_active one linear constraint on the
 %   commanded acceleration a is built on the ESTIMATED relative state

@@ -1,5 +1,5 @@
 function S = dart_eval_segmentation(scenarios, seeds, nframes)
-%DART_EVAL_SEGMENTATION Quality of the UAV's own segmentation (method §12.3).
+%DART_EVAL_SEGMENTATION Quality of the UAV's own segmentation (method §16.7).
 %   S = DART_EVAL_SEGMENTATION({'S1','S2','S3'}, 100:149, 150) renders
 %   nframes random frames (random pose, heading and time) of the given
 %   scenarios/seeds - the seeds 100-149 are not used by the closed-loop

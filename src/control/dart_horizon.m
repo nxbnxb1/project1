@@ -1,5 +1,5 @@
 function [N, hz] = dart_horizon(rk, v, ss, sch, t, cfg)
-%DART_HORIZON Risk-, braking- and measurement-aware horizon (method §10.2-10.3).
+%DART_HORIZON Risk-, braking- and measurement-aware horizon (method §11.2-11.3).
 %   TTC is taken over obstacles whose ESTIMATED closing speed exceeds
 %   v_closing, and evaluated with the conservative distance and the
 %   conservative closing speed (Eq. 68-69).

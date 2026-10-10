@@ -1,5 +1,5 @@
 function [ctrl, cmd, trigger, dg] = dart_controller_step(ctrl, t, x_true, msg)
-%DART_CONTROLLER_STEP One tick (f_c) of the integrated algorithm (method §11).
+%DART_CONTROLLER_STEP One tick (f_c) of the integrated algorithm (method §15).
 %   x_true  true plant state; the controller only uses a noisy copy of it
 %           (stand-in for a VIO/INS estimate)
 %   msg     perception message (DART_MSG_PACK); msg(1) = 0 means "none"
