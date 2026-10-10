@@ -14,8 +14,9 @@ function [ss, out] = dart_scheduler(ss, ob, rk, p, v, R_IB, t, cfg, path)
 %       longer inside the space observed by the recent frames (their view
 %       frusta, shrunk by cov_margin and by the clearance d_s, up to the
 %       reliable range R_eff of DART_PERCEPTION_RANGE). Known obstacles do
-%       not trigger frames by themselves (they stay in the memory); the
-%       distance, uncertainty and emergency events are kept.
+%       not trigger frames by themselves (they stay in the memory); only
+%       the emergency event is kept (sched.cov_events = true also keeps the
+%       distance and uncertainty events).
 sc = cfg.sched;
 tau_hat = ss.tau_m + sc.tau_quantile_k * sqrt(max(ss.tau_v, 0));
 % worst-case growth of the closing speed during the open interval:
@@ -99,8 +100,11 @@ elseif strcmp(sc.mode, 'coverage')
     if nargin < 9, path = zeros(3, 0); end
     need = norm(v) * (tau_hat + sc.cov_react) + norm(v)^2 / (2 * sc.a_b) + sc.d_s;
     ev_cov = ~path_covered(ss, p, v, path, need, cfg);
-    ev_dist = any(vis & (rk.dc <= sc.d_trig));
-    ev_sig = sigma_event(ob, rk, vis, cfg);
+    % known static obstacles are not re-imaged on purpose (they stay in the
+    % memory and are seen again by the coverage frames); cov_events = true
+    % keeps the distance and uncertainty events of the adaptive scheduler
+    ev_dist = sc.cov_events && any(vis & (rk.dc <= sc.d_trig));
+    ev_sig = sc.cov_events && sigma_event(ob, rk, vis, cfg);
     T_scan = sc.T_max;                 % nominal (horizon and expected covariance reset only)
     trig = idle && (ev_cov || ev_dist || ev_sig || emergency);
 else

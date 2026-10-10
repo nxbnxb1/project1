@@ -145,6 +145,7 @@ cfg.sched.cov_frames = 8;            % recent frames kept as observed space
 cfg.sched.cov_ds     = 0.25;         % sampling of the planned path [m]
 cfg.sched.cov_margin = 5 * pi/180;   % the frames' field of view counts as shrunk by this angle
 cfg.sched.cov_react  = 0.0;          % extra reaction time in the needed distance [s]
+cfg.sched.cov_events = false;        % coverage mode: also trigger on distance / uncertainty of known obstacles
 cfg.sched.f_budget   = 3;            % compute budget [Hz]: the speed cap (DART_PERCEPTION_SPEED) lets the
 %                                     observed space be renewed at this rate (Inf: back-to-back frames)
 cfg.sched.d_trig   = 0.7;            % event trigger on conservative distance [m]

@@ -18,6 +18,9 @@ function cfg = dart_apply_variant(cfg, name)
 %   COVB<f>   E_COV with a compute budget of f Hz (sched.f_budget; e.g. COVB1,
 %             COVB5; E_COV = COVB3): the speed cap follows from the budget
 %   E_NOCAP   E without the perception speed cap (ref.perc_speed = false)
+%   FRNC<f>   fixed rate f Hz with the safety layers but WITHOUT the speed cap
+%   COV_EV    E_COV that also re-images known obstacles (distance and
+%             uncertainty events, as in round 4a)
 %   COV_NOCAP E_COV without the perception speed cap
 %   O_ORACLE  E with the oracle perception of the OLD assumption A6 (the
 %             current A6 states that no labels are available): ray-caster
@@ -67,6 +70,14 @@ if strncmp(name, 'COVB', 4) && numel(name) > 4
     cfg.variant = name;
     return
 end
+if strncmp(name, 'FRNC', 4) && numel(name) > 4
+    % fixed rate f Hz without the perception speed cap (e.g. FRNC1, FRNC3)
+    cfg = set_layers(cfg, 'fixed', 'adaptive', true);
+    cfg.sched.f_fixed = str2double(name(5:end));
+    cfg.ref.perc_speed = false;
+    cfg.variant = name;
+    return
+end
 if strncmp(name, 'FN_SAFE_', 8)
     cfg = set_layers(cfg, 'adaptive', 'fixed', true);
     cfg.mpc.N_fixed = str2double(name(9:end));
@@ -109,6 +120,9 @@ switch name
     case 'E_NOCAP'
         cfg = set_layers(cfg, 'adaptive', 'adaptive', true);
         cfg.ref.perc_speed = false;
+    case 'COV_EV'
+        cfg = set_layers(cfg, 'coverage', 'adaptive', true);
+        cfg.sched.cov_events = true;
     case 'COV_NOCAP'
         cfg = set_layers(cfg, 'coverage', 'adaptive', true);
         cfg.ref.perc_speed = false;
