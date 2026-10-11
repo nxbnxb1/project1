@@ -35,19 +35,31 @@ for p in files:
 
 
 def rate_of(param, val):
-    """maximum perception rate of a sweep setting (speedrate = 100 x speed + 10 x rate), else None"""
-    return round(val % 100) / 10 if param == 'speedrate' else None
+    """maximum perception rate of a sweep setting (speedrate = 100 x speed + 10 x rate,
+    camspeedrate = 10000 x camera + speedrate), else None"""
+    return round(val % 100) / 10 if param in ('speedrate', 'camspeedrate') else None
+
+
+def cam_of(param, val):
+    """camera preset of a sweep setting (default camera = 3)"""
+    if param == 'camspeedrate':
+        return int(val // 10000)
+    if param == 'camspeed':
+        return int(val // 100)
+    return 3
 
 
 def label(param, val):
     if param == 'speedrate':
         return f"{int(val // 100)} m/s, {rate_of(param, val):g} Hz"
+    if param == 'camspeedrate':
+        return f"{CAM.get(cam_of(param, val))} @ {int((val % 10000) // 100)} m/s, {rate_of(param, val):g} Hz"
     if param == 'camspeed':
         return f"{CAM.get(int(val // 100), int(val // 100))} @ {int(val % 100)} m/s"
     return f"{param}={val:g}"
 
 
-order = ['E_COV', 'COVB1', 'COV_NOCLUT', 'FR_SAFE_3', 'FR_SAFE_1', 'E_DART']
+order = ['E_COV', 'FR_SAFE', 'E_DART', 'COV_NOCLUT', 'COVB1', 'FR_SAFE_3', 'FR_SAFE_1']
 for sc in sorted({k[0] for k in R}):
     print(f'### {sc}\n')
     print('| variant | setting | n | goal [95% CI] | collision | stuck | time to goal, median [s] '
@@ -125,7 +137,7 @@ if DN:
     print()
 
 # rate sweep: pooled over the requested speeds, per scenario x variant x maximum rate
-RS = {k for k in R if k[2] == 'speedrate'}
+RS = {k for k in R if k[2] in ('speedrate', 'camspeedrate')}
 if RS:
     print('### Maximum perception rate (pooled over the requested speeds)\n')
     print('| scenario | variant | f_max [Hz] | n | goal | collision | stuck | inferences per mission (goal), median '
@@ -135,9 +147,11 @@ if RS:
     for sc in sorted({k[0] for k in RS}):
         V = [v for v in order if any(k[0] == sc and k[1] == v for k in RS)]
         V += sorted({k[1] for k in RS if k[0] == sc} - set(V))
-        for v in V:
-            for f in sorted({rate_of('speedrate', k[3]) for k in RS if k[0] == sc and k[1] == v}):
-                ks = [k for k in RS if k[0] == sc and k[1] == v and rate_of('speedrate', k[3]) == f]
+        for v, cam in sorted({(k[1], cam_of(k[2], k[3])) for k in RS if k[0] == sc},
+                             key=lambda x: (V.index(x[0]), x[1] != 3, x[1])):
+            for f in sorted({rate_of(k[2], k[3]) for k in RS if k[0] == sc and k[1] == v and cam_of(k[2], k[3]) == cam}):
+                ks = [k for k in RS if k[0] == sc and k[1] == v and cam_of(k[2], k[3]) == cam
+                      and rate_of(k[2], k[3]) == f]
                 c = collections.Counter(R[k]['out'] for k in ks)
                 gk = [k for k in ks if R[k]['out'] == 'goal']
                 im = st.median(R[k]['inf'] for k in gk) if gk else float('nan')
@@ -146,6 +160,7 @@ if RS:
                 gaps = [R[k]['gap'] for k in ks if R[k]['gap'] == R[k]['gap']]
                 g = min(gaps) if gaps else float('nan')
                 viol += sum(1 for x in gaps if x < 1 / f - 0.011)
-                print(f"| {sc} | {v} | {f:g} | {len(ks)} | {c['goal']} | {c['collision']} | {c['stuck']} | {im:.0f} "
+                vname = v if cam == 3 else f"{v}, {CAM[cam]}"
+                print(f"| {sc} | {vname} | {f:g} | {len(ks)} | {c['goal']} | {c['collision']} | {c['stuck']} | {im:.0f} "
                       f"| {fps:.2f} | {tg:.1f} | {g:.2f} |")
     print(f'\nRuns with two frames closer than 1/f_max (one control step tolerance): {viol}\n')

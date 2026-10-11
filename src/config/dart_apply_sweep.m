@@ -14,6 +14,8 @@ function cfg = dart_apply_sweep(cfg, name, value)
 %   speedrate 100 * requested speed + 10 * perception rate [Hz] (e.g. 1025: 10 m/s,
 %             2.5 Hz): the rate is the maximum perception rate of every
 %             scheduler (sched.f_max) and the rate of the fixed-rate variants
+%   camspeedrate 10000 * camera preset + 100 * requested speed + 10 * rate
+%             (e.g. 41025: preset 4 at 10 m/s, at most 2.5 Hz)
 %   none      no change (value ignored)
 switch lower(name)
     case 'latency'
@@ -24,6 +26,9 @@ switch lower(name)
         cfg.ref.v_des = value;   % requested cruise speed; capped by the physical top speed (DART_DERIVE_LIMITS)
     case 'rate'
         cfg.sched.f_fixed = value;
+    case 'camspeedrate'
+        cfg = dart_camera_preset(cfg, floor(value / 10000));
+        cfg = dart_apply_sweep(cfg, 'speedrate', mod(value, 10000));
     case 'speedrate'
         cfg.ref.v_des = floor(value / 100);
         f = round(mod(value, 100)) / 10;

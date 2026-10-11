@@ -121,11 +121,11 @@ workflow*, `engine = matlab`; mỗi dòng của cột `seeds` là một lần ch
 | Phần | `param` | `values` | `scenarios` | `variants` | `seeds` |
 |---|---|---|---|---|---|
 | Quét tần số tối đa | `speedrate` | 30 giá trị: 100 × tốc độ + 10 × tần số, tốc độ 6 / 10 / 15, tần số 0.5…5 Hz (`[605, 610, …, 650, 1005, …, 1550]`) | `["SN"]`, `["SH"]`, `["SE"]` | `E_COV,FR_SAFE,E_DART` | SN `1:20`, `21:40`, `41:60`; SH `1:10`, `11:20`, `21:30`; SE `1:30` |
-| Bỏ giới hạn tốc độ theo mật độ (3 Hz) | `speedrate` | `[630, 1030, 1530]` | từng kịch bản | `COV_NOCLUT` | SN `1:60`; SH `1:30`; SE `1:30` |
-| So sánh camera (3 Hz) | `camspeed` | `[106, 110, 115, 206, 210, 215, 406, 410, 415]` | từng kịch bản | `E_COV,FR_SAFE` | SN `1:30`, `31:60`; SH `1:15`, `16:30`; SE `1:30` |
+| Bỏ giới hạn tốc độ theo mật độ | `speedrate` | 30 giá trị như trên | từng kịch bản | `COV_NOCLUT` | SN `1:60`; SH `1:30`; SE `1:30` |
+| So sánh camera | `camspeedrate` | 90 giá trị: 10000 × preset (1, 2, 4) + 100 × tốc độ + 10 × tần số | từng kịch bản | `E_COV,FR_SAFE` | SN `1:30`, `31:60`; SH `1:15`, `16:30`; SE `1:30` |
 
-`speedrate` 1025 = 10 m/s, trần 2.5 Hz; `camspeed` 406 = preset camera 4 (Module 3 Wide 640×360) ở 6 m/s; camera mặc
-định (preset 3) lấy từ phần quét tần số ở 3 Hz. Mỗi lượt in một dòng kết quả (kèm `gap` = khoảng cách nhỏ nhất giữa hai
+Mọi phần đều chạy trên cùng lưới tần số 0.5–5 Hz. `speedrate` 1025 = 10 m/s, trần 2.5 Hz; `camspeedrate` 41025 =
+preset camera 4 (Module 3 Wide 640×360) ở 10 m/s, trần 2.5 Hz; camera mặc định (preset 3) lấy từ phần quét tần số. Mỗi lượt in một dòng kết quả (kèm `gap` = khoảng cách nhỏ nhất giữa hai
 lần chụp) và một dòng `DENS` (thời gian, quãng bay, số khung theo số vật trong 15 m). Tải log (bước *Run sweep point*
 của mỗi job) và lập bảng: `python3 docs/results/parse_results.py '<log>'`.
 
@@ -143,7 +143,13 @@ của mỗi job) và lập bảng: `python3 docs/results/parse_results.py '<log>
 | **E_COV** | coverage, trần `f_max` | phương pháp đề xuất |
 | FR_SAFE | chụp đều đúng `f_max` | cùng mọi lớp an toàn |
 | E_DART | thích nghi theo rủi ro, trần `f_max` | khoảng quét tính từ khoảng mở an toàn |
-| COV_NOCLUT | coverage, trần `f_max` | không có giới hạn tốc độ theo mật độ |
+| COV_NOCLUT | coverage, trần `f_max` | E_COV **tắt giới hạn tốc độ theo mật độ** (thử xem khối đó có cần không) |
+
+**Giới hạn tốc độ theo mật độ** (`dart_clutter_speed.m`): với mọi vật trong hành lang bay phía trước, tốc độ mong
+muốn bị hạ sao cho tốc độ lao về phía vật luôn phanh kịp, v cos θ ≤ 0.9 √(2 a_b (d − d_s)) (d: khoảng cách đã trừ độ
+bất định, θ: góc giữa hướng bay và hướng tới vật), không dưới 1.5 m/s: nhiều vật phía trước thì đi chậm từ sớm, đường
+trống thì không bị giới hạn. Tắt nó (COV_NOCLUT), UAV vẫn có giới hạn vật lý, giới hạn theo tầm nhìn, lớp an toàn phanh
+100 Hz (cùng điều kiện phanh nhưng chỉ sửa lệnh gia tốc ở phút chót) và chế độ khẩn cấp.
 
 Các biến thể cũ (`A_FR_FN` … `G_FR_LOW`, `Z_ZHUYI`, `O_ORACLE`, `R_*`, `K<k>`, `MEM<d>`, `FR_SAFE_<f>`, `FN_SAFE_n`,
 `COVB<f>`, `E_NOCAP`, `FRNC<f>`, `COV_EV`, `COV_NOCAP`) vẫn có trong
@@ -152,7 +158,7 @@ tần số đó.
 
 ## 5. Kết quả hiện tại
 
-**Lưới chốt đang chạy trên GitHub Actions** (commit `2a536b1`, khoảng 13 300 lượt). Kết quả sẽ ở
+**Lưới chốt đang chạy trên GitHub Actions** (thuật toán của commit `2a536b1`, khoảng 35 900 lượt). Kết quả sẽ ở
 [`docs/results/results.md`](docs/results/results.md). Kết quả của phiên bản trước (hình cầu, chưa chụp khi đứng yên)
 ở [`docs/archive/results/round7.md`](docs/archive/results/round7.md) và **không áp dụng** cho phiên bản chốt.
 
