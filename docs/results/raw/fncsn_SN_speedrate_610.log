@@ -1,0 +1,183 @@
+[  1/ 60] speedrate=610 SN  COV_NOCLUT  seed  1  collision clr -0.02  t  77.2  inf  66  N 24.8  mpc  15.1 ms  err 2.44  xte 5.71  xmax 14.81  off 0.72  nrj 2  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 1 t 6.2 12.2 35.8 23.0  d 33.5 72.4 132.7 49.4  f 5 8 32 21 
+WORLD SN seed 1 layout normal nleg 2 dyn 0.00 nobj 40
+FAILINFO speedrate=610 SN COV_NOCLUT seed 1 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 4.64 closing 2.58 nupd 24 seen 0.08 prog10 13.0 layout normal vdes 6
+[  2/ 60] speedrate=610 SN  COV_NOCLUT  seed  2  goal      clr  1.95  t  61.1  inf  31  N 16.1  mpc   5.6 ms  err 2.93  xte 3.37  xmax 11.91  off 0.35  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 2 t 24.8 36.3 0.0 0.0  d 145.9 188.5 0.0 0.0  f 9 22 0 0 
+WORLD SN seed 2 layout normal nleg 3 dyn 0.00 nobj 6
+[  3/ 60] speedrate=610 SN  COV_NOCLUT  seed  3  goal      clr   Inf  t  51.6  inf  14  N 12.8  mpc   1.2 ms  err  NaN  xte 0.01  xmax 0.03  off 0.00  nrj 0  gap 3.560
+DENS speedrate=610 SN COV_NOCLUT seed 3 t 51.6 0.0 0.0 0.0  d 299.4 0.0 0.0 0.0  f 14 0 0 0 
+WORLD SN seed 3 layout normal nleg 1 dyn 0.00 nobj 0
+[  4/ 60] speedrate=610 SN  COV_NOCLUT  seed  4  goal      clr  1.70  t  60.9  inf  39  N 18.5  mpc   5.5 ms  err 2.43  xte 2.46  xmax 8.40  off 0.36  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 4 t 21.9 28.5 5.5 5.0  d 120.6 163.5 31.1 12.7  f 11 19 4 5 
+WORLD SN seed 4 layout normal nleg 3 dyn 0.00 nobj 12
+[  5/ 60] speedrate=610 SN  COV_NOCLUT  seed  5  goal      clr  1.34  t  59.8  inf  41  N 19.0  mpc   7.1 ms  err 2.41  xte 1.74  xmax 6.79  off 0.33  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 5 t 18.0 24.5 16.5 0.8  d 104.9 147.5 63.0 4.9  f 10 19 11 1 
+WORLD SN seed 5 layout normal nleg 3 dyn 0.00 nobj 14
+[  6/ 60] speedrate=610 SN  COV_NOCLUT  seed  6  goal      clr  0.15  t 103.9  inf  92  N 25.0  mpc  15.1 ms  err 3.77  xte 3.62  xmax 7.32  off 0.76  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 6 t 8.9 64.3 23.8 6.9  d 49.9 159.8 113.1 28.6  f 7 59 20 6 
+WORLD SN seed 6 layout normal nleg 1 dyn 0.00 nobj 24
+[  7/ 60] speedrate=610 SN  COV_NOCLUT  seed  7  goal      clr  1.07  t  54.9  inf  32  N 15.4  mpc   3.0 ms  err 1.53  xte 1.95  xmax 8.95  off 0.24  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 7 t 34.1 16.8 3.9 0.0  d 200.7 90.4 23.3 0.0  f 22 9 1 0 
+WORLD SN seed 7 layout normal nleg 3 dyn 0.00 nobj 5
+[  8/ 60] speedrate=610 SN  COV_NOCLUT  seed  8  goal      clr  0.80  t  77.7  inf  58  N 20.6  mpc   8.9 ms  err 1.63  xte 2.52  xmax 8.50  off 0.46  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 8 t 22.8 13.0 41.7 0.2  d 133.6 78.4 118.5 1.2  f 13 6 39 0 
+WORLD SN seed 8 layout normal nleg 2 dyn 0.00 nobj 16
+[  9/ 60] speedrate=610 SN  COV_NOCLUT  seed  9  goal      clr  1.16  t  71.3  inf  48  N 20.5  mpc   8.2 ms  err 2.36  xte 5.31  xmax 14.44  off 0.55  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 9 t 18.5 28.1 14.4 10.3  d 106.8 156.8 77.1 21.1  f 8 18 13 9 
+WORLD SN seed 9 layout normal nleg 2 dyn 0.00 nobj 18
+[ 10/ 60] speedrate=610 SN  COV_NOCLUT  seed 10  goal      clr  1.47  t  56.9  inf  36  N 17.4  mpc   5.8 ms  err 2.36  xte 2.17  xmax 7.94  off 0.38  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 10 t 19.3 28.2 6.4 3.0  d 112.2 155.3 25.9 17.3  f 13 18 4 1 
+WORLD SN seed 10 layout normal nleg 1 dyn 0.00 nobj 14
+[ 11/ 60] speedrate=610 SN  COV_NOCLUT  seed 11  goal      clr  0.88  t 129.9  inf 106  N 24.6  mpc  14.7 ms  err 2.77  xte 3.34  xmax 10.71  off 0.81  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 11 t 7.9 15.2 59.3 47.5  d 43.9 79.3 216.6 89.5  f 5 9 49 43 
+WORLD SN seed 11 layout normal nleg 1 dyn 0.00 nobj 31
+[ 12/ 60] speedrate=610 SN  COV_NOCLUT  seed 12  goal      clr  1.16  t  74.4  inf  51  N 20.1  mpc   9.9 ms  err 2.37  xte 1.91  xmax 9.66  off 0.41  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 12 t 21.3 21.8 7.2 24.1  d 124.7 123.8 41.3 43.9  f 9 13 6 23 
+WORLD SN seed 12 layout normal nleg 3 dyn 0.00 nobj 14
+[ 13/ 60] speedrate=610 SN  COV_NOCLUT  seed 13  goal      clr  1.09  t  95.2  inf  62  N 19.6  mpc   8.7 ms  err 2.81  xte 5.03  xmax 13.09  off 0.58  nrj 1  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 13 t 32.4 16.7 46.1 0.0  d 189.9 74.1 101.4 0.0  f 12 8 42 0 
+WORLD SN seed 13 layout normal nleg 2 dyn 0.00 nobj 11
+[ 14/ 60] speedrate=610 SN  COV_NOCLUT  seed 14  goal      clr  0.33  t  57.0  inf  36  N 19.2  mpc   7.2 ms  err 2.52  xte 3.42  xmax 11.99  off 0.40  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 14 t 22.3 21.1 12.1 1.5  d 123.5 122.6 68.2 9.1  f 9 14 11 2 
+WORLD SN seed 14 layout normal nleg 3 dyn 0.00 nobj 15
+[ 15/ 60] speedrate=610 SN  COV_NOCLUT  seed 15  goal      clr  2.07  t  53.5  inf  26  N 15.1  mpc   2.6 ms  err 2.01  xte 1.36  xmax 5.63  off 0.18  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 15 t 35.3 17.7 0.5 0.0  d 201.6 101.5 3.1 0.0  f 13 13 0 0 
+WORLD SN seed 15 layout normal nleg 3 dyn 0.00 nobj 4
+[ 16/ 60] speedrate=610 SN  COV_NOCLUT  seed 16  goal      clr  1.81  t  76.3  inf  61  N 22.1  mpc  11.3 ms  err 3.05  xte 3.34  xmax 9.84  off 0.66  nrj 7  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 16 t 15.4 39.1 21.8 0.0  d 86.2 133.0 125.2 0.0  f 10 34 17 0 
+WORLD SN seed 16 layout normal nleg 1 dyn 0.00 nobj 19
+[ 17/ 60] speedrate=610 SN  COV_NOCLUT  seed 17  goal      clr  0.58  t 141.1  inf 120  N 24.5  mpc  14.1 ms  err 2.16  xte 6.57  xmax 18.55  off 0.79  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 17 t 16.7 19.0 89.2 16.2  d 89.8 109.2 196.7 56.3  f 8 14 82 16 
+WORLD SN seed 17 layout normal nleg 3 dyn 0.00 nobj 27
+[ 18/ 60] speedrate=610 SN  COV_NOCLUT  seed 18  goal      clr  1.38  t  52.7  inf  32  N 16.5  mpc   3.1 ms  err 1.37  xte 1.10  xmax 4.31  off 0.22  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 18 t 28.7 24.0 0.0 0.0  d 168.9 134.9 0.0 0.0  f 16 16 0 0 
+WORLD SN seed 18 layout normal nleg 3 dyn 0.00 nobj 5
+[ 19/ 60] speedrate=610 SN  COV_NOCLUT  seed 19  goal      clr  1.33  t 111.5  inf  91  N 21.1  mpc  11.0 ms  err 3.56  xte 2.72  xmax 14.02  off 0.53  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 19 t 26.9 18.6 66.0 0.0  d 151.1 110.0 101.1 0.0  f 15 15 61 0 
+WORLD SN seed 19 layout normal nleg 1 dyn 0.00 nobj 11
+[ 20/ 60] speedrate=610 SN  COV_NOCLUT  seed 20  goal      clr  0.57  t 105.8  inf  88  N 22.7  mpc  12.9 ms  err 3.46  xte 2.99  xmax 11.60  off 0.77  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 20 t 14.3 30.5 31.7 29.3  d 84.9 172.8 56.5 36.8  f 8 23 28 29 
+WORLD SN seed 20 layout normal nleg 1 dyn 0.00 nobj 17
+[ 21/ 60] speedrate=610 SN  COV_NOCLUT  seed 21  goal      clr  0.83  t 158.9  inf 141  N 25.5  mpc  15.8 ms  err 2.63  xte 7.14  xmax 16.09  off 0.80  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 21 t 16.6 27.0 100.7 14.6  d 95.5 125.2 164.4 37.7  f 10 21 96 14 
+WORLD SN seed 21 layout normal nleg 3 dyn 0.00 nobj 20
+[ 22/ 60] speedrate=610 SN  COV_NOCLUT  seed 22  goal      clr  1.35  t  57.4  inf  42  N 20.2  mpc   8.4 ms  err 2.14  xte 1.41  xmax 4.78  off 0.41  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 22 t 15.4 16.7 24.2 1.1  d 88.9 101.9 113.1 6.4  f 8 12 21 1 
+WORLD SN seed 22 layout normal nleg 2 dyn 0.00 nobj 21
+[ 23/ 60] speedrate=610 SN  COV_NOCLUT  seed 23  goal      clr  1.44  t  62.1  inf  45  N 18.4  mpc   5.2 ms  err 2.61  xte 2.85  xmax 9.41  off 0.43  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 23 t 16.8 38.2 7.1 0.0  d 90.7 215.0 28.1 0.0  f 10 30 5 0 
+WORLD SN seed 23 layout normal nleg 2 dyn 0.00 nobj 9
+[ 24/ 60] speedrate=610 SN  COV_NOCLUT  seed 24  goal      clr  0.66  t  87.9  inf  63  N 21.7  mpc  11.2 ms  err 2.28  xte 4.06  xmax 8.25  off 0.59  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 24 t 31.0 18.0 31.5 7.4  d 175.6 97.9 50.7 18.7  f 14 11 30 8 
+WORLD SN seed 24 layout normal nleg 3 dyn 0.00 nobj 10
+[ 25/ 60] speedrate=610 SN  COV_NOCLUT  seed 25  goal      clr  1.31  t  60.2  inf  35  N 17.4  mpc   4.2 ms  err 3.31  xte 4.56  xmax 15.01  off 0.39  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 25 t 20.1 38.8 1.3 0.0  d 117.2 208.3 7.8 0.0  f 13 22 0 0 
+WORLD SN seed 25 layout normal nleg 3 dyn 0.00 nobj 9
+[ 26/ 60] speedrate=610 SN  COV_NOCLUT  seed 26  goal      clr  0.92  t  99.4  inf  85  N 24.5  mpc  13.2 ms  err 2.73  xte 2.91  xmax 11.97  off 0.77  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 26 t 16.4 13.2 37.4 32.3  d 85.2 76.9 134.8 76.5  f 10 8 34 33 
+WORLD SN seed 26 layout normal nleg 3 dyn 0.00 nobj 29
+[ 27/ 60] speedrate=610 SN  COV_NOCLUT  seed 27  goal      clr  1.33  t  58.2  inf  34  N 17.6  mpc   5.9 ms  err 2.24  xte 2.63  xmax 8.79  off 0.39  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 27 t 26.1 20.6 9.2 2.3  d 153.3 107.1 43.8 13.1  f 10 14 9 1 
+WORLD SN seed 27 layout normal nleg 3 dyn 0.00 nobj 11
+[ 28/ 60] speedrate=610 SN  COV_NOCLUT  seed 28  goal      clr  1.44  t  54.8  inf  32  N 15.6  mpc   3.1 ms  err 1.53  xte 1.96  xmax 7.88  off 0.25  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 28 t 29.6 25.2 0.0 0.0  d 166.4 143.2 0.0 0.0  f 19 13 0 0 
+WORLD SN seed 28 layout normal nleg 1 dyn 0.00 nobj 5
+[ 29/ 60] speedrate=610 SN  COV_NOCLUT  seed 29  goal      clr  1.61  t  52.6  inf  25  N 15.6  mpc   3.3 ms  err 0.88  xte 1.02  xmax 4.52  off 0.17  nrj 2  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 29 t 36.7 14.7 1.2 0.0  d 210.3 86.1 7.3 0.0  f 13 11 1 0 
+WORLD SN seed 29 layout normal nleg 2 dyn 0.00 nobj 5
+[ 30/ 60] speedrate=610 SN  COV_NOCLUT  seed 30  goal      clr  1.48  t  70.5  inf  53  N 22.0  mpc  12.1 ms  err 2.64  xte 2.13  xmax 6.12  off 0.54  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 30 t 16.8 17.8 23.7 12.2  d 97.1 107.2 88.7 33.5  f 6 14 21 12 
+WORLD SN seed 30 layout normal nleg 3 dyn 0.00 nobj 23
+[ 31/ 60] speedrate=610 SN  COV_NOCLUT  seed 31  goal      clr  1.18  t  54.7  inf  30  N 16.9  mpc   4.2 ms  err 1.18  xte 1.78  xmax 6.59  off 0.30  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 31 t 27.5 15.8 10.8 0.6  d 154.6 93.6 60.2 3.5  f 9 11 9 1 
+WORLD SN seed 31 layout normal nleg 3 dyn 0.00 nobj 12
+[ 32/ 60] speedrate=610 SN  COV_NOCLUT  seed 32  goal      clr  1.08  t  62.2  inf  36  N 18.9  mpc   5.5 ms  err 1.74  xte 3.48  xmax 11.23  off 0.48  nrj 8  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 32 t 16.2 46.0 0.0 0.0  d 92.3 244.9 0.0 0.0  f 8 28 0 0 
+WORLD SN seed 32 layout normal nleg 2 dyn 0.00 nobj 8
+[ 33/ 60] speedrate=610 SN  COV_NOCLUT  seed 33  goal      clr  1.02  t  55.7  inf  41  N 19.3  mpc   6.3 ms  err 1.80  xte 2.37  xmax 8.53  off 0.43  nrj 6  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 33 t 16.6 27.9 11.2 0.0  d 96.3 152.9 67.2 0.0  f 12 19 10 0 
+WORLD SN seed 33 layout normal nleg 2 dyn 0.00 nobj 14
+[ 34/ 60] speedrate=610 SN  COV_NOCLUT  seed 34  goal      clr  0.71  t  72.3  inf  52  N 19.5  mpc   8.2 ms  err 3.18  xte 3.29  xmax 12.88  off 0.51  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 34 t 23.4 22.8 17.0 9.1  d 126.7 128.6 54.8 31.6  f 16 13 13 10 
+WORLD SN seed 34 layout normal nleg 2 dyn 0.00 nobj 14
+[ 35/ 60] speedrate=610 SN  COV_NOCLUT  seed 35  goal      clr  0.82  t  84.0  inf  72  N 23.0  mpc   8.9 ms  err 1.53  xte 4.15  xmax 11.50  off 0.69  nrj 6  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 35 t 13.6 38.2 27.9 4.3  d 75.5 190.6 49.3 24.0  f 10 34 24 4 
+WORLD SN seed 35 layout normal nleg 1 dyn 0.00 nobj 16
+[ 36/ 60] speedrate=610 SN  COV_NOCLUT  seed 36  goal      clr  1.43  t  83.6  inf  59  N 21.1  mpc   9.1 ms  err 3.41  xte 3.31  xmax 11.58  off 0.55  nrj 2  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 36 t 27.6 19.3 33.8 2.9  d 163.0 96.0 83.4 13.8  f 12 11 32 4 
+WORLD SN seed 36 layout normal nleg 3 dyn 0.00 nobj 13
+[ 37/ 60] speedrate=610 SN  COV_NOCLUT  seed 37  goal      clr  1.14  t  61.5  inf  49  N 21.1  mpc   8.7 ms  err 1.80  xte 3.38  xmax 11.19  off 0.56  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 37 t 16.9 12.8 24.7 7.1  d 97.8 72.3 118.8 33.7  f 9 12 23 5 
+WORLD SN seed 37 layout normal nleg 2 dyn 0.00 nobj 23
+[ 38/ 60] speedrate=610 SN  COV_NOCLUT  seed 38  goal      clr  1.15  t  52.9  inf  28  N 14.8  mpc   2.2 ms  err 1.20  xte 0.62  xmax 3.05  off 0.11  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 38 t 31.9 21.0 0.0 0.0  d 181.0 125.1 0.0 0.0  f 15 13 0 0 
+WORLD SN seed 38 layout normal nleg 3 dyn 0.00 nobj 5
+[ 39/ 60] speedrate=610 SN  COV_NOCLUT  seed 39  goal      clr  1.18  t 117.2  inf  96  N 23.3  mpc  13.4 ms  err 1.63  xte 1.95  xmax 5.86  off 0.69  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 39 t 27.6 10.1 76.5 2.9  d 154.0 58.5 117.9 17.0  f 13 5 75 3 
+WORLD SN seed 39 layout normal nleg 2 dyn 0.00 nobj 15
+[ 40/ 60] speedrate=610 SN  COV_NOCLUT  seed 40  goal      clr   Inf  t  51.6  inf  14  N 12.8  mpc   1.1 ms  err  NaN  xte 0.02  xmax 0.08  off 0.00  nrj 0  gap 3.570
+DENS speedrate=610 SN COV_NOCLUT seed 40 t 51.6 0.0 0.0 0.0  d 299.7 0.0 0.0 0.0  f 14 0 0 0 
+WORLD SN seed 40 layout normal nleg 3 dyn 0.00 nobj 0
+[ 41/ 60] speedrate=610 SN  COV_NOCLUT  seed 41  goal      clr  1.62  t  53.3  inf  19  N 13.9  mpc   2.2 ms  err 1.70  xte 1.50  xmax 7.85  off 0.11  nrj 2  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 41 t 45.5 7.8 0.0 0.0  d 262.0 45.5 0.0 0.0  f 15 4 0 0 
+WORLD SN seed 41 layout normal nleg 2 dyn 0.00 nobj 2
+[ 42/ 60] speedrate=610 SN  COV_NOCLUT  seed 42  goal      clr  0.92  t 131.4  inf 118  N 23.9  mpc  14.1 ms  err 2.52  xte 3.87  xmax 17.40  off 0.80  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 42 t 13.7 11.7 99.3 6.7  d 78.7 56.4 210.0 37.0  f 8 9 93 8 
+WORLD SN seed 42 layout normal nleg 2 dyn 0.00 nobj 28
+[ 43/ 60] speedrate=610 SN  COV_NOCLUT  seed 43  goal      clr  1.58  t  74.6  inf  52  N 20.9  mpc   9.9 ms  err 2.91  xte 3.76  xmax 7.79  off 0.54  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 43 t 16.2 26.6 31.8 0.0  d 93.4 147.6 89.6 0.0  f 7 16 29 0 
+WORLD SN seed 43 layout normal nleg 1 dyn 0.00 nobj 11
+[ 44/ 60] speedrate=610 SN  COV_NOCLUT  seed 44  collision clr -0.00  t  37.8  inf  34  N 25.4  mpc  15.6 ms  err 2.53  xte 4.18  xmax 10.85  off 0.81  nrj 2  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 44 t 1.8 6.2 26.1 3.7  d 7.0 35.0 83.7 13.4  f 2 6 23 3 
+WORLD SN seed 44 layout normal nleg 3 dyn 0.00 nobj 28
+FAILINFO speedrate=610 SN COV_NOCLUT seed 44 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 1.31 closing 0.85 nupd 11 seen 0.54 prog10 16.4 layout normal vdes 6
+[ 45/ 60] speedrate=610 SN  COV_NOCLUT  seed 45  goal      clr  1.39  t  51.8  inf  33  N 17.4  mpc   4.3 ms  err 0.93  xte 0.62  xmax 3.07  off 0.12  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 45 t 19.5 26.3 6.0 0.0  d 106.5 159.6 35.0 0.0  f 8 20 5 0 
+WORLD SN seed 45 layout normal nleg 1 dyn 0.00 nobj 11
+[ 46/ 60] speedrate=610 SN  COV_NOCLUT  seed 46  goal      clr  1.02  t  64.9  inf  46  N 21.2  mpc   9.2 ms  err 2.23  xte 1.39  xmax 6.06  off 0.37  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 46 t 19.1 15.5 23.3 7.0  d 111.6 85.2 91.8 33.2  f 7 11 20 8 
+WORLD SN seed 46 layout normal nleg 2 dyn 0.00 nobj 21
+[ 47/ 60] speedrate=610 SN  COV_NOCLUT  seed 47  goal      clr  2.01  t  83.4  inf  61  N 22.2  mpc   9.9 ms  err 3.25  xte 5.49  xmax 13.36  off 0.60  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 47 t 24.5 19.6 39.0 0.3  d 136.9 113.9 89.9 1.8  f 13 12 35 1 
+WORLD SN seed 47 layout normal nleg 2 dyn 0.00 nobj 12
+[ 48/ 60] speedrate=610 SN  COV_NOCLUT  seed 48  goal      clr  0.87  t  63.9  inf  45  N 19.7  mpc   7.7 ms  err 2.74  xte 5.64  xmax 16.33  off 0.61  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 48 t 17.8 40.4 5.6 0.0  d 99.6 208.5 33.6 0.0  f 13 27 5 0 
+WORLD SN seed 48 layout normal nleg 3 dyn 0.00 nobj 12
+[ 49/ 60] speedrate=610 SN  COV_NOCLUT  seed 49  collision clr -0.01  t  55.8  inf  49  N 21.3  mpc   9.3 ms  err 1.62  xte 2.99  xmax 8.45  off 0.70  nrj 6  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 49 t 7.5 21.7 26.6 0.0  d 38.2 113.0 84.8 0.0  f 8 19 22 0 
+WORLD SN seed 49 layout normal nleg 2 dyn 0.00 nobj 14
+FAILINFO speedrate=610 SN COV_NOCLUT seed 49 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 5.96 closing 1.96 nupd 4 seen 0.65 prog10 30.5 layout normal vdes 6
+[ 50/ 60] speedrate=610 SN  COV_NOCLUT  seed 50  goal      clr  1.69  t  61.0  inf  31  N 16.3  mpc   5.0 ms  err 2.39  xte 3.05  xmax 8.72  off 0.39  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 50 t 30.8 18.9 6.0 5.3  d 181.9 101.8 25.9 14.0  f 16 7 3 5 
+WORLD SN seed 50 layout normal nleg 2 dyn 0.00 nobj 9
+[ 51/ 60] speedrate=610 SN  COV_NOCLUT  seed 51  goal      clr  1.26  t  69.3  inf  55  N 20.8  mpc   8.2 ms  err 2.97  xte 2.11  xmax 6.92  off 0.49  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 51 t 23.4 16.2 29.7 0.0  d 137.1 89.8 96.6 0.0  f 19 8 28 0 
+WORLD SN seed 51 layout normal nleg 1 dyn 0.00 nobj 13
+[ 52/ 60] speedrate=610 SN  COV_NOCLUT  seed 52  goal      clr  0.35  t  59.6  inf  38  N 19.1  mpc   7.3 ms  err 1.74  xte 4.55  xmax 17.07  off 0.48  nrj 6  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 52 t 20.9 20.5 15.6 2.6  d 122.3 108.4 86.2 9.9  f 11 13 11 3 
+WORLD SN seed 52 layout normal nleg 2 dyn 0.00 nobj 18
+[ 53/ 60] speedrate=610 SN  COV_NOCLUT  seed 53  goal      clr  0.85  t  84.8  inf  73  N 24.0  mpc  12.8 ms  err 2.98  xte 3.70  xmax 9.08  off 0.72  nrj 7  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 53 t 10.3 23.6 42.4 8.5  d 58.2 131.4 120.2 32.3  f 6 18 42 7 
+WORLD SN seed 53 layout normal nleg 2 dyn 0.00 nobj 24
+[ 54/ 60] speedrate=610 SN  COV_NOCLUT  seed 54  goal      clr  0.96  t  63.7  inf  44  N 19.8  mpc   8.4 ms  err 1.50  xte 2.32  xmax 5.45  off 0.46  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 54 t 24.8 15.8 16.9 6.2  d 138.1 93.6 43.7 37.1  f 11 10 16 7 
+WORLD SN seed 54 layout normal nleg 1 dyn 0.00 nobj 15
+[ 55/ 60] speedrate=610 SN  COV_NOCLUT  seed 55  goal      clr  0.52  t  86.9  inf  62  N 21.1  mpc   9.1 ms  err 1.78  xte 1.03  xmax 3.56  off 0.51  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 55 t 32.4 14.9 39.6 0.0  d 184.7 89.9 53.9 0.0  f 14 8 40 0 
+WORLD SN seed 55 layout normal nleg 3 dyn 0.00 nobj 7
+[ 56/ 60] speedrate=610 SN  COV_NOCLUT  seed 56  goal      clr  1.33  t  88.3  inf  74  N 24.3  mpc  13.3 ms  err 2.60  xte 3.03  xmax 7.07  off 0.62  nrj 3  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 56 t 15.5 14.4 22.0 36.4  d 89.3 83.7 92.3 119.7  f 9 11 16 38 
+WORLD SN seed 56 layout normal nleg 3 dyn 0.00 nobj 28
+[ 57/ 60] speedrate=610 SN  COV_NOCLUT  seed 57  goal      clr  1.00  t 100.7  inf  84  N 23.8  mpc  13.6 ms  err 2.95  xte 4.00  xmax 13.94  off 0.71  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 57 t 12.6 17.2 62.4 8.5  d 65.1 87.9 179.5 22.8  f 6 13 56 9 
+WORLD SN seed 57 layout normal nleg 2 dyn 0.00 nobj 25
+[ 58/ 60] speedrate=610 SN  COV_NOCLUT  seed 58  goal      clr  1.14  t  65.5  inf  49  N 20.0  mpc   9.1 ms  err 3.03  xte 4.30  xmax 12.35  off 0.53  nrj 4  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 58 t 15.9 28.0 18.8 2.8  d 92.0 145.0 73.0 14.7  f 11 19 16 3 
+WORLD SN seed 58 layout normal nleg 1 dyn 0.00 nobj 18
+[ 59/ 60] speedrate=610 SN  COV_NOCLUT  seed 59  goal      clr  0.97  t  69.1  inf  45  N 20.3  mpc   9.9 ms  err 3.29  xte 1.45  xmax 4.29  off 0.32  nrj 5  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 59 t 28.6 6.5 31.4 2.6  d 169.5 40.1 98.2 15.3  f 11 4 27 3 
+WORLD SN seed 59 layout normal nleg 3 dyn 0.00 nobj 18
+[ 60/ 60] speedrate=610 SN  COV_NOCLUT  seed 60  goal      clr  1.21  t  72.9  inf  58  N 21.5  mpc  10.2 ms  err 2.59  xte 2.60  xmax 8.96  off 0.63  nrj 7  gap 1.000
+DENS speedrate=610 SN COV_NOCLUT seed 60 t 12.3 26.9 32.5 1.2  d 60.8 146.8 133.9 6.4  f 10 16 31 1 
+WORLD SN seed 60 layout normal nleg 2 dyn 0.00 nobj 21

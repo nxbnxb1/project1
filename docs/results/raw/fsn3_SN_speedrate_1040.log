@@ -1,0 +1,141 @@
+[  1/ 60] speedrate=1040 SN  E_COV       seed 41  goal      clr  3.50  t  32.4  inf  31  N 19.7  mpc   3.0 ms  err 4.58  xte 3.00  xmax 11.39  off 0.24  nrj 1  gap 0.250
+DENS speedrate=1040 SN E_COV seed 41 t 28.0 4.4 0.0 0.0  d 265.9 41.0 0.0 0.0  f 26 5 0 0 
+WORLD SN seed 41 layout normal nleg 2 dyn 0.00 nobj 2
+[  2/ 60] speedrate=1040 SN  E_COV       seed 42  goal      clr  1.12  t  54.1  inf 148  N 24.7  mpc   9.9 ms  err 1.89  xte 3.76  xmax 11.54  off 0.66  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 42 t 8.2 9.1 31.0 5.8  d 79.3 63.9 164.1 34.7  f 16 27 89 16 
+WORLD SN seed 42 layout normal nleg 2 dyn 0.00 nobj 28
+[  3/ 60] speedrate=1040 SN  E_COV       seed 43  collision clr -0.01  t  21.9  inf  58  N 25.5  mpc  10.8 ms  err 2.27  xte 6.53  xmax 15.48  off 0.86  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 43 t 1.1 10.4 10.4 0.0  d 3.3 92.8 41.3 0.0  f 5 23 30 0 
+WORLD SN seed 43 layout normal nleg 1 dyn 0.00 nobj 11
+FAILINFO speedrate=1040 SN E_COV seed 43 cls collision-tracked shape box dyn 0 tracked 1 infov 1 mode 2 speed 3.07 closing 2.71 nupd 2 seen 0.14 prog10 29.1 layout normal vdes 10
+[  4/ 60] speedrate=1040 SN  E_COV       seed 44  goal      clr  1.04  t  50.3  inf 149  N 24.8  mpc   8.9 ms  err 2.56  xte 5.38  xmax 15.58  off 0.72  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 44 t 9.4 9.7 27.6 3.6  d 73.0 80.5 146.1 27.5  f 18 21 96 14 
+WORLD SN seed 44 layout normal nleg 3 dyn 0.00 nobj 28
+[  5/ 60] speedrate=1040 SN  E_COV       seed 45  goal      clr  1.30  t  33.2  inf  76  N 22.9  mpc   5.3 ms  err 1.77  xte 1.24  xmax 4.70  off 0.30  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 45 t 13.2 15.8 4.2 0.0  d 106.4 159.5 34.9 0.0  f 24 35 17 0 
+WORLD SN seed 45 layout normal nleg 1 dyn 0.00 nobj 11
+[  6/ 60] speedrate=1040 SN  E_COV       seed 46  goal      clr  1.05  t  39.3  inf 107  N 24.4  mpc   8.1 ms  err 3.17  xte 1.15  xmax 3.64  off 0.42  nrj 5  gap 0.250
+DENS speedrate=1040 SN E_COV seed 46 t 11.2 13.5 9.5 5.1  d 111.8 87.0 73.8 36.2  f 23 28 37 19 
+WORLD SN seed 46 layout normal nleg 2 dyn 0.00 nobj 21
+[  7/ 60] speedrate=1040 SN  E_COV       seed 47  goal      clr  1.07  t  36.4  inf  82  N 22.6  mpc   5.8 ms  err 3.50  xte 2.45  xmax 6.39  off 0.43  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 47 t 16.0 12.5 7.3 0.6  d 135.5 118.2 47.6 5.5  f 26 30 24 2 
+WORLD SN seed 47 layout normal nleg 2 dyn 0.00 nobj 12
+[  8/ 60] speedrate=1040 SN  E_COV       seed 48  goal      clr  1.71  t  36.0  inf  93  N 23.9  mpc   7.1 ms  err 2.38  xte 3.06  xmax 6.70  off 0.68  nrj 5  gap 0.250
+DENS speedrate=1040 SN E_COV seed 48 t 9.9 19.9 6.2 0.0  d 97.0 159.3 53.2 0.0  f 29 42 22 0 
+WORLD SN seed 48 layout normal nleg 3 dyn 0.00 nobj 12
+[  9/ 60] speedrate=1040 SN  E_COV       seed 49  goal      clr  1.02  t  38.6  inf  83  N 23.4  mpc   7.3 ms  err 2.73  xte 3.66  xmax 11.92  off 0.56  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_COV seed 49 t 14.1 14.9 9.6 0.0  d 114.7 128.0 67.8 0.0  f 20 37 26 0 
+WORLD SN seed 49 layout normal nleg 2 dyn 0.00 nobj 14
+[ 10/ 60] speedrate=1040 SN  E_COV       seed 50  goal      clr  1.47  t  37.1  inf  71  N 20.9  mpc   4.9 ms  err 3.12  xte 4.28  xmax 11.26  off 0.52  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 50 t 18.8 9.2 7.0 2.1  d 190.0 90.4 32.8 13.7  f 42 17 6 6 
+WORLD SN seed 50 layout normal nleg 2 dyn 0.00 nobj 9
+[ 11/ 60] speedrate=1040 SN  E_COV       seed 51  goal      clr  0.92  t  47.9  inf 122  N 21.9  mpc   7.0 ms  err 4.55  xte 4.72  xmax 17.59  off 0.60  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 51 t 13.6 15.1 19.2 0.0  d 137.9 124.4 76.1 0.0  f 36 24 62 0 
+WORLD SN seed 51 layout normal nleg 1 dyn 0.00 nobj 13
+[ 12/ 60] speedrate=1040 SN  E_COV       seed 52  goal      clr  0.63  t  58.8  inf 153  N 24.6  mpc   8.0 ms  err 2.27  xte 6.12  xmax 20.05  off 0.77  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_COV seed 52 t 12.1 13.2 31.9 1.6  d 122.7 97.1 114.5 8.0  f 21 23 106 3 
+WORLD SN seed 52 layout normal nleg 2 dyn 0.00 nobj 18
+[ 13/ 60] speedrate=1040 SN  E_COV       seed 53  goal      clr  1.29  t  41.1  inf 110  N 24.7  mpc   8.7 ms  err 1.75  xte 5.16  xmax 13.24  off 0.67  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 53 t 6.4 16.5 14.5 3.7  d 59.3 124.1 114.8 18.7  f 19 34 45 12 
+WORLD SN seed 53 layout normal nleg 2 dyn 0.00 nobj 24
+[ 14/ 60] speedrate=1040 SN  E_COV       seed 54  goal      clr  0.53  t  41.4  inf  79  N 22.4  mpc   5.9 ms  err 2.23  xte 2.94  xmax 11.04  off 0.53  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 54 t 17.1 11.4 8.8 4.1  d 144.6 102.9 35.0 35.0  f 18 19 25 17 
+WORLD SN seed 54 layout normal nleg 1 dyn 0.00 nobj 15
+[ 15/ 60] speedrate=1040 SN  E_COV       seed 55  goal      clr  1.99  t  34.8  inf  53  N 21.5  mpc   4.1 ms  err 5.53  xte 3.77  xmax 13.80  off 0.44  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 55 t 20.4 12.6 1.8 0.0  d 183.6 116.0 17.3 0.0  f 25 22 6 0 
+WORLD SN seed 55 layout normal nleg 3 dyn 0.00 nobj 7
+[ 16/ 60] speedrate=1040 SN  E_COV       seed 56  goal      clr  0.86  t  46.6  inf 138  N 25.0  mpc   9.2 ms  err 2.39  xte 2.57  xmax 5.81  off 0.64  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 56 t 9.0 8.8 15.2 13.6  d 87.6 80.5 83.2 68.7  f 25 25 46 42 
+WORLD SN seed 56 layout normal nleg 3 dyn 0.00 nobj 28
+[ 17/ 60] speedrate=1040 SN  E_COV       seed 57  goal      clr  1.05  t  41.5  inf 102  N 24.7  mpc   8.9 ms  err 2.05  xte 5.88  xmax 15.96  off 0.60  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 57 t 9.5 13.8 16.7 1.5  d 65.7 111.2 130.5 12.8  f 9 38 49 6 
+WORLD SN seed 57 layout normal nleg 2 dyn 0.00 nobj 25
+[ 18/ 60] speedrate=1040 SN  E_COV       seed 58  goal      clr  1.29  t  44.4  inf 112  N 23.8  mpc   9.0 ms  err 3.65  xte 6.04  xmax 18.55  off 0.76  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_COV seed 58 t 10.1 19.6 14.5 0.2  d 95.4 149.8 87.3 1.5  f 29 42 40 1 
+WORLD SN seed 58 layout normal nleg 1 dyn 0.00 nobj 18
+[ 19/ 60] speedrate=1040 SN  E_COV       seed 59  goal      clr  1.74  t  36.8  inf  78  N 23.1  mpc   6.7 ms  err 2.18  xte 2.19  xmax 5.67  off 0.48  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_COV seed 59 t 16.6 4.3 13.5 2.3  d 169.7 43.0 82.2 17.6  f 24 10 35 9 
+WORLD SN seed 59 layout normal nleg 3 dyn 0.00 nobj 18
+[ 20/ 60] speedrate=1040 SN  E_COV       seed 60  goal      clr  1.46  t  50.6  inf 154  N 25.3  mpc  10.0 ms  err 3.43  xte 3.78  xmax 14.14  off 0.78  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_COV seed 60 t 8.0 15.6 25.3 1.7  d 58.9 137.7 116.9 10.8  f 23 31 93 7 
+WORLD SN seed 60 layout normal nleg 2 dyn 0.00 nobj 21
+[ 21/ 60] speedrate=1040 SN  FR_SAFE     seed 41  goal      clr  4.83  t  33.6  inf 135  N 19.5  mpc   2.4 ms  err 5.03  xte 3.84  xmax 14.69  off 0.21  nrj 1  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 41 t 27.4 6.2 0.0 0.0  d 260.5 53.6 0.0 0.0  f 110 25 0 0 
+[ 22/ 60] speedrate=1040 SN  FR_SAFE     seed 42  goal      clr  0.86  t  45.0  inf 181  N 24.8  mpc   9.5 ms  err 2.01  xte 4.91  xmax 13.88  off 0.62  nrj 5  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 42 t 8.2 8.9 22.5 5.4  d 79.4 62.2 153.1 32.9  f 33 36 90 22 
+[ 23/ 60] speedrate=1040 SN  FR_SAFE     seed 43  goal      clr  1.66  t  41.3  inf 166  N 22.8  mpc   7.1 ms  err 2.17  xte 6.74  xmax 17.72  off 0.49  nrj 2  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 43 t 9.3 26.8 5.1 0.0  d 92.7 198.5 29.9 0.0  f 40 106 20 0 
+[ 24/ 60] speedrate=1040 SN  FR_SAFE     seed 44  goal      clr  0.92  t  86.1  inf 345  N 24.3  mpc  10.8 ms  err 2.54  xte 5.74  xmax 15.01  off 0.81  nrj 4  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 44 t 9.6 9.8 51.6 15.1  d 72.2 75.7 163.5 56.6  f 38 38 209 60 
+[ 25/ 60] speedrate=1040 SN  FR_SAFE     seed 45  goal      clr  1.55  t  33.5  inf 135  N 22.6  mpc   4.9 ms  err 0.60  xte 0.94  xmax 3.08  off 0.24  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 45 t 13.1 16.3 4.1 0.0  d 105.4 159.6 35.1 0.0  f 53 66 16 0 
+[ 26/ 60] speedrate=1040 SN  FR_SAFE     seed 46  goal      clr  1.15  t  37.0  inf 148  N 23.2  mpc   6.9 ms  err 2.23  xte 2.24  xmax 8.82  off 0.44  nrj 5  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 46 t 11.2 12.4 8.7 4.7  d 112.0 92.2 71.5 37.4  f 45 50 34 19 
+[ 27/ 60] speedrate=1040 SN  FR_SAFE     seed 47  goal      clr  0.05  t  40.9  inf 164  N 22.9  mpc   6.8 ms  err 2.35  xte 5.67  xmax 19.55  off 0.51  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 47 t 16.1 14.2 10.6 0.0  d 136.8 127.7 57.3 0.0  f 65 57 42 0 
+[ 28/ 60] speedrate=1040 SN  FR_SAFE     seed 48  goal      clr  1.25  t  39.6  inf 159  N 23.3  mpc   6.8 ms  err 3.06  xte 5.23  xmax 13.73  off 0.73  nrj 4  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 48 t 9.8 24.0 5.8 0.0  d 95.5 189.1 43.2 0.0  f 39 97 23 0 
+[ 29/ 60] speedrate=1040 SN  FR_SAFE     seed 49  goal      clr  0.98  t  38.5  inf 154  N 23.1  mpc   7.5 ms  err 2.37  xte 3.47  xmax 10.71  off 0.58  nrj 4  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 49 t 14.1 14.6 9.8 0.0  d 115.1 124.1 71.6 0.0  f 56 59 39 0 
+[ 30/ 60] speedrate=1040 SN  FR_SAFE     seed 50  goal      clr  1.44  t  38.7  inf 155  N 21.6  mpc   5.7 ms  err 4.84  xte 4.15  xmax 14.86  off 0.51  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 50 t 19.6 11.2 5.9 2.0  d 196.0 90.6 24.4 12.9  f 79 44 24 8 
+[ 31/ 60] speedrate=1040 SN  FR_SAFE     seed 51  goal      clr  1.38  t  51.3  inf 206  N 25.4  mpc  10.1 ms  err 3.27  xte 1.68  xmax 5.27  off 0.63  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 51 t 13.7 10.3 27.3 0.0  d 139.4 84.4 89.6 0.0  f 55 41 110 0 
+[ 32/ 60] speedrate=1040 SN  FR_SAFE     seed 52  goal      clr  0.74  t  39.8  inf 160  N 24.1  mpc   8.1 ms  err 2.28  xte 4.94  xmax 16.44  off 0.59  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 52 t 12.1 10.8 13.8 3.1  d 122.6 84.8 92.2 18.7  f 49 44 55 12 
+[ 33/ 60] speedrate=1040 SN  FR_SAFE     seed 53  goal      clr  1.26  t  52.5  inf 210  N 25.2  mpc   9.7 ms  err 1.58  xte 4.98  xmax 15.62  off 0.75  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 53 t 6.5 17.0 19.2 9.8  d 60.4 119.0 128.0 29.1  f 26 68 77 39 
+[ 34/ 60] speedrate=1040 SN  FR_SAFE     seed 54  goal      clr  1.40  t  35.0  inf 140  N 22.8  mpc   6.2 ms  err 1.08  xte 2.46  xmax 8.53  off 0.47  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 54 t 16.1 10.5 4.2 4.2  d 137.0 101.1 30.8 34.5  f 64 42 17 17 
+[ 35/ 60] speedrate=1040 SN  FR_SAFE     seed 55  goal      clr  0.84  t  33.6  inf 135  N 21.4  mpc   4.6 ms  err 2.79  xte 1.18  xmax 3.29  off 0.34  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 55 t 20.1 9.4 4.1 0.0  d 182.3 88.8 32.0 0.0  f 81 38 16 0 
+[ 36/ 60] speedrate=1040 SN  FR_SAFE     seed 56  goal      clr  0.97  t  55.5  inf 222  N 26.2  mpc  10.9 ms  err 2.14  xte 4.60  xmax 15.54  off 0.70  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 56 t 9.0 10.7 19.8 16.0  d 87.5 81.0 116.4 54.7  f 36 42 79 65 
+[ 37/ 60] speedrate=1040 SN  FR_SAFE     seed 57  goal      clr  0.97  t  60.0  inf 240  N 24.5  mpc  10.1 ms  err 1.62  xte 2.36  xmax 7.64  off 0.65  nrj 3  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 57 t 9.6 22.0 24.0 4.4  d 66.4 86.5 143.9 25.5  f 38 91 93 18 
+[ 38/ 60] speedrate=1040 SN  FR_SAFE     seed 58  goal      clr  0.66  t  43.3  inf 174  N 23.2  mpc   8.5 ms  err 3.59  xte 4.12  xmax 10.53  off 0.70  nrj 4  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 58 t 9.5 20.8 11.3 1.7  d 92.8 146.8 79.5 6.0  f 38 85 44 7 
+[ 39/ 60] speedrate=1040 SN  FR_SAFE     seed 59  goal      clr  1.58  t  35.1  inf 141  N 22.7  mpc   6.1 ms  err 2.12  xte 0.79  xmax 2.90  off 0.32  nrj 6  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 59 t 16.6 3.6 12.5 2.4  d 169.7 38.1 85.1 18.5  f 67 14 50 10 
+[ 40/ 60] speedrate=1040 SN  FR_SAFE     seed 60  goal      clr  0.95  t  43.9  inf 176  N 24.8  mpc   9.7 ms  err 3.03  xte 4.38  xmax 11.60  off 0.71  nrj 4  gap 0.250
+DENS speedrate=1040 SN FR_SAFE seed 60 t 8.1 16.4 18.2 1.2  d 60.0 138.4 116.4 6.0  f 34 65 73 4 
+[ 41/ 60] speedrate=1040 SN  E_DART      seed 41  goal      clr  3.81  t  32.6  inf  43  N 20.1  mpc   2.4 ms  err 3.84  xte 2.30  xmax 8.83  off 0.20  nrj 1  gap 0.250
+DENS speedrate=1040 SN E_DART seed 41 t 27.5 5.1 0.0 0.0  d 260.9 44.9 0.0 0.0  f 34 9 0 0 
+[ 42/ 60] speedrate=1040 SN  E_DART      seed 42  goal      clr  0.77  t  45.4  inf 107  N 24.4  mpc   9.1 ms  err 2.03  xte 5.09  xmax 13.77  off 0.69  nrj 2  gap 0.250
+DENS speedrate=1040 SN E_DART seed 42 t 8.2 10.1 22.7 4.4  d 79.3 77.2 141.5 32.4  f 14 22 57 14 
+[ 43/ 60] speedrate=1040 SN  E_DART      seed 43  goal      clr  0.81  t  44.0  inf  96  N 23.1  mpc   7.2 ms  err 2.03  xte 2.09  xmax 7.32  off 0.48  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_DART seed 43 t 9.5 20.2 14.3 0.0  d 93.7 151.1 74.2 0.0  f 12 40 44 0 
+[ 44/ 60] speedrate=1040 SN  E_DART      seed 44  goal      clr  1.67  t  39.6  inf 101  N 24.9  mpc   9.6 ms  err 2.92  xte 4.38  xmax 11.04  off 0.56  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 44 t 9.1 8.4 17.5 4.6  d 72.4 69.9 137.8 36.3  f 13 22 53 13 
+[ 45/ 60] speedrate=1040 SN  E_DART      seed 45  goal      clr  1.42  t  33.3  inf  72  N 22.8  mpc   4.8 ms  err 1.12  xte 0.95  xmax 3.28  off 0.22  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_DART seed 45 t 13.3 16.2 3.8 0.0  d 107.4 157.8 35.2 0.0  f 18 42 12 0 
+[ 46/ 60] speedrate=1040 SN  E_DART      seed 46  goal      clr  1.23  t  39.0  inf  95  N 24.1  mpc   8.0 ms  err 2.91  xte 1.90  xmax 5.00  off 0.52  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 46 t 11.1 11.8 11.7 4.4  d 110.9 89.3 72.9 35.5  f 16 26 37 16 
+[ 47/ 60] speedrate=1040 SN  E_DART      seed 47  goal      clr  0.78  t  36.5  inf  71  N 22.5  mpc   5.0 ms  err 1.90  xte 2.39  xmax 6.11  off 0.43  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 47 t 16.0 12.0 7.9 0.6  d 136.2 113.2 53.5 5.0  f 20 32 17 2 
+[ 48/ 60] speedrate=1040 SN  E_DART      seed 48  goal      clr  1.20  t  40.1  inf  86  N 23.6  mpc   5.8 ms  err 2.77  xte 2.88  xmax 8.80  off 0.72  nrj 5  gap 0.250
+DENS speedrate=1040 SN E_DART seed 48 t 10.2 23.8 6.1 0.0  d 98.3 166.7 48.4 0.0  f 18 51 17 0 
+[ 49/ 60] speedrate=1040 SN  E_DART      seed 49  goal      clr  0.23  t  68.6  inf 149  N 23.0  mpc   8.1 ms  err 2.19  xte 3.32  xmax 8.91  off 0.77  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_DART seed 49 t 14.2 21.0 33.4 0.0  d 113.5 141.1 92.3 0.0  f 17 44 88 0 
+[ 50/ 60] speedrate=1040 SN  E_DART      seed 50  goal      clr  2.28  t  33.6  inf  64  N 22.2  mpc   5.3 ms  err 3.35  xte 3.65  xmax 10.93  off 0.34  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 50 t 18.5 9.5 3.9 1.7  d 189.2 91.9 20.5 11.7  f 26 22 9 7 
+[ 51/ 60] speedrate=1040 SN  E_DART      seed 51  goal      clr  0.87  t  45.6  inf 105  N 24.0  mpc   7.8 ms  err 3.73  xte 3.60  xmax 11.27  off 0.59  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 51 t 13.6 12.6 19.4 0.0  d 138.2 94.7 85.8 0.0  f 23 27 55 0 
+[ 52/ 60] speedrate=1040 SN  E_DART      seed 52  goal      clr  0.91  t  40.4  inf  91  N 24.4  mpc   8.0 ms  err 1.56  xte 4.64  xmax 15.03  off 0.58  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 52 t 12.1 10.5 15.0 2.8  d 122.7 81.8 100.2 11.1  f 17 29 41 4 
+[ 53/ 60] speedrate=1040 SN  E_DART      seed 53  goal      clr  0.79  t  63.3  inf 163  N 24.8  mpc   9.4 ms  err 2.25  xte 5.35  xmax 12.32  off 0.80  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 53 t 6.3 31.1 22.3 3.6  d 58.2 148.7 133.4 17.2  f 11 75 68 9 
+[ 54/ 60] speedrate=1040 SN  E_DART      seed 54  goal      clr  1.10  t  55.5  inf 151  N 25.3  mpc   9.5 ms  err 1.62  xte 3.20  xmax 12.82  off 0.68  nrj 2  gap 0.250
+DENS speedrate=1040 SN E_DART seed 54 t 16.2 11.9 4.8 22.6  d 138.3 105.9 30.0 52.0  f 22 26 18 85 
+[ 55/ 60] speedrate=1040 SN  E_DART      seed 55  goal      clr  1.16  t  34.9  inf  59  N 21.7  mpc   4.1 ms  err 4.42  xte 3.19  xmax 11.19  off 0.39  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 55 t 22.0 10.0 2.9 0.0  d 199.4 88.2 23.2 0.0  f 30 23 6 0 
+[ 56/ 60] speedrate=1040 SN  E_DART      seed 56  goal      clr  1.02  t  46.0  inf 127  N 25.6  mpc  10.3 ms  err 2.31  xte 2.25  xmax 6.25  off 0.59  nrj 3  gap 0.250
+DENS speedrate=1040 SN E_DART seed 56 t 9.0 8.6 13.9 14.5  d 87.6 80.4 83.1 65.6  f 15 21 43 48 
+[ 57/ 60] speedrate=1040 SN  E_DART      seed 57  goal      clr  1.14  t  44.2  inf 101  N 24.4  mpc   9.0 ms  err 1.76  xte 3.95  xmax 13.89  off 0.59  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_DART seed 57 t 9.5 11.4 18.4 4.8  d 66.5 93.7 136.2 28.8  f 10 28 47 16 
+[ 58/ 60] speedrate=1040 SN  E_DART      seed 58  goal      clr  1.42  t  52.8  inf 126  N 24.1  mpc   9.7 ms  err 3.44  xte 6.27  xmax 13.46  off 0.78  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_DART seed 58 t 9.4 17.4 26.0 0.0  d 91.1 137.9 100.4 0.0  f 18 42 66 0 
+[ 59/ 60] speedrate=1040 SN  E_DART      seed 59  goal      clr  1.49  t  35.6  inf  69  N 22.9  mpc   6.5 ms  err 1.59  xte 1.49  xmax 5.60  off 0.34  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_DART seed 59 t 16.6 4.3 12.2 2.5  d 169.7 43.3 77.0 20.6  f 21 9 30 9 
+[ 60/ 60] speedrate=1040 SN  E_DART      seed 60  goal      clr  0.30  t  89.4  inf 243  N 25.9  mpc  11.4 ms  err 3.61  xte 3.21  xmax 12.62  off 0.87  nrj 4  gap 0.250
+DENS speedrate=1040 SN E_DART seed 60 t 9.6 16.9 61.5 1.3  d 61.4 140.6 158.6 6.6  f 17 36 187 3 

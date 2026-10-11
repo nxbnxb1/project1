@@ -1,0 +1,73 @@
+[  1/ 30] speedrate=1030 SH  E_COV       seed  1  collision clr -0.02  t   9.5  inf  16  N 26.7  mpc  19.7 ms  err 1.61  xte 2.68  xmax 5.00  off 0.71  nrj 1  gap 0.340
+DENS speedrate=1030 SH E_COV seed 1 t 2.0 0.5 4.4 2.6  d 11.5 5.2 32.0 15.4  f 1 1 8 6 
+WORLD SH seed 1 layout hard nleg 2 dyn 0.00 nobj 46
+FAILINFO speedrate=1030 SH E_COV seed 1 cls collision-tracked shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 5.77 closing 3.44 nupd 1 seen 0.16 prog10 62.2 layout hard vdes 10
+[  2/ 30] speedrate=1030 SH  E_COV       seed  2  goal      clr  0.28  t  63.0  inf 143  N 25.2  mpc  16.7 ms  err 1.78  xte 7.76  xmax 20.77  off 0.89  nrj 4  gap 0.340
+DENS speedrate=1030 SH E_COV seed 2 t 1.8 8.2 35.1 17.9  d 9.8 54.4 214.9 86.3  f 5 10 88 40 
+WORLD SH seed 2 layout hard nleg 2 dyn 0.00 nobj 49
+[  3/ 30] speedrate=1030 SH  E_COV       seed  3  goal      clr  0.20  t  53.0  inf  88  N 27.3  mpc  16.8 ms  err 1.48  xte 5.01  xmax 13.14  off 0.88  nrj 6  gap 0.340
+DENS speedrate=1030 SH E_COV seed 3 t 1.2 8.5 27.1 16.2  d 4.0 44.0 198.8 100.3  f 1 17 44 26 
+WORLD SH seed 3 layout hard nleg 2 dyn 0.04 nobj 48
+[  4/ 30] speedrate=1030 SH  E_COV       seed  4  goal      clr  0.86  t  75.6  inf 196  N 26.2  mpc  16.6 ms  err 2.18  xte 5.60  xmax 20.06  off 0.78  nrj 4  gap 0.340
+DENS speedrate=1030 SH E_COV seed 4 t 1.4 7.0 48.4 18.8  d 5.6 60.2 226.8 61.2  f 5 16 125 50 
+WORLD SH seed 4 layout hard nleg 1 dyn 0.00 nobj 41
+[  5/ 30] speedrate=1030 SH  E_COV       seed  5  goal      clr  0.87  t 117.2  inf 240  N 23.9  mpc  15.0 ms  err 2.13  xte 5.85  xmax 13.32  off 0.96  nrj 4  gap 0.340
+DENS speedrate=1030 SH E_COV seed 5 t 0.8 10.1 42.2 64.1  d 0.8 52.1 207.3 111.8  f 2 12 63 163 
+WORLD SH seed 5 layout hard nleg 2 dyn 0.00 nobj 47
+[  6/ 30] speedrate=1030 SH  E_COV       seed  6  goal      clr  0.89  t  91.7  inf 235  N 25.8  mpc  17.5 ms  err 2.44  xte 6.54  xmax 15.19  off 0.96  nrj 4  gap 0.340
+DENS speedrate=1030 SH E_COV seed 6 t 1.9 3.2 51.8 34.7  d 11.0 23.5 206.6 127.8  f 6 8 130 91 
+WORLD SH seed 6 layout hard nleg 3 dyn 0.04 nobj 52
+[  7/ 30] speedrate=1030 SH  E_COV       seed  7  goal      clr  0.55  t  93.1  inf 177  N 26.5  mpc  16.7 ms  err 1.39  xte 4.58  xmax 10.16  off 0.86  nrj 8  gap 0.340
+DENS speedrate=1030 SH E_COV seed 7 t 1.5 4.2 78.9 8.5  d 6.6 32.5 303.2 35.0  f 1 4 156 16 
+WORLD SH seed 7 layout hard nleg 1 dyn 0.00 nobj 40
+[  8/ 30] speedrate=1030 SH  E_COV       seed  8  goal      clr  0.98  t  77.7  inf 174  N 24.7  mpc  15.5 ms  err 2.67  xte 8.08  xmax 23.96  off 0.92  nrj 3  gap 0.340
+DENS speedrate=1030 SH E_COV seed 8 t 4.6 8.2 49.4 15.5  d 27.0 69.1 243.8 75.6  f 10 15 117 32 
+WORLD SH seed 8 layout hard nleg 3 dyn 0.00 nobj 43
+[  9/ 30] speedrate=1030 SH  E_COV       seed  9  goal      clr  0.81  t 129.7  inf 306  N 22.6  mpc  15.0 ms  err 2.06  xte 4.45  xmax 19.01  off 0.92  nrj 5  gap 0.340
+DENS speedrate=1030 SH E_COV seed 9 t 1.2 5.0 99.6 23.9  d 4.0 42.7 256.9 74.8  f 1 9 242 54 
+WORLD SH seed 9 layout hard nleg 1 dyn 0.04 nobj 45
+[ 10/ 30] speedrate=1030 SH  E_COV       seed 10  goal      clr  0.84  t  53.1  inf 130  N 26.1  mpc  15.9 ms  err 2.35  xte 4.08  xmax 10.10  off 0.80  nrj 4  gap 0.340
+DENS speedrate=1030 SH E_COV seed 10 t 1.5 9.2 36.3 6.1  d 6.5 69.4 210.4 49.5  f 5 18 92 15 
+WORLD SH seed 10 layout hard nleg 2 dyn 0.00 nobj 39
+[ 11/ 30] speedrate=1030 SH  FR_SAFE     seed  1  goal      clr  0.86  t  63.8  inf 188  N 25.8  mpc  16.4 ms  err 2.64  xte 6.89  xmax 19.32  off 0.89  nrj 5  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 1 t 3.2 10.6 27.3 22.7  d 15.3 74.1 158.7 117.0  f 10 30 80 68 
+[ 12/ 30] speedrate=1030 SH  FR_SAFE     seed  2  goal      clr  0.06  t  66.1  inf 195  N 26.7  mpc  17.3 ms  err 2.15  xte 5.54  xmax 18.21  off 0.89  nrj 5  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 2 t 1.8 4.3 40.0 20.0  d 9.7 23.2 192.6 130.8  f 6 13 118 58 
+[ 13/ 30] speedrate=1030 SH  FR_SAFE     seed  3  goal      clr  1.00  t  54.8  inf 162  N 27.1  mpc  17.8 ms  err 2.30  xte 3.29  xmax 8.43  off 0.86  nrj 5  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 3 t 1.2 2.3 36.6 14.7  d 4.0 19.9 205.1 94.6  f 4 7 109 42 
+[ 14/ 30] speedrate=1030 SH  FR_SAFE     seed  4  goal      clr  0.79  t  59.8  inf 176  N 26.4  mpc  17.5 ms  err 2.43  xte 3.99  xmax 13.22  off 0.75  nrj 4  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 4 t 1.4 3.5 42.7 12.2  d 5.6 31.5 238.8 64.3  f 5 9 126 36 
+[ 15/ 30] speedrate=1030 SH  FR_SAFE     seed  5  goal      clr  0.64  t  57.1  inf 168  N 26.9  mpc  17.3 ms  err 1.92  xte 4.65  xmax 12.23  off 0.89  nrj 5  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 5 t 0.8 6.2 31.3 18.8  d 0.8 38.9 193.9 101.6  f 3 17 92 56 
+[ 16/ 30] speedrate=1030 SH  FR_SAFE     seed  6  goal      clr  0.74  t  57.9  inf 171  N 26.6  mpc  17.3 ms  err 2.87  xte 4.29  xmax 10.45  off 0.87  nrj 3  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 6 t 1.9 1.6 34.4 20.0  d 11.0 10.8 208.4 104.9  f 6 5 100 60 
+[ 17/ 30] speedrate=1030 SH  FR_SAFE     seed  7  goal      clr  0.89  t  50.7  inf 150  N 26.4  mpc  15.2 ms  err 1.84  xte 5.95  xmax 18.87  off 0.74  nrj 5  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 7 t 1.6 6.2 34.6 8.3  d 7.5 54.5 231.0 35.9  f 5 21 100 24 
+[ 18/ 30] speedrate=1030 SH  FR_SAFE     seed  8  goal      clr  0.83  t  69.0  inf 203  N 27.2  mpc  17.5 ms  err 2.14  xte 2.44  xmax 6.99  off 0.78  nrj 3  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 8 t 1.5 4.1 45.3 18.1  d 6.6 34.7 216.6 81.2  f 5 13 132 53 
+[ 19/ 30] speedrate=1030 SH  FR_SAFE     seed  9  goal      clr  0.09  t  69.1  inf 204  N 26.5  mpc  16.6 ms  err 2.30  xte 4.48  xmax 14.36  off 0.77  nrj 4  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 9 t 1.2 7.3 50.3 10.3  d 4.0 53.9 225.1 68.2  f 4 22 146 32 
+[ 20/ 30] speedrate=1030 SH  FR_SAFE     seed 10  goal      clr  0.61  t  46.3  inf 137  N 26.3  mpc  15.9 ms  err 2.15  xte 3.69  xmax 9.36  off 0.78  nrj 7  gap 0.340
+DENS speedrate=1030 SH FR_SAFE seed 10 t 1.5 8.7 29.2 6.9  d 6.5 68.8 192.6 55.1  f 5 24 87 21 
+[ 21/ 30] speedrate=1030 SH  E_DART      seed  1  goal      clr  1.14  t  72.9  inf 167  N 26.4  mpc  17.4 ms  err 2.69  xte 7.14  xmax 19.93  off 0.88  nrj 3  gap 0.340
+DENS speedrate=1030 SH E_DART seed 1 t 2.0 9.2 34.8 26.9  d 11.5 64.8 188.6 136.0  f 3 18 80 66 
+[ 22/ 30] speedrate=1030 SH  E_DART      seed  2  collision clr -0.01  t  14.3  inf  33  N 26.2  mpc  18.5 ms  err 2.90  xte 6.77  xmax 14.26  off 0.86  nrj 1  gap 0.340
+DENS speedrate=1030 SH E_DART seed 2 t 1.8 1.5 10.8 0.2  d 9.8 13.6 44.8 0.5  f 3 5 24 1 
+FAILINFO speedrate=1030 SH E_DART seed 2 cls collision-tracked shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 3.41 closing 1.00 nupd 7 seen 0.05 prog10 24.6 layout hard vdes 10
+[ 23/ 30] speedrate=1030 SH  E_DART      seed  3  collision clr -0.00  t   8.2  inf  18  N 25.3  mpc  15.0 ms  err 2.66  xte 3.23  xmax 5.45  off 0.88  nrj 1  gap 0.340
+DENS speedrate=1030 SH E_DART seed 3 t 1.2 1.3 5.5 0.2  d 4.0 10.3 24.9 1.0  f 2 2 13 1 
+FAILINFO speedrate=1030 SH E_DART seed 3 cls collision-tracked shape box dyn 0 tracked 1 infov 1 mode 2 speed 4.28 closing 3.73 nupd 3 seen 0.03 prog10 37.8 layout hard vdes 10
+[ 24/ 30] speedrate=1030 SH  E_DART      seed  4  goal      clr  1.32  t  74.7  inf 175  N 27.4  mpc  17.0 ms  err 2.09  xte 4.30  xmax 14.83  off 0.83  nrj 4  gap 0.340
+DENS speedrate=1030 SH E_DART seed 4 t 1.4 6.0 60.2 7.0  d 5.6 55.5 247.1 51.7  f 2 14 143 16 
+[ 25/ 30] speedrate=1030 SH  E_DART      seed  5  goal      clr  0.91  t 120.3  inf 205  N 20.0  mpc  12.5 ms  err 3.94  xte 6.26  xmax 20.52  off 0.95  nrj 6  gap 0.340
+DENS speedrate=1030 SH E_DART seed 5 t 0.8 9.6 39.5 70.3  d 0.8 67.5 222.5 94.8  f 2 16 78 109 
+[ 26/ 30] speedrate=1030 SH  E_DART      seed  6  goal      clr  0.64  t  82.3  inf 185  N 27.2  mpc  17.6 ms  err 2.42  xte 4.00  xmax 10.38  off 0.95  nrj 1  gap 0.340
+DENS speedrate=1030 SH E_DART seed 6 t 1.9 4.0 45.2 31.2  d 10.8 13.7 222.5 133.1  f 4 7 103 71 
+[ 27/ 30] speedrate=1030 SH  E_DART      seed  7  goal      clr  0.94  t  62.6  inf 139  N 26.3  mpc  15.6 ms  err 1.62  xte 3.96  xmax 15.15  off 0.63  nrj 6  gap 0.340
+DENS speedrate=1030 SH E_DART seed 7 t 1.6 3.3 44.9 12.8  d 7.5 26.4 259.8 41.5  f 3 8 101 27 
+[ 28/ 30] speedrate=1030 SH  E_DART      seed  8  goal      clr  1.19  t  60.6  inf 139  N 26.2  mpc  16.1 ms  err 3.00  xte 3.70  xmax 7.91  off 0.93  nrj 3  gap 0.340
+DENS speedrate=1030 SH E_DART seed 8 t 2.7 5.2 40.0 12.7  d 9.2 39.4 222.6 74.9  f 4 11 94 30 
+[ 29/ 30] speedrate=1030 SH  E_DART      seed  9  goal      clr  0.13  t  53.9  inf 124  N 27.4  mpc  17.3 ms  err 2.19  xte 3.06  xmax 7.82  off 0.79  nrj 4  gap 0.340
+DENS speedrate=1030 SH E_DART seed 9 t 1.2 3.2 35.8 13.7  d 4.0 29.0 215.8 75.2  f 2 9 82 31 
+[ 30/ 30] speedrate=1030 SH  E_DART      seed 10  goal      clr  0.56  t  58.2  inf 135  N 26.2  mpc  15.9 ms  err 2.96  xte 5.72  xmax 17.04  off 0.81  nrj 7  gap 0.340
+DENS speedrate=1030 SH E_DART seed 10 t 1.5 12.0 38.3 6.4  d 6.6 89.3 198.5 55.9  f 3 23 91 18 
