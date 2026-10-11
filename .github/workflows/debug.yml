@@ -1,4 +1,5 @@
-# Re-run a single case with a detailed trace (MATLAB engine).
+# Re-run a single case with a detailed trace (MATLAB engine), or (input 'cases') export
+# several cases with controller snapshots as JSON for figures (docs/figures/plot_stuck.py).
 name: Debug case
 
 on:
@@ -9,6 +10,7 @@ on:
       seed: { description: "Seed", default: "11" }
       param: { description: "Sweep parameter (latency/speed/rate/noise/shift/kappa/none)", default: "latency" }
       value: { description: "Sweep value", default: "0.15" }
+      cases: { description: "Optional: export cases for figures instead, 'SN:10:12;SH:6:5' (scenario:speed:seed); variant = comma list", default: "" }
 
 jobs:
   run:
@@ -21,8 +23,13 @@ jobs:
           products: Simulink
           cache: true
       - uses: matlab-actions/run-command@v3
+        if: inputs.cases == ''
         with:
           command: addpath('ci'); ci_debug_case('${{ inputs.variant }}', '${{ inputs.scenario }}', '${{ inputs.seed }}', '${{ inputs.param }}', '${{ inputs.value }}')
+      - uses: matlab-actions/run-command@v3
+        if: inputs.cases != ''
+        with:
+          command: addpath('ci'); ci_stuck_cases('${{ inputs.cases }}', '${{ inputs.variant }}')
       - uses: actions/upload-artifact@v6
         if: always()
         with:

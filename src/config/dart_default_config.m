@@ -27,6 +27,7 @@ cfg.sim.seed      = 1;
 cfg.sim.stop_on_collision = true;
 cfg.sim.log_decimation = 1;  % log every n-th control tick
 cfg.sim.debug    = false;   % MATLAB engine: log the track nearest to the truly closest obstacle (tracks have no identity)
+cfg.sim.snap_dt  = 0;       % MATLAB engine: > 0 records the controller state every snap_dt s (res.snaps, figures)
 
 % --------------------------------------------------------------- quadrotor
 cfg.quad.m        = 1.0;

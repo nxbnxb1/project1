@@ -41,6 +41,9 @@ if cfg.sim.debug
     L.dbg = zeros(10, chunk);
 end
 
+snaps = struct('t', {}, 'p', {}, 'psi', {}, 'mode', {}, 'W', {}, 'q_r', {}, 'Pm', {}, 'c', {}, 'rho', {}, ...
+    'infl', {}, 't_last', {});
+t_snap = 0;
 outcome = 'timeout';
 k = 0;
 wall = tic;
@@ -58,6 +61,10 @@ while true
     end
     [perc, msg] = dart_perception_output(perc, t);
     [ctrl, cmd, trig, dg] = dart_controller_step(ctrl, t, x, msg);
+    if cfg.sim.snap_dt > 0 && t >= t_snap - 1e-9            % controller state for figures
+        snaps(end + 1) = snapshot(ctrl, x, t, cfg); %#ok<AGROW>
+        t_snap = t + cfg.sim.snap_dt;
+    end
     perc = dart_perception_update(perc, t, x, trig);
 
     clr = dart_world_clearance(world, x(1:3), t, cfg.quad.r_body);
@@ -106,7 +113,32 @@ res.perc = struct('n_capt', perc.n_capt, 'e_gpu', perc.e_gpu, 't_busy', perc.t_b
 res.sched_why = ctrl.ss.n_why;   % triggers by reason (time dist sigma urgent emergency fixed)
 res.fail_row = debug_row(ctrl, world, x, t, cfg);   % state at the end (failure analysis)
 res.ref_mode_end = ctrl.rj.mode;
+if cfg.sim.snap_dt > 0
+    snaps(end + 1) = snapshot(ctrl, x, t, cfg);
+end
+res.snaps = snaps;
 res.wall_time = toc(wall);
+end
+
+function s = snapshot(ctrl, x, t, cfg)
+% controller state for figures: tracks in memory (estimated and inflated
+% radius, as the MPC sees them), detour plan, rejoin point, MPC prediction
+ob = dart_tracks_now(ctrl.trk, t, cfg);
+M = numel(ob.id);
+sig = zeros(1, M);
+for k = 1:M
+    sig(k) = sqrt(max(eig((ob.P(1:3, 1:3, k) + ob.P(1:3, 1:3, k).') / 2)));
+end
+R = dart_quat2rotm(x(7:10));
+q_r = nan(3, 1);
+if ctrl.rj.mode == 2, q_r = dart_path_point(ctrl.G, ctrl.rj.s_r); end
+Pm = zeros(3, 0);
+if ~isempty(ctrl.sol), Pm = ctrl.sol.P; end
+W = zeros(3, 0);
+if isfield(ctrl.rj, 'W'), W = ctrl.rj.W; end
+s = struct('t', t, 'p', x(1:3), 'psi', atan2(R(2, 1), R(1, 1)), 'mode', ctrl.rj.mode, 'W', W, ...
+    'q_r', q_r, 'Pm', Pm, 'c', ob.c, 'rho', ob.rho, ...
+    'infl', ob.rho + cfg.sched.d_s + cfg.mpc.beta_s * sig, 't_last', ctrl.ss.t_last);
 end
 
 function row = debug_row(ctrl, world, x, t, cfg)
