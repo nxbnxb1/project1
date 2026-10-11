@@ -7,7 +7,9 @@ function T = run_ablation(varargin)
 %   'plots' (true) writes trajectory figures; 't_max' sets a finite time
 %   limit (default none: runs end at goal, collision or 'stuck').
 %   Besides the run lines it prints FAILINFO lines (DART_FAILURE_INFO) for
-%   failed runs and WORLD lines (layout) for random worlds 'SR'.
+%   failed runs, WORLD lines (layout) for random worlds 'SR', and DENS lines
+%   (DART_DENSITY_PROFILE: time [s], distance [m] and frames by the number
+%   of objects within 15 m, bins 0 / 1-2 / 3-5 / >= 6).
 %   Writes runs.csv, summary.csv, summary.md and figures to outdir and
 %   prints summary.md to the console (readable from CI logs).
 %   T is a struct array with one element per run.
@@ -51,6 +53,11 @@ for s = 1:numel(op.scenarios)
                 '  xte %4.2f  xmax %4.2f  off %4.2f  nrj %d\n'], ...
                 irun, nrun, tag, sc, va, seed, res.outcome, m.min_clear, m.t_end, m.n_infer, m.N_mean, m.mpc_ms, m.est_err, ...
                 m.xte_rms, m.xte_max, m.off_frac, m.n_rejoin);
+            if isfield(res.world, 'obj')
+                Dp = dart_density_profile(res);      % time / distance / frames by local obstacle density
+                fprintf('DENS %s%s %s seed %d t %s d %s f %s\n', tag, sc, va, seed, ...
+                    sprintf('%.1f ', Dp(:, 1)), sprintf('%.1f ', Dp(:, 2)), sprintf('%d ', round(Dp(:, 3))));
+            end
             if isfield(res.world, 'meta') && v == 1
                 mt = res.world.meta;
                 fprintf('WORLD %s seed %d layout %s nleg %d dyn %.2f nobj %d\n', sc, seed, mt.layout, ...

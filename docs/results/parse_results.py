@@ -3,7 +3,8 @@ the quadrotor model; rounds 5-6 and later). Usage: python3 parse_results.py '<gl
 Groups runs by scenario x variant x sweep value; 'camspeed=310' is decoded as camera preset 3,
 requested speed 10 m/s. Columns: runs, goal (95 % Wilson CI), collisions, stuck, median time to
 goal, median mean speed, median inferences per mission, mean inferences per second, median
-minimum clearance."""
+minimum clearance. If the logs contain DENS lines (run_ablation), also a table of time share, mean
+speed and frames per second by local obstacle density."""
 import os, sys, glob, re, collections, statistics as st
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from parse_ablation import wilson
@@ -20,6 +21,16 @@ for p in files:
         if m:
             R[(m[3], m[4], m[1], float(m[2]), int(m[5]))] = dict(out=m[6], clr=float(m[7]), t=float(m[8]),
                                                                inf=int(m[9]))
+# DENS lines (dart_density_profile): time / distance / frames by objects within 15 m (0, 1-2, 3-5, >=6)
+dpat = re.compile(r'^DENS\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+t\s+([\d.\s]+?)\s+d\s+([\d.\s]+?)'
+                  r'\s+f\s+([\d\s]+)$')
+DN = {}
+for p in files:
+    for line in open(p, encoding='utf-8', errors='ignore'):
+        m = dpat.search(line.strip())
+        if m:
+            DN[(m[3], m[4], m[1], float(m[2]), int(m[5]))] = tuple(
+                [float(x) for x in g.split()] for g in (m[6], m[7], m[8]))
 
 
 def label(param, val):
@@ -57,3 +68,24 @@ for sc in sorted({k[0] for k in R}):
                 f"{a} " + str(dict(collections.Counter(bucket(a, d.get(a, '-')) for d in C)))
                 for a in ['cls', 'shape', 'dyn', 'infov', 'mode', 'speed', 'layout']))
     print()
+
+if DN:
+    BINS = ['0', '1-2', '3-5', '>=6']
+    print('### Speed and perception rate by local obstacle density (objects within 15 m)\n')
+    print('| scenario | variant | setting | ' + ' | '.join(f'{b}: time share, speed [m/s], frames/s' for b in BINS) + ' |')
+    print('|---|---|---|' + '---|' * len(BINS))
+    for sc in sorted({k[0] for k in DN}):
+        V = [v for v in order if any(k[0] == sc and k[1] == v for k in DN)]
+        V += sorted({k[1] for k in DN if k[0] == sc} - set(V))
+        for v in V:
+            for (pa, va) in sorted({(k[2], k[3]) for k in DN if k[0] == sc and k[1] == v}):
+                ks = [k for k in DN if k[0] == sc and k[1] == v and k[2] == pa and k[3] == va]
+                T = [sum(DN[k][0][b] for k in ks) for b in range(4)]
+                Dd = [sum(DN[k][1][b] for k in ks) for b in range(4)]
+                F = [sum(DN[k][2][b] for k in ks) for b in range(4)]
+                tot = max(sum(T), 1e-9)
+                cells = [f"{100 * T[b] / tot:.0f}%, {Dd[b] / T[b]:.1f}, {F[b] / T[b]:.2f}" if T[b] > 0 else '-'
+                         for b in range(4)]
+                print(f"| {sc} | {v} | {label(pa, va)} | " + ' | '.join(cells) + ' |')
+    print()
+
