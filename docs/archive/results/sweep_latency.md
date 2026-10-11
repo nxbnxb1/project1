@@ -1,4 +1,4 @@
-> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round6.md`](../../results/round6.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round7.md`](../../results/round7.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
 
 # Quét độ trễ suy luận — S1, S2 × 6 biến thể × 50 seed (commit `a636d14`, MATLAB engine)
 

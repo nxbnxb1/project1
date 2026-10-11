@@ -1,3 +1,5 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round7.md`](../../results/round7.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Round 6 — large obstacles, RPi cameras, coverage scheduler with ray-carved free space (commit 4a1fcfa)
 
 Same scope and benchmark as round 5 (large objects only: trees with low canopies, bushes, buildings,
@@ -24,9 +26,9 @@ different times) - probably floating-point differences between runner machines, 
    Octave smoke runs, SN seeds 1-3 at 12 m/s) without new information.
 
 MATLAB engine. CI runs 38076683249, 38076685074, 38076686396 (SN seeds 1-10 / 11-20 / 21-30),
-38076687678 (camera study), 38076689499 (SH). Tables: `python3 parse_results.py 'raw/r6[abch]_*.log'` and
-`python3 parse_results.py 'raw/r6cam_*.log'`. Raw logs of round 5 (before the fix) are archived:
-`../archive/results/raw/r5*` (`python3 parse_results.py '../archive/results/raw/r5[abch]_*.log'`).
+38076687678 (camera study), 38076689499 (SH). Tables (from `docs/archive/results`): `python3 ../../results/parse_results.py 'raw/r6[abch]_*.log'` and
+`python3 ../../results/parse_results.py 'raw/r6cam_*.log'`. Raw logs of round 5 (before the fix) are archived:
+`raw/r5*` (`python3 ../../results/parse_results.py 'raw/r5[abch]_*.log'`).
 
 ### SH (hard set: dense everywhere, fog in odd seeds, crossing vehicles in seeds divisible by 3), 15 worlds at 10 m/s
 
@@ -125,7 +127,7 @@ Flown speed and perception rate binned by the number of distinct objects within 
 ### Check of the clutter speed limit on new worlds (SN seeds 31-60)
 
 E_COV (clutter speed limit on) against COV_NOCLUT (off), 30 new worlds per speed. CI runs
-38105342423, 38105343772; `python3 parse_results.py 'raw/r7*_*.log'`.
+38105342423, 38105343772; `python3 ../../results/parse_results.py 'raw/r7[ab]_*.log'`.
 
 | variant | setting | n | goal [95% CI] | collision | stuck | time to goal, median [s] | inferences per mission (goal), median | inferences / s | min clearance, median [m] |
 |---|---|---|---|---|---|---|---|---|---|
@@ -140,7 +142,7 @@ Together with the table above (seeds 1-30), 180 runs per variant: E_COV 1 collis
 COV_NOCLUT 0 collisions, 3 stuck.
 
 The same check on the hard set SH (15 worlds at 10 and 15 m/s, CI run 38105345554,
-`python3 parse_results.py 'raw/r7h_*.log'`; E_COV at 10 m/s reproduces the SH table above exactly):
+`python3 ../../results/parse_results.py 'raw/r7h_*.log'`; E_COV at 10 m/s reproduces the SH table above exactly):
 
 | variant | setting | n | goal [95% CI] | collision | stuck | time to goal, median [s] | inferences per mission (goal), median | inferences / s | min clearance, median [m] |
 |---|---|---|---|---|---|---|---|---|---|

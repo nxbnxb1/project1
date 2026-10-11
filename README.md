@@ -6,7 +6,7 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
 
 | | |
 |---|---|
-| **Kết quả hiện tại** | [`docs/results/round6.md`](docs/results/round6.md) (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
+| **Kết quả hiện tại** | [`docs/results/round7.md`](docs/results/round7.md): lưới thử nghiệm đồng bộ, 3240 lượt (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
 | Tài liệu và kết quả cũ | [`docs/archive/`](docs/archive/README.md): tài liệu phương pháp LaTeX (bản 3), kết quả các vòng trước. **Không áp dụng cho phiên bản hiện tại** |
 | Mô hình Simulink | sinh từ mã bởi [`simulink/dart_build_model.m`](simulink/dart_build_model.m) → `dart_closed_loop.slx` |
 | Chạy trên cloud | tab **Actions** của repo: `CI`, `Experiments`, `Sweep`, `Debug case`, `Docs` |
@@ -52,7 +52,7 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
    * theo tầm nhìn: v·T_r + v²/(2a_b) + d_s ≤ R_eff, với T_r là chu kỳ ngân sách cộng độ trễ
      ([`dart_perception_speed.m`](src/scheduling/dart_perception_speed.m));
    * theo mật độ vật cản: [`dart_clutter_speed.m`](src/control/dart_clutter_speed.m), bật mặc định. Khi bay thường
-     nó không cho cải thiện đo được; ở kịch bản dày đặc nó có xu hướng giúp (xem Mục 5).
+     nó không tạo khác biệt đo được; ở kịch bản dày đặc nó giảm va chạm (xem Mục 5).
 6. **MPC horizon thích nghi + quỹ đạo đặt / đoạn quay về**: UAV bám quỹ đạo đặt. Khi phía trước bị chặn, tham chiếu
    là đường ngắn nhất không va chạm tới điểm sớm nhất sau đoạn bị chặn, và trong lúc đó không phạt sai lệch.
 7. **Lớp an toàn braking-CBF** ở 100 Hz, có độ phồng theo bất định.
@@ -106,16 +106,20 @@ thuật toán. Các workflow Experiments / Sweep / Debug case không có bước
 
 ### 3.2. Chạy lại bộ thử nghiệm hiện tại
 
-*Actions → Sweep → Run workflow* (chia seed thành nhiều lần chạy để song song):
+Lưới đồng bộ của [`round7.md`](docs/results/round7.md): mọi trường hợp cùng thế giới, cùng tốc độ yêu cầu và cùng
+phương án. *Actions → Sweep → Run workflow*, `param` và `values` như bảng, `engine = matlab`; seed được chia thành
+nhiều lần chạy để song song:
 
-| Thử nghiệm | `param` | `values` | `scenarios` | `variants` | `seeds` |
+| Phần | `param` | `values` | `scenarios` | `variants` | `seeds` (mỗi dòng một lần chạy) |
 |---|---|---|---|---|---|
-| Bay thường | `speed` | `[6, 10, 15]` | `["SN"]` | `E_COV,COVB1,COV_NOCLUT,FR_SAFE_3,FR_SAFE_1,E_DART` | `1:10`, `11:20`, `21:30` |
-| So sánh camera | `camspeed` | `[110, 115, 210, 215, 310, 315, 410, 415]` | `["SN"]` | `E_COV,FR_SAFE_3` | `1:15` |
-| Kịch bản khó | `speed` | `[10]` | `["SH"]` | `E_COV,FR_SAFE_3,E_DART` | `1:15` |
+| Bay thường | `speed` | `[6, 10, 15]` | `["SN"]` | `E_COV,COVB1,COV_NOCLUT,FR_SAFE_3,FR_SAFE_1,E_DART` | `1:20`, `21:40`, `41:60` |
+| Kịch bản khó | `speed` | `[6, 10, 15]` | `["SH"]` | như trên | `1:10`, `11:20`, `21:30` |
+| Camera, bay thường | `camspeed` | `[106, 110, 115, 206, 210, 215, 406, 410, 415]` | `["SN"]` | `E_COV,FR_SAFE_3` | `1:30`, `31:60` |
+| Camera, kịch bản khó | `camspeed` | như trên | `["SH"]` | `E_COV,FR_SAFE_3` | `1:15`, `16:30` |
 
-`camspeed` = 100 × preset camera + tốc độ yêu cầu (310 = Camera Module 3 Wide ở 10 m/s). Tải log và lập bảng:
-`python3 docs/results/parse_results.py '<log>'`.
+`camspeed` = 100 × preset camera + tốc độ yêu cầu (406 = Camera Module 3 Wide 640×360 ở 6 m/s); camera mặc định
+(preset 3) lấy từ hai phần đầu. Mỗi lượt in thêm một dòng `DENS` (thời gian, quãng bay, số khung theo số vật trong
+15 m). Tải log (bước *Run sweep point* của mỗi job) và lập bảng: `python3 docs/results/parse_results.py '<log>'`.
 
 ## 4. Kịch bản và biến thể
 
@@ -138,42 +142,62 @@ Các biến thể cũ (`A_FR_FN` … `G_FR_LOW`, `Z_ZHUYI`, `O_ORACLE`, `R_*`, `
 
 ## 5. Kết quả hiện tại
 
-Chi tiết, bảng đầy đủ và log gốc: [`docs/results/round6.md`](docs/results/round6.md). MATLAB engine, commit `4a1fcfa`;
-camera Module 3 Wide trừ phần so sánh camera.
+Chi tiết, bảng đầy đủ và log gốc: [`docs/results/round7.md`](docs/results/round7.md). Lưới đồng bộ: mọi trường hợp
+cùng thế giới, cùng tốc độ yêu cầu 6 / 10 / 15 m/s và cùng phương án; MATLAB engine, commit `95e551f`, 3240 lượt.
+Camera Module 3 Wide trừ phần so sánh camera. Kiểm định Fisher hai phía.
 
-**Bay thường SN** (30 thế giới × 3 tốc độ yêu cầu 6 / 10 / 15 m/s, 90 lượt mỗi biến thể):
+**Bay thường SN** (60 thế giới × 3 tốc độ = 180 lượt mỗi phương án):
 
-| Biến thể | Va chạm | Kẹt | Suy luận mỗi nhiệm vụ (trung vị, 6 / 10 / 15 m/s) | Khung / s |
-|---|---|---|---|---|
-| **E_COV** | 1 | 5 | 93 / 75 / 71 | 1.4–1.8 |
-| FR_SAFE_3 | 0 | 1 | 182 / 127 / 112 | 2.95 |
-| E_DART | 1 | 0 | 126 / 140 / 175 | 2.2–4.5 |
-| COVB1 (1 Hz) | 4 | 6 | 46 / 37 / 34 | 0.6–0.75 |
-| FR_SAFE_1 | 3 | 5 | 69 / 48 / 46 | 1.0 |
+| Phương án | Tới đích | Va chạm | Kẹt | Suy luận mỗi nhiệm vụ (trung vị, 6 / 10 / 15 m/s) | Thời gian tới đích (trung vị, s) |
+|---|---|---|---|---|---|
+| **E_COV** | 171 | 1 | 8 | 100 / 75 / 74 | 64 / 44 / 40 |
+| FR_SAFE_3 | 179 | 0 | 1 | 188 / 132 / 116 | 64 / 45 / 40 |
+| E_DART | 174 | 4 | 2 | 130 / 145 / 172 | 60 / 41 / 36 |
+| COV_NOCLUT | 176 | 1 | 3 | 97 / 72 / 70 | 66 / 43 / 38 |
+| COVB1 (1 Hz) | 160 | 7 | 13 | 51 / 40 / 39 | 77 / 52 / 46 |
+| FR_SAFE_1 | 164 | 7 | 9 | 73 / 52 / 48 | 73 / 52 / 47 |
 
-**Kịch bản khó SH** (15 thế giới, 10 m/s): E_COV 14/15 tới đích, 0 va chạm, 158 suy luận; FR_SAFE_3 15/15, 240;
-E_DART 14/15 (1 va chạm), 328.
+**Kịch bản khó SH** (30 thế giới × 3 tốc độ = 90 lượt mỗi phương án):
+
+| Phương án | Tới đích | Va chạm | Kẹt | Suy luận mỗi nhiệm vụ (trung vị, 6 / 10 / 15 m/s) | Thời gian tới đích (trung vị, s) |
+|---|---|---|---|---|---|
+| **E_COV** | 80 | 3 | 7 | 199 / 142 / 123 | 128 / 95 / 68 |
+| FR_SAFE_3 | 89 | 1 (xe cắt ngang) | 0 | 291 / 234 / 193 | 99 / 79 / 66 |
+| E_DART | 80 | 9 | 1 | 314 / 308 / 297 | 92 / 61 / 58 |
+| COV_NOCLUT | 71 | 12 | 7 | 185 / 136 / 112 | 114 / 70 / 62 |
+| COVB1 (1 Hz) | 58 | 13 | 19 | 89 / 80 / 75 | 140 / 107 / 115 |
+| FR_SAFE_1 | 70 | 12 | 8 | 146 / 108 / 124 | 146 / 107 / 123 |
 
 Kết luận:
 
-1. **E_COV an toàn như tần số cố định 3 Hz** nhưng ít hơn **37–49 %** số lần suy luận. Nơi trống nó chụp khoảng
-   0.5–1.4 khung/s, gần vật cản khoảng 1–2.6 khung/s.
-2. **1 Hz là quá ít** ở các tốc độ này (có va chạm ở 15 m/s).
-3. **Tốc độ tự thích ứng với mật độ**: khoảng 9–10 m/s khi không có vật nào trong 15 m, khoảng 7 m/s khi có 3–5 vật.
-   Giới hạn tốc độ riêng theo mật độ **chỉ có ích ở nơi dày đặc**: khi bay thường (180 lượt mỗi bản, thế giới 1–60)
-   không có giới hạn cho 0 va chạm / 3 kẹt, có giới hạn cho 1 va chạm / 8 kẹt; ở kịch bản khó (30 lượt mỗi bản,
-   10 và 15 m/s) có giới hạn thất bại 3/30 (2 va chạm), không có giới hạn 8/30 (5 va chạm), p = 0.18. Vì vậy giữ bật.
-4. **Camera** (15 thế giới × 2 tốc độ × 2 biến thể cho mỗi camera):
+1. **Bay thường: E_COV ít hơn 36–47 % số lần suy luận** so với tần số cố định 3 Hz, cùng tỉ lệ va chạm (1/180 so
+   với 0/180) và cùng thời gian tới đích; nhưng **kẹt nhiều hơn** (8/180 so với 1/180, p = 0.04).
+2. **Kịch bản khó: E_COV kém tin cậy hơn rõ rệt** so với 3 Hz cố định: thất bại 10/90 so với 1/90 (p = 0.009); tiết
+   kiệm 32–39 % số lần suy luận nhưng bay lâu hơn.
+3. **Lỗi kẹt là lỗi toàn cục của bộ lập lịch coverage**: trong 15 lượt kẹt của E_COV, 13 lượt vật chặn đường nằm ngoài
+   khung hình, 12 lượt UAV gần như đứng yên. Khi UAV dừng, quãng cần quan sát gần bằng 0 nên bộ lập lịch không chụp
+   nữa, và planner không có thông tin mới để tìm lối ra. 3 Hz cố định chỉ kẹt 1/270. Hướng sửa (chưa làm): chụp theo
+   ngân sách khi UAV không tiến được.
+4. **1 Hz là quá ít** ở các tốc độ này: FR_SAFE_1 7/180 va chạm khi bay thường (3 Hz: 0, p = 0.015), COVB1 13/90 ở
+   kịch bản khó (E_COV: 3, p = 0.016).
+5. **E_DART tốn suy luận nhất mà không an toàn nhất**: 13/270 va chạm so với 1/270 của 3 Hz cố định (p = 0.002).
+6. **Giới hạn tốc độ theo mật độ chỉ có ích ở nơi dày đặc**: kịch bản khó 3/90 va chạm khi bật, 12/90 khi tắt
+   (p = 0.03); bay thường không khác. Giữ bật.
+7. **Tốc độ tự thích ứng với mật độ** (E_COV, yêu cầu 15 m/s): 11.0 / 7.8 / 4.1 / 2.7 m/s khi có 0 / 1–2 / 3–5 / ≥ 6 vật
+   trong 15 m. Tần số chụp phụ thuộc tốc độ nhiều hơn mật độ: ở 6 m/s khoảng 1.0 khung/s chỗ trống và 1.5–1.8 gần vật;
+   ở 15 m/s khoảng 1.7–1.9 khung/s ở mọi nơi. 3 Hz cố định: 2.95; E_DART: 3.9–6.0 khung/s ở 15 m/s.
+8. **Camera** (va chạm, E_COV / FR_SAFE_3):
 
-   | Camera | FOV | v_max | Va chạm / 60 lượt |
-   |---|---|---|---|
-   | Camera Module v2 | 62×49° | 13.1 m/s | 9 |
-   | Camera Module 3 | 66×41° | 10.7 m/s | 11 |
-   | **Camera Module 3 Wide, 320×180** | 102×67° | 15 m/s | 1 |
-   | Camera Module 3 Wide, 640×360 (suy luận ×4) | 102×67° | 15 m/s | 1 |
+   | Camera | FOV | v_max | Bay thường (180 lượt mỗi ô) | Kịch bản khó (90 lượt mỗi ô) |
+   |---|---|---|---|---|
+   | Camera Module v2 | 62×49° | 13.1 m/s | 20 / 10 | 24 / 13 |
+   | Camera Module 3 | 66×41° | 10.7 m/s | 24 / 27 | 26 / 22 |
+   | **Camera Module 3 Wide, 320×180** | 102×67° | 15 m/s | 1 / 0 | 3 / 1 |
+   | Camera Module 3 Wide, 640×360 (suy luận ×4) | 102×67° | 15 m/s | 3 / 2 | 7 / 2 |
 
-   **Góc rộng mới là yếu tố quyết định** (2/120 so với 20/120, p = 6·10⁻⁵): camera hẹp mất dấu vật đang vòng tránh.
-   Ảnh nét hơn và nhìn xa hơn không tự làm an toàn hơn. Khuyến nghị: Camera Module 3 Wide, mạng ở 320×180.
+   **Góc rộng là yếu tố quyết định**: camera hẹp 166/1080 lượt va chạm, Module 3 Wide 5/540 (p ≈ 10⁻²⁴); camera hẹp mất
+   dấu vật đang vòng tránh. **Ảnh nét hơn không giúp** (14/540 so với 5/540, p = 0.06) mà tốn gấp 4 lần. Khuyến nghị:
+   Camera Module 3 Wide, mạng ở 320×180.
 
 ## 6. Cấu trúc mã nguồn
 
@@ -234,10 +258,9 @@ dart_eval_speed_density('E_COV', 'SN', 1, 'speed', 15);   % tốc độ và tầ
   có mặt đất). Thông số camera lấy từ trang của các nhà bán lẻ.
 * Vật cản bất kỳ được phủ bằng hình cầu: bảo thủ với vật dẹt / dài. Chỉ vật tĩnh: vật di chuyển chỉ được thấy lại, không
   dự đoán chuyển động.
-* Khoảng 3–5 % lượt bị **kẹt** (đứng gần như yên cạnh một vật đã nhớ, không va chạm): cực tiểu cục bộ của planner, rải
-  rác ở các thế giới khác nhau. Đây là lỗi cục bộ, chưa tối ưu.
-* Ở kịch bản khó, E_COV ở 15 m/s có 2/15 va chạm (vật đã nhớ, ngoài trường nhìn, lúc đang vòng tránh); kịch bản này
-  chỉ thử ít (15 thế giới).
+* E_COV **kẹt** 4–8 % số lượt (bay thường 8/180, kịch bản khó 7/90; 3 Hz cố định 1/270): khi UAV dừng cạnh một vật đã
+  nhớ, bộ lập lịch coverage ngừng chụp. Đây là lỗi toàn cục, chưa sửa (xem Mục 5, kết luận 3).
+* Ở kịch bản khó, E_COV thất bại 10/90 so với 1/90 của 3 Hz cố định; tiết kiệm tính toán có giá ở nơi dày đặc.
 * Kết quả MATLAB trên các máy chạy GitHub khác nhau có thể lệch nhẹ: một job của vòng 6 cho thời gian khác vòng 5 ở
   cùng mã. Kết luận được phát biểu ở dạng thống kê.
 * Bộ thử nghiệm hiện tại chạy bằng MATLAB engine; phần Simulink chỉ được kiểm tra bằng nhiệm vụ demo của CI.
