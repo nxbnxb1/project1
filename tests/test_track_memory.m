@@ -46,5 +46,6 @@ end
 function d = meas(c, cfg, rs, sig)
 cB = c - [0; 0; 2];
 cC = cfg.cam.R_BC.' * (cB - cfg.cam.p_BC) + sig * dart_randn(rs, 3, 1);
-d = struct('id', 1, 'npx', 50, 'rho', 0.5, 'cC', cC, 'RC', sig^2 * eye(3), 'trunc', false);
+d = struct('id', 1, 'npx', 50, 'rho', 0.5, 'cC', cC, 'RC', sig^2 * eye(3), 'trunc', false, ...
+    'hz', 0.5, 'open_lo', false, 'open_hi', false);
 end

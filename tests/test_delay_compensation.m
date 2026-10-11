@@ -18,7 +18,8 @@ for mode = 1:2
     p_c = [0; 0; 2] + v * t_c;
     cB = c_true - p_c;
     cC = cfg.cam.R_BC.' * (cB - cfg.cam.p_BC);
-    det = struct('id', 1, 'npx', 50, 'rho', 0.5, 'cC', cC, 'RC', 0.01 * eye(3), 'trunc', false);
+    det = struct('id', 1, 'npx', 50, 'rho', 0.5, 'cC', cC, 'RC', 0.01 * eye(3), 'trunc', false, ...
+        'hz', 0.5, 'open_lo', false, 'open_hi', false);
     hdr = struct('valid', true, 't_c', t_c, 't_a', t_a, 'n', 1);
     trk = dart_tracks_init(cfg);
     trk = dart_tracks_process_msg(trk, hdr, det, pb, t_a, cfg);

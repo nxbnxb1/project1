@@ -15,7 +15,7 @@ function cfg = dart_apply_variant(cfg, name)
 %             frontier term for unseen obstacles (cf. Hsiao et al., DAC 2022)
 %   E_COV     E with the coverage scheduler (sched.mode = 'coverage'): infer
 %             only when the planned path ahead leaves the observed space
-%   COVB<f>   E_COV with a compute budget of f Hz (sched.f_budget; e.g. COVB1,
+%   COVB<f>   E_COV with a maximum perception rate of f Hz (sched.f_max; e.g. COVB1,
 %             COVB5; E_COV = COVB3): the speed cap follows from the budget
 %   E_NOCAP   E without the perception speed cap (ref.perc_speed = false)
 %   FRNC<f>   fixed rate f Hz with the safety layers but WITHOUT the speed cap
@@ -38,25 +38,30 @@ function cfg = dart_apply_variant(cfg, name)
 %             DART_SIM must call it themselves)
 %   MEM<d>    E with an obstacle memory of d metres (cfg.trk.forget_dist = d;
 %             default 10; MEM0: tracks forgotten as soon as they leave the view)
-%   FR_SAFE   E with a fixed perception rate of sched.f_fixed Hz (set by a
-%             sweep, e.g. 'speedrate')
+%   FR_SAFE   E with a fixed perception rate equal to the maximum rate
+%             sched.f_max (default 3 Hz; a sweep such as 'speedrate' sets both)
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
 %             used for the horizon study
 %
+%   Every scheduler respects the maximum perception rate sched.f_max (a
+%   hard bound, DART_SCHEDULER); variants that define a fixed rate set
+%   f_max to that rate.
 %   Variants A-D keep the (point-estimate) obstacle constraints in the MPC
 %   but no uncertainty inflation and no CBF filter.
 
 name = upper(name);
 if strcmp(name, 'FR_SAFE')
     cfg = set_layers(cfg, 'fixed', 'adaptive', true);
+    cfg.sched.f_fixed = cfg.sched.f_max;          % fixed at the maximum rate (a sweep may change both)
     cfg.variant = name;
     return
 end
 if strncmp(name, 'FR_SAFE_', 8)
     cfg = set_layers(cfg, 'fixed', 'adaptive', true);
     cfg.sched.f_fixed = str2double(name(9:end));
+    cfg.sched.f_max = cfg.sched.f_fixed;
     cfg.variant = name;
     return
 end
@@ -74,7 +79,7 @@ if numel(name) >= 2 && name(1) == 'K' && all(isstrprop(name(2:end), 'digit'))
 end
 if strncmp(name, 'COVB', 4) && numel(name) > 4
     cfg = set_layers(cfg, 'coverage', 'adaptive', true);
-    cfg.sched.f_budget = str2double(name(5:end));
+    cfg.sched.f_max = str2double(name(5:end));
     cfg.variant = name;
     return
 end
@@ -82,6 +87,7 @@ if strncmp(name, 'FRNC', 4) && numel(name) > 4
     % fixed rate f Hz without the perception speed cap (e.g. FRNC1, FRNC3)
     cfg = set_layers(cfg, 'fixed', 'adaptive', true);
     cfg.sched.f_fixed = str2double(name(5:end));
+    cfg.sched.f_max = cfg.sched.f_fixed;
     cfg.ref.perc_speed = false;
     cfg.variant = name;
     return
@@ -95,10 +101,12 @@ end
 switch name
     case 'A_FR_FN'
         cfg = set_layers(cfg, 'fixed', 'fixed', false);
+        cfg.sched.f_max = cfg.sched.f_fixed;
     case 'B_AP_FN'
         cfg = set_layers(cfg, 'adaptive', 'fixed', false);
     case 'C_FR_AN'
         cfg = set_layers(cfg, 'fixed', 'adaptive', false);
+        cfg.sched.f_max = cfg.sched.f_fixed;
     case 'D_AP_AN'
         cfg = set_layers(cfg, 'adaptive', 'adaptive', false);
     case {'E_DART', 'DART'}
@@ -140,6 +148,7 @@ switch name
     case 'G_FR_LOW'
         cfg = set_layers(cfg, 'fixed', 'adaptive', true);
         cfg.sched.f_fixed = 3;
+        cfg.sched.f_max = 3;
     otherwise
         error('dart:variant', 'Unknown variant %s', name);
 end

@@ -115,8 +115,13 @@ for s = 1:ns
     c0 = ob.c(:, k); vo = ob.v(:, k);
     sig = horizon_sigma(ob.P(:, :, k), dart_ob_q(ob, k, cfg), N, dt, tinfo, c0, vo, ob.rho(k), pbar, travel, cfg);
     d = ob.rho(k) + cfg.sched.d_s + mp.beta_s * sig;            % Eq. 82, j = 0..N
+    cyl = isfield(ob, 'zl');
     for j = 1:N
         cj = c0 + vo * (j * dt);
+        if cyl                                       % vertical cylinder: locally equivalent
+            [~, nq, qq] = dart_cyl_dist(pbar(:, j), cj, ob.rho(k), ob.zl(k), ob.zh(k));
+            cj = qq - ob.rho(k) * nq;                % sphere at the predicted point
+        end
         nj = tangent_normal(pbar(:, j) - cj, travel, mp.side_angle, d(j + 1));
         idx = 3 * j - 2:3 * j;
         rowj = nj.' * Gp(idx, :);
@@ -126,7 +131,7 @@ for s = 1:ns
         A(r, nU + s) = -1;
         b(r) = kapj;
         if j <= n_dcbf                               % same-plane DCBF row
-            cprev = c0 + vo * ((j - 1) * dt);
+            cprev = cj - vo * dt;
             if j == 1
                 rowp = zeros(1, nU);
                 kapp = nj.' * (p0 - cprev) - d(j);
@@ -140,7 +145,11 @@ for s = 1:ns
             b(r) = kapj - (1 - gam) * kapp;
         end
     end
-    dmin_all = min(dmin_all, norm(p0 - c0) - d(1));
+    if cyl
+        dmin_all = min(dmin_all, dart_cyl_dist(p0, c0, ob.rho(k), ob.zl(k), ob.zh(k)) + ob.rho(k) - d(1));
+    else
+        dmin_all = min(dmin_all, norm(p0 - c0) - d(1));
+    end
 end
 
 H = blkdiag(HU, 2 * mp.slack_w2 * eye(ns));

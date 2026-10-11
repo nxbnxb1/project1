@@ -17,8 +17,10 @@ function [ss, out] = dart_scheduler(ss, ob, rk, p, v, R_IB, t, cfg, path)
 %       front of the measured surface by at least d_s, within R_eff of
 %       DART_PERCEPTION_RANGE (space behind an obstacle - occluded - is not
 %       observed). Frames are taken at most at the compute budget
-%       sched.f_budget (the rate the perception speed cap assumes): a
-%       frame is skipped while the path ahead is observed free. Known obstacles do
+%       sched.f_max (the rate the perception speed cap assumes): a
+%       frame is skipped while the path ahead is observed free; while the
+%       vehicle is (nearly) stopped, |v| < sched.v_stall, frames are taken
+%       continuously at f_max. f_max bounds every scheduler mode. Known obstacles do
 %       not trigger frames because they are close (they stay in the
 %       memory); the uncertainty (information-gain) and emergency events
 %       are kept (sched.cov_events = true also keeps the distance event).
@@ -86,7 +88,7 @@ closing = rk.vc > sc.v_closing;
 urgent = any(vis & closing & (Topen < tau_hat)) || T_front < tau_hat;   % only re-observable obstacles
 % emergency only for obstacles on a collision course (passing beside an
 % obstacle has a positive closing speed toward its centre but no collision)
-oncourse = rk.miss < ob.rho + sc.d_s + sc.beta_d * rk.sig_r + sc.course_margin;
+oncourse = rk.miss < sc.d_s + sc.beta_d * rk.sig_r + sc.course_margin;   % surface miss distance
 if any(closing & oncourse & (Mmarg <= 0))
     ss.emerg_until = t + sc.emergency_hold;
 end
@@ -99,10 +101,13 @@ if any(closing)
 end
 
 % ---- trigger logic
-idle = ~ss.awaiting;
-ev_cov = false;
+% sched.f_max is a HARD upper bound on the perception rate of every
+% scheduler and every event (emergency included): never more than f_max
+% frames per second (one frame per 1/f_max seconds at most)
+idle = ~ss.awaiting && (t - ss.t_last >= 1 / sc.f_max - 1e-9);
+ev_cov = false; ev_stall = false;
 if strcmp(sc.mode, 'fixed')
-    T_scan = 1 / sc.f_fixed;
+    T_scan = 1 / min(sc.f_fixed, sc.f_max);
     trig = idle && (t - ss.t_last >= T_scan - 1e-9);
 elseif strcmp(sc.mode, 'coverage')
     if nargin < 9, path = zeros(3, 0); end
@@ -116,13 +121,13 @@ elseif strcmp(sc.mode, 'coverage')
     % the gaps of a cluster for good
     ev_dist = sc.cov_events && any(vis & (rk.dc <= sc.d_trig));
     ev_sig = sigma_event(ob, rk, vis, cfg);
+    % stopped (or nearly): frames continuously (at f_max). While the vehicle
+    % stands the path ahead counts as covered, but the obstacles around it
+    % - often first measured from far, inflated, and closing the gap it
+    % has to pass - are only corrected by new measurements from close by.
+    ev_stall = norm(v) < sc.v_stall;
     T_scan = sc.T_max;                 % nominal (horizon and expected covariance reset only)
-    % compute budget: at most f_budget frames per second - the rate the
-    % perception speed cap (DART_PERCEPTION_SPEED) is computed for. Space
-    % occluded by a known obstacle cannot be observed before the vehicle has
-    % moved, so back-to-back frames would add cost but no information.
-    trig = idle && (t - ss.t_last >= 1 / sc.f_budget - 1e-9) ...
-        && (ev_cov || ev_dist || ev_sig || emergency);
+    trig = idle && (ev_cov || ev_dist || ev_sig || emergency || ev_stall);
 else
     ev_time = t - ss.t_last >= T_scan - 1e-9;                         % Eq. 46
     ev_dist = any(vis & (rk.dc <= sc.d_trig));                        % Eq. 47
@@ -143,12 +148,13 @@ else
 end
 if trig
     if strcmp(sc.mode, 'fixed')
-        why = [0 0 0 0 0 1];
+        why = [0 0 0 0 0 1 0];
     elseif strcmp(sc.mode, 'coverage')
-        why = double([ev_cov, ev_dist, ev_sig, false, emergency, false]);
+        why = double([ev_cov, ev_dist, ev_sig, false, emergency, false, ev_stall]);
     else
         why = double([ev_time, ev_dist, ev_sig, urgent, emergency, false]);
     end
+    why(end + 1:7) = 0;
     ss.n_why = ss.n_why + why;
     ss.t_last = t;
     ss.awaiting = true;

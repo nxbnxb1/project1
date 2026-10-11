@@ -1,7 +1,7 @@
 function trk = dart_tracks_prune(trk, t, p, R_IB, cfg)
 %DART_TRACKS_PRUNE Forget tracks that are out of view and far (method §6).
 %   Tracks are static landmarks and form a local obstacle memory: a track
-%   whose sphere is entirely out of view is kept while it is closer than
+%   whose cylinder is entirely out of view is kept while it is closer than
 %   cfg.trk.forget_dist (default 10 m) and forgotten beyond. Keeping a
 %   track costs a few hundred operations per control tick, orders of
 %   magnitude less than one depth inference. With forget_dist = 0 (no
@@ -22,7 +22,9 @@ for k = 1:numel(ids)
     if dart_in_fov(c, p, R_IB, cfg, -asin(min(trk.rho(i) / d, 0.99)))
         continue
     end
-    if d - trk.rho(i) > cfg.trk.forget_dist
+    zl = trk.zl(i); if trk.open_lo(i), zl = -inf; end
+    zh = trk.zh(i); if trk.open_hi(i), zh = inf; end
+    if dart_cyl_dist(p, c, trk.rho(i), zl, zh) > cfg.trk.forget_dist
         trk.active(i) = false;
     end
 end

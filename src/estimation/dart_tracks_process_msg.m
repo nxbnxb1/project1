@@ -45,6 +45,8 @@ Y = zeros(3, nd); RY = zeros(3, 3, nd);
 for k = 1:nd
     cB = cfg.cam.p_BC + cfg.cam.R_BC * det(k).cC;
     Y(:, k) = pw + Rw * cB;                                % Eq. 12
+    det(k).zl = Y(3, k) - det(k).hz;                      % seen vertical extent (world z)
+    det(k).zh = Y(3, k) + det(k).hz;
     RY(:, :, k) = R_IC * det(k).RC * R_IC.' ...
         + (cfg.est.sigma_p^2 + (cfg.est.sigma_att * norm(cB))^2) * eye(3);
 end
@@ -113,8 +115,8 @@ for a = find(~done)
 end
 
 % ------------------------------------- unassigned detections: new tracks
-% (a detection whose sphere lies inside the sphere of an existing track adds
-%  no occupied space - e.g. another cut of a large object - and is dropped)
+% (a detection whose cylinder lies inside the cylinder of an existing track
+%  adds no occupied space - e.g. another cut of a large object - and is dropped)
 act = find(trk.active);
 Cact = zeros(3, numel(act));
 for a = 1:numel(act)
@@ -123,14 +125,19 @@ for a = 1:numel(act)
 end
 for k = find(asg == 0)
     if ~isempty(act)
-        dk = sqrt(sum((Cact - Y(:, k)).^2, 1));
-        if any(dk + det(k).rho <= trk.rho(act) + tk.contain_tol * det(k).rho)
+        dk = sqrt(sum((Cact(1:2, :) - Y(1:2, k)).^2, 1));     % horizontal
+        tol = tk.contain_tol * det(k).rho;
+        zl_t = trk.zl(act); zl_t(trk.open_lo(act)) = -inf;
+        zh_t = trk.zh(act); zh_t(trk.open_hi(act)) = inf;
+        zl_k = det(k).zl; if det(k).open_lo, zl_k = -inf; end
+        zh_k = det(k).zh; if det(k).open_hi, zh_k = inf; end
+        if any(dk + det(k).rho <= trk.rho(act) + tol & zl_k >= zl_t - tol & zh_k <= zh_t + tol)
             info.n_red = info.n_red + 1;
             continue
         end
     end
     i = free_slot(trk, t_meas, tk.n_confirm);
-    trk = init_track(trk, i, Y(:, k), RY(:, :, k), det(k).rho, t_meas, cfg);
+    trk = init_track(trk, i, Y(:, k), RY(:, :, k), det(k), t_meas, cfg);
     trk.n_gate_rej = trk.n_gate_rej + 1;
     info.n_new = info.n_new + 1;
     info.n_rej = info.n_rej + 1;
@@ -146,7 +153,7 @@ for k = 1:numel(det)
     i = det(k).id;
     if i < 1 || i > numel(trk.active), continue, end
     if ~trk.active(i) || trk.n_rej(i) >= tk.max_reject || t_meas < trk.t_upd(i)
-        trk = init_track(trk, i, Y(:, k), RY(:, :, k), det(k).rho, t_meas, cfg);
+        trk = init_track(trk, i, Y(:, k), RY(:, :, k), det(k), t_meas, cfg);
         info.n_new = info.n_new + 1;
         continue
     end
@@ -178,11 +185,22 @@ trk.x(4:6, i) = 0;                                        % static: no velocity 
 trk.P(4:6, :, i) = 0; trk.P(:, 4:6, i) = 0;
 trk.t_upd(i) = t_meas;
 trk.n_upd(i) = trk.n_upd(i) + 1;
+a = tk.rho_alpha;
 if ~d.trunc
-    a = tk.rho_alpha;
     trk.rho(i) = (1 - a) * trk.rho(i) + a * d.rho;
 else
     trk.rho(i) = max(trk.rho(i), d.rho);
+end
+% vertical extent: an end seen in this image is averaged like the radius
+% (or taken as it is when it had never been seen); an end not seen keeps
+% the track's value
+if ~d.open_lo
+    if trk.open_lo(i), trk.zl(i) = d.zl; else, trk.zl(i) = (1 - a) * trk.zl(i) + a * d.zl; end
+    trk.open_lo(i) = false;
+end
+if ~d.open_hi
+    if trk.open_hi(i), trk.zh(i) = d.zh; else, trk.zh(i) = (1 - a) * trk.zh(i) + a * d.zh; end
+    trk.open_hi(i) = false;
 end
 end
 
@@ -231,13 +249,15 @@ x = F * trk.x(:, i);
 P = F * trk.P(:, :, i) * F.' + Q;
 end
 
-function trk = init_track(trk, i, y, Ry, rho, t, cfg)
+function trk = init_track(trk, i, y, Ry, d, t, cfg)
 trk.active(i) = true;
 trk.x(:, i) = [y; 0; 0; 0];
 trk.P(:, :, i) = blkdiag(Ry, cfg.trk.sigma_v_static^2 * eye(3));
 trk.t_upd(i) = t;
 trk.t_init(i) = t;
-trk.rho(i) = rho;
+trk.rho(i) = d.rho;
+trk.zl(i) = d.zl; trk.zh(i) = d.zh;
+trk.open_lo(i) = d.open_lo; trk.open_hi(i) = d.open_hi;
 trk.n_upd(i) = 1;
 trk.n_rej(i) = 0;
 trk.n_miss(i) = 0;

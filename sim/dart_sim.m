@@ -42,7 +42,7 @@ if cfg.sim.debug
 end
 
 snaps = struct('t', {}, 'p', {}, 'psi', {}, 'mode', {}, 'W', {}, 'q_r', {}, 'Pm', {}, 'c', {}, 'rho', {}, ...
-    'infl', {}, 't_last', {});
+    'zl', {}, 'zh', {}, 'infl', {}, 't_last', {});
 t_snap = 0;
 outcome = 'timeout';
 k = 0;
@@ -121,8 +121,10 @@ res.wall_time = toc(wall);
 end
 
 function s = snapshot(ctrl, x, t, cfg)
-% controller state for figures: tracks in memory (estimated and inflated
-% radius, as the MPC sees them), detour plan, rejoin point, MPC prediction
+% controller state for figures: tracks in memory (vertical cylinders:
+% radius, bottom / top with +-1e3 for an end never seen, and the margin
+% radius rho + d_s + beta_s sigma the MPC keeps out of), detour plan, rejoin
+% point, MPC prediction
 ob = dart_tracks_now(ctrl.trk, t, cfg);
 M = numel(ob.id);
 sig = zeros(1, M);
@@ -137,7 +139,7 @@ if ~isempty(ctrl.sol), Pm = ctrl.sol.P; end
 W = zeros(3, 0);
 if isfield(ctrl.rj, 'W'), W = ctrl.rj.W; end
 s = struct('t', t, 'p', x(1:3), 'psi', atan2(R(2, 1), R(1, 1)), 'mode', ctrl.rj.mode, 'W', W, ...
-    'q_r', q_r, 'Pm', Pm, 'c', ob.c, 'rho', ob.rho, ...
+    'q_r', q_r, 'Pm', Pm, 'c', ob.c, 'rho', ob.rho, 'zl', max(ob.zl, -1e3), 'zh', min(ob.zh, 1e3), ...
     'infl', ob.rho + cfg.sched.d_s + cfg.mpc.beta_s * sig, 't_last', ctrl.ss.t_last);
 end
 
@@ -165,7 +167,10 @@ end
 best = 0; gbest = inf;
 for j = find(trk.active)
     xe = dart_track_predict(trk, j, t, cfg);
-    g = dart_world_sdf(wi, xe(1:3), t) - trk.rho(j);   % gap track sphere -> true surface
+    zl = trk.zl(j); if trk.open_lo(j), zl = -inf; end
+    zh = trk.zh(j); if trk.open_hi(j), zh = inf; end
+    a = [xe(1:2); min(max(x(3), zl), zh)];              % track axis at the vehicle's height
+    g = dart_world_sdf(wi, a, t) - trk.rho(j);          % gap track cylinder -> true surface
     if g < gbest, gbest = g; best = j; end
 end
 row(3) = best > 0 && gbest < 1.0;

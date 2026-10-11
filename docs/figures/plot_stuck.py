@@ -57,6 +57,9 @@ def load(path):
         s['W'] = arr(s['W'], 3)
         s['Pm'] = arr(s['Pm'], 3)
         s['q_r'] = arr(s['q_r']).ravel()
+        if 'zl' in s:
+            s['zl'] = arr(s['zl']).ravel()
+            s['zh'] = arr(s['zh']).ravel()
     w = d['world']
     for k in ('c0', 'v', 'dim'):
         w[k] = arr(w[k], 3)
@@ -119,11 +122,26 @@ def draw_world(ax, w, z, t):
 
 
 def draw_tracks(ax, s, z):
+    """Tracks at the flight altitude z: vertical cylinders (zl, zh) if the snapshot has them, else spheres."""
+    cyl = 'zl' in s and s['zl'].size == s['rho'].size
     for k in range(s['rho'].size):
-        c = s['c'][:, k]
+        c, rho, infl = s['c'][:, k], s['rho'][k], s['infl'][k]
+        if cyl:
+            dz = max(s['zl'][k] - z, z - s['zh'][k], 0.0)
+            m = infl - rho
+            if dz > 0 and dz >= m:                 # flown over / under at this altitude
+                ax.add_patch(Circle(c[:2], rho, fc='none', ec=BLUE, lw=0.6, ls=':', alpha=0.6, zorder=4))
+                continue
+            ri = rho + math.sqrt(max(m ** 2 - dz ** 2, 0.0))
+            if dz == 0:
+                ax.add_patch(Circle(c[:2], rho, fc='none', ec=BLUE, lw=1.0, zorder=4))
+            else:
+                ax.add_patch(Circle(c[:2], rho, fc='none', ec=BLUE, lw=0.6, ls=':', zorder=4))
+            ax.add_patch(Circle(c[:2], ri, fc=BLUE, alpha=0.08, ec=BLUE, ls='--', lw=0.7, zorder=4))
+            continue
         h = z - c[2]
-        for r, kw in ((s['infl'][k], dict(fc=BLUE, alpha=0.08, ec=BLUE, ls='--', lw=0.7)),
-                      (s['rho'][k], dict(fc='none', ec=BLUE, lw=1.0))):
+        for r, kw in ((infl, dict(fc=BLUE, alpha=0.08, ec=BLUE, ls='--', lw=0.7)),
+                      (rho, dict(fc='none', ec=BLUE, lw=1.0))):
             if abs(h) < r:
                 ax.add_patch(Circle(c[:2], math.sqrt(r ** 2 - h ** 2), zorder=4, **kw))
 
@@ -235,7 +253,7 @@ def case_figure(cov, ref, out):
     from matplotlib.patches import Patch
     h = [Patch(fc=OBST, ec=OBST_EDGE, label='vật cản thật (mặt cắt ở độ cao bay)'),
          Patch(fc=OBST_OFF, ec='none', label='vật cản thật, không chạm độ cao bay'),
-         Line2D([], [], color=BLUE, lw=1.0, label='vật UAV đang nhớ (ước lượng)'),
+         Line2D([], [], color=BLUE, lw=1.0, label='vật UAV đang nhớ (chấm: không chạm độ cao bay)'),
          Patch(fc=BLUE, alpha=0.15, ec=BLUE, ls='--', label='… phình theo bất định (MPC phải tránh)'),
          Line2D([], [], color=BLUE, lw=1.6, label='đường bay E_COV'),
          Line2D([], [], color=ORANGE, marker='o', ls='none', ms=4, label='nơi chụp ảnh'),

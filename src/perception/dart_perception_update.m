@@ -20,7 +20,8 @@ perc.seen_t(vis_cnt.' >= cfg.cam.min_px) = t;
 if ~cfg.seg.oracle
     inst = dart_segment_depth(depth_hat, perc.cam, cfg);
 end
-det = dart_extract_obstacles(depth_hat, inst, perc.cam, cfg);
+upC = (R_IB * cfg.cam.R_BC).' * [0; 0; 1];         % vertical in the camera frame (IMU gravity direction)
+det = dart_extract_obstacles(depth_hat, inst, perc.cam, cfg, upC);
 
 % total perception latency (Eq. 13) with a log-normal inference time
 cv = cfg.lat.inf_cv;

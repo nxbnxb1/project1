@@ -171,9 +171,10 @@ cfg.sched.grid_q     = 0.2;          % free-space grid: low quantile of the dept
 cfg.sched.grid_minvalid = 0.2;       % ... cells with fewer valid pixels than this fraction count as empty
 cfg.sched.cov_react  = 0.0;          % extra reaction time in the needed distance [s]
 cfg.sched.cov_events = false;        % coverage mode: also trigger on distance / uncertainty of known obstacles
-cfg.sched.f_budget   = 3;            % compute budget [Hz]: the coverage scheduler takes at most this many frames
-%                                     per second and the speed cap (DART_PERCEPTION_SPEED) lets the observed
-%                                     space be renewed at this rate (Inf: back-to-back frames)
+cfg.sched.f_max      = 3;            % maximum perception rate [Hz], a hard bound for every scheduler and event;
+%                                     the speed cap (DART_PERCEPTION_SPEED) lets the observed space be renewed
+%                                     at this rate
+cfg.sched.v_stall    = 1.0;          % coverage scheduler: below this speed frames are taken continuously (at f_max) [m/s]
 cfg.sched.d_trig   = 0.7;            % event trigger on conservative distance [m]
 cfg.sched.sigma_trig = 0.6;          % event trigger on uncertainty [m]
 cfg.sched.info_gain = 2.0;           % ... only if sigma^2 >= info_gain * expected measurement variance

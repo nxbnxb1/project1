@@ -13,14 +13,15 @@ CAM = {1: 'v2 62x49', 2: 'cm3 66x41', 3: 'cm3w 102x67', 4: 'cm3w 640x360'}
 files = sorted(glob.glob(sys.argv[1]))
 runs, fails, worlds = load(files)
 pat = re.compile(r'\]\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s+clr\s+(-?Inf|[-\d.]+)\s+t\s+([\d.]+)'
-                 r'\s+inf\s+(\d+)')
+                 r'\s+inf\s+(\d+)(?:.*?gap\s+(Inf|[\d.]+))?')
 R = {}
 for p in files:
     for line in open(p, encoding='utf-8', errors='ignore'):
         m = pat.search(line)
         if m:
             R[(m[3], m[4], m[1], float(m[2]), int(m[5]))] = dict(out=m[6], clr=float(m[7]), t=float(m[8]),
-                                                               inf=int(m[9]))
+                                                               inf=int(m[9]),
+                                                               gap=float(m[10]) if m[10] else float('nan'))
 # DENS lines (dart_density_profile): time / distance / frames by objects within 15 m (0, 1-2, 3-5, >=6)
 dpat = re.compile(r'^DENS\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+t\s+([\d.\s]+?)\s+d\s+([\d.\s]+?)'
                   r'\s+f\s+([\d\s]+)$')
@@ -33,7 +34,14 @@ for p in files:
                 [float(x) for x in g.split()] for g in (m[6], m[7], m[8]))
 
 
+def rate_of(param, val):
+    """maximum perception rate of a sweep setting (speedrate = 100 x speed + 10 x rate), else None"""
+    return round(val % 100) / 10 if param == 'speedrate' else None
+
+
 def label(param, val):
+    if param == 'speedrate':
+        return f"{int(val // 100)} m/s, {rate_of(param, val):g} Hz"
     if param == 'camspeed':
         return f"{CAM.get(int(val // 100), int(val // 100))} @ {int(val % 100)} m/s"
     return f"{param}={val:g}"
@@ -116,3 +124,28 @@ if DN:
                 print(f"| {sc} | {v} | {label(pa, va)} | " + ' | '.join(cells) + ' |')
     print()
 
+# rate sweep: pooled over the requested speeds, per scenario x variant x maximum rate
+RS = {k for k in R if k[2] == 'speedrate'}
+if RS:
+    print('### Maximum perception rate (pooled over the requested speeds)\n')
+    print('| scenario | variant | f_max [Hz] | n | goal | collision | stuck | inferences per mission (goal), median '
+          '| frames / s, mean | time to goal, median [s] | shortest frame interval [s] |')
+    print('|---|---|---|---|---|---|---|---|---|---|---|')
+    viol = 0
+    for sc in sorted({k[0] for k in RS}):
+        V = [v for v in order if any(k[0] == sc and k[1] == v for k in RS)]
+        V += sorted({k[1] for k in RS if k[0] == sc} - set(V))
+        for v in V:
+            for f in sorted({rate_of('speedrate', k[3]) for k in RS if k[0] == sc and k[1] == v}):
+                ks = [k for k in RS if k[0] == sc and k[1] == v and rate_of('speedrate', k[3]) == f]
+                c = collections.Counter(R[k]['out'] for k in ks)
+                gk = [k for k in ks if R[k]['out'] == 'goal']
+                im = st.median(R[k]['inf'] for k in gk) if gk else float('nan')
+                tg = st.median(R[k]['t'] for k in gk) if gk else float('nan')
+                fps = st.mean(R[k]['inf'] / max(R[k]['t'], 1e-6) for k in ks)
+                gaps = [R[k]['gap'] for k in ks if R[k]['gap'] == R[k]['gap']]
+                g = min(gaps) if gaps else float('nan')
+                viol += sum(1 for x in gaps if x < 1 / f - 0.011)
+                print(f"| {sc} | {v} | {f:g} | {len(ks)} | {c['goal']} | {c['collision']} | {c['stuck']} | {im:.0f} "
+                      f"| {fps:.2f} | {tg:.1f} | {g:.2f} |")
+    print(f'\nRuns with two frames closer than 1/f_max (one control step tolerance): {viol}\n')

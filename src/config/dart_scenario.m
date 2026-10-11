@@ -12,6 +12,8 @@ function [world, cfg] = dart_scenario(name, seed, cfg)
 %       LARGE static obstacles (trees with low canopies, bushes, buildings,
 %       vehicles, rocks) - the main benchmark (DART_SCENARIO_NORMAL)
 %   SH  hard cases: dense zones everywhere, fog, crossing vehicles (few runs)
+%   SE  very easy everyday scenes (open field, lone tree, avenue, parked
+%       cars, buildings beside the route, street; DART_SCENARIO_EASY)
 %   SR  randomised world: random set path, layout, shapes (spheres,
 %       boxes, poles, compound objects), movers in 60 % of the worlds
 %       (DART_SCENARIO_RANDOM; test worlds - the method assumes static obstacles)
@@ -72,6 +74,14 @@ switch upper(name)
     case 'SN'
         [world, cfg] = dart_scenario_normal(seed, cfg);
         world.name = 'SN';
+        world.seed = seed;
+        world = dart_world_defaults(world);
+        return
+    case 'SE'
+        % very easy everyday scenes: open field, lone tree, avenue, parked
+        % cars, buildings beside the route, street (DART_SCENARIO_EASY)
+        [world, cfg] = dart_scenario_easy(seed, cfg);
+        world.name = 'SE';
         world.seed = seed;
         world = dart_world_defaults(world);
         return

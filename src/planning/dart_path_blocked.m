@@ -1,8 +1,9 @@
 function [blk, s_end, s_beg] = dart_path_blocked(G, s0, ob, cfg, s_from)
 %DART_PATH_BLOCKED First stretch of the reference path ahead that is blocked.
 %   The path is sampled every ref.ds from s0 to s0 + ref.L_look. A sample
-%   is blocked if it lies inside the inflated sphere of a track,
-%       || Gamma(s) - c_k(t_s) || < rho_k + d_s + beta_s sigma_k + ref.margin,
+%   is blocked if it lies inside the inflated cylinder of a track
+%   (DART_CYL_DIST: distance to the vertical cylinder of the track),
+%       dist(Gamma(s), cyl_k(t_s)) < d_s + beta_s sigma_k + ref.margin,
 %   with the obstacle predicted (CV) to the time t_s = (s - s0) / v_des at
 %   which the vehicle would reach the sample, sigma_k the largest position
 %   std of the track (the same inflation as the MPC constraints, Eq. 82).
@@ -20,9 +21,13 @@ ts = (s - s0) / rf.v_des;
 B = false(1, numel(s));
 for k = 1:M
     sig = sqrt(dart_lmax_sym3(ob.P(1:3, 1:3, k)));
-    d = ob.rho(k) + cfg.sched.d_s + cfg.mpc.beta_s * sig + rf.margin;
-    C = ob.c(:, k) + ob.v(:, k) * ts;
-    B = B | sum((P - C).^2, 1) < d^2;
+    m = cfg.sched.d_s + cfg.mpc.beta_s * sig + rf.margin;
+    if isfield(ob, 'zl') && ~any(ob.v(:, k))      % static vertical cylinder
+        B = B | dart_cyl_dist(P, ob.c(:, k), ob.rho(k), ob.zl(k), ob.zh(k)) < m;
+    else
+        C = ob.c(:, k) + ob.v(:, k) * ts;
+        B = B | sum((P - C).^2, 1) < (ob.rho(k) + m)^2;
+    end
 end
 % blocked runs [a(r), b(r)] (sample indices), merged across short gaps
 d = diff([false, B, false]);

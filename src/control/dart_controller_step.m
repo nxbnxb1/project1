@@ -32,8 +32,9 @@ end
 
 % --------------------------------------- 3. predictor at f_c (Eq. 28)
 ctrl.trk = dart_tracks_prune(ctrl.trk, t, p, R_IB, cfg);
-ob = dart_tracks_now(ctrl.trk, t, cfg);
-rk = dart_risk_terms(ob, p, v, cfg);
+ob = dart_tracks_now(ctrl.trk, t, cfg);         % vertical cylinders
+obl = dart_obstacles_local(ob, p);              % ... as locally equivalent spheres at p
+rk = dart_risk_terms(obl, p, v, cfg);
 
 % ----------------------------------------- 4. perception scheduling
 path = zeros(3, 0);                              % planned positions ahead (coverage scheduler)
@@ -41,7 +42,7 @@ if ~isempty(ctrl.sol)
     j0 = min(max(floor((t - ctrl.sol.t0) / ctrl.sol.dt + 1e-9) + 1, 1), ctrl.sol.N);
     path = ctrl.sol.P(:, j0:end);
 end
-[ctrl.ss, sch] = dart_scheduler(ctrl.ss, ob, rk, p, v, R_IB, t, cfg, path);
+[ctrl.ss, sch] = dart_scheduler(ctrl.ss, obl, rk, p, v, R_IB, t, cfg, path);
 trigger = double(sch.trigger);
 
 % --------------------------------------- 5. adaptive-horizon MPC (20 Hz)
@@ -57,7 +58,7 @@ if t >= ctrl.t_next_mpc - 1e-9
     if cfg.ref.clutter_speed                      % slow in clutter, fast in open space
         dir = v;
         if norm(v) < 1, dir = ctrl.target - p; end
-        v_cap = min(v_cap, dart_clutter_speed(ob, rk, p, dir, cfg));
+        v_cap = min(v_cap, dart_clutter_speed(obl, rk, p, dir, cfg));
     end
     % look-ahead of the set-path logic scales with the planned speed
     cfr = cfg;
@@ -85,7 +86,7 @@ a_ref = sol.U(:, j);
 
 % ------------------- 6. CBF safety filter (braking barrier per obstacle,
 %                       blind-motion / field-of-view rows, HOCBF altitude rows)
-[a_safe, cbf] = dart_cbf_filter(a_ref, p, v, ob, rk, cfg, R_IB);
+[a_safe, cbf] = dart_cbf_filter(a_ref, p, v, obl, rk, cfg, R_IB);
 ctrl.u_prev = a_safe;
 
 % ---------------------------------------------------------- 7. yaw

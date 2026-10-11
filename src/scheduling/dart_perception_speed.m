@@ -7,15 +7,15 @@ function v = dart_perception_speed(cfg, tau_hat)
 %   R_eff from DART_PERCEPTION_RANGE and the reaction time T_r = time from
 %   the obstacle entering the range to the result that shows it:
 %   one inference period plus the latency, T_r = max(T_gap, tau_hat) + tau_hat,
-%   T_gap = 1/f for a fixed rate f, and 1/f_budget for the adaptive and
-%   coverage schedulers (sched.f_budget: the compute budget - the speed is
+%   T_gap = 1/min(f, f_max) for a fixed rate f, and 1/f_max for the adaptive
+%   and coverage schedulers (sched.f_max: maximum perception rate - the speed is
 %   chosen so that the observed space can be renewed at that rate; Inf:
 %   frames back to back).
 sc = cfg.sched;
 if strcmp(sc.mode, 'fixed')
-    T_gap = 1 / sc.f_fixed;
+    T_gap = 1 / min(sc.f_fixed, sc.f_max);
 else
-    T_gap = 1 / sc.f_budget;
+    T_gap = 1 / sc.f_max;
 end
 T_r = max(T_gap, tau_hat) + tau_hat;
 R_eff = dart_perception_range(cfg);
