@@ -1,0 +1,90 @@
+[  1/ 30] speedrate=1025 SE  COV_NOCLUT  seed  1  goal      clr   Inf  t  21.8  inf  13  N 18.5  mpc   1.9 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.320
+DENS speedrate=1025 SE COV_NOCLUT seed 1 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 13 0 0 0 
+WORLD SE seed 1 layout open nleg 1 dyn 0.00 nobj 0
+[  2/ 30] speedrate=1025 SE  COV_NOCLUT  seed  2  goal      clr  3.02  t  22.8  inf  21  N 19.0  mpc   3.2 ms  err 1.38  xte 2.10  xmax 7.56  off 0.20  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 2 t 18.6 4.2 0.0 0.0  d 164.1 38.5 0.0 0.0  f 16 5 0 0 
+WORLD SE seed 2 layout tree nleg 1 dyn 0.00 nobj 1
+[  3/ 30] speedrate=1025 SE  COV_NOCLUT  seed  3  goal      clr  1.08  t  45.2  inf  88  N 25.5  mpc  15.5 ms  err 1.20  xte 4.05  xmax 11.22  off 0.70  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 3 t 5.3 2.7 9.1 28.1  d 24.7 21.8 57.6 142.5  f 7 3 13 65 
+WORLD SE seed 3 layout avenue nleg 1 dyn 0.00 nobj 30
+[  4/ 30] speedrate=1025 SE  COV_NOCLUT  seed  4  goal      clr  2.64  t  24.3  inf  43  N 23.9  mpc   7.9 ms  err 1.46  xte 3.08  xmax 6.60  off 0.68  nrj 2  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 4 t 5.3 7.6 11.3 0.0  d 25.1 68.2 108.3 0.0  f 7 11 25 0 
+WORLD SE seed 4 layout cars nleg 1 dyn 0.00 nobj 14
+[  5/ 30] speedrate=1025 SE  COV_NOCLUT  seed  5  goal      clr  5.48  t  22.9  inf  31  N 22.3  mpc   9.6 ms  err 6.71  xte 2.41  xmax 4.60  off 0.42  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 5 t 12.5 10.4 0.0 0.0  d 97.4 102.9 0.0 0.0  f 13 18 0 0 
+WORLD SE seed 5 layout buildings nleg 1 dyn 0.00 nobj 4
+[  6/ 30] speedrate=1025 SE  COV_NOCLUT  seed  6  goal      clr  2.77  t  54.8  inf 113  N 26.9  mpc  17.0 ms  err 6.40  xte 1.20  xmax 2.25  off 0.63  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 6 t 10.1 3.1 13.9 27.7  d 70.9 29.1 67.0 53.1  f 8 6 30 69 
+WORLD SE seed 6 layout street nleg 1 dyn 0.00 nobj 13
+[  7/ 30] speedrate=1025 SE  COV_NOCLUT  seed  7  goal      clr   Inf  t  21.8  inf  13  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.310
+DENS speedrate=1025 SE COV_NOCLUT seed 7 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 13 0 0 0 
+WORLD SE seed 7 layout open nleg 1 dyn 0.00 nobj 0
+[  8/ 30] speedrate=1025 SE  COV_NOCLUT  seed  8  goal      clr  3.15  t  22.2  inf  17  N 19.4  mpc   2.1 ms  err 0.45  xte 1.25  xmax 4.63  off 0.17  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 8 t 18.8 3.4 0.0 0.0  d 166.3 34.1 0.0 0.0  f 14 3 0 0 
+WORLD SE seed 8 layout tree nleg 1 dyn 0.00 nobj 1
+[  9/ 30] speedrate=1025 SE  COV_NOCLUT  seed  9  goal      clr  1.04  t  33.3  inf  68  N 26.1  mpc  15.9 ms  err 1.49  xte 0.71  xmax 1.73  off 0.45  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 9 t 5.5 2.4 3.9 21.5  d 26.9 18.5 22.9 133.3  f 6 4 6 52 
+WORLD SE seed 9 layout avenue nleg 1 dyn 0.00 nobj 30
+[ 10/ 30] speedrate=1025 SE  COV_NOCLUT  seed 10  goal      clr  2.43  t  24.6  inf  40  N 23.7  mpc   7.5 ms  err 1.67  xte 3.07  xmax 7.38  off 0.68  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 10 t 6.1 7.2 11.3 0.0  d 30.4 65.0 107.5 0.0  f 6 8 26 0 
+WORLD SE seed 10 layout cars nleg 1 dyn 0.00 nobj 14
+[ 11/ 30] speedrate=1025 SE  COV_NOCLUT  seed 11  goal      clr  5.06  t  23.5  inf  28  N 21.6  mpc   7.6 ms  err 5.93  xte 2.38  xmax 5.31  off 0.43  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 11 t 12.5 10.9 0.0 0.0  d 98.3 102.5 0.0 0.0  f 13 15 0 0 
+WORLD SE seed 11 layout buildings nleg 1 dyn 0.00 nobj 4
+[ 12/ 30] speedrate=1025 SE  COV_NOCLUT  seed 12  goal      clr  3.32  t  34.6  inf  68  N 24.6  mpc  14.3 ms  err 8.51  xte 0.83  xmax 3.08  off 0.46  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 12 t 9.6 8.8 11.9 4.3  d 65.9 42.4 68.8 30.2  f 12 17 29 10 
+WORLD SE seed 12 layout street nleg 1 dyn 0.00 nobj 12
+[ 13/ 30] speedrate=1025 SE  COV_NOCLUT  seed 13  goal      clr   Inf  t  21.8  inf  13  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.320
+DENS speedrate=1025 SE COV_NOCLUT seed 13 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 13 0 0 0 
+WORLD SE seed 13 layout open nleg 1 dyn 0.00 nobj 0
+[ 14/ 30] speedrate=1025 SE  COV_NOCLUT  seed 14  goal      clr  2.02  t  22.2  inf  21  N 19.4  mpc   2.4 ms  err 1.46  xte 0.86  xmax 3.27  off 0.15  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 14 t 18.7 3.5 0.0 0.0  d 165.7 34.3 0.0 0.0  f 16 5 0 0 
+WORLD SE seed 14 layout tree nleg 1 dyn 0.00 nobj 1
+[ 15/ 30] speedrate=1025 SE  COV_NOCLUT  seed 15  goal      clr  1.58  t  42.5  inf  86  N 26.4  mpc  16.0 ms  err 2.02  xte 0.91  xmax 1.97  off 0.54  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 15 t 5.3 2.6 2.4 32.2  d 25.1 21.3 20.4 142.9  f 6 4 3 73 
+WORLD SE seed 15 layout avenue nleg 1 dyn 0.00 nobj 30
+[ 16/ 30] speedrate=1025 SE  COV_NOCLUT  seed 16  goal      clr  2.17  t  26.1  inf  40  N 23.0  mpc   7.6 ms  err 1.94  xte 5.38  xmax 13.80  off 0.72  nrj 2  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 16 t 6.6 7.6 11.9 0.0  d 34.0 64.3 114.4 0.0  f 6 12 22 0 
+WORLD SE seed 16 layout cars nleg 1 dyn 0.00 nobj 15
+[ 17/ 30] speedrate=1025 SE  COV_NOCLUT  seed 17  goal      clr  4.39  t  23.2  inf  33  N 22.2  mpc   9.3 ms  err 5.45  xte 2.34  xmax 5.52  off 0.46  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 17 t 12.8 9.9 0.5 0.0  d 100.8 95.0 4.7 0.0  f 13 18 2 0 
+WORLD SE seed 17 layout buildings nleg 1 dyn 0.00 nobj 4
+[ 18/ 30] speedrate=1025 SE  COV_NOCLUT  seed 18  goal      clr  3.42  t  33.5  inf  66  N 25.4  mpc  14.9 ms  err 5.57  xte 1.12  xmax 2.32  off 0.52  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 18 t 9.3 4.1 12.0 8.1  d 62.9 35.8 65.5 40.2  f 10 6 30 20 
+WORLD SE seed 18 layout street nleg 1 dyn 0.00 nobj 14
+[ 19/ 30] speedrate=1025 SE  COV_NOCLUT  seed 19  goal      clr   Inf  t  21.8  inf  13  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.03  off 0.00  nrj 0  gap 1.280
+DENS speedrate=1025 SE COV_NOCLUT seed 19 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 13 0 0 0 
+WORLD SE seed 19 layout open nleg 1 dyn 0.00 nobj 0
+[ 20/ 30] speedrate=1025 SE  COV_NOCLUT  seed 20  goal      clr  1.62  t  22.2  inf  20  N 19.2  mpc   2.1 ms  err 0.52  xte 0.73  xmax 3.06  off 0.13  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 20 t 18.6 3.5 0.0 0.0  d 165.0 34.9 0.0 0.0  f 15 5 0 0 
+WORLD SE seed 20 layout tree nleg 1 dyn 0.00 nobj 1
+[ 21/ 30] speedrate=1025 SE  COV_NOCLUT  seed 21  goal      clr  1.40  t  36.2  inf  75  N 25.7  mpc  15.7 ms  err 1.06  xte 2.67  xmax 10.50  off 0.46  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 21 t 5.4 2.5 5.8 22.5  d 25.7 20.1 38.1 126.3  f 6 4 10 55 
+WORLD SE seed 21 layout avenue nleg 1 dyn 0.00 nobj 30
+[ 22/ 30] speedrate=1025 SE  COV_NOCLUT  seed 22  goal      clr  3.02  t  24.3  inf  37  N 23.7  mpc   8.9 ms  err 1.65  xte 4.08  xmax 7.10  off 0.75  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 22 t 5.6 7.3 11.4 0.0  d 27.4 68.7 106.1 0.0  f 2 13 22 0 
+WORLD SE seed 22 layout cars nleg 1 dyn 0.00 nobj 14
+[ 23/ 30] speedrate=1025 SE  COV_NOCLUT  seed 23  goal      clr  5.16  t  23.4  inf  32  N 21.9  mpc   9.1 ms  err 5.97  xte 2.98  xmax 6.30  off 0.45  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 23 t 12.3 10.9 0.1 0.0  d 95.5 105.1 1.0 0.0  f 13 19 0 0 
+WORLD SE seed 23 layout buildings nleg 1 dyn 0.00 nobj 4
+[ 24/ 30] speedrate=1025 SE  COV_NOCLUT  seed 24  goal      clr  3.85  t  24.9  inf  42  N 24.0  mpc  12.7 ms  err 7.07  xte 0.29  xmax 0.75  off 0.11  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 24 t 10.4 2.7 8.4 3.4  d 74.2 27.2 71.5 26.8  f 9 4 21 8 
+WORLD SE seed 24 layout street nleg 1 dyn 0.00 nobj 12
+[ 25/ 30] speedrate=1025 SE  COV_NOCLUT  seed 25  goal      clr   Inf  t  21.8  inf  13  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.320
+DENS speedrate=1025 SE COV_NOCLUT seed 25 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 13 0 0 0 
+WORLD SE seed 25 layout open nleg 1 dyn 0.00 nobj 0
+[ 26/ 30] speedrate=1025 SE  COV_NOCLUT  seed 26  goal      clr  3.24  t  22.2  inf  19  N 19.2  mpc   2.2 ms  err 2.98  xte 1.49  xmax 5.34  off 0.21  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 26 t 18.7 3.5 0.0 0.0  d 165.4 35.2 0.0 0.0  f 15 4 0 0 
+WORLD SE seed 26 layout tree nleg 1 dyn 0.00 nobj 1
+[ 27/ 30] speedrate=1025 SE  COV_NOCLUT  seed 27  goal      clr  1.25  t  45.0  inf  94  N 26.0  mpc  16.5 ms  err 1.42  xte 1.97  xmax 7.57  off 0.63  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 27 t 5.5 2.3 2.7 34.5  d 25.9 19.7 20.9 154.1  f 7 2 5 80 
+WORLD SE seed 27 layout avenue nleg 1 dyn 0.00 nobj 30
+[ 28/ 30] speedrate=1025 SE  COV_NOCLUT  seed 28  goal      clr  1.15  t  28.6  inf  49  N 23.8  mpc   7.2 ms  err 1.01  xte 2.23  xmax 5.65  off 0.69  nrj 6  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 28 t 6.0 10.1 12.5 0.0  d 29.9 75.3 99.0 0.0  f 6 15 28 0 
+WORLD SE seed 28 layout cars nleg 1 dyn 0.00 nobj 13
+[ 29/ 30] speedrate=1025 SE  COV_NOCLUT  seed 29  goal      clr  4.60  t  23.0  inf  27  N 21.1  mpc   7.0 ms  err 5.27  xte 2.04  xmax 5.55  off 0.35  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 29 t 14.2 8.7 0.0 0.0  d 116.6 83.8 0.0 0.0  f 14 13 0 0 
+WORLD SE seed 29 layout buildings nleg 1 dyn 0.00 nobj 3
+[ 30/ 30] speedrate=1025 SE  COV_NOCLUT  seed 30  goal      clr  0.20  t  95.6  inf 212  N 27.1  mpc  18.2 ms  err 5.35  xte 1.40  xmax 3.88  off 0.78  nrj 1  gap 0.400
+DENS speedrate=1025 SE COV_NOCLUT seed 30 t 9.8 11.0 15.6 59.2  d 68.3 36.2 59.1 93.2  f 13 23 34 142 
+WORLD SE seed 30 layout street nleg 1 dyn 0.00 nobj 14
