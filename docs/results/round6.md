@@ -137,7 +137,21 @@ E_COV (clutter speed limit on) against COV_NOCLUT (off), 30 new worlds per speed
 | COV_NOCLUT | speed=15 | 30 | 30 (100% [89, 100]) | 0 | 0 | 40.0 | 76 | 1.87 | 1.73 |
 
 Together with the table above (seeds 1-30), 180 runs per variant: E_COV 1 collision, 8 stuck;
-COV_NOCLUT 0 collisions, 3 stuck. (A matching check on SH, CI run 38105345554, is not included.)
+COV_NOCLUT 0 collisions, 3 stuck.
+
+The same check on the hard set SH (15 worlds at 10 and 15 m/s, CI run 38105345554,
+`python3 parse_results.py 'raw/r7h_*.log'`; E_COV at 10 m/s reproduces the SH table above exactly):
+
+| variant | setting | n | goal [95% CI] | collision | stuck | time to goal, median [s] | inferences per mission (goal), median | inferences / s | min clearance, median [m] |
+|---|---|---|---|---|---|---|---|---|---|
+| E_COV | speed=10 | 15 | 14 (93% [70, 99]) | 0 | 1 | 95.5 | 158 | 1.59 | 1.25 |
+| E_COV | speed=15 | 15 | 13 (87% [62, 96]) | 2 | 0 | 75.2 | 123 | 1.90 | 1.06 |
+| COV_NOCLUT | speed=10 | 15 | 12 (80% [55, 93]) | 1 | 2 | 84.3 | 152 | 1.84 | 1.10 |
+| COV_NOCLUT | speed=15 | 15 | 10 (67% [42, 85]) | 4 | 1 | 62.3 | 126 | 1.71 | 1.12 |
+
+In dense worlds the limit points the other way: with it 27/30 goal, 2 collisions, 1 stuck; without it
+22/30 goal, 5 collisions, 3 stuck (failures 3/30 against 8/30, Fisher exact p = 0.18; not significant).
+All 7 collisions: tracked boxes / spheres, detour / rejoin mode.
 
 ### Findings
 
@@ -153,9 +167,11 @@ COV_NOCLUT 0 collisions, 3 stuck. (A matching check on SH, CI run 38105345554, i
    1/90, E_DART 0/90. All in the detour / rejoin mode next to a tracked obstacle (E_COV: all five
    at < 1 m/s), in different worlds: a local minimum of the local planner. Not significant between
    E_COV and FR_SAFE_3 (p = 0.21). Recorded, not optimised (rare, local).
-4. **The explicit clutter speed limit adds nothing measurable** with the coverage scheduler:
-   over 180 SN runs each (seeds 1-60), COV_NOCLUT 0 collisions and 3 stuck against 1 and 8 with
-   the limit, at the same time to goal and the same number of inferences. The speed adapts to the density anyway
+4. **The explicit clutter speed limit matters only in dense worlds.** In normal flight it adds
+   nothing measurable: over 180 SN runs each (seeds 1-60), COV_NOCLUT 0 collisions and 3 stuck
+   against 1 and 8 with the limit, at the same time to goal and the same number of inferences. On
+   SH it points the other way (failures 3/30 with the limit, 8/30 without, p = 0.18), so it stays
+   on by default. The speed adapts to the density anyway
    (table above: ~9-10 m/s with no object within 15 m, ~7-8 m/s with 3-5): the braking CBF and the
    coverage test already slow the vehicle where the free space ahead is short.
 5. **Requested 15 m/s is not reached on average**: median time to goal 37 s on a 300 m route

@@ -51,8 +51,8 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
      v_max = 15 m/s; với camera hẹp, v_max còn bị giới hạn để đường bay không rời khỏi ảnh khi UAV chúi mũi;
    * theo tầm nhìn: v·T_r + v²/(2a_b) + d_s ≤ R_eff, với T_r là chu kỳ ngân sách cộng độ trễ
      ([`dart_perception_speed.m`](src/scheduling/dart_perception_speed.m));
-   * theo mật độ vật cản: [`dart_clutter_speed.m`](src/control/dart_clutter_speed.m), đang bật mặc định. Trên 180
-     lượt mỗi bản, giới hạn này không cho cải thiện đo được (xem Mục 5).
+   * theo mật độ vật cản: [`dart_clutter_speed.m`](src/control/dart_clutter_speed.m), bật mặc định. Khi bay thường
+     nó không cho cải thiện đo được; ở kịch bản dày đặc nó có xu hướng giúp (xem Mục 5).
 6. **MPC horizon thích nghi + quỹ đạo đặt / đoạn quay về**: UAV bám quỹ đạo đặt. Khi phía trước bị chặn, tham chiếu
    là đường ngắn nhất không va chạm tới điểm sớm nhất sau đoạn bị chặn, và trong lúc đó không phạt sai lệch.
 7. **Lớp an toàn braking-CBF** ở 100 Hz, có độ phồng theo bất định.
@@ -160,8 +160,9 @@ Kết luận:
    0.5–1.4 khung/s, gần vật cản khoảng 1–2.6 khung/s.
 2. **1 Hz là quá ít** ở các tốc độ này (có va chạm ở 15 m/s).
 3. **Tốc độ tự thích ứng với mật độ**: khoảng 9–10 m/s khi không có vật nào trong 15 m, khoảng 7 m/s khi có 3–5 vật.
-   Giới hạn tốc độ riêng theo mật độ **không cần thiết**: trên 180 lượt mỗi bản (thế giới 1–60), không có giới hạn
-   cho 0 va chạm / 3 kẹt, có giới hạn cho 1 va chạm / 8 kẹt.
+   Giới hạn tốc độ riêng theo mật độ **chỉ có ích ở nơi dày đặc**: khi bay thường (180 lượt mỗi bản, thế giới 1–60)
+   không có giới hạn cho 0 va chạm / 3 kẹt, có giới hạn cho 1 va chạm / 8 kẹt; ở kịch bản khó (30 lượt mỗi bản,
+   10 và 15 m/s) có giới hạn thất bại 3/30 (2 va chạm), không có giới hạn 8/30 (5 va chạm), p = 0.18. Vì vậy giữ bật.
 4. **Camera** (15 thế giới × 2 tốc độ × 2 biến thể cho mỗi camera):
 
    | Camera | FOV | v_max | Va chạm / 60 lượt |
@@ -235,8 +236,8 @@ dart_eval_speed_density('E_COV', 'SN', 1, 'speed', 15);   % tốc độ và tầ
   dự đoán chuyển động.
 * Khoảng 3–5 % lượt bị **kẹt** (đứng gần như yên cạnh một vật đã nhớ, không va chạm): cực tiểu cục bộ của planner, rải
   rác ở các thế giới khác nhau. Đây là lỗi cục bộ, chưa tối ưu.
-* Giới hạn tốc độ theo mật độ vẫn bật mặc định dù không cho cải thiện đo được, nên mọi kết quả ở Mục 5 là với bản đang
-  bật.
+* Ở kịch bản khó, E_COV ở 15 m/s có 2/15 va chạm (vật đã nhớ, ngoài trường nhìn, lúc đang vòng tránh); kịch bản này
+  chỉ thử ít (15 thế giới).
 * Kết quả MATLAB trên các máy chạy GitHub khác nhau có thể lệch nhẹ: một job của vòng 6 cho thời gian khác vòng 5 ở
   cùng mã. Kết luận được phát biểu ở dạng thống kê.
 * Bộ thử nghiệm hiện tại chạy bằng MATLAB engine; phần Simulink chỉ được kiểm tra bằng nhiệm vụ demo của CI.

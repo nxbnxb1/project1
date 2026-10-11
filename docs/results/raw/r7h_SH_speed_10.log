@@ -1,0 +1,49 @@
+[  1/ 30] speed=10 SH  E_COV       seed  1  goal      clr  0.84  t 205.0  inf 162  N 16.5  mpc   5.6 ms  err 1.67  xte 9.47  xmax 30.74  off 0.98  nrj 3
+WORLD SH seed 1 layout hard nleg 2 dyn 0.00 nobj 46
+[  2/ 30] speed=10 SH  E_COV       seed  2  goal      clr  0.89  t  72.3  inf 137  N 24.4  mpc   8.9 ms  err 2.34  xte 12.21  xmax 23.59  off 0.97  nrj 1
+WORLD SH seed 2 layout hard nleg 2 dyn 0.00 nobj 49
+[  3/ 30] speed=10 SH  E_COV       seed  3  goal      clr  1.10  t 113.0  inf 161  N 22.4  mpc   8.0 ms  err 1.84  xte 8.98  xmax 39.89  off 0.97  nrj 3
+WORLD SH seed 3 layout hard nleg 2 dyn 0.04 nobj 48
+[  4/ 30] speed=10 SH  E_COV       seed  4  goal      clr  0.76  t  74.5  inf 175  N 26.7  mpc   9.2 ms  err 1.99  xte 7.74  xmax 18.18  off 0.93  nrj 1
+WORLD SH seed 4 layout hard nleg 1 dyn 0.00 nobj 41
+[  5/ 30] speed=10 SH  E_COV       seed  5  goal      clr  1.80  t  58.9  inf  93  N 24.5  mpc   8.1 ms  err 3.06  xte 11.03  xmax 24.87  off 0.92  nrj 2
+WORLD SH seed 5 layout hard nleg 2 dyn 0.00 nobj 47
+[  6/ 30] speed=10 SH  E_COV       seed  6  goal      clr  2.10  t  61.9  inf 146  N 24.4  mpc   8.3 ms  err 4.26  xte 14.00  xmax 29.68  off 0.95  nrj 1
+WORLD SH seed 6 layout hard nleg 3 dyn 0.04 nobj 52
+[  7/ 30] speed=10 SH  E_COV       seed  7  goal      clr  1.39  t  68.1  inf  94  N 23.5  mpc   7.0 ms  err 1.67  xte 9.83  xmax 24.99  off 0.87  nrj 3
+WORLD SH seed 7 layout hard nleg 1 dyn 0.00 nobj 40
+[  8/ 30] speed=10 SH  E_COV       seed  8  stuck     clr  2.71  t  72.6  inf  48  N 15.2  mpc   5.0 ms  err 1.88  xte 8.61  xmax 22.17  off 0.98  nrj 1
+WORLD SH seed 8 layout hard nleg 3 dyn 0.00 nobj 43
+FAILINFO speed=10 SH E_COV seed 8 cls stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 0.40 closing -0.09 nupd 26 seen 5.62 prog10 0.1 layout hard vdes 10
+[  9/ 30] speed=10 SH  E_COV       seed  9  goal      clr  0.15  t 102.5  inf 156  N 23.8  mpc   8.3 ms  err 2.56  xte 6.46  xmax 18.96  off 0.90  nrj 5
+WORLD SH seed 9 layout hard nleg 1 dyn 0.04 nobj 45
+[ 10/ 30] speed=10 SH  E_COV       seed 10  goal      clr  1.55  t 102.0  inf 185  N 22.1  mpc   7.3 ms  err 3.19  xte 8.71  xmax 24.80  off 0.94  nrj 2
+WORLD SH seed 10 layout hard nleg 2 dyn 0.00 nobj 39
+[ 11/ 30] speed=10 SH  E_COV       seed 11  goal      clr  1.34  t 134.3  inf 181  N 23.4  mpc   8.1 ms  err 3.39  xte 9.40  xmax 24.74  off 0.99  nrj 3
+WORLD SH seed 11 layout hard nleg 2 dyn 0.00 nobj 44
+[ 12/ 30] speed=10 SH  E_COV       seed 12  goal      clr  1.60  t  53.7  inf 128  N 25.9  mpc   8.8 ms  err 2.67  xte 9.43  xmax 19.61  off 0.93  nrj 1
+WORLD SH seed 12 layout hard nleg 3 dyn 0.04 nobj 45
+[ 13/ 30] speed=10 SH  E_COV       seed 13  goal      clr  0.88  t 112.5  inf 118  N 19.6  mpc   6.0 ms  err 2.79  xte 7.13  xmax 23.75  off 0.95  nrj 4
+WORLD SH seed 13 layout hard nleg 1 dyn 0.00 nobj 43
+[ 14/ 30] speed=10 SH  E_COV       seed 14  goal      clr  1.19  t  89.1  inf 171  N 24.2  mpc   8.0 ms  err 3.14  xte 12.47  xmax 23.27  off 0.97  nrj 1
+WORLD SH seed 14 layout hard nleg 1 dyn 0.00 nobj 41
+[ 15/ 30] speed=10 SH  E_COV       seed 15  goal      clr  1.25  t 131.2  inf 173  N 22.3  mpc   7.4 ms  err 2.46  xte 6.31  xmax 20.67  off 0.88  nrj 3
+WORLD SH seed 15 layout hard nleg 3 dyn 0.04 nobj 52
+[ 16/ 30] speed=10 SH  COV_NOCLUT  seed  1  stuck     clr  1.67  t  95.3  inf  77  N 17.3  mpc   5.5 ms  err 1.68  xte 4.16  xmax 14.35  off 0.71  nrj 3
+FAILINFO speed=10 SH COV_NOCLUT seed 1 cls stuck shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 1.04 closing -0.79 nupd 14 seen 20.08 prog10 -0.9 layout hard vdes 10
+[ 17/ 30] speed=10 SH  COV_NOCLUT  seed  2  goal      clr  1.42  t  68.9  inf 150  N 25.7  mpc   8.7 ms  err 2.41  xte 8.01  xmax 20.80  off 0.95  nrj 2
+[ 18/ 30] speed=10 SH  COV_NOCLUT  seed  3  goal      clr  0.78  t 102.3  inf 193  N 25.2  mpc   9.3 ms  err 2.59  xte 11.98  xmax 28.56  off 0.95  nrj 3
+[ 19/ 30] speed=10 SH  COV_NOCLUT  seed  4  goal      clr  1.35  t  66.3  inf 153  N 26.3  mpc   8.8 ms  err 2.42  xte 7.58  xmax 23.79  off 0.86  nrj 4
+[ 20/ 30] speed=10 SH  COV_NOCLUT  seed  5  goal      clr  0.59  t  78.9  inf 140  N 24.7  mpc   8.8 ms  err 2.84  xte 8.53  xmax 24.15  off 0.97  nrj 1
+[ 21/ 30] speed=10 SH  COV_NOCLUT  seed  6  collision clr -0.01  t 101.2  inf 177  N 22.4  mpc   7.9 ms  err 5.06  xte 12.76  xmax 28.65  off 0.98  nrj 1
+FAILINFO speed=10 SH COV_NOCLUT seed 6 cls collision-tracked shape box dyn 0 tracked 1 infov 1 mode 2 speed 7.78 closing 4.13 nupd 2 seen 0.01 prog10 55.1 layout hard vdes 10
+[ 22/ 30] speed=10 SH  COV_NOCLUT  seed  7  goal      clr  1.05  t  85.4  inf 121  N 23.1  mpc   7.8 ms  err 1.93  xte 4.80  xmax 15.49  off 0.88  nrj 4
+[ 23/ 30] speed=10 SH  COV_NOCLUT  seed  8  goal      clr  1.34  t  84.0  inf 180  N 24.3  mpc   8.6 ms  err 2.44  xte 11.10  xmax 25.99  off 0.96  nrj 1
+[ 24/ 30] speed=10 SH  COV_NOCLUT  seed  9  stuck     clr  0.97  t 122.4  inf 203  N 24.8  mpc   9.0 ms  err 2.43  xte 4.61  xmax 17.10  off 0.97  nrj 1
+FAILINFO speed=10 SH COV_NOCLUT seed 9 cls stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 1.06 closing 0.52 nupd 12 seen 0.13 prog10 0.7 layout hard vdes 10
+[ 25/ 30] speed=10 SH  COV_NOCLUT  seed 10  goal      clr  1.35  t  51.0  inf 124  N 25.6  mpc   8.5 ms  err 2.90  xte 6.28  xmax 13.97  off 0.88  nrj 3
+[ 26/ 30] speed=10 SH  COV_NOCLUT  seed 11  goal      clr  0.67  t 120.6  inf 265  N 26.5  mpc  10.2 ms  err 2.76  xte 6.38  xmax 18.68  off 0.98  nrj 1
+[ 27/ 30] speed=10 SH  COV_NOCLUT  seed 12  goal      clr  1.10  t  84.6  inf 172  N 24.0  mpc   8.1 ms  err 1.99  xte 10.07  xmax 26.05  off 0.96  nrj 2
+[ 28/ 30] speed=10 SH  COV_NOCLUT  seed 13  goal      clr  1.01  t  89.7  inf 170  N 25.9  mpc   9.2 ms  err 2.07  xte 5.99  xmax 15.16  off 0.97  nrj 2
+[ 29/ 30] speed=10 SH  COV_NOCLUT  seed 14  goal      clr  1.35  t  57.5  inf 123  N 25.1  mpc   7.9 ms  err 2.61  xte 11.98  xmax 29.38  off 0.96  nrj 3
+[ 30/ 30] speed=10 SH  COV_NOCLUT  seed 15  goal      clr  1.66  t 113.4  inf 115  N 19.5  mpc   6.2 ms  err 1.89  xte 6.42  xmax 17.57  off 0.94  nrj 3
