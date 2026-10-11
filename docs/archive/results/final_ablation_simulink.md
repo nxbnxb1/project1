@@ -1,3 +1,5 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round6.md`](../../results/round6.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Ablation Simulink cuối — 50 seed × 8 biến thể × 3 kịch bản (commit `3438b2b`)
 
 > **Phiên bản cũ của phương pháp (code `3438b2b`):** nhãn instance thật từ ray-caster + ghép theo ID, tham chiếu thẳng tới đích, chỉ vật cản cầu, giới hạn 40 s (cột Timeout). Không áp dụng cho phương pháp hiện tại; kết quả hiện tại: [`random_worlds.md`](random_worlds.md).

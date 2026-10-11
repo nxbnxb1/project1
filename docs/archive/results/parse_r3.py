@@ -1,7 +1,7 @@
 """Round-3 tables: per variant x speed, split by world group using the WORLD lines of the logs
 (dyn > 0 = world with movers). Usage: python3 parse_r3.py 'raw/r3[abcd]_SR_speed_*.log'"""
-import sys, glob, re, collections, statistics as st
-sys.path.insert(0, '/home/user/project1/docs/results')
+import os, sys, glob, re, collections, statistics as st
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'results'))
 from parse_ablation import wilson
 from parse_failures import load, bucket
 files = sorted(glob.glob(sys.argv[1]))

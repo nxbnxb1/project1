@@ -2,8 +2,8 @@
 per scenario x variant x requested speed. Usage: python3 parse_r4.py 'raw/r4*_speed_*.log'
 Columns: runs, goal (95 % Wilson CI), collisions, stuck, median time to goal, median
 inferences per mission (successful runs), mean inferences per second, mean flown speed."""
-import sys, glob, re, collections, statistics as st
-sys.path.insert(0, '/home/user/project1/docs/results')
+import os, sys, glob, re, collections, statistics as st
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'results'))
 from parse_ablation import wilson
 from parse_failures import load, bucket
 files = sorted(glob.glob(sys.argv[1]))

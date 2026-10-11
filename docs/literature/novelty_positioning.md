@@ -1,6 +1,6 @@
 # Định vị tính mới của DART (dựa trên các bài đã đọc toàn văn)
 
-> **Cần cập nhật:** định vị và bằng chứng (Mục 6) dựa trên code `3438b2b` (nhãn thật, tham chiếu thẳng tới đích, chỉ vật cản cầu, giới hạn 40 s). Từ `4499394` phương pháp đã đổi: tự phân đoạn + ghép không định danh, vật cản nhiều hình dạng phủ bằng cầu, quỹ đạo đặt + đoạn vòng có lập kế hoạch, giới hạn tốc độ ra ngoài trường nhìn, yaw nhìn trước, không giới hạn thời gian, siêu tham số κ, thế giới ngẫu nhiên SR. Các thành phần mới chưa được định vị so với tài liệu đã đọc; kết quả hiện tại ở [`../results/random_worlds.md`](../results/random_worlds.md).
+> **Cần cập nhật:** định vị và bằng chứng (Mục 6) dựa trên code `3438b2b` (nhãn thật, tham chiếu thẳng tới đích, chỉ vật cản cầu, giới hạn 40 s). Từ `4499394` phương pháp đã đổi: tự phân đoạn + ghép không định danh, vật cản nhiều hình dạng phủ bằng cầu, quỹ đạo đặt + đoạn vòng có lập kế hoạch, giới hạn tốc độ ra ngoài trường nhìn, yaw nhìn trước, không giới hạn thời gian, siêu tham số κ, thế giới ngẫu nhiên SR. Các thành phần mới chưa được định vị so với tài liệu đã đọc. Kết quả hiện tại: [`../results/round6.md`](../results/round6.md); các kết quả cũ (kể cả bằng chứng của Mục 6) đã chuyển vào [`../archive/results/`](../archive/results/).
 
 Tài liệu này chỉ dựa trên các bài **đã đọc toàn văn**; mã bài (A1, N1, …) trỏ tới [`reading_list.md`](reading_list.md) và ghi chú chi tiết có số trang + trích nguyên văn trong [`notes/`](notes/). Hai bài được đọc hai lần dưới hai mã: N5 ≡ A1 (Falanga et al. RA-L 2019), N2 ≡ A5 (TAPAS), N8 ≡ F8 (self-triggered CBF). Ba bài N13–N15 (D3, Pant et al., Shahsavari et al.) do người dùng cung cấp bản PDF; ngoài agent, Claude đã tự đọc toàn văn cả ba trước khi sửa tài liệu này.
 
@@ -45,7 +45,7 @@ Tài liệu này chỉ dựa trên các bài **đã đọc toàn văn**; mã bà
 * Báo cáo kỹ thuật trực tuyến của Pant et al. (UPenn-ESE-04-19, 2019) — chứa chi tiết xây dựng tập ràng buộc siết; chưa đọc.
 * Các mục "chưa đọc" trong [`reading_list.md`](reading_list.md).
 
-## 6. Đối chiếu với bằng chứng thực nghiệm (code `3438b2b`, xem `docs/results/final_*.md`)
+## 6. Đối chiếu với bằng chứng thực nghiệm (code `3438b2b`, xem `docs/archive/results/final_*.md`)
 
 | Khẳng định | Trạng thái bằng chứng |
 |---|---|

@@ -3,8 +3,10 @@ function cfg = dart_default_config()
 %   cfg = DART_DEFAULT_CONFIG() returns a nested struct with every tunable
 %   parameter. Conventions in code comments: "Eq. n" is the equation
 %   numbering of the ORIGINAL proposal; "method §n" is a section of the
-%   revised method docs/method/DART_method_VI.tex, whose Appendix E maps
-%   its equations and components to the implementing files.
+%   revised method document docs/archive/method/DART_method_VI.tex (written
+%   before the large-obstacle / camera-preset scope; current state:
+%   README.md and docs/results/round6.md), whose Appendix E maps its
+%   equations and components to the implementing files.
 %   Six safety margins below (mpc.beta_s, cbf.alpha, sched.d_s,
 %   cbf.v_blind, cbf.v_blind_lat, ref.margin) are NOMINAL values: the
 %   trade-off hyperparameter tradeoff.kappa rescales them in

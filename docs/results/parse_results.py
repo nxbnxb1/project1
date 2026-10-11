@@ -1,11 +1,11 @@
-"""Round-5 tables (large obstacles, RPi camera presets, physical limits from the quadrotor model).
-Usage: python3 parse_r5.py '<glob of run_ablation logs>'
+"""Result tables of the current benchmark (large obstacles, RPi camera presets, physical limits from
+the quadrotor model; rounds 5-6 and later). Usage: python3 parse_results.py '<glob of sweep logs>'
 Groups runs by scenario x variant x sweep value; 'camspeed=310' is decoded as camera preset 3,
 requested speed 10 m/s. Columns: runs, goal (95 % Wilson CI), collisions, stuck, median time to
 goal, median mean speed, median inferences per mission, mean inferences per second, median
 minimum clearance."""
-import sys, glob, re, collections, statistics as st
-sys.path.insert(0, '/home/user/project1/docs/results')
+import os, sys, glob, re, collections, statistics as st
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from parse_ablation import wilson
 from parse_failures import load, bucket
 CAM = {1: 'v2 62x49', 2: 'cm3 66x41', 3: 'cm3w 102x67', 4: 'cm3w 640x360'}

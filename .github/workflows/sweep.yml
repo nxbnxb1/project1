@@ -1,5 +1,6 @@
-# Sensitivity sweep: one parameter (latency / speed / rate / noise / shift / kappa) over a
-# list of values, several variants and many seeds. One parallel job per
+# Sensitivity sweep: one parameter (speed, camera preset, latency, rate, noise, ...) over a
+# list of values, several variants and many seeds. Current benchmark: scenarios SN / SH,
+# variants E_COV (proposed), FR_SAFE_3, E_DART (docs/results/round6.md). One parallel job per
 # (scenario, value). Launched manually from the Actions tab.
 name: Sweep
 
@@ -7,22 +8,22 @@ on:
   workflow_dispatch:
     inputs:
       param:
-        description: "Swept parameter: latency [s], speed [m/s], rate [Hz], noise (scale) [-], shift (inverse depth) [1/m], kappa (safety <-> time trade-off, 0..1), rmin (smallest obstacle to avoid) [m], fog (visibility) [m]"
+        description: "Swept parameter: speed [m/s], camera (preset 1-4), camspeed (100 x preset + speed), latency [s], rate [Hz], noise (scale) [-], shift (inverse depth) [1/m], kappa (safety <-> time trade-off, 0..1), rmin (smallest obstacle to avoid) [m], fog (visibility) [m]"
         type: choice
         options: [latency, speed, rate, noise, shift, kappa, rmin, fog, camera, camspeed]
-        default: latency
+        default: speed
       values:
         description: "Values (JSON list)"
-        default: "[0.05, 0.10, 0.15, 0.20, 0.25]"
+        default: "[6, 10, 15]"
       scenarios:
         description: "Scenarios (JSON list)"
-        default: '["S1","S2"]'
+        default: '["SN"]'
       variants:
         description: "Variants (comma separated)"
-        default: "A_FR_FN,E_DART,F_NODELAY,G_FR_LOW,FR_SAFE_5,FR_SAFE_10"
+        default: "E_COV,FR_SAFE_3,E_DART"
       seeds:
         description: "Seeds (MATLAB expression)"
-        default: "1:20"
+        default: "1:10"
       engine:
         description: "matlab or simulink"
         type: choice

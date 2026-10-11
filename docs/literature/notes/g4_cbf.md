@@ -239,7 +239,7 @@ Status: NEED-USER-DOWNLOAD
 * The Caltech Authors record (resolver.caltech.edu/CaltechAUTHORS:20170215-165434009) is "metadata-only" with restricted files.
 * An author copy is listed at http://ames.caltech.edu/wang2017safety.pdf, but the host is blocked by this sandbox's egress allowlist ("Host not in allowlist"). magnus.ece.gatech.edu is also unreachable (proxy 502). The Wayback Machine was unreachable (429 / connection reset).
 * No content notes are written for E5.
-* **Note for DART:** the DART method document (`docs/method/DART_method_VI.tex`, line ~336) attributes the braking-distance barrier form to `wang2017` (this T-RO paper). I could NOT verify how the T-RO paper defines it.
+* **Note for DART:** the DART method document (`docs/archive/method/DART_method_VI.tex`, line ~336) attributes the braking-distance barrier form to `wang2017` (this T-RO paper). I could NOT verify how the T-RO paper defines it.
 * The identical form is verified in E5b below (same authors, arXiv:1609.00651, eq. 8, p.3). Either cite E5b for the exact form or have the user download the T-RO paper and check its definition, for example whether it keeps the shared (α_i + α_j) braking or uses a symmetric variant.
 
 ---

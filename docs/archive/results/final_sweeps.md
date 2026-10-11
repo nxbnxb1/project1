@@ -1,3 +1,5 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round6.md`](../../results/round6.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Các lượt quét cuối (commit `3438b2b`, MATLAB engine, 50 seed mỗi ô)
 
 > **Phiên bản cũ của phương pháp (code `3438b2b`):** nhãn thật, tham chiếu thẳng tới đích, chỉ vật cản cầu, giới hạn 40 s, quét tốc độ chưa nới hộp vận tốc 5 m/s. "Oracle" ở đây là tần số cố định tốt nhất, không phải biến thể `O_ORACLE`. Không áp dụng cho phương pháp hiện tại; kết quả hiện tại: [`random_worlds.md`](random_worlds.md).

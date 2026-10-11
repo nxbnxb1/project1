@@ -11,7 +11,7 @@
   * `src/util/dart_qp_solve.m`
   * `src/control/dart_mpc.m` (lines 140–170)
   * `src/config/dart_default_config.m`
-  * `docs/method/DART_method_VI.tex` (lines 328–341, 413)
+  * `docs/archive/method/DART_method_VI.tex` (lines 328–341, 413)
 * Nothing under `/home/user/project1` was modified.
 
 ---

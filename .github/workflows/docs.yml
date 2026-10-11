@@ -1,4 +1,5 @@
-# Build the (Vietnamese) method document with XeLaTeX.
+# Build the (Vietnamese) method document with XeLaTeX. The document describes the method
+# before the large-obstacle / camera-preset scope and is kept in docs/archive/method.
 name: Docs
 
 on:
@@ -17,11 +18,11 @@ jobs:
           sudo apt-get install -y -qq --no-install-recommends texlive-xetex texlive-latex-recommended \
             texlive-latex-extra texlive-lang-other texlive-fonts-recommended fonts-dejavu lmodern
       - name: Build PDF
-        working-directory: docs/method
+        working-directory: docs/archive/method
         run: |
           xelatex -interaction=nonstopmode -halt-on-error DART_method_VI.tex
           xelatex -interaction=nonstopmode -halt-on-error DART_method_VI.tex
       - uses: actions/upload-artifact@v6
         with:
           name: DART-method-pdf
-          path: docs/method/DART_method_VI.pdf
+          path: docs/archive/method/DART_method_VI.pdf

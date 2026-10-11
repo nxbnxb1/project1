@@ -1,3 +1,5 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round6.md`](../../results/round6.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Round 4 — realistic cheap-UAV camera, normal-flight benchmark (commit 7d96e58)
 
 Camera / depth network: 128x96 output, scene rendered on 3x3 sub-rays per pixel and averaged in

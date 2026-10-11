@@ -1,3 +1,5 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round6.md`](../../results/round6.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Random worlds (scenario SR): global failure analysis
 
 Each round: the same 120 random worlds (seeds 1-120) flown at 2, 4, 6, 8 m/s (480 runs, MATLAB engine, variant E_DART). Failures are classified automatically (experiments/dart_failure_info.m) and aggregated with parse_failures.py; only causes that are frequent across strata are fixed.

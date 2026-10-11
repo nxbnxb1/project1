@@ -1,3 +1,5 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round6.md`](../../results/round6.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Ablation đầy đủ — Simulink (7 biến thể × 3 kịch bản × 10 seed = 210 lượt)
 
 > **Lỗi thời (lịch sử):** code `cc7650d`, 10 seed, nhãn thật, tham chiếu thẳng tới đích, giới hạn 40 s; đã bị thay thế bởi `ablation_simulink_s50.md` rồi `final_ablation_simulink.md` (`3438b2b`) và không áp dụng cho phương pháp hiện tại. Giữ lại để đối chiếu.

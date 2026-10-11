@@ -15,10 +15,10 @@ on:
         default: "1:10"
       variants:
         description: "Variants (comma separated) or all"
-        default: "all"
+        default: "E_COV,FR_SAFE_3,E_DART"
       scenarios:
         description: "Scenarios (JSON list)"
-        default: '["S1","S2","S3"]'
+        default: '["SN"]'
 
 jobs:
   run:

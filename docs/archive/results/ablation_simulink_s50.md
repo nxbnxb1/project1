@@ -1,3 +1,5 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round6.md`](../../results/round6.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Ablation Simulink — 50 seed × 8 biến thể × 3 kịch bản (commit `a636d14`)
 
 > **Đã bị thay thế** bởi [`final_ablation_simulink.md`](final_ablation_simulink.md) (code `3438b2b`); cả hai đều trước các thay đổi phương pháp từ `4499394` (tự phân đoạn, quỹ đạo đặt + đoạn vòng, vật cản nhiều hình dạng, giới hạn ra ngoài trường nhìn, không giới hạn thời gian, κ). Giữ lại để đối chiếu.
