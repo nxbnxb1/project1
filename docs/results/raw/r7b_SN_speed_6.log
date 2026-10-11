@@ -1,0 +1,45 @@
+[  1/ 30] speed=6 SN  E_COV       seed 46  goal      clr  1.59  t  57.6  inf  95  N 19.4  mpc   3.9 ms  err 1.63  xte 1.66  xmax 7.10  off 0.40  nrj 5
+WORLD SN seed 46 layout normal nleg 2 dyn 0.00 nobj 21
+[  2/ 30] speed=6 SN  E_COV       seed 47  goal      clr  0.99  t 106.2  inf 152  N 19.8  mpc   5.0 ms  err 1.85  xte 3.66  xmax 8.17  off 0.65  nrj 3
+WORLD SN seed 47 layout normal nleg 2 dyn 0.00 nobj 12
+[  3/ 30] speed=6 SN  E_COV       seed 48  goal      clr  1.17  t  66.9  inf 115  N 19.2  mpc   3.6 ms  err 2.86  xte 3.80  xmax 9.81  off 0.63  nrj 5
+WORLD SN seed 48 layout normal nleg 3 dyn 0.00 nobj 12
+[  4/ 30] speed=6 SN  E_COV       seed 49  goal      clr  1.68  t 121.7  inf 115  N 15.5  mpc   3.0 ms  err 1.65  xte 4.65  xmax 12.47  off 0.77  nrj 3
+WORLD SN seed 49 layout normal nleg 2 dyn 0.00 nobj 14
+[  5/ 30] speed=6 SN  E_COV       seed 50  goal      clr  1.23  t  58.4  inf  82  N 16.0  mpc   2.3 ms  err 2.20  xte 1.64  xmax 6.16  off 0.31  nrj 4
+WORLD SN seed 50 layout normal nleg 2 dyn 0.00 nobj 9
+[  6/ 30] speed=6 SN  E_COV       seed 51  goal      clr  1.26  t  56.9  inf 104  N 19.1  mpc   3.5 ms  err 2.68  xte 1.79  xmax 6.60  off 0.36  nrj 3
+WORLD SN seed 51 layout normal nleg 1 dyn 0.00 nobj 13
+[  7/ 30] speed=6 SN  E_COV       seed 52  goal      clr  1.43  t  63.1  inf 100  N 20.4  mpc   4.0 ms  err 2.78  xte 5.60  xmax 19.13  off 0.57  nrj 4
+WORLD SN seed 52 layout normal nleg 2 dyn 0.00 nobj 18
+[  8/ 30] speed=6 SN  E_COV       seed 53  goal      clr  1.20  t 162.7  inf 355  N 26.0  mpc   7.8 ms  err 1.90  xte 5.73  xmax 26.92  off 0.86  nrj 5
+WORLD SN seed 53 layout normal nleg 2 dyn 0.00 nobj 24
+[  9/ 30] speed=6 SN  E_COV       seed 54  goal      clr  1.55  t  95.6  inf 185  N 23.5  mpc   5.8 ms  err 2.05  xte 4.03  xmax 9.40  off 0.63  nrj 3
+WORLD SN seed 54 layout normal nleg 1 dyn 0.00 nobj 15
+[ 10/ 30] speed=6 SN  E_COV       seed 55  goal      clr  1.78  t  56.9  inf  67  N 16.4  mpc   2.4 ms  err 3.79  xte 1.79  xmax 6.17  off 0.30  nrj 3
+WORLD SN seed 55 layout normal nleg 3 dyn 0.00 nobj 7
+[ 11/ 30] speed=6 SN  E_COV       seed 56  goal      clr  0.74  t  76.5  inf 148  N 21.0  mpc   4.6 ms  err 2.08  xte 7.30  xmax 24.70  off 0.67  nrj 3
+WORLD SN seed 56 layout normal nleg 3 dyn 0.00 nobj 28
+[ 12/ 30] speed=6 SN  E_COV       seed 57  goal      clr  1.16  t  72.2  inf 123  N 20.9  mpc   4.6 ms  err 3.27  xte 5.90  xmax 16.69  off 0.58  nrj 4
+WORLD SN seed 57 layout normal nleg 2 dyn 0.00 nobj 25
+[ 13/ 30] speed=6 SN  E_COV       seed 58  goal      clr  0.95  t  69.5  inf 122  N 20.2  mpc   4.3 ms  err 3.54  xte 5.22  xmax 14.11  off 0.65  nrj 4
+WORLD SN seed 58 layout normal nleg 1 dyn 0.00 nobj 18
+[ 14/ 30] speed=6 SN  E_COV       seed 59  goal      clr  0.99  t  56.4  inf  82  N 17.9  mpc   3.0 ms  err 1.82  xte 0.66  xmax 2.86  off 0.20  nrj 4
+WORLD SN seed 59 layout normal nleg 3 dyn 0.00 nobj 18
+[ 15/ 30] speed=6 SN  E_COV       seed 60  goal      clr  1.43  t 122.0  inf 240  N 23.4  mpc   6.2 ms  err 2.76  xte 6.08  xmax 15.21  off 0.78  nrj 5
+WORLD SN seed 60 layout normal nleg 2 dyn 0.00 nobj 21
+[ 16/ 30] speed=6 SN  COV_NOCLUT  seed 46  goal      clr  0.97  t  60.2  inf  94  N 20.3  mpc   3.7 ms  err 1.73  xte 3.61  xmax 12.14  off 0.47  nrj 5
+[ 17/ 30] speed=6 SN  COV_NOCLUT  seed 47  goal      clr  1.01  t  68.2  inf 105  N 18.3  mpc   3.4 ms  err 2.00  xte 5.14  xmax 14.65  off 0.50  nrj 3
+[ 18/ 30] speed=6 SN  COV_NOCLUT  seed 48  goal      clr  1.17  t  62.6  inf 103  N 18.9  mpc   3.3 ms  err 3.12  xte 3.30  xmax 9.47  off 0.61  nrj 6
+[ 19/ 30] speed=6 SN  COV_NOCLUT  seed 49  goal      clr  1.03  t 109.6  inf 103  N 16.3  mpc   3.0 ms  err 3.01  xte 6.68  xmax 21.29  off 0.73  nrj 4
+[ 20/ 30] speed=6 SN  COV_NOCLUT  seed 50  goal      clr  0.98  t  58.0  inf  80  N 16.6  mpc   2.7 ms  err 2.38  xte 1.65  xmax 6.18  off 0.34  nrj 4
+[ 21/ 30] speed=6 SN  COV_NOCLUT  seed 51  goal      clr  1.55  t  56.9  inf 108  N 19.2  mpc   3.4 ms  err 2.30  xte 1.87  xmax 6.60  off 0.38  nrj 3
+[ 22/ 30] speed=6 SN  COV_NOCLUT  seed 52  goal      clr  1.58  t  59.6  inf 102  N 20.0  mpc   3.9 ms  err 2.56  xte 3.58  xmax 10.50  off 0.54  nrj 3
+[ 23/ 30] speed=6 SN  COV_NOCLUT  seed 53  goal      clr  1.11  t 111.0  inf 138  N 17.5  mpc   3.8 ms  err 3.08  xte 3.89  xmax 14.89  off 0.72  nrj 4
+[ 24/ 30] speed=6 SN  COV_NOCLUT  seed 54  goal      clr  0.15  t 114.3  inf 144  N 19.1  mpc   4.4 ms  err 2.50  xte 5.04  xmax 16.19  off 0.72  nrj 2
+[ 25/ 30] speed=6 SN  COV_NOCLUT  seed 55  goal      clr  1.52  t  68.6  inf  81  N 17.2  mpc   3.0 ms  err 3.08  xte 1.91  xmax 6.17  off 0.42  nrj 3
+[ 26/ 30] speed=6 SN  COV_NOCLUT  seed 56  goal      clr  1.39  t  67.6  inf 124  N 21.4  mpc   4.3 ms  err 1.90  xte 6.69  xmax 20.13  off 0.65  nrj 3
+[ 27/ 30] speed=6 SN  COV_NOCLUT  seed 57  goal      clr  1.23  t  67.0  inf 111  N 21.6  mpc   4.6 ms  err 3.00  xte 6.78  xmax 19.90  off 0.61  nrj 3
+[ 28/ 30] speed=6 SN  COV_NOCLUT  seed 58  goal      clr  1.28  t  73.0  inf 124  N 20.2  mpc   4.2 ms  err 3.63  xte 4.26  xmax 15.18  off 0.65  nrj 4
+[ 29/ 30] speed=6 SN  COV_NOCLUT  seed 59  goal      clr  1.09  t  54.3  inf  78  N 17.6  mpc   3.1 ms  err 2.29  xte 1.34  xmax 5.86  off 0.21  nrj 4
+[ 30/ 30] speed=6 SN  COV_NOCLUT  seed 60  goal      clr  1.51  t  94.8  inf 163  N 20.0  mpc   4.8 ms  err 3.14  xte 5.19  xmax 20.70  off 0.73  nrj 5
