@@ -69,6 +69,33 @@ for sc in sorted({k[0] for k in R}):
                 for a in ['cls', 'shape', 'dyn', 'infov', 'mode', 'speed', 'layout']))
     print()
 
+# pooled camera summary: camspeed rows (presets 1, 2, 4) plus the speed rows of the same variants
+# (default camera = preset 3), pooled over the requested speeds
+camsc = sorted({k[0] for k in R if k[2] == 'camspeed'})
+if camsc:
+    print('### Camera summary (pooled over requested speeds; preset 3 = the speed rows)\n')
+    print('| scenario | variant | camera | n | goal | collision | stuck | inferences per mission (goal), median '
+          '| time to goal, median [s] |')
+    print('|---|---|---|---|---|---|---|---|---|')
+    for sc in camsc:
+        vs = sorted({k[1] for k in R if k[0] == sc and k[2] == 'camspeed'}, key=lambda v: order.index(v) if v in order else 99)
+        sp = sorted({int(k[3] % 100) for k in R if k[0] == sc and k[2] == 'camspeed'})
+        for v in vs:
+            for cam in (1, 2, 3, 4):
+                if cam == 3:
+                    ks = [k for k in R if k[0] == sc and k[1] == v and k[2] == 'speed' and int(k[3]) in sp]
+                else:
+                    ks = [k for k in R if k[0] == sc and k[1] == v and k[2] == 'camspeed' and int(k[3] // 100) == cam]
+                if not ks:
+                    continue
+                c = collections.Counter(R[k]['out'] for k in ks)
+                gk = [k for k in ks if R[k]['out'] == 'goal']
+                im = st.median(R[k]['inf'] for k in gk) if gk else float('nan')
+                tg = st.median(R[k]['t'] for k in gk) if gk else float('nan')
+                print(f"| {sc} | {v} | {CAM[cam]} | {len(ks)} | {c['goal']} | {c['collision']} | {c['stuck']} "
+                      f"| {im:.0f} | {tg:.1f} |")
+    print()
+
 if DN:
     BINS = ['0', '1-2', '3-5', '>=6']
     print('### Speed and perception rate by local obstacle density (objects within 15 m)\n')
