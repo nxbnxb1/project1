@@ -121,6 +121,23 @@ Flown speed and perception rate binned by the number of distinct objects within 
 | COV_NOCLUT, 1 | 9.9 m/s, 1.4 frames/s | 8.1 m/s, 1.6 frames/s | 6.7 m/s, 1.7 frames/s |
 | COV_NOCLUT, 2 | 8.5 m/s, 1.0 frames/s | 10.0 m/s, 1.8 frames/s | 7.6 m/s, 2.6 frames/s |
 
+### Check of the clutter speed limit on new worlds (SN seeds 31-60)
+
+E_COV (clutter speed limit on) against COV_NOCLUT (off), 30 new worlds per speed. CI runs
+38105342423, 38105343772; `python3 parse_r5.py 'raw/r7*_*.log'`.
+
+| variant | setting | n | goal [95% CI] | collision | stuck | time to goal, median [s] | inferences per mission (goal), median | inferences / s | min clearance, median [m] |
+|---|---|---|---|---|---|---|---|---|---|
+| E_COV | speed=6 | 30 | 28 (93% [79, 98]) | 0 | 2 | 65.0 | 103 | 1.47 | 1.36 |
+| E_COV | speed=10 | 30 | 29 (97% [83, 99]) | 0 | 1 | 44.1 | 75 | 1.61 | 1.56 |
+| E_COV | speed=15 | 30 | 30 (100% [89, 100]) | 0 | 0 | 41.4 | 75 | 1.86 | 1.71 |
+| COV_NOCLUT | speed=6 | 30 | 29 (97% [83, 99]) | 0 | 1 | 67.8 | 103 | 1.35 | 1.30 |
+| COV_NOCLUT | speed=10 | 30 | 30 (100% [89, 100]) | 0 | 0 | 43.8 | 78 | 1.64 | 1.68 |
+| COV_NOCLUT | speed=15 | 30 | 30 (100% [89, 100]) | 0 | 0 | 40.0 | 76 | 1.87 | 1.73 |
+
+Together with the table above (seeds 1-30), 180 runs per variant: E_COV 1 collision, 8 stuck;
+COV_NOCLUT 0 collisions, 3 stuck. (A matching check on SH, CI run 38105345554, is not included.)
+
 ### Findings
 
 1. **The coverage scheduler is now safe.** SN: 1 collision in 90 runs (FR_SAFE_3: 0, E_DART: 1),
@@ -136,7 +153,8 @@ Flown speed and perception rate binned by the number of distinct objects within 
    at < 1 m/s), in different worlds: a local minimum of the local planner. Not significant between
    E_COV and FR_SAFE_3 (p = 0.21). Recorded, not optimised (rare, local).
 4. **The explicit clutter speed limit adds nothing measurable** with the coverage scheduler:
-   COV_NOCLUT 0 collisions, 2 stuck, slightly faster. The speed adapts to the density anyway
+   over 180 SN runs each (seeds 1-60), COV_NOCLUT 0 collisions and 3 stuck against 1 and 8 with
+   the limit, at the same time to goal and the same number of inferences. The speed adapts to the density anyway
    (table above: ~9-10 m/s with no object within 15 m, ~7-8 m/s with 3-5): the braking CBF and the
    coverage test already slow the vehicle where the free space ahead is short.
 5. **Requested 15 m/s is not reached on average**: median time to goal 37 s on a 300 m route
