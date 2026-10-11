@@ -80,10 +80,11 @@ cfg.cam.R_BC  = [cos(cfg.cam.uptilt) 0 -sin(cfg.cam.uptilt); 0 1 0; sin(cfg.cam.
 cfg.cam.min_px = 12;                 % minimum segment size [px] (large objects only: r >= 1 m at 40 m covers ~75 px)
 cfg.cam.r_chunk = 2.0;               % segments wider than r_chunk + r_chunk_slope * range (lateral
 cfg.cam.r_chunk_slope = 0.1;         %   half-extent) are split [m, m/m]: coarse far away, finer when close
-cfg.cam.cover_q = 0.9;               % the sphere covers this quantile of the segment's surface points
+cfg.cam.cover_q = 0.9;               % the cylinder covers this quantile of the segment's points (horizontal distance)
 % detection range (>= 90 % of frames) of an obstacle of a given radius for THIS camera, depth
 % network and segmentation, measured by experiments/dart_eval_detection_range.m:
-% [sphere radius [m], range [m]] (RPi Camera Module 3 Wide model, 320x180 network output)
+% [radius of a test sphere [m], range [m]] (RPi Camera Module 3 Wide model, 320x180 network output;
+% measured with experiments/dart_eval_detection_range.m before the cylinder model, same segmentation)
 cfg.cam.det_table = [0.5 10.0; 1.0 30.0; 2.0 35.0; 3.0 40.0];   % spheres (blobs), wide camera, final segmentation
 
 % ----------------------------------------- monocular depth network (synthetic)
@@ -141,9 +142,9 @@ cfg.trk.oracle_assoc = false;        % true: slot = ray-caster instance id (need
 cfg.trk.n_confirm  = 2;              % a track with fewer updates is tentative (deleted at its first miss)
 cfg.trk.n_miss     = 3;              % consecutive misses (expected in view, not detected) before deletion
 cfg.trk.rho_alpha  = 0.3;            % EWMA factor of the radius estimate
-cfg.trk.contain_tol = 0.25;          % an unassigned detection inside an existing track sphere (up to this
+cfg.trk.contain_tol = 0.25;          % an unassigned detection inside an existing track cylinder (up to this
 %                                     fraction of its radius) is redundant and creates no track
-cfg.trk.max_tracks = 256;          % local obstacle memory (large objects are covered by several spheres)
+cfg.trk.max_tracks = 256;          % local obstacle memory (large objects are covered by several cylinders)
 cfg.trk.delay_comp = true;           % update at capture time (Eq. 23-27)
 
 % --------------------------------------- safety-driven scheduler (method §8)

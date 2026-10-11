@@ -1,4 +1,4 @@
-> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round7.md`](../../results/round7.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/results.md`](../../results/results.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
 
 # Ablation Simulink — 50 seed × 8 biến thể × 3 kịch bản (commit `a636d14`)
 

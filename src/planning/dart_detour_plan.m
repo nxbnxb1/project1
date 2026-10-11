@@ -8,7 +8,7 @@ function [W, ok] = dart_detour_plan(p0, q, ob, cfg)
 %   visibility graph {p0, vertices, q} gives the shortest path, i.e. the
 %   fastest way back to the set path at cruise speed. Discs that contain
 %   p0 or q are ignored for the edges at that end (the vehicle may already
-%   be inside an inflated sphere; the MPC and the CBF handle it).
+%   be inside an inflated obstacle; the MPC and the CBF handle it).
 %   W  3 x K waypoints (W(:,1) = first waypoint after p0, W(:,end) = q);
 %   ok false when no path exists (W = q: straight line).
 rf = cfg.ref;

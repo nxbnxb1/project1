@@ -1,4 +1,4 @@
-> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/round7.md`](../../results/round7.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/results.md`](../../results/results.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
 
 # Round 6 — large obstacles, RPi cameras, coverage scheduler with ray-carved free space (commit 4a1fcfa)
 

@@ -1,10 +1,12 @@
+> **LƯU TRỮ — không áp dụng cho phương pháp hiện tại.** Kết quả hiện tại: [`docs/results/results.md`](../../results/results.md). Vì sao tài liệu này lỗi thời: [`docs/archive/README.md`](../README.md).
+
 # Round 7 — synchronized test grid (commit 95e551f)
 
 **Current results.** One grid for every case: the same worlds, requested speeds and variants, all
 runs on one commit. The algorithm is the one of round 6 (commit 4a1fcfa: coverage scheduler with
 ray-carved free space and a 3 Hz budget); 95e551f only adds the per-run density profile (DENS lines,
 `experiments/dart_density_profile.m`). Round 6 and the first clutter-limit checks are archived in
-[`../archive/results/round6.md`](../archive/results/round6.md); they agree with this round.
+[`round6.md`](round6.md); they agree with this round.
 
 Scope and benchmark: large static obstacles only (trees with low canopies, bushes, buildings,
 vehicles / containers, rocks); physical limits from the quadrotor model (T/W 2.4, thrust reserve
@@ -32,8 +34,8 @@ the same safety layers; E_DART the risk-adaptive scheduler.
 
 CI runs: 38107567934, 38107571259, 38107574445 (SN), 38107577670, 38107580521, 38107583318 (SH),
 38107586127, 38107588967 (camera SN), 38107591575, 38107594285 (camera SH). Raw logs: `raw/r8*`.
-Tables: `python3 parse_results.py 'raw/r8[abc]_*.log'` (SN), `'raw/r8h[123]_*.log'` (SH),
-`'raw/r8*_*.log'` (camera summary), `'raw/r8c[sh]*_*.log'` (camera details). Significance:
+Tables (from `docs/archive/results`): `python3 ../../results/parse_results.py 'raw/r8[abc]_*.log'` (SN),
+`'raw/r8h[123]_*.log'` (SH), `'raw/r8*_*.log'` (camera summary), `'raw/r8c[sh]*_*.log'` (camera details). Significance:
 two-sided Fisher exact test.
 
 ## Main grid

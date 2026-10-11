@@ -116,8 +116,8 @@ elseif strcmp(sc.mode, 'coverage')
     % known static obstacles are not re-imaged because they are close
     % (cov_events = true restores the distance event); the information-gain
     % gated uncertainty event is kept: an obstacle first seen far away keeps
-    % a large covariance (inflated sphere) until it is measured again from
-    % closer, and without that measurement the inflated spheres can close
+    % a large covariance (inflated cylinder) until it is measured again from
+    % closer, and without that measurement the inflated cylinders can close
     % the gaps of a cluster for good
     ev_dist = sc.cov_events && any(vis & (rk.dc <= sc.d_trig));
     ev_sig = sigma_event(ob, rk, vis, cfg);

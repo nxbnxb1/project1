@@ -18,7 +18,7 @@ for k = 1:numel(ids)
     c = x(1:3);
     d = max(norm(c - p), 1e-6);
     % still (partly) visible: centre inside the frustum enlarged by the
-    % sphere's angular radius
+    % obstacle's angular radius
     if dart_in_fov(c, p, R_IB, cfg, -asin(min(trk.rho(i) / d, 0.99)))
         continue
     end

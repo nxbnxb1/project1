@@ -3,7 +3,7 @@ function [C, r] = dart_detour_discs(p0, q, ob, cfg)
 %   Radius d_k = rho_k + d_s + ref.margin + |v_k| ref.T_move: the body
 %   clearance plus an allowance for the motion of dynamic obstacles, but
 %   WITHOUT the uncertainty inflation beta_s sigma_k. The plan is made at
-%   long range, where sigma is large and the inflated spheres would close
+%   long range, where sigma is large and the inflated cylinders would close
 %   every gap of a cluster (the vehicle would be sent around the whole
 %   cluster); sigma shrinks as the vehicle approaches, and the MPC and CBF
 %   enforce the uncertainty-inflated constraints. Obstacles are vertical

@@ -3,7 +3,9 @@ function sol = dart_mpc(p0, v0, u_prev, goal, ob, rk, N, tinfo, v_cap, prev, t, 
 %
 %   Double-integrator prediction (Eq. 65), condensed into a dense QP in the
 %   stacked accelerations U. Obstacle constraints use a tangent half-space
-%   of the inflated sphere (Eq. 82-85 revised):
+%   of the inflated obstacle (Eq. 82-85 revised); each obstacle is a vertical
+%   cylinder, linearised at every predicted point by its locally equivalent
+%   sphere (DART_OBSTACLES_LOCAL):
 %       g_ij = n_ij' (p_j - c_ij) - d_eff,ij ,   ||n_ij|| = 1
 %   which is linear in U and sufficient for ||p_j - c_ij|| >= d_eff,ij for
 %   ANY unit n_ij. n_ij is taken at the previous solution (recursive

@@ -6,7 +6,7 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
 
 | | |
 |---|---|
-| **Kết quả hiện tại** | [`docs/results/round7.md`](docs/results/round7.md): lưới thử nghiệm đồng bộ, 3240 lượt (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
+| **Kết quả hiện tại** | [`docs/results/results.md`](docs/results/results.md): lưới chốt (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
 | Tài liệu và kết quả cũ | [`docs/archive/`](docs/archive/README.md): tài liệu phương pháp LaTeX (bản 3), kết quả các vòng trước. **Không áp dụng cho phiên bản hiện tại** |
 | Mô hình Simulink | sinh từ mã bởi [`simulink/dart_build_model.m`](simulink/dart_build_model.m) → `dart_closed_loop.slx` |
 | Chạy trên cloud | tab **Actions** của repo: `CI`, `Experiments`, `Sweep`, `Debug case`, `Docs` |
@@ -24,7 +24,7 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
 * Không giới hạn thời gian. Một lượt chỉ dừng khi về đích, va chạm, hoặc kẹt (không tiến thêm 1 m dọc quỹ đạo
   trong 60 s).
 
-## 2. Phương pháp (phiên bản hiện tại)
+## 2. Phương pháp (phiên bản chốt, commit `2a536b1`)
 
 1. **Camera và mạng depth mô phỏng theo phần cứng thật** ([`dart_camera_preset.m`](src/config/dart_camera_preset.m),
    [`dart_depth_network.m`](src/perception/dart_depth_network.m)). Có bốn preset camera Raspberry Pi; mặc định là
@@ -32,39 +32,48 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
    trung bình theo diện tích pixel. Ảnh càng xa càng mờ (blur theo khoảng cách), có thêm mờ chuyển động, sai số tỉ lệ
    và dịch chuyển theo từng khung, trường sai số tương quan, nhiễu pixel, ngoại lai và sương mù (tuỳ chọn).
    Tầm phát hiện đo được (≥ 90 % khung, vật bán kính 1 m) là 30 m, dùng R_eff = 26 m.
-2. **Không có "đáp án"**: UAV chỉ nhận ảnh depth của mạng. Nó **tự phân đoạn** vật cản (vùng depth liên thông, lọc
-   pixel bay và mép), phủ mỗi vùng bằng một hoặc nhiều hình cầu, rồi **ghép track không cần định danh**.
-   Track là **mốc tĩnh**. Track ra khỏi trường nhìn được giữ làm **bộ nhớ trong 10 m**.
-3. **Bù trễ**: mỗi ảnh gắn thời điểm chụp `t_c`; phép đo được chuyển sang khung quán tính bằng pose tại `t_c` và cập
-   nhật Kalman tại `t_c`.
-4. **Lập lịch perception "coverage"** (biến thể `E_COV`, phương pháp đề xuất,
+2. **Vật cản là hình trụ đứng** ([`dart_extract_obstacles.m`](src/perception/dart_extract_obstacles.m),
+   [`dart_cyl_dist.m`](src/util/dart_cyl_dist.m)). UAV chỉ nhận ảnh depth của mạng, **tự phân đoạn** vật cản (vùng depth
+   liên thông, lọc pixel bay và mép), rồi phủ mỗi vùng bằng một hoặc nhiều hình trụ đứng:
+   * trục và bán kính ngang lấy từ cung nhìn thấy trong mặt phẳng ngang (phương thẳng đứng lấy từ tư thế lúc chụp, tức
+     hướng trọng lực của IMU); vật rộng (tường, dãy nhà) được chia thành nhiều hình trụ;
+   * đáy và đỉnh là điểm thấp nhất / cao nhất đo được. Nếu đáy (đỉnh) chạm mép ảnh hoặc bị một vật gần hơn che, đầu đó
+     coi như **chưa thấy**: hình trụ kéo xuống đất (lên cao) cho tới khi nhìn thấy đầu đó.
+   Nhờ vậy xe thấp và tán cây cao không còn chắn độ cao bay như khi dùng hình cầu bao trùm.
+3. **Bộ nhớ vật cản** ([`dart_tracks_process_msg.m`](src/estimation/dart_tracks_process_msg.m)): ghép track không cần định
+   danh, mỗi track là một **mốc tĩnh** cập nhật Kalman tại **đúng thời điểm chụp** (bù trễ). Bán kính, đáy, đỉnh được
+   làm mượt qua các lần đo. Track ra khỏi trường nhìn được nhớ trong **10 m**.
+4. **Khoảng cách tới hình trụ** dùng chung cho mọi khối: lớp an toàn phanh (CBF 100 Hz), các đại lượng rủi ro, bộ lập lịch
+   và giới hạn tốc độ dùng "hình cầu tương đương cục bộ" tại vị trí UAV, cho đúng khoảng cách và pháp tuyến của hình trụ
+   ([`dart_obstacles_local.m`](src/estimation/dart_obstacles_local.m)); MPC tuyến tính hoá hình trụ tại từng điểm dự đoán;
+   đường vòng và phát hiện đường bị chặn tính trực tiếp trên hình trụ (vật thấp hơn độ cao bay có thể bay qua).
+5. **Lập lịch perception "coverage"** (biến thể `E_COV`, phương pháp đề xuất,
    [`dart_scheduler.m`](src/scheduling/dart_scheduler.m)). Chỉ chụp khi đoạn quỹ đạo dự kiến phía trước, tới quãng
-   cần để dừng sau kết quả kế tiếp, **chưa nằm trong vùng trống đã quan sát**. Vùng trống được tính kiểu "khắc tia":
-   mỗi kết quả gửi kèm lưới depth thô 18×32, và một điểm chỉ được coi là trống nếu nằm trước bề mặt đầu tiên camera đo
-   được qua ô đó ([`dart_depth_grid.m`](src/perception/dart_depth_grid.m),
-   [`dart_scheduler_observed.m`](src/scheduling/dart_scheduler_observed.m)). Vùng bị vật cản che không được tính là
-   đã thấy. Bộ lập lịch còn kích hoạt khi bất định của một vật gần quá lớn, hoặc khi đang trên hướng va chạm.
-   Tối đa `f_budget` = 3 khung/giây (ngân sách tính toán).
-   Hai chế độ khác để so sánh: `adaptive` (`E_DART`, khoảng quét theo rủi ro) và `fixed` (`FR_SAFE_f`, f Hz).
-5. **Giới hạn tốc độ** ([`dart_derive_limits.m`](src/config/dart_derive_limits.m)):
+   cần để dừng sau kết quả kế tiếp, **chưa nằm trong vùng trống đã quan sát** (vùng trống "khắc tia": lưới depth thô
+   18×32 gửi kèm mỗi kết quả; điểm sau bề mặt đo được không tính là đã thấy). Chụp thêm khi bất định của một vật gần quá
+   lớn, khi đang trên hướng va chạm, và **chụp liên tục khi UAV gần như đứng yên** (|v| < 1 m/s), để các vật quanh nó được
+   đo lại từ gần.
+6. **Tần số quét tối đa `f_max` là trần cứng** cho mọi bộ lập lịch và mọi sự kiện (kể cả khẩn cấp): không bao giờ quá
+   `f_max` khung/giây. Mặc định 3 Hz; lưới chốt quét 0.5–5 Hz. Hai bộ lập lịch so sánh: `FR_SAFE` (chụp đều đúng
+   `f_max`) và `E_DART` (thích nghi theo rủi ro, cũng bị chặn bởi `f_max`).
+7. **Giới hạn tốc độ** ([`dart_derive_limits.m`](src/config/dart_derive_limits.m)):
    * vật lý: T/W 2.4, dự trữ lực đẩy 40 % → nghiêng tối đa 46°, phanh 6.2 m/s², tốc độ giới hạn bởi cản 16.7 m/s,
      v_max = 15 m/s; với camera hẹp, v_max còn bị giới hạn để đường bay không rời khỏi ảnh khi UAV chúi mũi;
-   * theo tầm nhìn: v·T_r + v²/(2a_b) + d_s ≤ R_eff, với T_r là chu kỳ ngân sách cộng độ trễ
+   * theo tầm nhìn: v·T_r + v²/(2a_b) + d_s ≤ R_eff, T_r = max(1/f_max, độ trễ) + độ trễ
      ([`dart_perception_speed.m`](src/scheduling/dart_perception_speed.m));
-   * theo mật độ vật cản: [`dart_clutter_speed.m`](src/control/dart_clutter_speed.m), bật mặc định. Khi bay thường
-     nó không tạo khác biệt đo được; ở kịch bản dày đặc nó giảm va chạm (xem Mục 5).
-6. **MPC horizon thích nghi + quỹ đạo đặt / đoạn quay về**: UAV bám quỹ đạo đặt. Khi phía trước bị chặn, tham chiếu
-   là đường ngắn nhất không va chạm tới điểm sớm nhất sau đoạn bị chặn, và trong lúc đó không phạt sai lệch.
-7. **Lớp an toàn braking-CBF** ở 100 Hz, có độ phồng theo bất định.
-8. **Siêu tham số κ ∈ [0, 1]** đánh đổi an toàn ↔ thời gian (0.5 mặc định).
+   * theo mật độ vật cản ([`dart_clutter_speed.m`](src/control/dart_clutter_speed.m), bật mặc định): tốc độ tiếp cận mỗi vật
+     trong hành lang bay phải phanh kịp.
+8. **MPC horizon thích nghi + quỹ đạo đặt / đoạn quay về**: UAV bám quỹ đạo đặt; khi phía trước bị chặn, tham chiếu là
+   đường ngắn nhất không va chạm tới điểm sớm nhất sau đoạn bị chặn, trong lúc đó không phạt sai lệch.
+9. **Siêu tham số κ ∈ [0, 1]** đánh đổi an toàn ↔ thời gian (0.5 mặc định).
 
 ```mermaid
 flowchart LR
   CAM["Camera (preset RPi)"] -->|t_c| AI["Depth AI<br/>(chậm, trễ, mờ theo khoảng cách)"]
-  AI -->|t_a = t_c + tau| EX["Tự phân đoạn + cầu phủ"]
+  AI -->|t_a = t_c + tau| EX["Tự phân đoạn + hình trụ đứng<br/>(đáy / đỉnh, đầu chưa thấy)"]
   AI -->|lưới depth 18x32| SCH
   EX --> KF["Ghép không định danh<br/>Kalman tại t_c, bộ nhớ 10 m"]
-  KF --> SCH["Scheduler coverage<br/>vùng trống đã quan sát, ≤ 3 Hz"]
+  KF --> SCH["Scheduler coverage<br/>vùng trống đã quan sát, chụp khi đứng,<br/>trần f_max"]
   SCH -->|trigger| CAM
   KF --> MPC["Adaptive-horizon MPC 20 Hz<br/>quỹ đạo đặt / đoạn quay về<br/>giới hạn tốc độ"]
   MPC -->|a_ref| CBF["CBF safety filter<br/>100 Hz"]
@@ -77,7 +86,7 @@ flowchart LR
 
 Quy ước trong chú thích mã nguồn: "Eq. n" là số phương trình của bản đề xuất gốc. "method §n" là mục của tài liệu
 phương pháp bản 3, nay nằm ở [`docs/archive/method/`](docs/archive/method/); tài liệu đó viết **trước** các thay đổi ở
-mục 1, 4, 5 phía trên.
+mục 1, 2, 4, 5, 6, 7 phía trên. Mô tả của phiên bản chốt là mục này cùng chú thích trong mã.
 
 ## 3. Chạy trên cloud (GitHub Actions)
 
@@ -104,22 +113,21 @@ GitHub Actions cài MATLAB/Simulink qua [`matlab-actions/setup-matlab`](https://
 Khi chưa có license, job MATLAB của **CI** được **bỏ qua kèm cảnh báo**, còn job Octave vẫn chạy và kiểm tra toàn bộ
 thuật toán. Các workflow Experiments / Sweep / Debug case không có bước kiểm tra này: thiếu license thì chúng thất bại.
 
-### 3.2. Chạy lại bộ thử nghiệm hiện tại
+### 3.2. Chạy lại lưới chốt
 
-Lưới đồng bộ của [`round7.md`](docs/results/round7.md): mọi trường hợp cùng thế giới, cùng tốc độ yêu cầu và cùng
-phương án. *Actions → Sweep → Run workflow*, `param` và `values` như bảng, `engine = matlab`; seed được chia thành
-nhiều lần chạy để song song:
+Mọi trường hợp dùng cùng thế giới, cùng tốc độ yêu cầu 6 / 10 / 15 m/s và cùng phương án. *Actions → Sweep → Run
+workflow*, `engine = matlab`; mỗi dòng của cột `seeds` là một lần chạy (chạy song song):
 
-| Phần | `param` | `values` | `scenarios` | `variants` | `seeds` (mỗi dòng một lần chạy) |
+| Phần | `param` | `values` | `scenarios` | `variants` | `seeds` |
 |---|---|---|---|---|---|
-| Bay thường | `speed` | `[6, 10, 15]` | `["SN"]` | `E_COV,COVB1,COV_NOCLUT,FR_SAFE_3,FR_SAFE_1,E_DART` | `1:20`, `21:40`, `41:60` |
-| Kịch bản khó | `speed` | `[6, 10, 15]` | `["SH"]` | như trên | `1:10`, `11:20`, `21:30` |
-| Camera, bay thường | `camspeed` | `[106, 110, 115, 206, 210, 215, 406, 410, 415]` | `["SN"]` | `E_COV,FR_SAFE_3` | `1:30`, `31:60` |
-| Camera, kịch bản khó | `camspeed` | như trên | `["SH"]` | `E_COV,FR_SAFE_3` | `1:15`, `16:30` |
+| Quét tần số tối đa | `speedrate` | 30 giá trị: 100 × tốc độ + 10 × tần số, tốc độ 6 / 10 / 15, tần số 0.5…5 Hz (`[605, 610, …, 650, 1005, …, 1550]`) | `["SN"]`, `["SH"]`, `["SE"]` | `E_COV,FR_SAFE,E_DART` | SN `1:20`, `21:40`, `41:60`; SH `1:10`, `11:20`, `21:30`; SE `1:30` |
+| Bỏ giới hạn tốc độ theo mật độ (3 Hz) | `speedrate` | `[630, 1030, 1530]` | từng kịch bản | `COV_NOCLUT` | SN `1:60`; SH `1:30`; SE `1:30` |
+| So sánh camera (3 Hz) | `camspeed` | `[106, 110, 115, 206, 210, 215, 406, 410, 415]` | từng kịch bản | `E_COV,FR_SAFE` | SN `1:30`, `31:60`; SH `1:15`, `16:30`; SE `1:30` |
 
-`camspeed` = 100 × preset camera + tốc độ yêu cầu (406 = Camera Module 3 Wide 640×360 ở 6 m/s); camera mặc định
-(preset 3) lấy từ hai phần đầu. Mỗi lượt in thêm một dòng `DENS` (thời gian, quãng bay, số khung theo số vật trong
-15 m). Tải log (bước *Run sweep point* của mỗi job) và lập bảng: `python3 docs/results/parse_results.py '<log>'`.
+`speedrate` 1025 = 10 m/s, trần 2.5 Hz; `camspeed` 406 = preset camera 4 (Module 3 Wide 640×360) ở 6 m/s; camera mặc
+định (preset 3) lấy từ phần quét tần số ở 3 Hz. Mỗi lượt in một dòng kết quả (kèm `gap` = khoảng cách nhỏ nhất giữa hai
+lần chụp) và một dòng `DENS` (thời gian, quãng bay, số khung theo số vật trong 15 m). Tải log (bước *Run sweep point*
+của mỗi job) và lập bảng: `python3 docs/results/parse_results.py '<log>'`.
 
 ## 4. Kịch bản và biến thể
 
@@ -127,91 +135,40 @@ nhiều lần chạy để song song:
 |---|---|
 | **SN** (bay thường) | tuyến 300 m (1–3 đoạn, độ cao 2–3.5 m) cắt thành các vùng 40–80 m: 35 % trống, 40 % thưa (1–3 vật, một nửa sát đường bay), 25 % dày (6–12 vật). Vật cản lớn: cây tán thấp, bụi cây, nhà, xe / container, đá; khe hở ≥ 3.5 m |
 | **SH** (khó, thử ít) | như SN nhưng mọi vùng đều dày; sương mù (tầm nhìn 200 m) ở seed lẻ; 2 xe cắt ngang ở seed chia hết cho 3 |
+| **SE** (siêu dễ, đời thường) | tuyến thẳng 200 m; seed chọn cảnh theo vòng 6: bãi trống, một cây giữa đường, đại lộ hai hàng cây, xe đỗ ven đường + một xe tải chắn đường, dãy nhà ven đường, khe phố giữa hai dãy nhà ([`dart_scenario_easy.m`](src/config/dart_scenario_easy.m)) |
 | S1–S3, SR | kịch bản của các phiên bản cũ (còn trong mã, kết quả ở `docs/archive/`) |
 
 | Biến thể | Lập lịch perception | Ghi chú |
 |---|---|---|
-| **E_COV** | coverage, ngân sách 3 Hz | phương pháp đề xuất |
-| COVB<f> | coverage, ngân sách f Hz | ví dụ `COVB1` |
-| COV_NOCLUT | coverage, 3 Hz | không có giới hạn tốc độ theo mật độ |
-| FR_SAFE_f | cố định f Hz | cùng mọi lớp an toàn |
-| E_DART | thích nghi theo rủi ro | khoảng quét tính từ khoảng mở an toàn |
+| **E_COV** | coverage, trần `f_max` | phương pháp đề xuất |
+| FR_SAFE | chụp đều đúng `f_max` | cùng mọi lớp an toàn |
+| E_DART | thích nghi theo rủi ro, trần `f_max` | khoảng quét tính từ khoảng mở an toàn |
+| COV_NOCLUT | coverage, trần `f_max` | không có giới hạn tốc độ theo mật độ |
 
-Các biến thể cũ (`A_FR_FN` … `G_FR_LOW`, `Z_ZHUYI`, `O_ORACLE`, `R_*`, `K<k>`, `MEM<d>`, `FN_SAFE_n`, `E_NOCAP`,
-`FRNC<f>`, `COV_EV`, `COV_NOCAP`) vẫn có trong [`dart_apply_variant.m`](src/config/dart_apply_variant.m).
+Các biến thể cũ (`A_FR_FN` … `G_FR_LOW`, `Z_ZHUYI`, `O_ORACLE`, `R_*`, `K<k>`, `MEM<d>`, `FR_SAFE_<f>`, `FN_SAFE_n`,
+`COVB<f>`, `E_NOCAP`, `FRNC<f>`, `COV_EV`, `COV_NOCAP`) vẫn có trong
+[`dart_apply_variant.m`](src/config/dart_apply_variant.m); biến thể nào định nghĩa tần số cố định thì đặt `f_max` bằng
+tần số đó.
 
 ## 5. Kết quả hiện tại
 
-Chi tiết, bảng đầy đủ và log gốc: [`docs/results/round7.md`](docs/results/round7.md). Lưới đồng bộ: mọi trường hợp
-cùng thế giới, cùng tốc độ yêu cầu 6 / 10 / 15 m/s và cùng phương án; MATLAB engine, commit `95e551f`, 3240 lượt.
-Camera Module 3 Wide trừ phần so sánh camera. Kiểm định Fisher hai phía.
-
-**Bay thường SN** (60 thế giới × 3 tốc độ = 180 lượt mỗi phương án):
-
-| Phương án | Tới đích | Va chạm | Kẹt | Suy luận mỗi nhiệm vụ (trung vị, 6 / 10 / 15 m/s) | Thời gian tới đích (trung vị, s) |
-|---|---|---|---|---|---|
-| **E_COV** | 171 | 1 | 8 | 100 / 75 / 74 | 64 / 44 / 40 |
-| FR_SAFE_3 | 179 | 0 | 1 | 188 / 132 / 116 | 64 / 45 / 40 |
-| E_DART | 174 | 4 | 2 | 130 / 145 / 172 | 60 / 41 / 36 |
-| COV_NOCLUT | 176 | 1 | 3 | 97 / 72 / 70 | 66 / 43 / 38 |
-| COVB1 (1 Hz) | 160 | 7 | 13 | 51 / 40 / 39 | 77 / 52 / 46 |
-| FR_SAFE_1 | 164 | 7 | 9 | 73 / 52 / 48 | 73 / 52 / 47 |
-
-**Kịch bản khó SH** (30 thế giới × 3 tốc độ = 90 lượt mỗi phương án):
-
-| Phương án | Tới đích | Va chạm | Kẹt | Suy luận mỗi nhiệm vụ (trung vị, 6 / 10 / 15 m/s) | Thời gian tới đích (trung vị, s) |
-|---|---|---|---|---|---|
-| **E_COV** | 80 | 3 | 7 | 199 / 142 / 123 | 128 / 95 / 68 |
-| FR_SAFE_3 | 89 | 1 (xe cắt ngang) | 0 | 291 / 234 / 193 | 99 / 79 / 66 |
-| E_DART | 80 | 9 | 1 | 314 / 308 / 297 | 92 / 61 / 58 |
-| COV_NOCLUT | 71 | 12 | 7 | 185 / 136 / 112 | 114 / 70 / 62 |
-| COVB1 (1 Hz) | 58 | 13 | 19 | 89 / 80 / 75 | 140 / 107 / 115 |
-| FR_SAFE_1 | 70 | 12 | 8 | 146 / 108 / 124 | 146 / 107 / 123 |
-
-Kết luận:
-
-1. **Bay thường: E_COV ít hơn 36–47 % số lần suy luận** so với tần số cố định 3 Hz, cùng tỉ lệ va chạm (1/180 so
-   với 0/180) và cùng thời gian tới đích; nhưng **kẹt nhiều hơn** (8/180 so với 1/180, p = 0.04).
-2. **Kịch bản khó: E_COV kém tin cậy hơn rõ rệt** so với 3 Hz cố định: thất bại 10/90 so với 1/90 (p = 0.009); tiết
-   kiệm 32–39 % số lần suy luận nhưng bay lâu hơn.
-3. **Lỗi kẹt là lỗi toàn cục của bộ lập lịch coverage**: trong 15 lượt kẹt của E_COV, 13 lượt vật chặn đường nằm ngoài
-   khung hình, 12 lượt UAV gần như đứng yên. Khi UAV dừng, quãng cần quan sát gần bằng 0 nên bộ lập lịch không chụp
-   nữa, và planner không có thông tin mới để tìm lối ra. 3 Hz cố định chỉ kẹt 1/270. Hướng sửa (chưa làm): chụp theo
-   ngân sách khi UAV không tiến được.
-4. **1 Hz là quá ít** ở các tốc độ này: FR_SAFE_1 7/180 va chạm khi bay thường (3 Hz: 0, p = 0.015), COVB1 13/90 ở
-   kịch bản khó (E_COV: 3, p = 0.016).
-5. **E_DART tốn suy luận nhất mà không an toàn nhất**: 13/270 va chạm so với 1/270 của 3 Hz cố định (p = 0.002).
-6. **Giới hạn tốc độ theo mật độ chỉ có ích ở nơi dày đặc**: kịch bản khó 3/90 va chạm khi bật, 12/90 khi tắt
-   (p = 0.03); bay thường không khác. Giữ bật.
-7. **Tốc độ tự thích ứng với mật độ** (E_COV, yêu cầu 15 m/s): 11.0 / 7.8 / 4.1 / 2.7 m/s khi có 0 / 1–2 / 3–5 / ≥ 6 vật
-   trong 15 m. Tần số chụp phụ thuộc tốc độ nhiều hơn mật độ: ở 6 m/s khoảng 1.0 khung/s chỗ trống và 1.5–1.8 gần vật;
-   ở 15 m/s khoảng 1.7–1.9 khung/s ở mọi nơi. 3 Hz cố định: 2.95; E_DART: 3.9–6.0 khung/s ở 15 m/s.
-8. **Camera** (va chạm, E_COV / FR_SAFE_3):
-
-   | Camera | FOV | v_max | Bay thường (180 lượt mỗi ô) | Kịch bản khó (90 lượt mỗi ô) |
-   |---|---|---|---|---|
-   | Camera Module v2 | 62×49° | 13.1 m/s | 20 / 10 | 24 / 13 |
-   | Camera Module 3 | 66×41° | 10.7 m/s | 24 / 27 | 26 / 22 |
-   | **Camera Module 3 Wide, 320×180** | 102×67° | 15 m/s | 1 / 0 | 3 / 1 |
-   | Camera Module 3 Wide, 640×360 (suy luận ×4) | 102×67° | 15 m/s | 3 / 2 | 7 / 2 |
-
-   **Góc rộng là yếu tố quyết định**: camera hẹp 166/1080 lượt va chạm, Module 3 Wide 5/540 (p ≈ 10⁻²⁴); camera hẹp mất
-   dấu vật đang vòng tránh. **Ảnh nét hơn không giúp** (14/540 so với 5/540, p = 0.06) mà tốn gấp 4 lần. Khuyến nghị:
-   Camera Module 3 Wide, mạng ở 320×180.
+**Lưới chốt đang chạy trên GitHub Actions** (commit `2a536b1`, khoảng 13 300 lượt). Kết quả sẽ ở
+[`docs/results/results.md`](docs/results/results.md). Kết quả của phiên bản trước (hình cầu, chưa chụp khi đứng yên)
+ở [`docs/archive/results/round7.md`](docs/archive/results/round7.md) và **không áp dụng** cho phiên bản chốt.
 
 ## 6. Cấu trúc mã nguồn
 
 ```
 dart_setup.m                  thêm đường dẫn
-src/config/                   tham số mặc định, giới hạn vật lý, preset camera, kịch bản (SN/SH; S1–S3, SR cũ), biến thể, quét, κ
+src/config/                   tham số mặc định, giới hạn vật lý, preset camera, kịch bản (SN/SH/SE; S1–S3, SR cũ), biến thể, quét, κ
 src/world/                    hình dạng vật cản (cầu, hộp, trụ), khoảng cách có dấu, clearance thật
 src/plant/                    quadrotor 6-DOF (cản tuyến tính + bậc hai), bộ điều khiển attitude SO(3)
-src/perception/               render siêu lấy mẫu, mạng depth tổng hợp, tự phân đoạn, cầu phủ, lưới depth, message
-src/estimation/               bộ đệm pose, ghép không định danh, Kalman tại thời điểm chụp, bộ nhớ track
+src/perception/               render siêu lấy mẫu, mạng depth tổng hợp, tự phân đoạn, hình trụ đứng, lưới depth, message
+src/estimation/               bộ đệm pose, ghép không định danh, Kalman tại thời điểm chụp, bộ nhớ track, hình cầu tương đương cục bộ
 src/planning/                 quỹ đạo đặt, đoạn bị chặn, chế độ BÁM / QUAY VỀ, đường vòng ngắn nhất
 src/scheduling/               coverage (vùng trống đã quan sát), thích nghi, cố định; tầm và tốc độ theo perception
 src/control/                  horizon thích nghi, MPC (QP), CBF, giới hạn tốc độ theo mật độ, yaw, bước điều khiển
-src/util/                     QP interior-point (thuần MATLAB), tiện ích hình học, RNG
+src/util/                     QP interior-point (thuần MATLAB), khoảng cách tới hình trụ, tiện ích hình học, RNG
 sim/dart_sim.m                MATLAB engine (cùng hàm, cùng đa tần số với Simulink)
 simulink/                     System objects + script sinh model + runner Simulink
 experiments/                  chạy 1 ca, ablation, metric, phân loại thất bại, tầm phát hiện, tốc độ theo mật độ, hình
@@ -219,7 +176,7 @@ tests/                        unit test (chạy được trên MATLAB và Octave
 ci/                           điểm vào của các workflow
 docs/results/                 kết quả hiện tại, log gốc (raw/), script lập bảng
 docs/archive/                 tài liệu phương pháp bản 3 và kết quả các phiên bản cũ (lưu trữ)
-docs/figures/                 script vẽ cảnh (plot_scene.py)
+docs/figures/                 script vẽ cảnh (plot_scene.py) và vẽ một lượt bay chi tiết (plot_stuck.py)
 docs/literature/              danh sách đọc, ghi chú đọc toàn văn, định vị tính mới
 ```
 
@@ -244,23 +201,24 @@ Model được sinh lại từ mã ở mỗi lần CI nên luôn khớp với m�
 * Kịch bản mới: thêm `case` trong [`src/config/dart_scenario.m`](src/config/dart_scenario.m).
 * Biến thể mới: thêm `case` trong [`src/config/dart_apply_variant.m`](src/config/dart_apply_variant.m).
 * Đánh đổi an toàn ↔ thời gian: `cfg.tradeoff.kappa` (0…1) hoặc biến thể `K<k>`.
+* Tần số quét tối đa: `cfg.sched.f_max` (trần cứng cho mọi bộ lập lịch); ngưỡng "đứng yên" `cfg.sched.v_stall`.
+* Vẽ chi tiết một lượt (vật UAV đang nhớ, đường vòng, các lần chụp): workflow *Debug case* với ô `cases`
+  (ví dụ `SN:10:12;SH:6:5`), rồi `python3 docs/figures/plot_stuck.py <thư mục json> <thư mục hình>`.
 
 ```matlab
 dart_setup;
 res = dart_run_case('E_COV', 'SN', 1, 'matlab', @(c) dart_apply_sweep(c, 'speed', 10));   % hoặc 'simulink'
 m = dart_metrics(res); dart_plot_run(res, 'run.png');
-dart_eval_speed_density('E_COV', 'SN', 1, 'speed', 15);   % tốc độ và tần số chụp theo mật độ vật cản
+dart_eval_speed_density('E_COV', 'SE', 3, 'speedrate', 1530);   % 15 m/s, trần 3 Hz: tốc độ, tần số chụp theo mật độ
 ```
 
 ## 8. Giới hạn hiện tại
 
 * Chỉ mô phỏng. Mạng depth được thay bằng mô hình sai số tổng hợp trên ảnh depth ray-casting (không render RGB, không
   có mặt đất). Thông số camera lấy từ trang của các nhà bán lẻ.
-* Vật cản bất kỳ được phủ bằng hình cầu: bảo thủ với vật dẹt / dài. Chỉ vật tĩnh: vật di chuyển chỉ được thấy lại, không
-  dự đoán chuyển động.
-* E_COV **kẹt** 4–8 % số lượt (bay thường 8/180, kịch bản khó 7/90; 3 Hz cố định 1/270): khi UAV dừng cạnh một vật đã
-  nhớ, bộ lập lịch coverage ngừng chụp. Đây là lỗi toàn cục, chưa sửa (xem Mục 5, kết luận 3).
-* Ở kịch bản khó, E_COV thất bại 10/90 so với 1/90 của 3 Hz cố định; tiết kiệm tính toán có giá ở nơi dày đặc.
-* Kết quả MATLAB trên các máy chạy GitHub khác nhau có thể lệch nhẹ: một job của vòng 6 cho thời gian khác vòng 5 ở
-  cùng mã. Kết luận được phát biểu ở dạng thống kê.
-* Bộ thử nghiệm hiện tại chạy bằng MATLAB engine; phần Simulink chỉ được kiểm tra bằng nhiệm vụ demo của CI.
+* Vật cản bất kỳ được phủ bằng hình trụ đứng: vẫn bảo thủ với vật dài theo phương ngang (xe, container nhìn chéo) và
+  với tán cây rộng hơn thân. Phương thẳng đứng lấy từ tư thế thật lúc chụp (thay cho hướng trọng lực của IMU, sai số
+  roll/pitch bỏ qua). Chỉ vật tĩnh: vật di chuyển chỉ được thấy lại, không dự đoán chuyển động.
+* Bảng tầm phát hiện của camera (R_eff) được đo trước khi đổi sang hình trụ (cùng bước phân đoạn), chưa đo lại.
+* Kết quả MATLAB trên các máy chạy GitHub khác nhau có thể lệch nhẹ ở cùng mã; kết luận được phát biểu ở dạng thống kê.
+* Bộ thử nghiệm chạy bằng MATLAB engine; phần Simulink chỉ được kiểm tra bằng nhiệm vụ demo của CI.

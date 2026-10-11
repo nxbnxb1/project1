@@ -4,7 +4,7 @@ Mọi thứ trong thư mục này là của **các phiên bản trước** của
 **Không dùng để trích dẫn kết quả hiện tại.** Chúng được giữ nguyên (không xoá) để tra cứu lịch sử.
 
 Trạng thái hiện tại: [`README.md`](../../README.md) ở gốc repo; kết quả hiện tại:
-[`docs/results/round7.md`](../results/round7.md).
+[`docs/results/results.md`](../results/results.md).
 
 ## Vì sao lỗi thời
 
@@ -16,7 +16,8 @@ Trạng thái hiện tại: [`README.md`](../../README.md) ở gốc repo; kết
 | `results/random_worlds.md` (vòng 2–3, thế giới ngẫu nhiên SR) | `d3ed301`, `b377220` | Vật nhỏ và cột mảnh, camera lý tưởng hơn, có vật di chuyển, bộ lập lịch thích nghi E_DART |
 | `results/round4.md` (vòng 4 / 4b) | `7d96e58` | Camera 128×96, có cột đèn, tuyến 120 m, tốc độ 2–6 m/s |
 | `results/raw/r5*` (vòng 5) | `9491f1d` | Đúng phạm vi hiện tại, nhưng bộ lập lịch coverage còn lỗi coi vùng bị che là đã quan sát; dùng làm cột "trước khi sửa" trong `round6.md` |
-| `results/round6.md`, `results/raw/r6*`, `results/raw/r7*` (vòng 6 và các lượt kiểm tra giới hạn tốc độ theo mật độ) | `4a1fcfa`, `f0a4675` | Cùng thuật toán với hiện tại, nhưng cỡ mẫu không đồng bộ giữa các trường hợp (SN 30 thế giới, SH 15, camera 15 thế giới ở 10 / 15 m/s); đã được lưới đồng bộ `round7.md` thay thế. Kết quả SH ở đây lạc quan cho E_COV |
+| `results/round6.md`, `results/raw/r6*`, `results/raw/r7*` (vòng 6 và các lượt kiểm tra giới hạn tốc độ theo mật độ) | `4a1fcfa`, `f0a4675` | Vật cản là hình cầu; cỡ mẫu không đồng bộ giữa các trường hợp (SN 30 thế giới, SH 15, camera 15 thế giới ở 10 / 15 m/s). Kết quả SH ở đây lạc quan cho E_COV |
+| `results/round7.md`, `results/raw/r8*`, `results/figures/stuck/` (vòng 7: lưới đồng bộ 3240 lượt, hình 15 ca kẹt) | `95e551f`, `7103aad` | Vật cản là **hình cầu** bao trùm (phình theo chiều đứng: xe thấp, tán cây cao chắn độ cao bay); bộ lập lịch coverage **ngừng chụp khi UAV đứng yên** (lỗi kẹt 8/180 SN, 7/90 SH); trần tần số chỉ áp cho coverage (E_DART chụp tới 6 Hz); chưa có bối cảnh SE |
 | các log còn lại trong `results/raw/` (`ablation*`, `final_*`, `r2*`, `r3*`, `r4*`, `sr*`, `sweep*`) | như các tài liệu tương ứng ở trên | |
 
 ## Chạy lại các script cũ

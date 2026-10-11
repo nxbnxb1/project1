@@ -145,10 +145,10 @@ end
 
 function row = debug_row(ctrl, world, x, t, cfg)
 % [true primitive idx; true clearance; tracked; centre error of the matched
-%  track; its sigma_pos; rho_hat - rho_true (spheres); in FOV; |v|;
+%  track; its sigma_pos; rho_hat - rho_true (true spheres); in FOV; |v|;
 %  closing speed; number of updates of the matched track]
 % Evaluation only: tracks carry no identity, so the obstacle counts as
-% "tracked" when some track's sphere comes within 1 m of its true surface.
+% "tracked" when some track's cylinder comes within 1 m of its true surface.
 [clr, i] = dart_world_clearance(world, x(1:3), t, cfg.quad.r_body);
 row = nan(10, 1);
 row(2) = clr; row(8) = norm(x(4:6));

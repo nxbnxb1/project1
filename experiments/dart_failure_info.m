@@ -10,7 +10,7 @@ function f = dart_failure_info(res)
 %                                  time limit, the time to the goal is measured)
 %           'collision'            unclassified (Simulink engine: no end-state row)
 %           'diverged', 'goal', 'cap' (compute guard), 'timeout' (finite sim.t_max, tests)
-%   "Tracked" means that some track's sphere comes within 1 m of the TRUE
+%   "Tracked" means that some track's cylinder comes within 1 m of the TRUE
 %   surface of the obstacle hit (tracks carry no identity); "in FOV" is
 %   evaluated at the obstacle's centre.
 %   f.shape (sphere | box | cylinder), f.dyn (obstacle moving), f.infov,
