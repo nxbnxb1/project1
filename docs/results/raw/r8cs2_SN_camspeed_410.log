@@ -1,0 +1,151 @@
+[  1/ 60] camspeed=410 SN  E_COV       seed 31  goal      clr  1.67  t  42.3  inf  61  N 22.1  mpc   5.0 ms  err 2.17  xte 5.38  xmax 17.29  off 0.53  nrj 3
+DENS camspeed=410 SN E_COV seed 31 t 17.6 14.9 9.7 0.0  d 153.5 113.2 69.2 0.0  f 14 22 25 0 
+WORLD SN seed 31 layout normal nleg 3 dyn 0.00 nobj 12
+[  2/ 60] camspeed=410 SN  E_COV       seed 32  goal      clr  2.70  t  37.2  inf  44  N 22.3  mpc   4.3 ms  err 2.56  xte 8.78  xmax 24.10  off 0.62  nrj 4
+DENS camspeed=410 SN E_COV seed 32 t 13.0 24.2 0.0 0.0  d 121.3 211.6 0.0 0.0  f 14 30 0 0 
+WORLD SN seed 32 layout normal nleg 2 dyn 0.00 nobj 8
+[  3/ 60] camspeed=410 SN  E_COV       seed 33  goal      clr  1.27  t  49.2  inf  82  N 23.6  mpc   6.1 ms  err 2.89  xte 4.73  xmax 11.51  off 0.77  nrj 4
+DENS camspeed=410 SN E_COV seed 33 t 9.7 30.3 9.2 0.0  d 95.7 180.3 59.1 0.0  f 17 47 18 0 
+WORLD SN seed 33 layout normal nleg 2 dyn 0.00 nobj 14
+[  4/ 60] camspeed=410 SN  E_COV       seed 34  goal      clr  1.74  t  71.5  inf  99  N 20.2  mpc   5.2 ms  err 3.31  xte 10.34  xmax 26.77  off 0.83  nrj 3
+DENS camspeed=410 SN E_COV seed 34 t 23.9 26.2 21.3 0.0  d 161.4 203.8 64.4 0.0  f 33 36 30 0 
+WORLD SN seed 34 layout normal nleg 2 dyn 0.00 nobj 14
+[  5/ 60] camspeed=410 SN  E_COV       seed 35  goal      clr  1.44  t  45.5  inf  76  N 24.8  mpc   5.9 ms  err 2.01  xte 5.37  xmax 16.12  off 0.71  nrj 5
+DENS camspeed=410 SN E_COV seed 35 t 7.9 22.3 9.4 5.9  d 74.2 197.0 46.3 22.3  f 10 39 14 13 
+WORLD SN seed 35 layout normal nleg 1 dyn 0.00 nobj 16
+[  6/ 60] camspeed=410 SN  E_COV       seed 36  goal      clr  1.81  t  48.4  inf  77  N 23.7  mpc   6.1 ms  err 2.59  xte 7.56  xmax 17.59  off 0.69  nrj 1
+DENS camspeed=410 SN E_COV seed 36 t 16.0 22.2 5.5 4.7  d 163.4 142.1 33.4 16.7  f 13 38 13 13 
+WORLD SN seed 36 layout normal nleg 3 dyn 0.00 nobj 13
+[  7/ 60] camspeed=410 SN  E_COV       seed 37  goal      clr  1.50  t  93.4  inf 100  N 18.3  mpc   5.3 ms  err 4.07  xte 10.80  xmax 25.25  off 0.89  nrj 1
+DENS camspeed=410 SN E_COV seed 37 t 10.0 18.8 59.7 4.9  d 98.6 142.5 114.5 16.2  f 13 31 48 8 
+WORLD SN seed 37 layout normal nleg 2 dyn 0.00 nobj 23
+[  8/ 60] camspeed=410 SN  E_COV       seed 38  goal      clr  1.89  t  33.9  inf  33  N 20.5  mpc   2.4 ms  err 0.98  xte 1.24  xmax 4.12  off 0.28  nrj 3
+DENS camspeed=410 SN E_COV seed 38 t 20.6 13.3 0.0 0.0  d 186.1 119.9 0.0 0.0  f 17 16 0 0 
+WORLD SN seed 38 layout normal nleg 3 dyn 0.00 nobj 5
+[  9/ 60] camspeed=410 SN  E_COV       seed 39  goal      clr  1.55  t 100.5  inf 114  N 18.9  mpc   5.7 ms  err 1.79  xte 6.83  xmax 18.40  off 0.83  nrj 2
+DENS camspeed=410 SN E_COV seed 39 t 17.5 10.5 71.4 1.1  d 152.6 88.9 119.9 2.3  f 18 16 77 3 
+WORLD SN seed 39 layout normal nleg 2 dyn 0.00 nobj 15
+[ 10/ 60] camspeed=410 SN  E_COV       seed 40  goal      clr   Inf  t  31.0  inf  18  N 19.2  mpc   1.7 ms  err  NaN  xte 0.08  xmax 0.22  off 0.00  nrj 0
+DENS camspeed=410 SN E_COV seed 40 t 31.0 0.0 0.0 0.0  d 299.7 0.0 0.0 0.0  f 18 0 0 0 
+WORLD SN seed 40 layout normal nleg 3 dyn 0.00 nobj 0
+[ 11/ 60] camspeed=410 SN  E_COV       seed 41  goal      clr  9.01  t  33.9  inf  23  N 20.0  mpc   2.3 ms  err 6.35  xte 5.65  xmax 19.47  off 0.25  nrj 1
+DENS camspeed=410 SN E_COV seed 41 t 31.1 2.8 0.0 0.0  d 289.4 27.9 0.0 0.0  f 20 3 0 0 
+WORLD SN seed 41 layout normal nleg 2 dyn 0.00 nobj 2
+[ 12/ 60] camspeed=410 SN  E_COV       seed 42  goal      clr  1.74  t  51.8  inf  84  N 23.3  mpc   6.5 ms  err 2.92  xte 11.22  xmax 23.33  off 0.76  nrj 2
+DENS camspeed=410 SN E_COV seed 42 t 8.3 32.1 10.9 0.5  d 78.9 195.5 79.0 2.9  f 11 51 22 0 
+WORLD SN seed 42 layout normal nleg 2 dyn 0.00 nobj 28
+[ 13/ 60] camspeed=410 SN  E_COV       seed 43  goal      clr  3.18  t  48.7  inf  72  N 22.9  mpc   5.9 ms  err 2.99  xte 8.23  xmax 24.90  off 0.63  nrj 3
+DENS camspeed=410 SN E_COV seed 43 t 10.1 30.2 8.4 0.0  d 96.0 224.7 45.6 0.0  f 12 42 18 0 
+WORLD SN seed 43 layout normal nleg 1 dyn 0.00 nobj 11
+[ 14/ 60] camspeed=410 SN  E_COV       seed 44  goal      clr  0.78  t  83.1  inf 143  N 23.5  mpc   7.7 ms  err 2.43  xte 7.58  xmax 19.72  off 0.86  nrj 2
+DENS camspeed=410 SN E_COV seed 44 t 9.3 22.8 47.6 3.4  d 72.2 166.7 129.8 30.2  f 11 40 84 8 
+WORLD SN seed 44 layout normal nleg 3 dyn 0.00 nobj 28
+[ 15/ 60] camspeed=410 SN  E_COV       seed 45  goal      clr  2.05  t  33.9  inf  44  N 23.5  mpc   4.5 ms  err 2.53  xte 2.48  xmax 7.90  off 0.35  nrj 3
+DENS camspeed=410 SN E_COV seed 45 t 13.2 16.4 4.3 0.0  d 106.0 163.2 35.2 0.0  f 13 20 11 0 
+WORLD SN seed 45 layout normal nleg 1 dyn 0.00 nobj 11
+[ 16/ 60] camspeed=410 SN  E_COV       seed 46  goal      clr  1.07  t  54.1  inf  94  N 24.7  mpc   6.8 ms  err 1.62  xte 3.00  xmax 7.60  off 0.67  nrj 2
+DENS camspeed=410 SN E_COV seed 46 t 11.2 11.9 21.3 9.7  d 111.9 93.3 118.7 38.5  f 12 11 51 20 
+WORLD SN seed 46 layout normal nleg 2 dyn 0.00 nobj 21
+[ 17/ 60] camspeed=410 SN  E_COV       seed 47  goal      clr  2.60  t  39.8  inf  50  N 20.7  mpc   3.8 ms  err 3.49  xte 11.63  xmax 33.38  off 0.55  nrj 2
+DENS camspeed=410 SN E_COV seed 47 t 20.3 18.1 1.4 0.0  d 172.7 150.9 9.8 0.0  f 19 28 3 0 
+WORLD SN seed 47 layout normal nleg 2 dyn 0.00 nobj 12
+[ 18/ 60] camspeed=410 SN  E_COV       seed 48  collision clr -0.03  t  29.0  inf  52  N 22.8  mpc   5.1 ms  err 3.33  xte 8.11  xmax 17.44  off 0.79  nrj 3
+DENS camspeed=410 SN E_COV seed 48 t 10.2 14.0 4.8 0.0  d 98.0 107.5 20.6 0.0  f 22 20 10 0 
+WORLD SN seed 48 layout normal nleg 3 dyn 0.00 nobj 12
+FAILINFO camspeed=410 SN E_COV seed 48 cls collision-tracked shape sphere dyn 0 tracked 1 infov 1 mode 2 speed 7.00 closing 4.06 nupd 2 seen 0.22 prog10 8.5 layout normal vdes 10
+[ 19/ 60] camspeed=410 SN  E_COV       seed 49  goal      clr  0.89  t  53.4  inf  88  N 21.0  mpc   5.6 ms  err 4.02  xte 4.30  xmax 12.46  off 0.74  nrj 4
+DENS camspeed=410 SN E_COV seed 49 t 20.4 20.2 12.8 0.0  d 129.6 147.5 79.9 0.0  f 22 39 27 0 
+WORLD SN seed 49 layout normal nleg 2 dyn 0.00 nobj 14
+[ 20/ 60] camspeed=410 SN  E_COV       seed 50  goal      clr  1.52  t  33.9  inf  43  N 22.8  mpc   4.7 ms  err 3.87  xte 3.08  xmax 10.10  off 0.55  nrj 3
+DENS camspeed=410 SN E_COV seed 50 t 18.1 9.2 3.9 2.7  d 184.5 91.9 18.6 14.3  f 25 10 2 6 
+WORLD SN seed 50 layout normal nleg 2 dyn 0.00 nobj 9
+[ 21/ 60] camspeed=410 SN  E_COV       seed 51  goal      clr  2.72  t  47.6  inf  82  N 24.2  mpc   6.2 ms  err 3.16  xte 8.08  xmax 23.58  off 0.69  nrj 3
+DENS camspeed=410 SN E_COV seed 51 t 13.7 18.0 15.9 0.0  d 138.3 137.5 61.1 0.0  f 24 20 38 0 
+WORLD SN seed 51 layout normal nleg 1 dyn 0.00 nobj 13
+[ 22/ 60] camspeed=410 SN  E_COV       seed 52  goal      clr  1.26  t  42.8  inf  73  N 24.8  mpc   6.6 ms  err 2.97  xte 4.31  xmax 10.72  off 0.65  nrj 3
+DENS camspeed=410 SN E_COV seed 52 t 12.2 12.8 14.0 3.8  d 123.7 100.1 88.7 12.9  f 18 20 26 9 
+WORLD SN seed 52 layout normal nleg 2 dyn 0.00 nobj 18
+[ 23/ 60] camspeed=410 SN  E_COV       seed 53  goal      clr  1.62  t  54.8  inf  90  N 23.2  mpc   6.5 ms  err 2.85  xte 9.14  xmax 19.91  off 0.84  nrj 2
+DENS camspeed=410 SN E_COV seed 53 t 6.5 34.9 12.9 0.5  d 59.4 229.8 80.9 4.1  f 8 54 26 2 
+WORLD SN seed 53 layout normal nleg 2 dyn 0.00 nobj 24
+[ 24/ 60] camspeed=410 SN  E_COV       seed 54  goal      clr  1.75  t  41.9  inf  62  N 23.6  mpc   5.7 ms  err 1.12  xte 2.84  xmax 9.31  off 0.57  nrj 3
+DENS camspeed=410 SN E_COV seed 54 t 16.1 12.2 5.0 8.6  d 137.5 111.5 31.3 41.3  f 15 16 9 22 
+WORLD SN seed 54 layout normal nleg 1 dyn 0.00 nobj 15
+[ 25/ 60] camspeed=410 SN  E_COV       seed 55  goal      clr  2.64  t  36.2  inf  46  N 21.8  mpc   4.7 ms  err 4.31  xte 2.58  xmax 8.99  off 0.48  nrj 2
+DENS camspeed=410 SN E_COV seed 55 t 20.7 10.6 4.9 0.0  d 186.0 103.7 26.5 0.0  f 18 17 11 0 
+WORLD SN seed 55 layout normal nleg 3 dyn 0.00 nobj 7
+[ 26/ 60] camspeed=410 SN  E_COV       seed 56  goal      clr  1.43  t  59.1  inf 109  N 24.0  mpc   7.3 ms  err 2.14  xte 9.80  xmax 26.32  off 0.81  nrj 2
+DENS camspeed=410 SN E_COV seed 56 t 9.7 17.7 21.6 10.1  d 94.8 132.5 112.9 38.7  f 16 30 40 23 
+WORLD SN seed 56 layout normal nleg 3 dyn 0.00 nobj 28
+[ 27/ 60] camspeed=410 SN  E_COV       seed 57  goal      clr  1.39  t  55.9  inf  91  N 23.6  mpc   6.9 ms  err 2.38  xte 9.23  xmax 28.66  off 0.79  nrj 2
+DENS camspeed=410 SN E_COV seed 57 t 11.8 20.4 18.4 5.2  d 85.4 157.3 110.3 14.7  f 10 32 41 8 
+WORLD SN seed 57 layout normal nleg 2 dyn 0.00 nobj 25
+[ 28/ 60] camspeed=410 SN  E_COV       seed 58  goal      clr  1.64  t  55.6  inf  91  N 24.4  mpc   7.2 ms  err 2.88  xte 7.34  xmax 19.28  off 0.83  nrj 4
+DENS camspeed=410 SN E_COV seed 58 t 10.0 24.4 21.2 0.0  d 94.6 171.1 112.1 0.0  f 13 33 45 0 
+WORLD SN seed 58 layout normal nleg 1 dyn 0.00 nobj 18
+[ 29/ 60] camspeed=410 SN  E_COV       seed 59  goal      clr  1.68  t  37.8  inf  58  N 23.9  mpc   5.7 ms  err 2.14  xte 1.85  xmax 5.92  off 0.49  nrj 3
+DENS camspeed=410 SN E_COV seed 59 t 16.6 4.4 13.5 3.3  d 169.6 42.9 78.2 20.1  f 17 7 26 8 
+WORLD SN seed 59 layout normal nleg 3 dyn 0.00 nobj 18
+[ 30/ 60] camspeed=410 SN  E_COV       seed 60  goal      clr  1.63  t  95.4  inf 119  N 19.3  mpc   5.8 ms  err 2.59  xte 11.25  xmax 27.54  off 0.92  nrj 4
+DENS camspeed=410 SN E_COV seed 60 t 9.3 66.5 19.5 0.1  d 65.7 214.3 108.4 0.6  f 15 60 43 1 
+WORLD SN seed 60 layout normal nleg 2 dyn 0.00 nobj 21
+[ 31/ 60] camspeed=410 SN  FR_SAFE_3   seed 31  goal      clr  1.33  t  50.4  inf 137  N 23.1  mpc   6.1 ms  err 2.99  xte 6.26  xmax 19.98  off 0.58  nrj 1
+DENS camspeed=410 SN FR_SAFE_3 seed 31 t 17.9 15.4 16.8 0.3  d 155.7 121.5 66.2 1.9  f 49 42 46 0 
+[ 32/ 60] camspeed=410 SN  FR_SAFE_3   seed 32  goal      clr  1.49  t  40.6  inf 112  N 21.8  mpc   4.6 ms  err 2.99  xte 7.38  xmax 19.36  off 0.61  nrj 4
+DENS camspeed=410 SN FR_SAFE_3 seed 32 t 12.9 27.7 0.0 0.0  d 115.3 209.4 0.0 0.0  f 36 76 0 0 
+[ 33/ 60] camspeed=410 SN  FR_SAFE_3   seed 33  goal      clr  1.83  t  49.6  inf 135  N 23.9  mpc   6.8 ms  err 2.79  xte 5.27  xmax 13.99  off 0.81  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 33 t 10.9 24.6 14.1 0.0  d 106.8 162.5 65.3 0.0  f 28 69 38 0 
+[ 34/ 60] camspeed=410 SN  FR_SAFE_3   seed 34  goal      clr  4.58  t  51.7  inf 138  N 21.0  mpc   5.5 ms  err 4.60  xte 14.03  xmax 30.93  off 0.72  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 34 t 21.1 28.7 1.9 0.0  d 153.4 202.4 9.3 0.0  f 57 77 4 0 
+[ 35/ 60] camspeed=410 SN  FR_SAFE_3   seed 35  goal      clr  1.08  t  45.6  inf 122  N 24.0  mpc   6.0 ms  err 2.79  xte 5.88  xmax 16.11  off 0.74  nrj 5
+DENS camspeed=410 SN FR_SAFE_3 seed 35 t 7.9 22.7 15.0 0.0  d 75.5 190.0 64.2 0.0  f 21 59 42 0 
+[ 36/ 60] camspeed=410 SN  FR_SAFE_3   seed 36  goal      clr  1.53  t  56.3  inf 151  N 21.9  mpc   5.7 ms  err 2.76  xte 9.14  xmax 22.17  off 0.75  nrj 1
+DENS camspeed=410 SN FR_SAFE_3 seed 36 t 17.4 23.2 15.7 0.0  d 173.6 137.1 62.0 0.0  f 47 63 41 0 
+[ 37/ 60] camspeed=410 SN  FR_SAFE_3   seed 37  goal      clr  1.40  t  52.4  inf 142  N 22.7  mpc   6.0 ms  err 3.12  xte 10.96  xmax 21.19  off 0.78  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 37 t 13.2 19.0 20.1 0.0  d 125.7 132.9 102.5 0.0  f 37 51 54 0 
+[ 38/ 60] camspeed=410 SN  FR_SAFE_3   seed 38  goal      clr  1.49  t  33.3  inf  89  N 20.9  mpc   2.6 ms  err 1.09  xte 1.74  xmax 6.81  off 0.30  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 38 t 20.6 12.7 0.0 0.0  d 185.7 120.1 0.0 0.0  f 55 34 0 0 
+[ 39/ 60] camspeed=410 SN  FR_SAFE_3   seed 39  goal      clr  1.53  t  57.3  inf 156  N 22.7  mpc   6.4 ms  err 2.25  xte 8.31  xmax 23.20  off 0.69  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 39 t 17.4 17.7 22.2 0.0  d 151.5 124.6 60.9 0.0  f 48 47 61 0 
+[ 40/ 60] camspeed=410 SN  FR_SAFE_3   seed 40  goal      clr   Inf  t  31.0  inf  85  N 19.2  mpc   1.8 ms  err  NaN  xte 0.08  xmax 0.22  off 0.00  nrj 0
+DENS camspeed=410 SN FR_SAFE_3 seed 40 t 31.0 0.0 0.0 0.0  d 299.7 0.0 0.0 0.0  f 85 0 0 0 
+[ 41/ 60] camspeed=410 SN  FR_SAFE_3   seed 41  goal      clr  8.93  t  36.8  inf 100  N 19.1  mpc   2.4 ms  err 4.33  xte 7.70  xmax 25.40  off 0.34  nrj 1
+DENS camspeed=410 SN FR_SAFE_3 seed 41 t 34.8 2.0 0.0 0.0  d 310.0 17.2 0.0 0.0  f 94 6 0 0 
+[ 42/ 60] camspeed=410 SN  FR_SAFE_3   seed 42  goal      clr  1.02  t  80.3  inf 215  N 24.3  mpc   7.6 ms  err 2.28  xte 10.98  xmax 24.73  off 0.86  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 42 t 8.2 28.2 36.0 7.8  d 78.9 185.0 104.5 20.8  f 23 77 94 21 
+[ 43/ 60] camspeed=410 SN  FR_SAFE_3   seed 43  goal      clr  1.11  t  47.1  inf 128  N 22.7  mpc   5.9 ms  err 4.12  xte 9.35  xmax 23.08  off 0.61  nrj 4
+DENS camspeed=410 SN FR_SAFE_3 seed 43 t 12.2 29.6 5.2 0.0  d 108.4 226.8 32.6 0.0  f 33 82 13 0 
+[ 44/ 60] camspeed=410 SN  FR_SAFE_3   seed 44  goal      clr  0.91  t  80.9  inf 219  N 22.1  mpc   6.7 ms  err 2.09  xte 8.17  xmax 20.81  off 0.74  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 44 t 9.6 28.9 36.7 5.7  d 74.0 197.6 106.6 31.4  f 27 78 99 15 
+[ 45/ 60] camspeed=410 SN  FR_SAFE_3   seed 45  goal      clr  1.81  t  36.9  inf  97  N 23.6  mpc   5.1 ms  err 1.97  xte 3.30  xmax 11.97  off 0.48  nrj 5
+DENS camspeed=410 SN FR_SAFE_3 seed 45 t 13.6 18.5 4.8 0.0  d 108.8 165.4 36.8 0.0  f 35 48 14 0 
+[ 46/ 60] camspeed=410 SN  FR_SAFE_3   seed 46  goal      clr  1.94  t  48.1  inf 125  N 24.2  mpc   6.3 ms  err 2.54  xte 4.56  xmax 14.89  off 0.62  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 46 t 11.1 14.7 21.2 1.1  d 110.8 117.3 99.3 6.6  f 29 38 55 3 
+[ 47/ 60] camspeed=410 SN  FR_SAFE_3   seed 47  goal      clr  1.20  t  39.5  inf 106  N 22.3  mpc   5.0 ms  err 2.94  xte 5.96  xmax 15.83  off 0.48  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 47 t 16.1 13.5 9.6 0.3  d 136.9 125.3 60.3 2.7  f 43 37 25 1 
+[ 48/ 60] camspeed=410 SN  FR_SAFE_3   seed 48  goal      clr  1.80  t  42.9  inf 116  N 23.3  mpc   5.6 ms  err 2.70  xte 5.81  xmax 15.27  off 0.75  nrj 4
+DENS camspeed=410 SN FR_SAFE_3 seed 48 t 9.9 29.6 3.4 0.0  d 96.2 225.6 24.2 0.0  f 26 81 9 0 
+[ 49/ 60] camspeed=410 SN  FR_SAFE_3   seed 49  goal      clr  1.98  t  99.3  inf 265  N 21.8  mpc   7.1 ms  err 2.60  xte 8.09  xmax 35.00  off 0.87  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 49 t 18.4 20.8 60.1 0.0  d 143.0 180.6 79.4 0.0  f 50 54 161 0 
+[ 50/ 60] camspeed=410 SN  FR_SAFE_3   seed 50  goal      clr  1.29  t  36.3  inf  98  N 22.9  mpc   5.3 ms  err 2.77  xte 2.50  xmax 8.86  off 0.50  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 50 t 17.6 10.1 3.6 5.0  d 181.1 94.5 18.4 15.9  f 48 27 9 14 
+[ 51/ 60] camspeed=410 SN  FR_SAFE_3   seed 51  goal      clr  1.69  t  43.2  inf 118  N 23.3  mpc   5.4 ms  err 2.56  xte 4.41  xmax 10.33  off 0.61  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 51 t 13.9 12.0 17.3 0.0  d 140.3 87.6 95.7 0.0  f 39 34 45 0 
+[ 52/ 60] camspeed=410 SN  FR_SAFE_3   seed 52  goal      clr  1.66  t  61.8  inf 167  N 21.9  mpc   5.9 ms  err 2.40  xte 9.85  xmax 24.77  off 0.80  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 52 t 12.1 28.6 16.9 4.2  d 122.6 169.8 74.1 20.5  f 33 75 47 12 
+[ 53/ 60] camspeed=410 SN  FR_SAFE_3   seed 53  goal      clr  1.55  t  71.3  inf 192  N 23.0  mpc   7.3 ms  err 2.61  xte 11.09  xmax 24.78  off 0.87  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 53 t 9.1 34.5 21.9 5.8  d 78.1 236.8 86.8 23.2  f 24 93 59 16 
+[ 54/ 60] camspeed=410 SN  FR_SAFE_3   seed 54  goal      clr  1.08  t  40.9  inf 109  N 22.5  mpc   5.2 ms  err 2.09  xte 5.49  xmax 14.13  off 0.53  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 54 t 16.2 12.1 12.3 0.3  d 138.2 105.7 76.2 2.1  f 43 33 32 1 
+[ 55/ 60] camspeed=410 SN  FR_SAFE_3   seed 55  goal      clr  3.57  t  35.3  inf  95  N 21.9  mpc   4.3 ms  err 5.21  xte 4.27  xmax 12.76  off 0.48  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 55 t 22.3 11.3 1.7 0.0  d 197.1 108.5 15.4 0.0  f 58 32 5 0 
+[ 56/ 60] camspeed=410 SN  FR_SAFE_3   seed 56  goal      clr  1.40  t  58.1  inf 157  N 23.8  mpc   6.8 ms  err 2.81  xte 12.93  xmax 29.24  off 0.79  nrj 3
+DENS camspeed=410 SN FR_SAFE_3 seed 56 t 14.0 26.4 10.6 7.1  d 124.2 205.4 37.3 22.1  f 38 73 27 19 
+[ 57/ 60] camspeed=410 SN  FR_SAFE_3   seed 57  goal      clr  1.76  t  50.2  inf 134  N 23.5  mpc   7.0 ms  err 2.83  xte 8.68  xmax 19.73  off 0.78  nrj 2
+DENS camspeed=410 SN FR_SAFE_3 seed 57 t 10.0 27.7 12.5 0.0  d 70.3 169.6 103.3 0.0  f 27 72 35 0 
+[ 58/ 60] camspeed=410 SN  FR_SAFE_3   seed 58  goal      clr  1.50  t  52.5  inf 140  N 22.9  mpc   6.5 ms  err 2.93  xte 9.17  xmax 20.81  off 0.85  nrj 4
+DENS camspeed=410 SN FR_SAFE_3 seed 58 t 11.3 31.3 9.9 0.0  d 97.0 203.9 62.6 0.0  f 30 84 26 0 
+[ 59/ 60] camspeed=410 SN  FR_SAFE_3   seed 59  goal      clr  2.04  t  49.0  inf 131  N 22.3  mpc   5.5 ms  err 4.08  xte 7.92  xmax 24.18  off 0.63  nrj 4
+DENS camspeed=410 SN FR_SAFE_3 seed 59 t 20.7 13.4 9.7 5.2  d 192.2 97.5 80.7 25.8  f 53 35 30 13 
+[ 60/ 60] camspeed=410 SN  FR_SAFE_3   seed 60  goal      clr  1.46  t  53.5  inf 146  N 24.3  mpc   7.6 ms  err 3.13  xte 6.58  xmax 16.83  off 0.82  nrj 4
+DENS camspeed=410 SN FR_SAFE_3 seed 60 t 8.6 20.1 23.6 1.2  d 60.5 159.3 126.5 6.3  f 24 55 63 4 
