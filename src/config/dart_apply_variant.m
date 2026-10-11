@@ -38,6 +38,8 @@ function cfg = dart_apply_variant(cfg, name)
 %             DART_SIM must call it themselves)
 %   MEM<d>    E with an obstacle memory of d metres (cfg.trk.forget_dist = d;
 %             default 10; MEM0: tracks forgotten as soon as they leave the view)
+%   FR_SAFE   E with a fixed perception rate of sched.f_fixed Hz (set by a
+%             sweep, e.g. 'speedrate')
 %   FR_SAFE_f E with a fixed perception rate of f Hz (e.g. FR_SAFE_5),
 %             used for the rate sweep / Pareto study
 %   FN_SAFE_n E with a fixed MPC horizon of n steps (e.g. FN_SAFE_30),
@@ -47,6 +49,11 @@ function cfg = dart_apply_variant(cfg, name)
 %   but no uncertainty inflation and no CBF filter.
 
 name = upper(name);
+if strcmp(name, 'FR_SAFE')
+    cfg = set_layers(cfg, 'fixed', 'adaptive', true);
+    cfg.variant = name;
+    return
+end
 if strncmp(name, 'FR_SAFE_', 8)
     cfg = set_layers(cfg, 'fixed', 'adaptive', true);
     cfg.sched.f_fixed = str2double(name(9:end));

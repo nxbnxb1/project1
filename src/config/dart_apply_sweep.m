@@ -11,6 +11,9 @@ function cfg = dart_apply_sweep(cfg, name, value)
 %   fog       meteorological visibility cfg.depth.visibility [m]
 %   camera    camera preset (DART_CAMERA_PRESET: 1 v2, 2 cm3, 3 cm3w, 4 cm3w_hr)
 %   camspeed  100 * camera preset + requested speed (e.g. 310: cm3w at 10 m/s)
+%   speedrate 100 * requested speed + 10 * perception rate [Hz] (e.g. 1025: 10 m/s,
+%             2.5 Hz): the rate is both the compute budget of the coverage
+%             scheduler (sched.f_budget) and the rate of the fixed-rate variants
 %   none      no change (value ignored)
 switch lower(name)
     case 'latency'
@@ -21,6 +24,11 @@ switch lower(name)
         cfg.ref.v_des = value;   % requested cruise speed; capped by the physical top speed (DART_DERIVE_LIMITS)
     case 'rate'
         cfg.sched.f_fixed = value;
+    case 'speedrate'
+        cfg.ref.v_des = floor(value / 100);
+        f = round(mod(value, 100)) / 10;
+        cfg.sched.f_budget = f;
+        cfg.sched.f_fixed = f;
     case 'noise'
         cfg.depth.sigma_scale = value;
     case 'shift'
