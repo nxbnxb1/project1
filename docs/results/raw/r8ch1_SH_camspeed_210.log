@@ -1,0 +1,91 @@
+[  1/ 30] camspeed=210 SH  E_COV       seed  1  goal      clr  0.22  t  74.9  inf 128  N 21.7  mpc   4.3 ms  err 2.32  xte 11.17  xmax 22.39  off 0.95  nrj 2
+DENS camspeed=210 SH E_COV seed 1 t 2.0 20.7 45.8 6.4  d 11.5 131.8 244.1 31.4  f 1 24 90 13 
+WORLD SH seed 1 layout hard nleg 2 dyn 0.00 nobj 46
+[  2/ 30] camspeed=210 SH  E_COV       seed  2  stuck     clr  1.07  t 107.9  inf 137  N 19.9  mpc   4.3 ms  err 2.99  xte 10.17  xmax 24.33  off 0.97  nrj 1
+DENS camspeed=210 SH E_COV seed 2 t 3.1 7.7 51.5 45.6  d 20.7 53.6 175.1 49.9  f 6 13 83 35 
+WORLD SH seed 2 layout hard nleg 2 dyn 0.00 nobj 49
+FAILINFO camspeed=210 SH E_COV seed 2 cls stuck shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 0.15 closing -0.08 nupd 13 seen 39.29 prog10 -0.7 layout hard vdes 10
+[  3/ 30] camspeed=210 SH  E_COV       seed  3  stuck     clr  0.10  t 196.1  inf 246  N 18.6  mpc   4.0 ms  err 1.98  xte 8.74  xmax 32.16  off 0.98  nrj 2
+DENS camspeed=210 SH E_COV seed 3 t 4.1 27.1 128.1 36.8  d 18.8 135.0 273.0 97.1  f 4 40 136 66 
+WORLD SH seed 3 layout hard nleg 2 dyn 0.04 nobj 48
+FAILINFO camspeed=210 SH E_COV seed 3 cls stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 0.07 closing -0.06 nupd 8 seen 16.62 prog10 -0.6 layout hard vdes 10
+[  4/ 30] camspeed=210 SH  E_COV       seed  4  stuck     clr  2.18  t 213.5  inf 296  N 21.7  mpc   5.2 ms  err 1.65  xte 6.29  xmax 19.21  off 0.99  nrj 2
+DENS camspeed=210 SH E_COV seed 4 t 1.4 8.3 56.3 147.5  d 5.5 52.0 185.4 96.1  f 4 23 127 142 
+WORLD SH seed 4 layout hard nleg 1 dyn 0.00 nobj 41
+FAILINFO camspeed=210 SH E_COV seed 4 cls stuck shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 0.98 closing -0.62 nupd 16 seen 4.44 prog10 0.6 layout hard vdes 10
+[  5/ 30] camspeed=210 SH  E_COV       seed  5  collision clr -0.03  t  34.9  inf  74  N 23.3  mpc   4.8 ms  err 3.05  xte 6.53  xmax 15.12  off 0.96  nrj 2
+DENS camspeed=210 SH E_COV seed 5 t 0.6 12.5 13.0 8.8  d 0.8 61.2 82.2 35.8  f 1 28 29 16 
+WORLD SH seed 5 layout hard nleg 2 dyn 0.00 nobj 47
+FAILINFO camspeed=210 SH E_COV seed 5 cls collision-tracked shape cylinder dyn 0 tracked 1 infov 0 mode 2 speed 4.76 closing 0.89 nupd 5 seen 0.21 prog10 41.4 layout hard vdes 10
+[  6/ 30] camspeed=210 SH  E_COV       seed  6  collision clr -0.01  t  56.2  inf 132  N 23.8  mpc   4.5 ms  err 1.72  xte 11.81  xmax 21.49  off 0.98  nrj 1
+DENS camspeed=210 SH E_COV seed 6 t 2.2 11.6 38.8 3.6  d 10.5 73.3 192.4 14.2  f 7 24 91 10 
+WORLD SH seed 6 layout hard nleg 3 dyn 0.04 nobj 52
+FAILINFO camspeed=210 SH E_COV seed 6 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 3.94 closing 3.92 nupd 4 seen 0.13 prog10 32.7 layout hard vdes 10
+[  7/ 30] camspeed=210 SH  E_COV       seed  7  goal      clr  0.94  t 147.1  inf 178  N 19.8  mpc   4.1 ms  err 1.78  xte 4.54  xmax 15.35  off 0.95  nrj 4
+DENS camspeed=210 SH E_COV seed 7 t 1.6 7.6 90.4 47.5  d 7.5 60.0 275.9 69.9  f 1 9 89 79 
+WORLD SH seed 7 layout hard nleg 1 dyn 0.00 nobj 40
+[  8/ 30] camspeed=210 SH  E_COV       seed  8  goal      clr  1.44  t 110.9  inf 191  N 19.7  mpc   3.6 ms  err 3.95  xte 12.88  xmax 23.37  off 0.99  nrj 1
+DENS camspeed=210 SH E_COV seed 8 t 1.5 32.9 73.7 2.8  d 6.6 224.9 200.5 9.5  f 5 77 101 8 
+WORLD SH seed 8 layout hard nleg 3 dyn 0.00 nobj 43
+[  9/ 30] camspeed=210 SH  E_COV       seed  9  collision clr -0.01  t  13.5  inf  21  N 18.4  mpc   3.2 ms  err 4.07  xte 2.78  xmax 4.43  off 0.81  nrj 1
+DENS camspeed=210 SH E_COV seed 9 t 1.2 7.1 5.2 0.0  d 4.0 39.2 23.7 0.0  f 1 11 9 0 
+WORLD SH seed 9 layout hard nleg 1 dyn 0.04 nobj 45
+FAILINFO camspeed=210 SH E_COV seed 9 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 6.14 closing 0.11 nupd 7 seen 0.10 prog10 13.2 layout hard vdes 10
+[ 10/ 30] camspeed=210 SH  E_COV       seed 10  stuck     clr  0.13  t 138.2  inf 226  N 20.3  mpc   4.4 ms  err 2.86  xte 5.25  xmax 16.27  off 0.98  nrj 3
+DENS camspeed=210 SH E_COV seed 10 t 1.9 16.5 116.0 3.8  d 6.6 110.9 245.8 26.5  f 6 35 174 11 
+WORLD SH seed 10 layout hard nleg 2 dyn 0.00 nobj 39
+FAILINFO camspeed=210 SH E_COV seed 10 cls stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 0.12 closing -0.08 nupd 13 seen 9.98 prog10 0.5 layout hard vdes 10
+[ 11/ 30] camspeed=210 SH  E_COV       seed 11  collision clr -0.01  t  41.2  inf  83  N 25.9  mpc   5.9 ms  err 2.95  xte 5.53  xmax 12.03  off 0.94  nrj 2
+DENS camspeed=210 SH E_COV seed 11 t 1.9 3.7 32.0 3.6  d 10.8 34.0 157.3 17.6  f 1 6 68 8 
+WORLD SH seed 11 layout hard nleg 2 dyn 0.00 nobj 44
+FAILINFO camspeed=210 SH E_COV seed 11 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 4.05 closing 3.89 nupd 3 seen 0.08 prog10 76.7 layout hard vdes 10
+[ 12/ 30] camspeed=210 SH  E_COV       seed 12  collision clr -0.02  t   7.3  inf  20  N 23.5  mpc   4.6 ms  err 2.30  xte 1.71  xmax 3.37  off 0.61  nrj 1
+DENS camspeed=210 SH E_COV seed 12 t 1.6 1.1 4.6 0.0  d 7.5 10.9 31.6 0.0  f 5 3 12 0 
+WORLD SH seed 12 layout hard nleg 3 dyn 0.04 nobj 45
+FAILINFO camspeed=210 SH E_COV seed 12 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 7.59 closing 4.73 nupd 2 seen 0.06 prog10 48.5 layout hard vdes 10
+[ 13/ 30] camspeed=210 SH  E_COV       seed 13  stuck     clr  2.79  t  63.8  inf  37  N 14.3  mpc   3.3 ms  err 1.83  xte 2.82  xmax 5.87  off 0.95  nrj 1
+DENS camspeed=210 SH E_COV seed 13 t 1.7 0.9 61.2 0.0  d 8.4 9.0 38.5 0.0  f 1 3 33 0 
+WORLD SH seed 13 layout hard nleg 1 dyn 0.00 nobj 43
+FAILINFO camspeed=210 SH E_COV seed 13 cls stuck shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 0.06 closing 0.02 nupd 7 seen 31.10 prog10 -0.5 layout hard vdes 10
+[ 14/ 30] camspeed=210 SH  E_COV       seed 14  stuck     clr  0.79  t 118.6  inf 190  N 21.0  mpc   4.7 ms  err 2.82  xte 6.63  xmax 21.42  off 0.98  nrj 3
+DENS camspeed=210 SH E_COV seed 14 t 1.3 15.5 101.8 0.0  d 4.2 107.5 211.2 0.0  f 4 34 152 0 
+WORLD SH seed 14 layout hard nleg 1 dyn 0.00 nobj 41
+FAILINFO camspeed=210 SH E_COV seed 14 cls stuck shape box dyn 0 tracked 1 infov 0 mode 2 speed 0.78 closing 0.08 nupd 28 seen 6.36 prog10 -0.1 layout hard vdes 10
+[ 15/ 30] camspeed=210 SH  E_COV       seed 15  goal      clr  0.79  t 131.9  inf 179  N 19.2  mpc   3.5 ms  err 1.58  xte 8.50  xmax 21.91  off 0.95  nrj 2
+DENS camspeed=210 SH E_COV seed 15 t 1.7 11.0 93.1 26.1  d 8.5 87.6 273.5 116.0  f 1 11 111 56 
+WORLD SH seed 15 layout hard nleg 3 dyn 0.04 nobj 52
+[ 16/ 30] camspeed=210 SH  FR_SAFE_3   seed  1  goal      clr  0.77  t 108.9  inf 321  N 23.1  mpc   5.4 ms  err 3.09  xte 11.68  xmax 24.67  off 0.97  nrj 2
+DENS camspeed=210 SH FR_SAFE_3 seed 1 t 4.1 31.5 67.5 5.8  d 26.8 194.7 198.9 20.3  f 13 92 199 17 
+[ 17/ 30] camspeed=210 SH  FR_SAFE_3   seed  2  goal      clr  1.56  t 106.4  inf 313  N 19.6  mpc   3.8 ms  err 2.32  xte 12.15  xmax 25.33  off 0.98  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 2 t 1.8 29.4 70.7 4.5  d 9.7 190.5 230.8 16.6  f 6 86 209 12 
+[ 18/ 30] camspeed=210 SH  FR_SAFE_3   seed  3  collision clr -0.04  t  51.6  inf 152  N 24.0  mpc   5.6 ms  err 2.80  xte 12.32  xmax 21.30  off 0.99  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 3 t 1.7 13.1 35.7 1.1  d 4.5 84.5 131.2 6.5  f 5 40 104 3 
+FAILINFO camspeed=210 SH FR_SAFE_3 seed 3 cls collision-tracked shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 6.88 closing 3.95 nupd 2 seen 0.27 prog10 40.0 layout hard vdes 10
+[ 19/ 30] camspeed=210 SH  FR_SAFE_3   seed  4  goal      clr  0.37  t  65.7  inf 194  N 21.8  mpc   3.9 ms  err 2.49  xte 11.76  xmax 24.00  off 0.98  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 4 t 1.5 33.2 30.6 0.4  d 5.3 227.0 175.3 2.9  f 5 98 89 2 
+[ 20/ 30] camspeed=210 SH  FR_SAFE_3   seed  5  goal      clr  0.90  t 105.1  inf 310  N 21.8  mpc   4.6 ms  err 2.34  xte 11.44  xmax 24.76  off 0.99  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 5 t 0.9 33.8 41.7 28.7  d 3.9 209.9 183.8 57.5  f 3 100 121 86 
+[ 21/ 30] camspeed=210 SH  FR_SAFE_3   seed  6  goal      clr  0.55  t 173.1  inf 510  N 20.9  mpc   4.6 ms  err 2.29  xte 8.53  xmax 22.38  off 0.98  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 6 t 3.9 16.4 143.5 9.3  d 23.3 110.4 452.7 36.8  f 12 46 424 28 
+[ 22/ 30] camspeed=210 SH  FR_SAFE_3   seed  7  collision clr -0.03  t  56.0  inf 165  N 22.4  mpc   4.4 ms  err 1.45  xte 9.11  xmax 18.29  off 0.94  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 7 t 1.6 7.5 42.6 4.3  d 7.5 58.1 162.2 18.9  f 5 24 123 13 
+FAILINFO camspeed=210 SH FR_SAFE_3 seed 7 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 6.33 closing 3.60 nupd 1 seen 0.25 prog10 25.8 layout hard vdes 10
+[ 23/ 30] camspeed=210 SH  FR_SAFE_3   seed  8  goal      clr  1.46  t  64.6  inf 190  N 23.3  mpc   4.6 ms  err 3.75  xte 12.83  xmax 23.60  off 0.97  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 8 t 1.4 30.7 32.3 0.1  d 5.6 208.4 170.0 0.4  f 5 89 96 0 
+[ 24/ 30] camspeed=210 SH  FR_SAFE_3   seed  9  collision clr -0.02  t 111.9  inf 330  N 24.0  mpc   5.8 ms  err 2.78  xte 7.30  xmax 20.57  off 0.97  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 9 t 1.2 16.6 85.8 8.3  d 4.0 117.8 201.8 35.3  f 4 49 255 22 
+FAILINFO camspeed=210 SH FR_SAFE_3 seed 9 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 4.32 closing 1.96 nupd 3 seen 0.04 prog10 40.1 layout hard vdes 10
+[ 25/ 30] camspeed=210 SH  FR_SAFE_3   seed 10  collision clr -0.04  t  41.6  inf 123  N 23.5  mpc   4.2 ms  err 1.91  xte 10.13  xmax 21.90  off 0.95  nrj 4
+DENS camspeed=210 SH FR_SAFE_3 seed 10 t 1.8 25.1 10.8 3.9  d 6.3 161.4 86.0 26.4  f 6 75 30 12 
+FAILINFO camspeed=210 SH FR_SAFE_3 seed 10 cls collision-tracked shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 8.23 closing 7.81 nupd 2 seen 0.15 prog10 69.6 layout hard vdes 10
+[ 26/ 30] camspeed=210 SH  FR_SAFE_3   seed 11  goal      clr  1.19  t  75.9  inf 224  N 23.6  mpc   5.2 ms  err 2.78  xte 11.71  xmax 24.23  off 0.97  nrj 2
+DENS camspeed=210 SH FR_SAFE_3 seed 11 t 1.9 22.6 50.2 1.2  d 10.8 162.1 236.8 1.9  f 6 65 150 3 
+[ 27/ 30] camspeed=210 SH  FR_SAFE_3   seed 12  collision clr -0.01  t 117.7  inf 347  N 29.4  mpc   9.1 ms  err 2.16  xte 5.56  xmax 9.98  off 0.97  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 12 t 1.6 1.1 82.9 32.1  d 7.5 11.1 113.1 26.6  f 5 3 246 93 
+FAILINFO camspeed=210 SH FR_SAFE_3 seed 12 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 2.82 closing -0.23 nupd 51 seen 6.20 prog10 -1.3 layout hard vdes 10
+[ 28/ 30] camspeed=210 SH  FR_SAFE_3   seed 13  goal      clr  0.99  t  95.3  inf 281  N 24.9  mpc   5.8 ms  err 2.18  xte 10.08  xmax 19.66  off 0.96  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 13 t 1.7 22.4 46.9 24.3  d 8.4 151.0 235.4 65.4  f 5 66 137 73 
+[ 29/ 30] camspeed=210 SH  FR_SAFE_3   seed 14  goal      clr  1.82  t  87.2  inf 257  N 23.3  mpc   4.6 ms  err 2.74  xte 10.44  xmax 19.68  off 0.91  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 14 t 1.3 32.7 51.8 1.4  d 4.2 202.5 227.3 6.0  f 4 94 155 4 
+[ 30/ 30] camspeed=210 SH  FR_SAFE_3   seed 15  goal      clr  1.30  t 133.4  inf 393  N 21.3  mpc   4.5 ms  err 1.55  xte 8.01  xmax 21.18  off 0.95  nrj 1
+DENS camspeed=210 SH FR_SAFE_3 seed 15 t 1.7 18.9 64.5 48.3  d 8.5 114.9 288.7 83.4  f 5 57 192 139 
