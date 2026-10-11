@@ -242,3 +242,17 @@ Pooled over the requested speeds 6 / 10 / 15 m/s (Module 3 Wide = the main-grid 
     runs then, 1 / 8 in 180 now; FR_SAFE_3 0 / 1 then and now. The SH numbers of round 6 (15 worlds,
     10 m/s) were optimistic for E_COV (0 collisions, 1 stuck): with 30 worlds and three speeds the
     stuck problem shows.
+
+### Stuck cases (figures)
+
+The 15 E_COV stuck runs of the main grid were re-run with controller snapshots, together with
+FR_SAFE_3 on the same worlds (Debug case workflow with input `cases`, CI runs 38129830388,
+38129835055, 38129839601; `ci/ci_stuck_cases.m`, `experiments/dart_export_run.m`; figures by
+`python3 docs/figures/plot_stuck.py <json dir> <out dir>`): [`figures/stuck/`](figures/stuck/).
+12 of the 15 are stuck again (3 reach the goal this time, slowly: runner-dependent divergence);
+FR_SAFE_3 reaches the goal in 14 of the 15 worlds. In the 12 stuck runs, at the start of the stall
+the remembered spheres within 12 m have a radius of 1.13 x (median; 75 %: 1.37 x, max 3.9 x) the
+radius of the nearest true primitive, the region the planner keeps out of (radius + d_s + 2 sigma)
+1.9 x (75 %: 2.4 x), and their centres are 1.3 m (median) from it. These enlarged spheres close
+the gaps between objects (>= 3.5 m in the worlds); while the vehicle stands, E_COV takes few frames
+(6-21 in 44-61 s in the cases shown), so they are not measured again from close range.
