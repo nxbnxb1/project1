@@ -176,7 +176,9 @@ trên cùng lưới trần tần số 0.5–5 Hz, cùng thế giới và tốc �
   không thấy tác dụng an toàn đo được.
 * Tốc độ tự giảm theo mật độ (SN, yêu cầu 15 m/s: 11.2 m/s khi trống, 3.8 m/s khi ≥ 6 vật trong 15 m) và E_COV chụp
   dày hơn ở chỗ đông vật (1.76 → 2.59 khung/s).
-* Camera góc rộng là điều kiện cần: camera hẹp (v2, Module 3) va chạm 11–12 % trên SN.
+* Camera góc rộng là điều kiện cần: camera hẹp (v2, Module 3) va chạm 11–12 % trên SN (camera rộng 2.2 %), kẹt và
+  chậm hơn, và tăng tần số không bù được; mạng 640×360 chậm (320 ms) nên kém hơn mạng 320×180. Ưu thế tiết kiệm của
+  E_COV chỉ giữ với camera rộng.
 * Va chạm còn lại (Mục 8) có chung một nguyên nhân: bộ nhớ vật cản làm mất phần vật UAV đã thấy (chạy lại 34 vụ:
   32 vụ như vậy), rồi UAV vòng tránh vào đúng chỗ đó.
 

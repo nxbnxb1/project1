@@ -57,10 +57,11 @@ Fisher chính xác hai phía.
 8. **Tốc độ tự thích nghi theo mật độ** (SN, E_COV, trần 3 Hz, yêu cầu 15 m/s): 11.2 m/s khi không có vật nào trong
    15 m, 8.9 m/s với 1–2 vật, 5.6 m/s với 3–5 vật, 3.8 m/s khi ≥ 6 vật; tần số chụp tăng theo, 1.76 → 2.59 khung/s, trong
    khi FR_SAFE luôn chụp 3 khung/s.
-9. **Camera góc rộng là điều kiện cần.** Gộp E_COV và FR_SAFE, 1.5–5 Hz, va chạm tĩnh trên SN: Module 3 Wide 2.2 %,
-   Module 3 Wide 640×360 3.1 %, v2 10.7 %, Module 3 11.9 %. Với camera hẹp, ngay cả cảnh siêu dễ SE cũng va chạm 6–7 %,
-   gần như toàn bộ ở hai cảnh hành lang (đại lộ hàng cây, khe phố). Mạng 640×360 không giúp: mỗi lần suy luận tốn gấp 4 lần và
-   trễ trung bình 320 ms thay cho 80 ms.
+9. **Camera góc rộng là điều kiện cần** (Mục 5). Gộp E_COV và FR_SAFE, 1.5–5 Hz, va chạm tĩnh trên SN: Module 3 Wide
+   2.2 %, Module 3 Wide 640×360 3.1 %, v2 10.7 %, Module 3 11.9 %; trên SH 7.0 / 10.9 / 27.6 / 32.2 %. Camera hẹp thấy xa
+   hơn nhưng va chạm gấp 4–5 lần, kẹt gấp 6–11 lần, chậm hơn 15–40 %, và tăng trần lên 5 Hz không bù được. Mạng 640×360
+   trễ 320 ms nên chỉ chụp được khoảng 2.9 khung/s, tốn gấp 3 lần tính toán và va chạm nhiều hơn. Ưu thế tiết kiệm của
+   E_COV chỉ giữ với camera rộng: với camera hẹp hoặc mạng chậm, E_COV kém FR_SAFE ở vài ô (p = 0.0005–0.024).
 
 ## 2. Quét trần tần số (camera mặc định)
 
@@ -330,6 +331,18 @@ lần cập nhật, chọn theo tâm gần nhất.
 
 ## 5. Camera
 
+Phần camera chạy E_COV và FR_SAFE với ba camera khác trên đúng lưới của phần chính (cùng thế giới, 3 tốc độ, 10 mức
+trần); camera mặc định lấy từ phần quét tần số. Mỗi camera: SN 3 600 lượt, SH 1 800, SE 1 800. Thông số dẫn xuất
+(`dart_camera_preset`, `dart_derive_limits`; R_eff là tầm tin cậy với vật bán kính 1 m, v_max là tốc độ tối đa để đường
+bay không rời khỏi ảnh khi UAV chúi mũi; góc dọc tính theo ảnh vào mạng):
+
+| camera | ảnh vào mạng | góc nhìn ngang × dọc | suy luận (trung bình) | R_eff | v_max | tần số chụp tối đa thực tế |
+|---|---|---|---|---|---|---|
+| Camera Module v2 | 280×210 | 62×49° | 82 ms | 30 m | 13.1 m/s | 5 Hz |
+| Camera Module 3 | 320×180 | 66×40° | 80 ms | 30 m | 10.7 m/s | 5 Hz |
+| Camera Module 3 Wide (mặc định) | 320×180 | 102×70° | 80 ms | 26 m | 15 m/s | 5 Hz |
+| Camera Module 3 Wide, mạng 640×360 | 640×360 | 102×70° | 320 ms (tính toán ×4) | 30 m | 15 m/s | ≈ 2.9 Hz |
+
 | kịch bản | camera | 1.5–5 Hz: va chạm tĩnh | 1.5–5 Hz: kẹt | 1.5–5 Hz: tới đích | 3 Hz: va chạm tĩnh / kẹt | suy luận mỗi nhiệm vụ (3 Hz, E_COV) | thời gian tới đích (3 Hz, E_COV) [s] |
 |---|---|---|---|---|---|---|---|
 | SN | Camera Module v2 (62×49°) | 309 / 2880 (10.7 %) | 63 | 2508 / 2880 | 32 / 5 (của 360) | 78 | 53.8 |
@@ -345,9 +358,60 @@ lần cập nhật, chọn theo tâm gần nhất.
 | SE | Camera Module 3 Wide (102×67°) | 5 / 1440 (0.3 %) | 0 | 1435 / 1440 | 1 / 0 (của 180) | 42 | 33.6 |
 | SE | Camera Module 3 Wide, mạng 640×360 | 14 / 1440 (1.0 %) | 4 | 1422 / 1440 | 1 / 1 (của 180) | 26 | 34.9 |
 
-Số suy luận của Module 3 Wide 640×360 không so được trực tiếp: mỗi lần suy luận ở 640×360 tốn khoảng 4 lần tính toán và
-trễ gấp 4 lần (trung bình 320 ms). Camera hẹp (v2, Module 3) va chạm nhiều hơn vì vật hai bên đường bay và vật đang vòng
-qua ra khỏi khung hình sớm hơn, nên bộ nhớ hay quên / xoá chúng hơn (Mục 4.1).
+Tỉ lệ va chạm tĩnh theo trần tần số:
+
+| kịch bản | camera | 0.5 Hz | 1 Hz | 1.5 Hz | 2 Hz | 2.5 Hz | 3 Hz | 3.5 Hz | 4 Hz | 4.5 Hz | 5 Hz | FR_SAFE ở 5 Hz: khung/s thật |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| SN | Camera Module v2 (62×49°) | 55.8 % | 33.6 % | 19.2 % | 13.9 % | 11.1 % | 8.9 % | 8.3 % | 7.8 % | 10.3 % | 6.4 % | 5.01 |
+| SN | Camera Module 3 (66×41°) | 61.4 % | 34.7 % | 23.6 % | 14.4 % | 13.3 % | 11.9 % | 10.6 % | 7.2 % | 6.9 % | 7.2 % | 5.01 |
+| SN | Camera Module 3 Wide (102×67°) | 25.0 % | 5.6 % | 3.3 % | 2.8 % | 1.7 % | 1.9 % | 1.7 % | 1.9 % | 2.2 % | 2.2 % | 5.01 |
+| SN | Camera Module 3 Wide, mạng 640×360 | 30.8 % | 8.9 % | 5.3 % | 4.7 % | 3.3 % | 3.9 % | 2.2 % | 1.4 % | 1.4 % | 2.8 % | 2.92 |
+| SH | Camera Module v2 (62×49°) | 89.4 % | 61.7 % | 45.6 % | 36.7 % | 28.3 % | 26.7 % | 23.3 % | 21.7 % | 21.7 % | 17.2 % | 5.01 |
+| SH | Camera Module 3 (66×41°) | 88.9 % | 73.3 % | 52.2 % | 46.1 % | 33.9 % | 30.0 % | 29.4 % | 23.9 % | 22.2 % | 20.0 % | 5.01 |
+| SH | Camera Module 3 Wide (102×67°) | 53.3 % | 14.4 % | 9.4 % | 7.2 % | 10.0 % | 5.6 % | 3.9 % | 9.4 % | 5.0 % | 5.6 % | 5.01 |
+| SH | Camera Module 3 Wide, mạng 640×360 | 56.1 % | 25.6 % | 16.7 % | 13.3 % | 11.7 % | 8.3 % | 8.3 % | 7.2 % | 11.1 % | 10.6 % | 2.91 |
+| SE | Camera Module v2 (62×49°) | 31.7 % | 21.1 % | 14.4 % | 7.8 % | 5.6 % | 6.7 % | 3.3 % | 3.9 % | 3.3 % | 5.6 % | 5.01 |
+| SE | Camera Module 3 (66×41°) | 23.9 % | 17.8 % | 15.0 % | 11.7 % | 5.6 % | 7.2 % | 6.1 % | 4.4 % | 5.6 % | 3.9 % | 5.02 |
+| SE | Camera Module 3 Wide (102×67°) | 5.0 % | 2.8 % | 0.6 % | 0.6 % | 1.1 % | 0.6 % | 0.0 % | 0.0 % | 0.0 % | 0.0 % | 5.01 |
+| SE | Camera Module 3 Wide, mạng 640×360 | 13.9 % | 3.3 % | 1.1 % | 1.7 % | 1.7 % | 0.6 % | 0.6 % | 0.0 % | 1.1 % | 1.1 % | 2.92 |
+
+E_COV so với FR_SAFE với từng camera:
+
+Mỗi ô: va chạm tĩnh (tỉ lệ) / kẹt / suy luận mỗi nhiệm vụ (trung vị, lượt tới đích) / khung/s trung bình. p: Fisher hai phía trên va chạm tĩnh.
+
+| kịch bản | camera | E_COV | FR_SAFE | p | thời gian tới đích E_COV / FR_SAFE (trung vị) [s] |
+|---|---|---|---|---|---|
+| SN | Camera Module v2 (62×49°) | 12.8 % / 37 / 80 / 1.74 | 8.7 % / 26 / 167 / 3.23 | 0.00046 | 53.6 / 53.3 |
+| SN | Camera Module 3 (66×41°) | 12.2 % / 26 / 83 / 1.73 | 11.7 % / 22 / 172 / 3.23 | 0.73 | 53.6 / 53.6 |
+| SN | Camera Module 3 Wide (102×67°) | 2.4 % / 3 / 84 / 1.89 | 2.0 % / 5 / 146 / 3.23 | 0.53 | 46.5 / 45.8 |
+| SN | Camera Module 3 Wide, mạng 640×360 | 3.9 % / 3 / 67 / 1.44 | 2.4 % / 3 / 121 / 2.53 | 0.024 | 49.6 / 50.3 |
+| SH | Camera Module v2 (62×49°) | 30.0 % / 29 / 219 / 2.24 | 25.3 % / 24 / 314 / 3.22 | 0.052 | 97.0 / 95.5 |
+| SH | Camera Module 3 (66×41°) | 36.1 % / 21 / 216 / 2.27 | 28.3 % / 20 / 309 / 3.23 | 0.0019 | 94.6 / 89.9 |
+| SH | Camera Module 3 Wide (102×67°) | 8.2 % / 2 / 135 / 2.16 | 5.8 % / 3 / 204 / 3.22 | 0.098 | 67.2 / 64.5 |
+| SH | Camera Module 3 Wide, mạng 640×360 | 13.6 % / 7 / 134 / 1.83 | 8.2 % / 3 / 186 / 2.52 | 0.0013 | 74.2 / 73.0 |
+| SE | Camera Module v2 (62×49°) | 5.6 % / 7 / 28 / 1.39 | 7.1 % / 7 / 99 / 3.23 | 0.28 | 34.9 / 34.9 |
+| SE | Camera Module 3 (66×41°) | 8.3 % / 4 / 28 / 1.35 | 6.5 % / 7 / 101 / 3.23 | 0.23 | 34.7 / 34.0 |
+| SE | Camera Module 3 Wide (102×67°) | 0.3 % / 0 / 42 / 1.66 | 0.4 % / 0 / 97 / 3.23 | 1 | 32.7 / 32.5 |
+| SE | Camera Module 3 Wide, mạng 640×360 | 1.2 % / 3 / 26 / 1.21 | 0.7 % / 1 / 75 / 2.53 | 0.42 | 34.9 / 34.9 |
+
+Theo tốc độ yêu cầu:
+
+Mỗi ô: va chạm tĩnh (tỉ lệ) / kẹt / thời gian tới đích trung vị [s].
+
+| kịch bản | camera | 6 m/s | 10 m/s | 15 m/s | so với Module 3 Wide: p (va chạm tĩnh, mọi tốc độ) |
+|---|---|---|---|---|---|
+| SN | Camera Module v2 (62×49°) | 9.0 % / 28 / 64.3 | 8.4 % / 17 / 44.5 | 14.8 % / 18 / 39.2 | 4.9e-42 |
+| SN | Camera Module 3 (66×41°) | 8.1 % / 18 / 64.0 | 12.3 % / 22 / 43.5 | 15.3 % / 8 / 43.6 | 2.3e-50 |
+| SN | Camera Module 3 Wide (102×67°) | 2.8 % / 6 / 59.0 | 2.0 % / 0 / 40.1 | 1.9 % / 2 / 36.6 | - |
+| SN | Camera Module 3 Wide, mạng 640×360 | 2.5 % / 4 / 62.2 | 3.1 % / 1 / 42.7 | 3.8 % / 1 / 38.2 | 0.041 |
+| SH | Camera Module v2 (62×49°) | 24.6 % / 18 / 112.5 | 27.3 % / 15 / 90.0 | 31.0 % / 20 / 85.1 | 9.3e-51 |
+| SH | Camera Module 3 (66×41°) | 20.8 % / 18 / 106.9 | 33.1 % / 14 / 86.7 | 42.7 % / 9 / 82.1 | 6.1e-69 |
+| SH | Camera Module 3 Wide (102×67°) | 7.7 % / 3 / 75.0 | 6.9 % / 2 / 61.3 | 6.5 % / 0 / 59.0 | - |
+| SH | Camera Module 3 Wide, mạng 640×360 | 10.8 % / 3 / 85.0 | 10.6 % / 5 / 69.4 | 11.2 % / 2 / 66.4 | 0.00032 |
+| SE | Camera Module v2 (62×49°) | 5.4 % / 9 / 36.7 | 6.7 % / 1 / 23.9 | 6.9 % / 4 / 22.1 | 4.4e-22 |
+| SE | Camera Module 3 (66×41°) | 5.0 % / 8 / 37.0 | 8.8 % / 1 / 24.3 | 8.5 % / 2 / 24.0 | 8.4e-27 |
+| SE | Camera Module 3 Wide (102×67°) | 0.0 % / 0 / 36.0 | 0.0 % / 0 / 24.9 | 1.0 % / 0 / 22.7 | - |
+| SE | Camera Module 3 Wide, mạng 640×360 | 0.2 % / 2 / 37.9 | 1.9 % / 0 / 24.8 | 0.8 % / 2 / 22.2 | 0.063 |
 
 SE theo loại cảnh và camera (E_COV và FR_SAFE gộp, 1.5–5 Hz). Mỗi ô: va chạm / kẹt (của 240 lượt: 5 thế giới × 3 tốc độ × 8 trần tần số × 2 phương án).
 
@@ -357,6 +421,28 @@ SE theo loại cảnh và camera (E_COV và FR_SAFE gộp, 1.5–5 Hz). Mỗi ô
 | Camera Module 3 (66×41°) | 0 / 0 | 0 / 0 | 51 / 3 | 0 / 0 | 0 / 0 | 56 / 8 |
 | Camera Module 3 Wide (102×67°) | 0 / 0 | 0 / 0 | 1 / 0 | 0 / 0 | 0 / 0 | 4 / 0 |
 | Camera Module 3 Wide, mạng 640×360 | 0 / 0 | 0 / 0 | 6 / 0 | 0 / 0 | 0 / 0 | 8 / 4 |
+
+**Phân tích.**
+
+* **Góc nhìn rộng quyết định an toàn, tầm nhìn xa thì không.** Hai camera hẹp thấy xa hơn (R_eff 30 m so với 26 m)
+  nhưng va chạm gấp 4.9–5.4 lần trên SN (10.7 % và 11.9 % so với 2.2 %, p < 10⁻⁴⁰), 3.9–4.6 lần trên SH, và 6–7 % ngay cả
+  trên cảnh siêu dễ, gần như toàn bộ ở hai cảnh hành lang (đại lộ, khe phố: vật hai bên sát đường bay).
+* **Tăng tần số không bù được góc hẹp.** Với camera hẹp, va chạm giảm dần theo trần nhưng ở 5 Hz vẫn còn 6–7 % (SN),
+  17–20 % (SH), cao hơn camera rộng ở 1.5 Hz. Camera rộng đạt mức thấp từ khoảng 2 Hz.
+* **Cùng một cơ chế va chạm:** với mọi camera, gần như mọi va chạm tĩnh (≥ 99.7 %) xảy ra lúc vòng tránh và 86–100 %
+  với vật có trong ảnh chụp gần nhất (kiểu của Mục 4.1). Camera hẹp chỉ làm nó xảy ra nhiều hơn: vật bên cạnh UAV ra khỏi khung hình sớm hơn
+  nên bị quên / xoá nhiều hơn, và mỗi ảnh chỉ thấy một phần vật nên cập nhật thay thế nhiều hơn.
+* **Camera hẹp chậm hơn và kẹt nhiều hơn:** tới đích chậm hơn 15 % (SN, 53.6 so với 46.5 s) và 40 % (SH, 95 so với
+  67 s); số lượt kẹt gấp 6–11 lần; v_max bị giới hạn 10.7–13.1 m/s. Va chạm tăng theo tốc độ yêu cầu (Module 3, SH:
+  21 % ở 6 m/s, 43 % ở 15 m/s), trong khi camera rộng không phụ thuộc tốc độ.
+* **Mạng 640×360 không đáng:** mỗi lần suy luận tốn gấp 4 lần và trễ 320 ms, nên chỉ chụp được khoảng 2.9 khung/s dù
+  trần cao hơn; va chạm nhiều hơn mạng 320×180 (SN 3.1 so với 2.2 %, p = 0.041; SH 10.9 so với 7.0 %, p = 0.0003), và
+  tổng tính toán gấp khoảng 3 lần (E_COV, SN: 67 lần suy luận × 4 so với 84).
+* **Ưu thế của E_COV phụ thuộc camera:** với camera rộng, E_COV an toàn như FR_SAFE trên SN, SE (p ≥ 0.5) với ít hơn
+  28–50 % suy luận ở cùng trần (Mục 3.2). Với camera hẹp hoặc mạng chậm, E_COV kém FR_SAFE rõ ở vài ô (v2 SN 12.8 so với 8.7 %, p = 0.0005;
+  Module 3 SH 36.1 so với 28.3 %, p = 0.002; 640×360 SN p = 0.024, SH p = 0.001): vùng đã quan sát mà E_COV dựa vào nhỏ
+  hơn hoặc cũ hơn, nên chụp ít đi lại là bất lợi.
+* **Kết luận cho phần cứng:** dùng camera góc rộng (≥ 100° ngang) với mạng depth nhỏ, nhanh (320×180, 80 ms).
 
 ## 6. So với vòng 7 (cùng thế giới, cùng tốc độ yêu cầu, trần 3 Hz)
 

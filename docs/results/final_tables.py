@@ -283,6 +283,58 @@ if cams:
               f"| {e3['inf']:.0f} | {e3['t']:.1f} |")
     P('')
 
+# ---- cameras: by maximum rate, E_COV against FR_SAFE, by requested speed
+if cams:
+    def cpool(sc, cam, vs=('E_COV', 'FR_SAFE'), fs=None, sp=None):
+        ks = [k for k in R if k[0] == sc and k[2] == cam and k[1] in vs and (fs is None or k[4] in fs)
+              and (sp is None or k[3] == sp)]
+        cs = sum(R[k]['out'] == 'collision' and F.get(k, {}).get('dyn') != '1' for k in ks)
+        stk = sum(R[k]['out'] == 'stuck' for k in ks)
+        gi = [R[k]['inf'] for k in ks if R[k]['out'] == 'goal']
+        tg = [R[k]['t'] for k in ks if R[k]['out'] == 'goal']
+        fps = st.mean(R[k]['inf'] / max(R[k]['t'], 1e-6) for k in ks) if ks else float('nan')
+        return len(ks), cs, stk, (st.median(gi) if gi else float('nan')), (st.median(tg) if tg else float('nan')), fps
+    FS = [f for f in rates('SN', 'E_COV') if f >= 1.5]
+    ALL = rates('SN', 'E_COV')
+    P('### Camera theo trần tần số (E_COV và FR_SAFE gộp): tỉ lệ va chạm tĩnh\n')
+    P('| kịch bản | camera | ' + ' | '.join(f'{f:g} Hz' for f in ALL) + ' | FR_SAFE ở 5 Hz: khung/s thật |')
+    P('|---|---|' + '---|' * (len(ALL) + 1))
+    for sc in ['SN', 'SH', 'SE']:
+        for cam in [1, 2, 3, 4]:
+            row = []
+            for f in ALL:
+                n, cs, *_ = cpool(sc, cam, fs=[f])
+                row.append(pct(cs, n))
+            P(f'| {sc} | {CAM[cam]} | ' + ' | '.join(row) + f' | {cpool(sc, cam, ("FR_SAFE",), [5.0])[5]:.2f} |')
+    P('')
+    P('### Camera: E_COV so với FR_SAFE (1.5–5 Hz gộp)\n')
+    P('Mỗi ô: va chạm tĩnh (tỉ lệ) / kẹt / suy luận mỗi nhiệm vụ (trung vị, lượt tới đích) / khung/s trung bình. '
+      'p: Fisher hai phía trên va chạm tĩnh.\n')
+    P('| kịch bản | camera | E_COV | FR_SAFE | p | thời gian tới đích E_COV / FR_SAFE (trung vị) [s] |')
+    P('|---|---|---|---|---|---|')
+    for sc in ['SN', 'SH', 'SE']:
+        for cam in [1, 2, 3, 4]:
+            a_ = cpool(sc, cam, ('E_COV',), FS); b_ = cpool(sc, cam, ('FR_SAFE',), FS)
+            P(f'| {sc} | {CAM[cam]} | {pct(a_[1], a_[0])} / {a_[2]} / {a_[3]:.0f} / {a_[5]:.2f} '
+              f'| {pct(b_[1], b_[0])} / {b_[2]} / {b_[3]:.0f} / {b_[5]:.2f} | {fisher(a_[1], a_[0], b_[1], b_[0]):.2g} '
+              f'| {a_[4]:.1f} / {b_[4]:.1f} |')
+    P('')
+    P('### Camera theo tốc độ yêu cầu (E_COV và FR_SAFE gộp, 1.5–5 Hz)\n')
+    P('Mỗi ô: va chạm tĩnh (tỉ lệ) / kẹt / thời gian tới đích trung vị [s].\n')
+    P('| kịch bản | camera | 6 m/s | 10 m/s | 15 m/s | so với Module 3 Wide: p (va chạm tĩnh, mọi tốc độ) |')
+    P('|---|---|---|---|---|---|')
+    for sc in ['SN', 'SH', 'SE']:
+        d_ = cpool(sc, 3, fs=FS)
+        for cam in [1, 2, 3, 4]:
+            row = []
+            for sp in [6, 10, 15]:
+                n, cs, stk, _, tg, _ = cpool(sc, cam, fs=FS, sp=sp)
+                row.append(f'{pct(cs, n)} / {stk} / {tg:.1f}')
+            c_ = cpool(sc, cam, fs=FS)
+            pv = '-' if cam == 3 else f'{fisher(c_[1], c_[0], d_[1], d_[0]):.2g}'
+            P(f'| {sc} | {CAM[cam]} | ' + ' | '.join(row) + f' | {pv} |')
+    P('')
+
 # ---- SE: which everyday scene, by camera
 SEL = ['bãi trống', 'một cây', 'đại lộ hàng cây', 'xe đỗ + xe tải', 'dãy nhà ven đường', 'khe phố']
 if any(k[0] == 'SE' for k in R):
