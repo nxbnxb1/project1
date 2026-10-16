@@ -1,5 +1,7 @@
 # Re-run a single case with a detailed trace (MATLAB engine), or (input 'cases') export
-# several cases with controller snapshots as JSON for figures (docs/figures/plot_stuck.py).
+# several cases with controller snapshots as JSON for figures (docs/figures/plot_stuck.py), or
+# (input 'collisions') re-run collision cases and compare what the vehicle believed with the true
+# world (ci/ci_collision_cases.m: COLL lines in the log, JSON in the artifact).
 name: Debug case
 
 on:
@@ -11,6 +13,7 @@ on:
       param: { description: "Sweep parameter (latency/speed/rate/noise/shift/kappa/none)", default: "latency" }
       value: { description: "Sweep value", default: "0.15" }
       cases: { description: "Optional: export cases for figures instead, 'SN:10:12;SH:6:5' (scenario:speed:seed); variant = comma list", default: "" }
+      collisions: { description: "Optional: diagnose collision cases instead, 'E_COV:SN:6:13:3;...' (variant:scenario:speed:seed:f_max)", default: "" }
 
 jobs:
   run:
@@ -23,13 +26,17 @@ jobs:
           products: Simulink
           cache: true
       - uses: matlab-actions/run-command@v3
-        if: inputs.cases == ''
+        if: inputs.cases == '' && inputs.collisions == ''
         with:
           command: addpath('ci'); ci_debug_case('${{ inputs.variant }}', '${{ inputs.scenario }}', '${{ inputs.seed }}', '${{ inputs.param }}', '${{ inputs.value }}')
       - uses: matlab-actions/run-command@v3
         if: inputs.cases != ''
         with:
           command: addpath('ci'); ci_stuck_cases('${{ inputs.cases }}', '${{ inputs.variant }}')
+      - uses: matlab-actions/run-command@v3
+        if: inputs.collisions != ''
+        with:
+          command: addpath('ci'); ci_collision_cases('${{ inputs.collisions }}')
       - uses: actions/upload-artifact@v6
         if: always()
         with:
