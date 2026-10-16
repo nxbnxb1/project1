@@ -35,14 +35,14 @@ def covers(st, q):
 
 def cause(kind, s0, s1, q):
     if kind == 3:
-        return 'quên: ngoài khung hình và xa hơn 10 m'
+        return 'loại bỏ: ngoài khung hình và cách UAV > 10 m (trk.forget_dist)'
     if kind in (2, 4):
-        return 'xoá: không ghép được với phát hiện nào 3 lần liền'
+        return 'loại bỏ: 3 khung liên tiếp không ghép với phát hiện nào (trk.n_miss)'
     if s1[4] > q[2] - NET >= s0[4]:
-        return 'cập nhật: đáy nâng lên trên độ cao điểm chạm'
+        return 'cập nhật từ quan sát một phần: đáy nâng lên trên độ cao điểm chạm'
     if s1[5] < q[2] + NET <= s0[5]:
-        return 'cập nhật: đỉnh hạ xuống dưới độ cao điểm chạm'
-    return 'cập nhật: bán kính co lại / tâm dời đi'
+        return 'cập nhật từ quan sát một phần: đỉnh hạ xuống dưới độ cao điểm chạm'
+    return 'cập nhật từ quan sát một phần: bán kính giảm / tâm dịch chuyển'
 
 
 def main():
@@ -66,7 +66,7 @@ def main():
             if before and not cov:
                 losses.append((t, changed))
         if not losses:
-            c = 'trong bộ nhớ lúc va chạm, thấy lần đầu quá muộn' if cov else 'chưa từng có trong bộ nhớ'
+            c = 'đưa vào bộ nhớ lần đầu 0.1 s trước va chạm' if cov else 'không có trong bộ nhớ trước va chạm'
             rows.append((tag, c, '-', '-', '-'))
             tally[c] += 1
             continue
@@ -79,14 +79,15 @@ def main():
             if dd.size:
                 j = int(np.argmin(np.hypot(dd[:, 2] - s1[0], dd[:, 3] - s1[1])))
                 d = f'{dd[j, 11]:.0f} px, rho {dd[j, 5]:.1f} m, cao {dd[j, 6]:.1f}–{dd[j, 7]:.1f} m'
-        rows.append((tag, c, f'{g["t_end"] - t:.1f}', 'có' if cov else 'không', d))
+        rows.append((tag, c, f'{g["t_end"] - t:.1f}', 'có' if cov else 'không', d or '-'))
         tally[c] += 1
-    print(f'{len(rows)} vụ va chạm tái hiện được.\n')
-    print('| vụ | phần vật bị đâm mất khỏi bộ nhớ vì | mất trước va chạm [s] | có lại trước va chạm | phát hiện gây ra cập nhật |')
+    print(f'{len(rows)} trường hợp va chạm tái hiện được.\n')
+    print('| trường hợp | cơ chế loại điểm chạm khỏi bộ nhớ | thời điểm, trước va chạm [s] | bổ sung lại trước va chạm '
+          '| phát hiện gần nhất khi cập nhật |')
     print('|---|---|---|---|---|')
     for r in rows:
         print('| ' + ' | '.join(r) + ' |')
-    print('\n| nguyên nhân | số vụ |\n|---|---|')
+    print('\n| cơ chế | số trường hợp |\n|---|---|')
     for k, v in tally.most_common():
         print(f'| {k} | {v} |')
 

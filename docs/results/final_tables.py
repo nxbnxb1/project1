@@ -21,10 +21,10 @@ RUN = re.compile(r'\]\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(\w+)\s
 FAIL = re.compile(r'^FAILINFO\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+(.*)$')
 DENS = re.compile(r'^DENS\s+(\w+)=([\d.]+)\s+(S\w+)\s+(\w+)\s+seed\s+(\d+)\s+t\s+([\d.\s]+?)\s+d\s+([\d.\s]+?)'
                   r'\s+f\s+([\d\s]+)$')
-CAM = {1: 'Camera Module v2 (62×49°)', 2: 'Camera Module 3 (66×41°)', 3: 'Camera Module 3 Wide (102×67°)',
-       4: 'Camera Module 3 Wide, mạng 640×360'}
+CAM = {1: 'Camera Module v2 (62°)', 2: 'Camera Module 3 (66°)', 3: 'Camera Module 3 Wide (102°)',
+       4: 'Camera Module 3 Wide (102°), mạng 640×360'}
 VAR = ['E_COV', 'FR_SAFE', 'E_DART', 'COV_NOCLUT']
-SCN = {'SN': 'Bay thường SN', 'SH': 'Kịch bản khó SH', 'SE': 'Bối cảnh siêu dễ SE'}
+SCN = {'SN': 'Bay thường SN', 'SH': 'Kịch bản khó SH', 'SE': 'Bối cảnh đời thường SE'}
 
 
 def decode(param, val):
