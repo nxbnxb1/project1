@@ -14,6 +14,7 @@ on:
       value: { description: "Sweep value", default: "0.15" }
       cases: { description: "Optional: export cases for figures instead, 'SN:10:12;SH:6:5' (scenario:speed:seed); variant = comma list", default: "" }
       collisions: { description: "Optional: diagnose collision cases instead, 'E_COV:SN:6:13:3;...' (variant:scenario:speed:seed:f_max)", default: "" }
+      trace: { description: "Optional: with 'collisions', log every change of the obstacle memory instead (ci_collision_trace)", default: "" }
 
 jobs:
   run:
@@ -34,9 +35,13 @@ jobs:
         with:
           command: addpath('ci'); ci_stuck_cases('${{ inputs.cases }}', '${{ inputs.variant }}')
       - uses: matlab-actions/run-command@v3
-        if: inputs.collisions != ''
+        if: inputs.collisions != '' && inputs.trace == ''
         with:
           command: addpath('ci'); ci_collision_cases('${{ inputs.collisions }}')
+      - uses: matlab-actions/run-command@v3
+        if: inputs.collisions != '' && inputs.trace != ''
+        with:
+          command: addpath('ci'); ci_collision_trace('${{ inputs.collisions }}')
       - uses: actions/upload-artifact@v6
         if: always()
         with:
