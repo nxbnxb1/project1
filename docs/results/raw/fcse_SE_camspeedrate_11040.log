@@ -1,0 +1,153 @@
+[  1/ 60] camspeedrate=11040 SE  E_COV       seed  1  goal      clr   Inf  t  21.8  inf  10  N 18.5  mpc   1.9 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.690
+DENS camspeedrate=11040 SE E_COV seed 1 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 10 0 0 0 
+WORLD SE seed 1 layout open nleg 1 dyn 0.00 nobj 0
+[  2/ 60] camspeedrate=11040 SE  E_COV       seed  2  goal      clr  2.36  t  22.4  inf  21  N 19.4  mpc   3.2 ms  err 2.70  xte 1.50  xmax 5.25  off 0.19  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 2 t 18.6 3.8 0.0 0.0  d 164.5 36.2 0.0 0.0  f 19 2 0 0 
+WORLD SE seed 2 layout tree nleg 1 dyn 0.00 nobj 1
+[  3/ 60] camspeedrate=11040 SE  E_COV       seed  3  goal      clr  1.32  t  76.3  inf 250  N 22.0  mpc  12.5 ms  err 1.08  xte 2.66  xmax 9.89  off 0.84  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 3 t 5.4 3.2 38.8 28.9  d 25.3 24.0 56.9 140.1  f 9 4 139 98 
+WORLD SE seed 3 layout avenue nleg 1 dyn 0.00 nobj 30
+[  4/ 60] camspeedrate=11040 SE  E_COV       seed  4  goal      clr  2.40  t  26.3  inf  40  N 23.0  mpc   6.2 ms  err 1.85  xte 4.63  xmax 11.90  off 0.71  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 4 t 5.3 9.8 11.1 0.0  d 25.2 87.6 94.4 0.0  f 8 4 28 0 
+WORLD SE seed 4 layout cars nleg 1 dyn 0.00 nobj 14
+[  5/ 60] camspeedrate=11040 SE  E_COV       seed  5  goal      clr  5.38  t  23.9  inf  29  N 20.6  mpc   3.7 ms  err 8.27  xte 3.23  xmax 8.54  off 0.48  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 5 t 12.6 11.3 0.0 0.0  d 97.9 105.2 0.0 0.0  f 6 23 0 0 
+WORLD SE seed 5 layout buildings nleg 1 dyn 0.00 nobj 4
+[  6/ 60] camspeedrate=11040 SE  E_COV       seed  6  goal      clr  2.64  t  47.6  inf 102  N 24.0  mpc  13.2 ms  err 7.65  xte 15.32  xmax 24.66  off 0.79  nrj 2  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 6 t 10.5 25.3 11.8 0.0  d 70.9 146.2 49.7 0.0  f 10 57 35 0 
+WORLD SE seed 6 layout street nleg 1 dyn 0.00 nobj 13
+[  7/ 60] camspeedrate=11040 SE  E_COV       seed  7  goal      clr   Inf  t  21.8  inf  10  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.710
+DENS camspeedrate=11040 SE E_COV seed 7 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 10 0 0 0 
+WORLD SE seed 7 layout open nleg 1 dyn 0.00 nobj 0
+[  8/ 60] camspeedrate=11040 SE  E_COV       seed  8  goal      clr  2.20  t  22.6  inf  23  N 19.2  mpc   2.2 ms  err 0.84  xte 0.94  xmax 3.60  off 0.14  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 8 t 18.8 3.8 0.0 0.0  d 166.1 34.1 0.0 0.0  f 20 3 0 0 
+WORLD SE seed 8 layout tree nleg 1 dyn 0.00 nobj 1
+[  9/ 60] camspeedrate=11040 SE  E_COV       seed  9  goal      clr  0.26  t  87.2  inf 277  N 22.1  mpc  11.5 ms  err 1.22  xte 4.71  xmax 11.54  off 0.87  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 9 t 5.4 2.4 18.5 60.9  d 26.1 18.9 93.9 138.3  f 10 4 54 209 
+WORLD SE seed 9 layout avenue nleg 1 dyn 0.00 nobj 30
+[ 10/ 60] camspeedrate=11040 SE  E_COV       seed 10  goal      clr  1.91  t  24.6  inf  42  N 23.9  mpc   7.3 ms  err 2.37  xte 4.38  xmax 9.40  off 0.67  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 10 t 6.1 8.4 10.1 0.0  d 30.8 83.6 87.8 0.0  f 9 9 24 0 
+WORLD SE seed 10 layout cars nleg 1 dyn 0.00 nobj 14
+[ 11/ 60] camspeedrate=11040 SE  E_COV       seed 11  goal      clr  5.43  t  24.2  inf  32  N 20.1  mpc   4.0 ms  err 5.73  xte 2.59  xmax 5.39  off 0.47  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 11 t 12.7 11.5 0.0 0.0  d 98.7 102.3 0.0 0.0  f 11 21 0 0 
+WORLD SE seed 11 layout buildings nleg 1 dyn 0.00 nobj 4
+[ 12/ 60] camspeedrate=11040 SE  E_COV       seed 12  goal      clr  2.01  t  51.3  inf 122  N 25.2  mpc  14.8 ms  err 7.02  xte 1.06  xmax 4.06  off 0.53  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 12 t 9.8 11.7 15.2 14.6  d 66.1 44.7 70.0 38.6  f 9 29 44 40 
+WORLD SE seed 12 layout street nleg 1 dyn 0.00 nobj 12
+[ 13/ 60] camspeedrate=11040 SE  E_COV       seed 13  goal      clr   Inf  t  21.8  inf  10  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.720
+DENS camspeedrate=11040 SE E_COV seed 13 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 10 0 0 0 
+WORLD SE seed 13 layout open nleg 1 dyn 0.00 nobj 0
+[ 14/ 60] camspeedrate=11040 SE  E_COV       seed 14  goal      clr  2.41  t  22.4  inf  24  N 19.3  mpc   2.2 ms  err 3.26  xte 1.00  xmax 3.74  off 0.16  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 14 t 18.7 3.7 0.0 0.0  d 165.3 34.8 0.0 0.0  f 20 4 0 0 
+WORLD SE seed 14 layout tree nleg 1 dyn 0.00 nobj 1
+[ 15/ 60] camspeedrate=11040 SE  E_COV       seed 15  collision clr -0.01  t  40.2  inf 137  N 27.6  mpc  17.2 ms  err 1.61  xte 3.74  xmax 10.89  off 0.66  nrj 2  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 15 t 2.2 1.3 7.5 29.2  d 13.6 11.2 34.1 105.5  f 9 5 28 95 
+WORLD SE seed 15 layout avenue nleg 1 dyn 0.00 nobj 30
+FAILINFO camspeedrate=11040 SE E_COV seed 15 cls collision-tracked shape sphere dyn 0 tracked 1 infov 1 mode 2 speed 2.30 closing 1.18 nupd 12 seen 0.22 prog10 5.3 layout avenue vdes 10
+[ 16/ 60] camspeedrate=11040 SE  E_COV       seed 16  goal      clr  2.94  t  26.3  inf  40  N 23.7  mpc   7.1 ms  err 1.72  xte 3.90  xmax 7.46  off 0.73  nrj 2  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 16 t 5.7 6.0 14.6 0.0  d 27.7 53.7 123.0 0.0  f 8 5 27 0 
+WORLD SE seed 16 layout cars nleg 1 dyn 0.00 nobj 15
+[ 17/ 60] camspeedrate=11040 SE  E_COV       seed 17  goal      clr  6.39  t  24.8  inf  34  N 20.4  mpc   4.8 ms  err 7.31  xte 7.41  xmax 20.53  off 0.48  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 17 t 16.1 8.7 0.0 0.0  d 130.9 85.6 0.0 0.0  f 18 16 0 0 
+WORLD SE seed 17 layout buildings nleg 1 dyn 0.00 nobj 4
+[ 18/ 60] camspeedrate=11040 SE  E_COV       seed 18  goal      clr  3.58  t  38.6  inf  81  N 25.5  mpc  14.7 ms  err 6.99  xte 0.93  xmax 2.20  off 0.54  nrj 3  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 18 t 9.5 8.3 13.7 7.1  d 63.0 39.3 63.1 40.7  f 5 15 39 22 
+WORLD SE seed 18 layout street nleg 1 dyn 0.00 nobj 14
+[ 19/ 60] camspeedrate=11040 SE  E_COV       seed 19  goal      clr   Inf  t  21.8  inf  10  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.03  off 0.00  nrj 0  gap 1.700
+DENS camspeedrate=11040 SE E_COV seed 19 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 10 0 0 0 
+WORLD SE seed 19 layout open nleg 1 dyn 0.00 nobj 0
+[ 20/ 60] camspeedrate=11040 SE  E_COV       seed 20  goal      clr  1.59  t  22.5  inf  20  N 19.3  mpc   2.2 ms  err 1.50  xte 0.85  xmax 3.38  off 0.13  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 20 t 18.6 3.8 0.0 0.0  d 165.1 35.1 0.0 0.0  f 18 2 0 0 
+WORLD SE seed 20 layout tree nleg 1 dyn 0.00 nobj 1
+[ 21/ 60] camspeedrate=11040 SE  E_COV       seed 21  goal      clr  1.52  t  63.3  inf 178  N 24.9  mpc  14.6 ms  err 1.35  xte 6.32  xmax 21.85  off 0.78  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 21 t 6.3 4.4 12.7 39.9  d 32.6 34.3 81.8 114.2  f 9 12 32 125 
+WORLD SE seed 21 layout avenue nleg 1 dyn 0.00 nobj 30
+[ 22/ 60] camspeedrate=11040 SE  E_COV       seed 22  goal      clr  3.96  t  24.5  inf  42  N 23.3  mpc   6.8 ms  err 1.61  xte 4.74  xmax 9.62  off 0.72  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 22 t 5.6 7.6 11.2 0.0  d 27.4 71.9 103.5 0.0  f 9 10 23 0 
+WORLD SE seed 22 layout cars nleg 1 dyn 0.00 nobj 14
+[ 23/ 60] camspeedrate=11040 SE  E_COV       seed 23  goal      clr  4.42  t  25.1  inf  40  N 20.9  mpc   5.2 ms  err 6.61  xte 3.92  xmax 11.02  off 0.50  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 23 t 12.4 12.5 0.2 0.0  d 95.2 111.0 2.2 0.0  f 13 26 1 0 
+WORLD SE seed 23 layout buildings nleg 1 dyn 0.00 nobj 4
+[ 24/ 60] camspeedrate=11040 SE  E_COV       seed 24  collision clr -0.00  t  17.9  inf  48  N 23.7  mpc  13.8 ms  err 6.60  xte 1.64  xmax 5.37  off 0.49  nrj 2  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 24 t 4.5 4.1 4.7 4.6  d 35.8 14.5 31.8 15.5  f 2 14 14 18 
+WORLD SE seed 24 layout street nleg 1 dyn 0.00 nobj 12
+FAILINFO camspeedrate=11040 SE E_COV seed 24 cls collision-tracked shape box dyn 0 tracked 1 infov 0 mode 2 speed 3.51 closing -1.57 nupd 10 seen 0.18 prog10 25.2 layout street vdes 10
+[ 25/ 60] camspeedrate=11040 SE  E_COV       seed 25  goal      clr   Inf  t  21.8  inf  10  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 1.690
+DENS camspeedrate=11040 SE E_COV seed 25 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 10 0 0 0 
+WORLD SE seed 25 layout open nleg 1 dyn 0.00 nobj 0
+[ 26/ 60] camspeedrate=11040 SE  E_COV       seed 26  goal      clr  2.86  t  22.5  inf  21  N 19.8  mpc   2.9 ms  err 5.27  xte 1.50  xmax 4.47  off 0.22  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 26 t 18.7 3.8 0.0 0.0  d 165.6 34.6 0.0 0.0  f 18 3 0 0 
+WORLD SE seed 26 layout tree nleg 1 dyn 0.00 nobj 1
+[ 27/ 60] camspeedrate=11040 SE  E_COV       seed 27  goal      clr  1.20  t  57.9  inf 178  N 24.5  mpc  13.8 ms  err 1.43  xte 4.45  xmax 14.17  off 0.75  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 27 t 5.4 2.8 18.9 30.8  d 25.5 22.3 79.6 118.6  f 9 6 58 105 
+WORLD SE seed 27 layout avenue nleg 1 dyn 0.00 nobj 30
+[ 28/ 60] camspeedrate=11040 SE  E_COV       seed 28  goal      clr  2.86  t  26.5  inf  45  N 23.0  mpc   6.1 ms  err 1.85  xte 4.35  xmax 8.99  off 0.71  nrj 3  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 28 t 6.1 10.7 9.7 0.0  d 30.7 94.0 80.6 0.0  f 8 12 25 0 
+WORLD SE seed 28 layout cars nleg 1 dyn 0.00 nobj 13
+[ 29/ 60] camspeedrate=11040 SE  E_COV       seed 29  goal      clr  5.74  t  24.1  inf  23  N 20.5  mpc   4.1 ms  err 6.97  xte 3.18  xmax 8.36  off 0.45  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 29 t 14.4 9.7 0.0 0.0  d 117.1 88.1 0.0 0.0  f 8 15 0 0 
+WORLD SE seed 29 layout buildings nleg 1 dyn 0.00 nobj 3
+[ 30/ 60] camspeedrate=11040 SE  E_COV       seed 30  goal      clr  0.26  t  46.1  inf 124  N 21.8  mpc  12.0 ms  err 6.04  xte 15.20  xmax 24.37  off 0.78  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE E_COV seed 30 t 9.9 22.0 14.2 0.0  d 68.6 124.3 68.8 0.0  f 18 62 44 0 
+WORLD SE seed 30 layout street nleg 1 dyn 0.00 nobj 14
+[ 31/ 60] camspeedrate=11040 SE  FR_SAFE     seed  1  goal      clr   Inf  t  21.8  inf  88  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 1 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 88 0 0 0 
+[ 32/ 60] camspeedrate=11040 SE  FR_SAFE     seed  2  goal      clr  1.22  t  23.5  inf  94  N 19.4  mpc   2.8 ms  err 3.57  xte 1.24  xmax 3.88  off 0.22  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 2 t 18.6 4.9 0.0 0.0  d 163.9 36.4 0.0 0.0  f 74 20 0 0 
+[ 33/ 60] camspeedrate=11040 SE  FR_SAFE     seed  3  goal      clr  0.80  t  56.1  inf 225  N 25.1  mpc  14.6 ms  err 1.51  xte 6.77  xmax 15.41  off 0.84  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 3 t 5.3 3.8 20.6 26.3  d 25.2 32.0 123.4 85.0  f 22 16 82 105 
+[ 34/ 60] camspeedrate=11040 SE  FR_SAFE     seed  4  goal      clr  4.46  t  23.5  inf  95  N 23.0  mpc   8.8 ms  err 1.62  xte 4.82  xmax 11.77  off 0.75  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 4 t 5.4 8.7 9.4 0.0  d 25.5 83.0 93.6 0.0  f 23 35 37 0 
+[ 35/ 60] camspeedrate=11040 SE  FR_SAFE     seed  5  goal      clr  5.05  t  23.9  inf  96  N 20.9  mpc   4.9 ms  err 6.78  xte 3.69  xmax 8.44  off 0.46  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 5 t 12.4 11.5 0.0 0.0  d 96.2 106.2 0.0 0.0  f 50 46 0 0 
+[ 36/ 60] camspeedrate=11040 SE  FR_SAFE     seed  6  goal      clr  2.37  t  59.1  inf 237  N 25.2  mpc  15.6 ms  err 6.11  xte 1.32  xmax 3.06  off 0.69  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 6 t 10.1 7.1 16.0 25.9  d 70.7 31.6 66.6 52.0  f 41 29 64 103 
+[ 37/ 60] camspeedrate=11040 SE  FR_SAFE     seed  7  goal      clr   Inf  t  21.8  inf  88  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 7 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 88 0 0 0 
+[ 38/ 60] camspeedrate=11040 SE  FR_SAFE     seed  8  goal      clr  1.93  t  22.4  inf  90  N 19.3  mpc   2.4 ms  err 2.56  xte 0.99  xmax 3.40  off 0.19  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 8 t 18.8 3.6 0.0 0.0  d 166.5 33.4 0.0 0.0  f 75 15 0 0 
+[ 39/ 60] camspeedrate=11040 SE  FR_SAFE     seed  9  goal      clr  1.06  t  68.1  inf 273  N 25.8  mpc  15.4 ms  err 1.46  xte 4.39  xmax 14.12  off 0.82  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 9 t 5.5 3.4 10.9 48.3  d 26.2 23.6 58.2 164.2  f 22 15 43 193 
+[ 40/ 60] camspeedrate=11040 SE  FR_SAFE     seed 10  goal      clr  5.33  t  26.4  inf 106  N 21.2  mpc   6.0 ms  err 1.99  xte 10.92  xmax 27.99  off 0.77  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 10 t 11.3 7.5 7.6 0.0  d 80.6 75.0 68.7 0.0  f 46 30 30 0 
+[ 41/ 60] camspeedrate=11040 SE  FR_SAFE     seed 11  goal      clr  5.64  t  23.5  inf  95  N 21.0  mpc   8.0 ms  err 5.85  xte 5.26  xmax 13.45  off 0.48  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 11 t 14.1 9.4 0.0 0.0  d 112.3 93.1 0.0 0.0  f 58 37 0 0 
+[ 42/ 60] camspeedrate=11040 SE  FR_SAFE     seed 12  goal      clr  2.36  t  62.5  inf 250  N 25.9  mpc  16.8 ms  err 8.22  xte 1.21  xmax 3.07  off 0.70  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 12 t 9.7 20.4 25.5 6.9  d 66.2 45.0 81.1 31.5  f 39 82 102 27 
+[ 43/ 60] camspeedrate=11040 SE  FR_SAFE     seed 13  goal      clr   Inf  t  21.8  inf  88  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 13 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 88 0 0 0 
+[ 44/ 60] camspeedrate=11040 SE  FR_SAFE     seed 14  goal      clr  3.47  t  22.7  inf  91  N 19.3  mpc   2.5 ms  err 2.66  xte 1.36  xmax 4.74  off 0.17  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 14 t 18.7 4.0 0.0 0.0  d 165.2 35.4 0.0 0.0  f 75 16 0 0 
+[ 45/ 60] camspeedrate=11040 SE  FR_SAFE     seed 15  goal      clr  1.15  t  58.9  inf 236  N 24.9  mpc  13.8 ms  err 1.60  xte 6.69  xmax 13.39  off 0.82  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 15 t 5.2 4.4 22.5 26.7  d 24.9 31.1 117.5 107.2  f 21 18 91 106 
+[ 46/ 60] camspeedrate=11040 SE  FR_SAFE     seed 16  goal      clr  3.60  t  26.5  inf 106  N 23.4  mpc   7.3 ms  err 1.45  xte 4.96  xmax 11.41  off 0.73  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 16 t 5.7 7.3 13.4 0.0  d 27.8 62.7 113.7 0.0  f 23 29 54 0 
+[ 47/ 60] camspeedrate=11040 SE  FR_SAFE     seed 17  goal      clr  5.01  t  23.8  inf  96  N 20.7  mpc   6.5 ms  err 7.33  xte 4.45  xmax 10.65  off 0.47  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 17 t 12.8 11.0 0.0 0.0  d 100.5 103.5 0.0 0.0  f 52 44 0 0 
+[ 48/ 60] camspeedrate=11040 SE  FR_SAFE     seed 18  goal      clr  2.98  t  57.8  inf 232  N 23.2  mpc  14.6 ms  err 7.54  xte 1.18  xmax 4.21  off 0.72  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 18 t 9.4 10.5 7.8 30.1  d 63.0 44.7 60.1 57.6  f 38 42 31 121 
+[ 49/ 60] camspeedrate=11040 SE  FR_SAFE     seed 19  goal      clr   Inf  t  21.8  inf  88  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.03  off 0.00  nrj 0  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 19 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 88 0 0 0 
+[ 50/ 60] camspeedrate=11040 SE  FR_SAFE     seed 20  goal      clr  2.60  t  22.1  inf  89  N 19.2  mpc   2.3 ms  err 2.75  xte 1.08  xmax 3.95  off 0.18  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 20 t 18.6 3.5 0.0 0.0  d 164.4 35.6 0.0 0.0  f 75 14 0 0 
+[ 51/ 60] camspeedrate=11040 SE  FR_SAFE     seed 21  goal      clr  1.12  t  94.3  inf 378  N 25.3  mpc  15.6 ms  err 1.44  xte 3.94  xmax 11.11  off 0.80  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 21 t 5.4 2.6 19.3 67.0  d 25.8 20.7 66.9 172.2  f 22 11 77 268 
+[ 52/ 60] camspeedrate=11040 SE  FR_SAFE     seed 22  goal      clr  3.71  t  24.6  inf  99  N 24.8  mpc   9.7 ms  err 1.58  xte 3.38  xmax 6.71  off 0.75  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 22 t 5.7 6.3 12.6 0.0  d 27.5 58.3 114.6 0.0  f 23 26 50 0 
+[ 53/ 60] camspeedrate=11040 SE  FR_SAFE     seed 23  goal      clr  4.99  t  24.7  inf  99  N 21.5  mpc   6.9 ms  err 6.73  xte 3.49  xmax 7.15  off 0.49  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 23 t 12.2 12.3 0.1 0.0  d 94.8 106.0 0.9 0.0  f 50 48 1 0 
+[ 54/ 60] camspeedrate=11040 SE  FR_SAFE     seed 24  goal      clr  1.11  t  79.5  inf 318  N 22.7  mpc  13.0 ms  err 6.80  xte 18.16  xmax 23.67  off 0.86  nrj 2  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 24 t 10.4 53.4 15.7 0.0  d 73.3 223.1 47.0 0.0  f 42 214 62 0 
+[ 55/ 60] camspeedrate=11040 SE  FR_SAFE     seed 25  goal      clr   Inf  t  21.8  inf  88  N 18.5  mpc   1.5 ms  err  NaN  xte 0.01  xmax 0.02  off 0.00  nrj 0  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 25 t 21.8 0.0 0.0 0.0  d 199.3 0.0 0.0 0.0  f 88 0 0 0 
+[ 56/ 60] camspeedrate=11040 SE  FR_SAFE     seed 26  goal      clr  5.32  t  22.6  inf  91  N 19.0  mpc   2.4 ms  err 2.53  xte 2.49  xmax 8.73  off 0.21  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 26 t 18.8 3.8 0.0 0.0  d 166.4 36.9 0.0 0.0  f 75 16 0 0 
+[ 57/ 60] camspeedrate=11040 SE  FR_SAFE     seed 27  collision clr -0.01  t  55.5  inf 223  N 24.4  mpc  16.7 ms  err 1.60  xte 2.76  xmax 6.11  off 0.91  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 27 t 2.1 1.1 2.3 50.0  d 12.5 10.2 11.0 64.1  f 9 4 9 201 
+FAILINFO camspeedrate=11040 SE FR_SAFE seed 27 cls collision-tracked shape sphere dyn 0 tracked 1 infov 0 mode 2 speed 3.79 closing 2.90 nupd 8 seen 0.02 prog10 1.3 layout avenue vdes 10
+[ 58/ 60] camspeedrate=11040 SE  FR_SAFE     seed 28  goal      clr  3.00  t  24.1  inf  97  N 24.1  mpc   8.3 ms  err 0.91  xte 3.01  xmax 5.57  off 0.69  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 28 t 6.2 8.9 9.0 0.0  d 31.4 82.2 87.0 0.0  f 25 36 36 0 
+[ 59/ 60] camspeedrate=11040 SE  FR_SAFE     seed 29  goal      clr  6.39  t  24.0  inf  96  N 19.8  mpc   3.8 ms  err 7.95  xte 4.32  xmax 13.24  off 0.38  nrj 1  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 29 t 15.1 8.8 0.0 0.0  d 124.1 82.8 0.0 0.0  f 61 35 0 0 
+[ 60/ 60] camspeedrate=11040 SE  FR_SAFE     seed 30  goal      clr  1.27  t  43.2  inf 173  N 22.1  mpc  11.0 ms  err 7.07  xte 16.74  xmax 30.42  off 0.76  nrj 2  gap 0.250
+DENS camspeedrate=11040 SE FR_SAFE seed 30 t 12.3 17.2 13.7 0.0  d 86.4 122.7 48.9 0.0  f 50 69 54 0 
