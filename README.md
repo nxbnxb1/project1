@@ -97,7 +97,7 @@ Mọi thứ chạy trên máy ảo của GitHub. Có năm workflow:
 | **CI** | tự động mỗi lần push | (a) *Octave*: toàn bộ unit test + 1 nhiệm vụ demo, **không cần license**; (b) *MATLAB + Simulink*: unit test, sinh model `.slx`, chạy vòng kín trong Simulink | Artifact `octave-results`, `matlab-simulink-results` + bảng ở trang tóm tắt của run |
 | **Sweep** | thủ công | Quét một tham số (`speed`, `camera`, `camspeed`, `latency`, `rate`, `noise`, `shift`, `kappa`, `rmin`, `fog`) qua danh sách giá trị; mỗi (kịch bản, giá trị) một job song song | Artifact `sweep-…`; log có dòng `FAILINFO` / `WORLD` |
 | **Experiments** | thủ công | Monte-Carlo: biến thể × kịch bản × seed, engine `matlab` / `simulink` / `octave` | Artifact `ablation-…` |
-| **Debug case** | thủ công | Chạy lại một ca và in diễn biến những giây cuối | Log + artifact |
+| **Debug case** | thủ công | Chạy lại một ca và in diễn biến những giây cuối; hoặc (ô `collisions`, `trace`) chạy lại các vụ va chạm, so điều UAV tưởng với thế giới thật và ghi mọi thay đổi của bộ nhớ vật cản | Log + artifact |
 | **Docs** | khi `docs/**` thay đổi | Biên dịch tài liệu phương pháp (bản lưu trữ) bằng XeLaTeX | Artifact `DART-method-pdf` |
 
 ### 3.1. License MATLAB trên GitHub Actions
@@ -177,8 +177,8 @@ trên cùng lưới trần tần số 0.5–5 Hz, cùng thế giới và tốc �
 * Tốc độ tự giảm theo mật độ (SN, yêu cầu 15 m/s: 11.2 m/s khi trống, 3.8 m/s khi ≥ 6 vật trong 15 m) và E_COV chụp
   dày hơn ở chỗ đông vật (1.76 → 2.59 khung/s).
 * Camera góc rộng là điều kiện cần: camera hẹp (v2, Module 3) va chạm 11–12 % trên SN.
-* Va chạm còn lại (Mục 8) gần như đều cùng một kiểu: UAV đang vòng tránh, chạm một vật đã có trong bộ nhớ, phần lớn
-  khi vật đã ra khỏi khung hình.
+* Va chạm còn lại (Mục 8) có chung một nguyên nhân: bộ nhớ vật cản làm mất phần vật UAV đã thấy (chạy lại 34 vụ:
+  32 vụ như vậy), rồi UAV vòng tránh vào đúng chỗ đó.
 
 Kết quả của phiên bản trước (hình cầu, chưa chụp khi đứng yên) ở
 [`docs/archive/results/round7.md`](docs/archive/results/round7.md) và **không áp dụng** cho phiên bản chốt; so sánh
@@ -242,11 +242,12 @@ dart_eval_speed_density('E_COV', 'SE', 3, 'speedrate', 1530);   % 15 m/s, trần
 
 ## 8. Giới hạn hiện tại
 
-* **Kiểu thất bại chính: va chạm với vật tĩnh lúc vòng tránh.** Ở trần ≥ 1.5 Hz với camera mặc định, mọi va chạm tĩnh
-  xảy ra khi UAV đang vòng tránh và với một vật đã có trong bộ nhớ; 79 % khi vật đã ra khỏi khung hình. Tỉ lệ khoảng
-  2 % trên SN, 6–8 % trên SH, cao hơn nhiều với camera hẹp. Giả thuyết (chưa kiểm chứng từng ca): hình trụ dựng từ
-  phần nhìn thấy không phủ mặt bên / mặt sau của khối hộp và phần tán cây chìa ra, và không được sửa khi vật đã ra
-  khỏi khung hình. Chưa sửa trong bản chốt.
+* **Kiểu thất bại chính: bộ nhớ vật cản làm mất phần vật đã thấy.** Chạy lại 34 va chạm tĩnh ở trần 3 Hz
+  ([`docs/results/results.md`](docs/results/results.md), Mục 4.1): ở 32 vụ, phần vật bị đâm đã nằm trong bộ nhớ rồi
+  bị mất 0.8–16 s trước va chạm — bị quên khi ra khỏi khung hình và xa hơn 10 m, bị xoá vì không ghép được với phát hiện
+  nào 3 lần liền, hoặc bị một ảnh chỉ thấy một phần vật làm co / dời hình trụ, nâng đáy hay hạ đỉnh. Lúc va chạm UAV
+  tưởng còn cách vật 0.4–3 m. Tỉ lệ khoảng 2 % trên SN, 6–8 % trên SH, cao hơn nhiều với camera hẹp. Chưa sửa trong
+  bản chốt.
 * **Chỉ vật tĩnh.** Vật di chuyển chỉ được thấy lại sau mỗi khung, không dự đoán chuyển động; va chạm với xe cắt
   ngang ở SH được tách riêng và không tính vào kết quả chính (ngoài phạm vi).
 * Chỉ mô phỏng. Mạng depth được thay bằng mô hình sai số tổng hợp trên ảnh depth ray-casting (không render RGB, không

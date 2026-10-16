@@ -247,18 +247,18 @@ if D:
 
 # ---- collisions: what was hit
 P('### Va chạm: với vật gì, ở đâu (f_max ≥ 1.5 Hz, mọi phương án, camera mặc định)\n')
-P('| kịch bản | va chạm | vật tĩnh | xe đang chạy | vật tĩnh: khối hộp / khối cầu / khối trụ | vật tĩnh: ngoài khung hình '
-  '| vật tĩnh: đã có trong bộ nhớ | vật tĩnh: lúc đang vòng tránh | vật tĩnh: tốc độ / tốc độ lao vào vật lúc va chạm '
-  '(trung vị) [m/s] |')
-P('|---|---|---|---|---|---|---|---|---|')
+P('| kịch bản | va chạm | vật tĩnh | xe đang chạy | vật tĩnh: khối hộp / khối cầu / khối trụ '
+  '| vật tĩnh: có trong ảnh chụp gần nhất | vật tĩnh: lúc đang vòng tránh '
+  '| vật tĩnh: tốc độ / tốc độ lao vào vật lúc va chạm (trung vị) [m/s] |')
+P('|---|---|---|---|---|---|---|---|')
 for sc in ['SN', 'SH', 'SE']:
     ks = [k for k in F if k[0] == sc and k[2] == 3 and k[4] >= 1.5 and R.get(k, {}).get('out') == 'collision']
+    inlast = sum(1 for k in ks if F[k].get('dyn') == '0' and float(F[k]['seen']) <= 1 / k[4] + 0.1)
     stt = [F[k] for k in ks if F[k].get('dyn') == '0']
     mov = len(ks) - len(stt)
     shp = collections.Counter(d.get('shape') for d in stt)
     P(f"| {sc} | {len(ks)} | {len(stt)} | {mov} | {shp['box']} / {shp['sphere']} / {shp['cylinder']} "
-      f"| {sum(d.get('infov') == '0' for d in stt)} | {sum(d.get('tracked') == '1' for d in stt)} "
-      f"| {sum(d.get('mode') == '2' for d in stt)} "
+      f"| {inlast} | {sum(d.get('mode') == '2' for d in stt)} "
       f"| {st.median(float(d['speed']) for d in stt):.1f} / {st.median(float(d['closing']) for d in stt):.1f} |")
 P('')
 

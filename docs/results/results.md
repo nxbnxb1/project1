@@ -47,11 +47,13 @@ Fisher chính xác hai phía.
    SH 7.5 %, SE 0.4 % so với E_COV 2.4 / 8.2 / 0.3 % (p ≥ 0.7); kẹt trên SH 1.2 % so với 0.3 % (p = 0.064); tới đích
    nhanh hơn một chút (SN, 15 m/s: 33.5 s so với 36.4 s). Ở vòng 7 (hình cầu, chưa có trần cứng) khối này giảm va chạm
    trên SH (2 so với 11 / 90); sau các thay đổi của bản chốt, khác biệt đó không còn.
-7. **Kiểu va chạm còn lại là một kiểu chung, không phải vài ca hiếm.** Với trần ≥ 1.5 Hz, camera mặc định: **mọi** va
-   chạm tĩnh xảy ra khi UAV **đang vòng tránh** và với một vật **đã có trong bộ nhớ** (một track hình trụ cách bề mặt
-   thật dưới 1 m); 79 % xảy ra khi vật đã **ra khỏi khung hình** (SN 119 / 151, SH 192 / 243, SE 12 / 16). Va chạm trải
-   trên 37 / 60 thế giới SN và cả 30 thế giới SH; tốc độ lúc va chạm (trung vị) 5.3–5.5 m/s, tốc độ lao vào vật 2.1–3.3
-   m/s. Tốc độ yêu cầu gần như không ảnh hưởng (SN, E_COV: 3.1 / 2.1 / 2.1 % ở 6 / 10 / 15 m/s).
+7. **Va chạm còn lại có chung một nguyên nhân: bộ nhớ vật cản làm mất phần vật đã thấy.** Với trần ≥ 1.5 Hz, camera
+   mặc định: mọi va chạm tĩnh xảy ra khi UAV đang vòng tránh; 92 % khi vật bị đâm có trong ảnh chụp gần nhất (vật không
+   "ra khỏi tầm nhìn"). Va chạm trải trên 37 / 60 thế giới SN và cả 30 thế giới SH; tốc độ lúc va chạm (trung vị)
+   5.3–5.5 m/s. Chạy lại 34 vụ ở trần 3 Hz bằng MATLAB (Mục 4.1): ở **32 / 34 vụ**, phần vật bị đâm **đã nằm trong bộ
+   nhớ rồi bị mất** trước khi đâm 0.8–16 s — bị quên khi ra khỏi khung hình và xa hơn 10 m (9), bị xoá vì không ghép được
+   với phát hiện nào 3 lần liền (8), hoặc bị một lần cập nhật từ ảnh chỉ thấy một phần vật làm co / dời hình trụ (10)
+   hay nâng đáy / hạ đỉnh qua độ cao bay (5). Lúc va chạm UAV tưởng mình còn cách vật 0.4–3 m.
 8. **Tốc độ tự thích nghi theo mật độ** (SN, E_COV, trần 3 Hz, yêu cầu 15 m/s): 11.2 m/s khi không có vật nào trong
    15 m, 8.9 m/s với 1–2 vật, 5.6 m/s với 3–5 vật, 3.8 m/s khi ≥ 6 vật; tần số chụp tăng theo, 1.76 → 2.59 khung/s, trong
    khi FR_SAFE luôn chụp 3 khung/s.
@@ -228,11 +230,13 @@ Tốc độ trung bình trong cột "0 vật" gồm cả đoạn tăng tốc lú
 
 ## 4. Va chạm còn lại
 
-| kịch bản | va chạm | vật tĩnh | xe đang chạy | vật tĩnh: khối hộp / khối cầu / khối trụ | vật tĩnh: ngoài khung hình | vật tĩnh: đã có trong bộ nhớ | vật tĩnh: lúc đang vòng tránh | vật tĩnh: tốc độ / tốc độ lao vào vật lúc va chạm (trung vị) [m/s] |
-|---|---|---|---|---|---|---|---|---|
-| SN | 151 | 151 | 0 | 86 / 64 / 1 | 119 | 151 | 151 | 5.5 / 2.1 |
-| SH | 299 | 243 | 56 | 114 / 123 / 6 | 192 | 243 | 243 | 5.3 / 2.4 |
-| SE | 16 | 16 | 0 | 10 / 6 / 0 | 12 | 16 | 16 | 5.4 / 3.3 |
+| kịch bản | va chạm | vật tĩnh | xe đang chạy | vật tĩnh: khối hộp / khối cầu / khối trụ | vật tĩnh: có trong ảnh chụp gần nhất | vật tĩnh: lúc đang vòng tránh | vật tĩnh: tốc độ / tốc độ lao vào vật lúc va chạm (trung vị) [m/s] |
+|---|---|---|---|---|---|---|---|
+| SN | 151 | 151 | 0 | 86 / 64 / 1 | 138 | 151 | 5.5 / 2.1 |
+| SH | 299 | 243 | 56 | 114 / 123 / 6 | 225 | 243 | 5.3 / 2.4 |
+| SE | 16 | 16 | 0 | 10 / 6 / 0 | 14 | 16 | 5.4 / 3.3 |
+
+"Có trong ảnh chụp gần nhất": một ảnh chụp không quá 1/`f_max` + 0.1 s trước va chạm có ít nhất 12 pixel của vật bị đâm.
 
 Va chạm tĩnh trải trên bao nhiêu thế giới:
 
@@ -244,16 +248,83 @@ Va chạm tĩnh trải trên bao nhiêu thế giới:
 
 Tốc độ yêu cầu gần như không ảnh hưởng tới tỉ lệ va chạm (Mục 3.4).
 
-* **Vật tĩnh:** khối hộp (nhà, xe, container) và khối cầu (tán cây, bụi cây, đá) chiếm gần hết; thân cây (khối trụ)
-  hầu như không.
-* **Đã có trong bộ nhớ, lúc đang vòng tránh, phần lớn ngoài khung hình:** UAV đã thấy vật, đang đi vòng để quay về quỹ
-  đạo đặt, vật đã ra khỏi khung hình, và UAV vẫn chạm vào vật với tốc độ lao vào 2.1–3.3 m/s. Lớp an toàn phanh 100 Hz
-  và MPC chỉ biết vật qua hình trụ trong bộ nhớ, nên nếu chạm thì hình trụ đó nhỏ hơn hoặc lệch so với vật thật ở
-  phía UAV đi qua.
-* **Giả thuyết (chưa kiểm chứng từng ca):** hình trụ được dựng từ phần vật nhìn thấy trong các khung trước đó; mặt
-  bên và mặt sau của khối hộp, phần tán cây chìa ra ngoài không được đo, và khi vật ra khỏi khung hình thì không còn
-  được sửa. Cần chạy lại một số ca bằng workflow *Debug case* (ô `cases`) và vẽ bằng `docs/figures/plot_stuck.py` để
-  xác nhận trước khi sửa.
+### 4.1. Chẩn đoán: chạy lại 37 vụ ở trần 3 Hz
+
+Mọi va chạm tĩnh ở trần 3 Hz với camera mặc định (37 vụ, cả bốn phương án) được chạy lại bằng MATLAB trên GitHub Actions
+với ảnh chụp trạng thái bộ điều khiển mỗi 0.1 s (workflow *Debug case*, ô `collisions`,
+[`ci/ci_collision_cases.m`](../../ci/ci_collision_cases.m); lần chạy 38899652007, 38899661032, 38899670524) và với nhật
+ký mọi thay đổi của bộ nhớ vật cản (ô `trace`, [`ci/ci_collision_trace.m`](../../ci/ci_collision_trace.m); lần chạy
+38901158505, 38901167016, 38901175518). 34 / 37 vụ lặp lại đúng (cùng thời điểm va chạm); 3 vụ còn lại tới đích khi chạy
+lại (máy chạy khác nhau lệch nhẹ). Dữ liệu: [`raw/collisions/`](raw/collisions/); bảng dưới sinh bằng
+`python3 docs/results/collision_trace.py`. "Mất khỏi bộ nhớ": điểm chạm thật không còn nằm trong hình trụ nào trong bộ
+nhớ (kể cả phần nới d_s − r_body = 0.25 m mà UAV được phép tới gần). Cột cuối: phát hiện (vùng depth) trong ảnh gây ra
+lần cập nhật, chọn theo tâm gần nhất.
+
+34 vụ va chạm tái hiện được.
+
+| vụ | phần vật bị đâm mất khỏi bộ nhớ vì | mất trước va chạm [s] | có lại trước va chạm | phát hiện gây ra cập nhật |
+|---|---|---|---|---|
+| FR_SAFE SE 15 m/s seed 15 | xoá: không ghép được với phát hiện nào 3 lần liền | 1.9 | không |  |
+| COV_NOCLUT SH 10 m/s seed 30 | quên: ngoài khung hình và xa hơn 10 m | 4.8 | có |  |
+| COV_NOCLUT SH 15 m/s seed 6 | cập nhật: đỉnh hạ xuống dưới độ cao điểm chạm | 0.8 | không | 14 px, rho 0.1 m, cao 5.7–6.1 m |
+| E_COV SH 10 m/s seed 1 | trong bộ nhớ lúc va chạm, thấy lần đầu quá muộn | - | - | - |
+| E_COV SH 10 m/s seed 15 | quên: ngoài khung hình và xa hơn 10 m | 6.9 | có |  |
+| E_COV SH 15 m/s seed 28 | xoá: không ghép được với phát hiện nào 3 lần liền | 1.1 | không |  |
+| E_COV SH 6 m/s seed 1 | cập nhật: đáy nâng lên trên độ cao điểm chạm | 0.9 | không | 609 px, rho 0.9 m, cao 4.3–5.9 m |
+| E_COV SH 6 m/s seed 11 | cập nhật: đáy nâng lên trên độ cao điểm chạm | 10.4 | không | 12 px, rho 0.5 m, cao 5.3–6.3 m |
+| E_COV SH 6 m/s seed 12 | cập nhật: đáy nâng lên trên độ cao điểm chạm | 1.3 | không | 527 px, rho 1.4 m, cao 2.1–9.2 m |
+| E_COV SH 6 m/s seed 19 | cập nhật: bán kính co lại / tâm dời đi | 2.2 | không | 543 px, rho 1.4 m, cao 2.0–2.8 m |
+| E_COV SH 6 m/s seed 4 | xoá: không ghép được với phát hiện nào 3 lần liền | 2.2 | không |  |
+| E_DART SH 10 m/s seed 11 | cập nhật: bán kính co lại / tâm dời đi | 3.6 | có | 285 px, rho 1.6 m, cao -2.4–2.4 m |
+| E_DART SH 10 m/s seed 12 | quên: ngoài khung hình và xa hơn 10 m | 1.3 | có |  |
+| E_DART SH 10 m/s seed 18 | xoá: không ghép được với phát hiện nào 3 lần liền | 1.5 | có |  |
+| E_DART SH 10 m/s seed 2 | cập nhật: bán kính co lại / tâm dời đi | 11.0 | không | 45 px, rho 3.7 m, cao -1.3–17.2 m |
+| E_DART SH 10 m/s seed 24 | quên: ngoài khung hình và xa hơn 10 m | 1.1 | có |  |
+| E_DART SH 10 m/s seed 27 | cập nhật: bán kính co lại / tâm dời đi | 14.4 | không | 891 px, rho 0.4 m, cao 1.3–2.1 m |
+| E_DART SH 10 m/s seed 3 | xoá: không ghép được với phát hiện nào 3 lần liền | 1.9 | có |  |
+| E_DART SH 15 m/s seed 30 | quên: ngoài khung hình và xa hơn 10 m | 1.3 | có |  |
+| E_DART SH 6 m/s seed 12 | cập nhật: bán kính co lại / tâm dời đi | 6.8 | không | 4544 px, rho 1.9 m, cao -0.3–9.1 m |
+| FR_SAFE SH 15 m/s seed 20 | cập nhật: bán kính co lại / tâm dời đi | 3.5 | không | 2427 px, rho 1.6 m, cao -0.2–6.2 m |
+| COV_NOCLUT SN 10 m/s seed 27 | quên: ngoài khung hình và xa hơn 10 m | 2.2 | có |  |
+| COV_NOCLUT SN 10 m/s seed 6 | cập nhật: bán kính co lại / tâm dời đi | 4.3 | không | 169 px, rho 1.1 m, cao 0.1–4.9 m |
+| COV_NOCLUT SN 6 m/s seed 1 | xoá: không ghép được với phát hiện nào 3 lần liền | 2.5 | không |  |
+| COV_NOCLUT SN 6 m/s seed 13 | quên: ngoài khung hình và xa hơn 10 m | 3.3 | không |  |
+| E_COV SN 15 m/s seed 21 | cập nhật: đáy nâng lên trên độ cao điểm chạm | 10.7 | không | 782 px, rho 0.4 m, cao 6.0–10.1 m |
+| E_COV SN 6 m/s seed 13 | quên: ngoài khung hình và xa hơn 10 m | 3.3 | không |  |
+| E_COV SN 6 m/s seed 36 | cập nhật: bán kính co lại / tâm dời đi | 16.4 | không | 4722 px, rho 0.4 m, cao 2.6–4.8 m |
+| E_DART SN 10 m/s seed 42 | xoá: không ghép được với phát hiện nào 3 lần liền | 9.8 | không |  |
+| E_DART SN 15 m/s seed 12 | xoá: không ghép được với phát hiện nào 3 lần liền | 1.3 | có |  |
+| E_DART SN 6 m/s seed 54 | chưa từng có trong bộ nhớ | - | - | - |
+| FR_SAFE SN 10 m/s seed 42 | quên: ngoài khung hình và xa hơn 10 m | 4.2 | không |  |
+| FR_SAFE SN 10 m/s seed 55 | cập nhật: bán kính co lại / tâm dời đi | 1.3 | không | 3558 px, rho 1.6 m, cao 0.5–5.2 m |
+| FR_SAFE SN 15 m/s seed 24 | cập nhật: bán kính co lại / tâm dời đi | 14.3 | không | 84 px, rho 3.4 m, cao 1.9–14.6 m |
+
+| nguyên nhân | số vụ |
+|---|---|
+| cập nhật: bán kính co lại / tâm dời đi | 10 |
+| quên: ngoài khung hình và xa hơn 10 m | 9 |
+| xoá: không ghép được với phát hiện nào 3 lần liền | 8 |
+| cập nhật: đáy nâng lên trên độ cao điểm chạm | 4 |
+| cập nhật: đỉnh hạ xuống dưới độ cao điểm chạm | 1 |
+| trong bộ nhớ lúc va chạm, thấy lần đầu quá muộn | 1 |
+| chưa từng có trong bộ nhớ | 1 |
+
+* **Không phải do bộ điều khiển hay lớp an toàn**: ở các vụ "không có lại", UAV tưởng còn cách vật 0.4–3 m lúc va chạm,
+  nên MPC và CBF không có lý do để tránh. Ở 11 vụ còn lại (10 vụ "có lại trước va chạm" và vụ thấy lần đầu quá muộn), phần vật
+  đó chỉ vào lại bộ nhớ 0.1–0.7 s trước khi đâm (một vụ 2.2 s, nhưng UAV đang bay 9.8 m/s), quá muộn để phanh: lớp an
+  toàn hoạt động hết mức, biến bù lớn.
+* **Không phải do vật ra khỏi tầm nhìn quá lâu**: vật vẫn được thấy, nhưng ảnh mới chỉ thấy một phần (phần ở sát bên
+  UAV nằm ngoài khung hình hoặc ở mép ảnh), và bộ nhớ thay hình trụ cũ bằng hình học của phần nhìn thấy.
+* **Ba quy tắc của bộ nhớ làm mất phần đã thấy**:
+  1. *quên*: track ngoài khung hình và cách UAV hơn 10 m bị xoá, trong khi đường vòng có thể quay lại gần nó;
+  2. *xoá khi không ghép được*: track "đáng lẽ thấy" mà 3 lần liền không ghép được với phát hiện nào thì bị xoá; với vật
+     lớn được chia thành nhiều hình trụ, cách chia thay đổi theo khoảng cách nên track cũ không ghép được dù vật vẫn còn;
+  3. *cập nhật thay thế*: bán kính được làm mượt về phía bán kính của phát hiện mới (kể cả mảnh nhỏ 12–100 pixel), tâm dời
+     theo, và một đầu chưa thấy (kéo xuống đất / lên trời) được thay ngay bằng đáy / đỉnh của phần nhìn thấy.
+* Hình minh hoạ ([`docs/figures/plot_collision.py`](../figures/plot_collision.py)):
+  [nâng đáy: tán cây / bụi cây](../figures/collisions/SH_E_COV_v6_s1.png),
+  [xoá: góc nhà](../figures/collisions/SH_E_COV_v6_s4.png),
+  [quên: khối hộp](../figures/collisions/SN_E_COV_v6_s13.png).
 * **Xe đang chạy (SH):** 56 va chạm ở trần ≥ 1.5 Hz, ngoài phạm vi (thuật toán coi mọi vật là tĩnh, xe chỉ được
   thấy lại sau mỗi khung).
 
@@ -275,8 +346,8 @@ Tốc độ yêu cầu gần như không ảnh hưởng tới tỉ lệ va chạ
 | SE | Camera Module 3 Wide, mạng 640×360 | 14 / 1440 (1.0 %) | 4 | 1422 / 1440 | 1 / 1 (của 180) | 26 | 34.9 |
 
 Số suy luận của Module 3 Wide 640×360 không so được trực tiếp: mỗi lần suy luận ở 640×360 tốn khoảng 4 lần tính toán và
-trễ gấp 4 lần (trung bình 320 ms). Camera hẹp (v2, Module 3) va chạm nhiều vì vật hai bên đường bay và vật đang vòng
-qua ra khỏi khung hình sớm hơn, đúng kiểu va chạm của Mục 4.
+trễ gấp 4 lần (trung bình 320 ms). Camera hẹp (v2, Module 3) va chạm nhiều hơn vì vật hai bên đường bay và vật đang vòng
+qua ra khỏi khung hình sớm hơn, nên bộ nhớ hay quên / xoá chúng hơn (Mục 4.1).
 
 SE theo loại cảnh và camera (E_COV và FR_SAFE gộp, 1.5–5 Hz). Mỗi ô: va chạm / kẹt (của 240 lượt: 5 thế giới × 3 tốc độ × 8 trần tần số × 2 phương án).
 
@@ -309,9 +380,10 @@ Bản chốt đổi kẹt lấy va chạm: với E_COV, kẹt 15 → 0 / 270 lư
 
 ## 7. Hạn chế và việc còn mở
 
-* **Va chạm tĩnh khi vòng tránh vật đã ra khỏi khung hình** (Mục 4) là kiểu thất bại chính, chung cho mọi bộ lập lịch
-  và mọi trần tần số ≥ 1.5 Hz: SN khoảng 2 %, SH 6–8 % (E_COV, FR_SAFE), cảnh hành lang (đại lộ, khe phố) với camera
-  hẹp 15–23 %. Chưa được sửa trong bản chốt.
+* **Bộ nhớ vật cản làm mất phần vật đã thấy** (Mục 4.1) là nguyên nhân của gần hết va chạm tĩnh còn lại, chung cho mọi
+  bộ lập lịch và mọi trần tần số ≥ 1.5 Hz: SN khoảng 2 %, SH 6–8 % (E_COV, FR_SAFE), cảnh hành lang (đại lộ, khe phố)
+  với camera hẹp 15–23 %. Chưa được sửa trong bản chốt. Hướng sửa: bộ nhớ chỉ được bớt phần đã thấy khi có bằng chứng
+  chỗ đó trống (tia depth đi xuyên qua), không phải khi một ảnh chỉ thấy một phần vật hay khi vật ra khỏi khung hình.
 * **Vật di chuyển** nằm ngoài phạm vi: va chạm với xe cắt ngang ở SH được tách riêng, không tính vào kết quả chính.
 * **Bảng tầm phát hiện R_eff** của các camera được đo trước khi đổi sang hình trụ (cùng bước phân đoạn), chưa đo lại.
 * Chỉ mô phỏng; giới hạn của mô hình camera, mạng depth và quadrotor như ở README, Mục 8.

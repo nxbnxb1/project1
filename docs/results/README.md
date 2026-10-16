@@ -8,6 +8,9 @@
 * `raw/f*` — log gốc từ GitHub Actions (một dòng mỗi lượt, kèm `gap`, `DENS`, `FAILINFO`, `WORLD`): `fsn1–3`, `fsh1–3`,
   `fse` quét tần số; `fncsn`, `fncsh`, `fncse` COV_NOCLUT; `fcsn1–2`, `fcsh1–2`, `fcse` camera.
 * `final_tables.py` — sinh mọi bảng của `results.md`: `python3 docs/results/final_tables.py`.
+* `raw/collisions/`, `collision_trace.py` — chẩn đoán các va chạm tĩnh ở trần 3 Hz (`results.md`, Mục 4.1): dữ liệu
+  của `ci/ci_collision_cases.m` (diag_*, case_*) và `ci/ci_collision_trace.m` (trace_*);
+  `python3 docs/results/collision_trace.py`. Hình: `docs/figures/plot_collision.py`, `docs/figures/collisions/`.
 * `parse_results.py` — bảng chi tiết cho một nhóm log bất kỳ. `parse_failures.py` (phân loại thất bại) và
   `parse_ablation.py` (khoảng tin cậy Wilson) là hàm dùng chung.
 
