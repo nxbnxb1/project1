@@ -1,4 +1,4 @@
-# Kết quả lưới chốt
+# Kết quả lưới chốt (bản chốt)
 
 **Thuật toán:** commit `2a536b1` (vật cản hình trụ đứng, chụp liên tục khi gần như đứng yên, tần số quét tối đa
 `f_max` là trần cứng, thêm bối cảnh siêu dễ SE). Phần bỏ giới hạn tốc độ theo mật độ và phần camera chạy trên commit
@@ -464,12 +464,13 @@ Vòng 7 dùng hình cầu bao trùm, chưa chụp khi đứng yên; trần 3 Hz 
 Bản chốt đổi kẹt lấy va chạm: với E_COV, kẹt 15 → 0 / 270 lượt (p = 5·10⁻⁵) nhưng va chạm tĩnh 3 → 12 / 270
 (p = 0.033); tổng số lượt thất bại 18 → 12 (p = 0.35). Với FR_SAFE, va chạm tĩnh 0 → 5 / 270 (p = 0.061).
 
-## 7. Hạn chế và việc còn mở
+## 7. Hạn chế của bản chốt
 
 * **Bộ nhớ vật cản làm mất phần vật đã thấy** (Mục 4.1) là nguyên nhân của gần hết va chạm tĩnh còn lại, chung cho mọi
   bộ lập lịch và mọi trần tần số ≥ 1.5 Hz: SN khoảng 2 %, SH 6–8 % (E_COV, FR_SAFE), cảnh hành lang (đại lộ, khe phố)
-  với camera hẹp 15–23 %. Chưa được sửa trong bản chốt. Hướng sửa: bộ nhớ chỉ được bớt phần đã thấy khi có bằng chứng
-  chỗ đó trống (tia depth đi xuyên qua), không phải khi một ảnh chỉ thấy một phần vật hay khi vật ra khỏi khung hình.
+  với camera hẹp 15–23 %. Bản chốt giữ nguyên hạn chế này. Hướng sửa cho phiên bản sau: bộ nhớ chỉ được bớt phần đã
+  thấy khi có bằng chứng chỗ đó trống (tia depth đi xuyên qua), không phải khi một ảnh chỉ thấy một phần vật hay khi vật
+  ra khỏi khung hình.
 * **Vật di chuyển** nằm ngoài phạm vi: va chạm với xe cắt ngang ở SH được tách riêng, không tính vào kết quả chính.
 * **Bảng tầm phát hiện R_eff** của các camera được đo trước khi đổi sang hình trụ (cùng bước phân đoạn), chưa đo lại.
 * Chỉ mô phỏng; giới hạn của mô hình camera, mạng depth và quadrotor như ở README, Mục 8.

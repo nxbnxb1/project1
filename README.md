@@ -6,7 +6,7 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
 
 | | |
 |---|---|
-| **Kết quả hiện tại** | [`docs/results/results.md`](docs/results/results.md): lưới chốt, 36 000 lượt (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
+| **Kết quả hiện tại** | [`docs/results/results.md`](docs/results/results.md): **bản chốt** (thuật toán commit `2a536b1`), lưới 36 000 lượt (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
 | Tài liệu và kết quả cũ | [`docs/archive/`](docs/archive/README.md): tài liệu phương pháp LaTeX (bản 3), kết quả các vòng trước. **Không áp dụng cho phiên bản hiện tại** |
 | Mô hình Simulink | sinh từ mã bởi [`simulink/dart_build_model.m`](simulink/dart_build_model.m) → `dart_closed_loop.slx` |
 | Chạy trên cloud | tab **Actions** của repo: `CI`, `Experiments`, `Sweep`, `Debug case`, `Docs` |
@@ -248,8 +248,9 @@ dart_eval_speed_density('E_COV', 'SE', 3, 'speedrate', 1530);   % 15 m/s, trần
   ([`docs/results/results.md`](docs/results/results.md), Mục 4.1): ở 32 vụ, phần vật bị đâm đã nằm trong bộ nhớ rồi
   bị mất 0.8–16 s trước va chạm — bị quên khi ra khỏi khung hình và xa hơn 10 m, bị xoá vì không ghép được với phát hiện
   nào 3 lần liền, hoặc bị một ảnh chỉ thấy một phần vật làm co / dời hình trụ, nâng đáy hay hạ đỉnh. Lúc va chạm UAV
-  tưởng còn cách vật 0.4–3 m. Tỉ lệ khoảng 2 % trên SN, 6–8 % trên SH, cao hơn nhiều với camera hẹp. Chưa sửa trong
-  bản chốt.
+  tưởng còn cách vật 0.4–3 m. Tỉ lệ khoảng 2 % trên SN, 6–8 % trên SH, cao hơn nhiều với camera hẹp. Đây là hạn chế
+  đã biết của bản chốt, được giữ nguyên; hướng sửa cho phiên bản sau: bộ nhớ chỉ bớt phần vật đã thấy khi ảnh depth
+  cho thấy chỗ đó trống (tia đi xuyên qua).
 * **Chỉ vật tĩnh.** Vật di chuyển chỉ được thấy lại sau mỗi khung, không dự đoán chuyển động; va chạm với xe cắt
   ngang ở SH được tách riêng và không tính vào kết quả chính (ngoài phạm vi).
 * Chỉ mô phỏng. Mạng depth được thay bằng mô hình sai số tổng hợp trên ảnh depth ray-casting (không render RGB, không
