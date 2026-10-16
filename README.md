@@ -6,7 +6,7 @@ Mô phỏng hoàn toàn bằng **MATLAB/Simulink chạy trên cloud (GitHub Acti
 
 | | |
 |---|---|
-| **Kết quả hiện tại** | [`docs/results/results.md`](docs/results/results.md): lưới chốt (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
+| **Kết quả hiện tại** | [`docs/results/results.md`](docs/results/results.md): lưới chốt, 36 000 lượt (tóm tắt ở [Mục 5](#5-kết-quả-hiện-tại)) |
 | Tài liệu và kết quả cũ | [`docs/archive/`](docs/archive/README.md): tài liệu phương pháp LaTeX (bản 3), kết quả các vòng trước. **Không áp dụng cho phiên bản hiện tại** |
 | Mô hình Simulink | sinh từ mã bởi [`simulink/dart_build_model.m`](simulink/dart_build_model.m) → `dart_closed_loop.slx` |
 | Chạy trên cloud | tab **Actions** của repo: `CI`, `Experiments`, `Sweep`, `Debug case`, `Docs` |
@@ -127,7 +127,8 @@ workflow*, `engine = matlab`; mỗi dòng của cột `seeds` là một lần ch
 Mọi phần đều chạy trên cùng lưới tần số 0.5–5 Hz. `speedrate` 1025 = 10 m/s, trần 2.5 Hz; `camspeedrate` 41025 =
 preset camera 4 (Module 3 Wide 640×360) ở 10 m/s, trần 2.5 Hz; camera mặc định (preset 3) lấy từ phần quét tần số. Mỗi lượt in một dòng kết quả (kèm `gap` = khoảng cách nhỏ nhất giữa hai
 lần chụp) và một dòng `DENS` (thời gian, quãng bay, số khung theo số vật trong 15 m). Tải log (bước *Run sweep point*
-của mỗi job) và lập bảng: `python3 docs/results/parse_results.py '<log>'`.
+của mỗi job) và lập bảng: `python3 docs/results/parse_results.py '<log>'` (một nhóm log) hoặc
+`python3 docs/results/final_tables.py` (toàn bộ lưới chốt, các bảng của `results.md`).
 
 ## 4. Kịch bản và biến thể
 
@@ -158,9 +159,30 @@ tần số đó.
 
 ## 5. Kết quả hiện tại
 
-**Lưới chốt đang chạy trên GitHub Actions** (thuật toán của commit `2a536b1`, khoảng 35 900 lượt). Kết quả sẽ ở
-[`docs/results/results.md`](docs/results/results.md). Kết quả của phiên bản trước (hình cầu, chưa chụp khi đứng yên)
-ở [`docs/archive/results/round7.md`](docs/archive/results/round7.md) và **không áp dụng** cho phiên bản chốt.
+Chi tiết: [`docs/results/results.md`](docs/results/results.md). 36 000 lượt (thuật toán commit `2a536b1`), mọi phần
+trên cùng lưới trần tần số 0.5–5 Hz, cùng thế giới và tốc độ yêu cầu 6 / 10 / 15 m/s; camera mặc định Module 3 Wide.
+
+| | SN bay thường | SH khó | SE siêu dễ |
+|---|---|---|---|
+| E_COV, trần 3 Hz: va chạm tĩnh / kẹt / suy luận mỗi nhiệm vụ (trung vị) | 3 / 0 / 77 (của 180) | 9 / 0 / 134 (của 90) | 0 / 0 / 42 (của 90) |
+| FR_SAFE, 3 Hz đều | 4 / 0 / 134 | 1 / 0 / 192 | 1 / 0 / 96 |
+| va chạm tĩnh, gộp trần 1.5–5 Hz: E_COV / FR_SAFE / E_DART / COV_NOCLUT | 2.4 / 2.0 / 3.9 / 2.2 % | 8.2 / 5.8 / 12.2 / 7.5 % | 0.3 / 0.4 / 1.1 / 0.4 % |
+| suy luận của E_COV so với FR_SAFE cùng trần (1.5–5 Hz) | 0.54–0.72 | 0.61–0.81 | 0.50–0.63 |
+
+* Trần `f_max` được giữ đúng ở cả 36 000 lượt; kẹt gần như hết (≤ 0.4 % ở trần ≥ 1.5 Hz, trừ COV_NOCLUT trên SH 1.2 %).
+* Trần cần ≥ 1.5 Hz (0.5 Hz: 22–31 % lượt SN va chạm); từ khoảng 2 Hz trở lên, tăng trần không giảm va chạm thêm rõ rệt.
+* E_COV an toàn như FR_SAFE trên SN, SE (p ≥ 0.5) với ít hơn 28–50 % suy luận; trên SH kém hơn một chút
+  (8.2 so với 5.8 %, p = 0.098). Tốt hơn E_DART trên SN và SH (p = 0.033, 0.015). Giới hạn tốc độ theo mật độ
+  không thấy tác dụng an toàn đo được.
+* Tốc độ tự giảm theo mật độ (SN, yêu cầu 15 m/s: 11.2 m/s khi trống, 3.8 m/s khi ≥ 6 vật trong 15 m) và E_COV chụp
+  dày hơn ở chỗ đông vật (1.76 → 2.59 khung/s).
+* Camera góc rộng là điều kiện cần: camera hẹp (v2, Module 3) va chạm 11–12 % trên SN.
+* Va chạm còn lại (Mục 8) gần như đều cùng một kiểu: UAV đang vòng tránh, chạm một vật đã có trong bộ nhớ, phần lớn
+  khi vật đã ra khỏi khung hình.
+
+Kết quả của phiên bản trước (hình cầu, chưa chụp khi đứng yên) ở
+[`docs/archive/results/round7.md`](docs/archive/results/round7.md) và **không áp dụng** cho phiên bản chốt; so sánh
+hai phiên bản ở `results.md`, Mục 6.
 
 ## 6. Cấu trúc mã nguồn
 
@@ -220,11 +242,18 @@ dart_eval_speed_density('E_COV', 'SE', 3, 'speedrate', 1530);   % 15 m/s, trần
 
 ## 8. Giới hạn hiện tại
 
+* **Kiểu thất bại chính: va chạm với vật tĩnh lúc vòng tránh.** Ở trần ≥ 1.5 Hz với camera mặc định, mọi va chạm tĩnh
+  xảy ra khi UAV đang vòng tránh và với một vật đã có trong bộ nhớ; 79 % khi vật đã ra khỏi khung hình. Tỉ lệ khoảng
+  2 % trên SN, 6–8 % trên SH, cao hơn nhiều với camera hẹp. Giả thuyết (chưa kiểm chứng từng ca): hình trụ dựng từ
+  phần nhìn thấy không phủ mặt bên / mặt sau của khối hộp và phần tán cây chìa ra, và không được sửa khi vật đã ra
+  khỏi khung hình. Chưa sửa trong bản chốt.
+* **Chỉ vật tĩnh.** Vật di chuyển chỉ được thấy lại sau mỗi khung, không dự đoán chuyển động; va chạm với xe cắt
+  ngang ở SH được tách riêng và không tính vào kết quả chính (ngoài phạm vi).
 * Chỉ mô phỏng. Mạng depth được thay bằng mô hình sai số tổng hợp trên ảnh depth ray-casting (không render RGB, không
   có mặt đất). Thông số camera lấy từ trang của các nhà bán lẻ.
 * Vật cản bất kỳ được phủ bằng hình trụ đứng: vẫn bảo thủ với vật dài theo phương ngang (xe, container nhìn chéo) và
   với tán cây rộng hơn thân. Phương thẳng đứng lấy từ tư thế thật lúc chụp (thay cho hướng trọng lực của IMU, sai số
-  roll/pitch bỏ qua). Chỉ vật tĩnh: vật di chuyển chỉ được thấy lại, không dự đoán chuyển động.
+  roll/pitch bỏ qua).
 * Bảng tầm phát hiện của camera (R_eff) được đo trước khi đổi sang hình trụ (cùng bước phân đoạn), chưa đo lại.
 * Kết quả MATLAB trên các máy chạy GitHub khác nhau có thể lệch nhẹ ở cùng mã; kết luận được phát biểu ở dạng thống kê.
 * Bộ thử nghiệm chạy bằng MATLAB engine; phần Simulink chỉ được kiểm tra bằng nhiệm vụ demo của CI.
