@@ -75,28 +75,29 @@ tên tệp `Fig1.eps`…; chữ Helvetica / Arial 8–12 pt, cỡ chữ đồng 
 có dấu chấm sau số và cuối câu; phần hình ký hiệu a, b, c; màu RGB 8 bit; dùng thêm ký hiệu / kiểu nét ngoài màu (người mù
 màu, bản in đen trắng); tương phản chữ ≥ 4.5:1; không nói tới màu trong chú thích nếu bản in đen trắng.
 
-| Hình | Nội dung | Nguồn | Việc cần làm |
-|---|---|---|---|
-| Fig. 1 | kiến trúc hệ thống (camera → depth → hình trụ → bộ nhớ → lập lịch / MPC / CBF → quadrotor) | sơ đồ mermaid trong README | 🔧 vẽ lại dạng vector |
-| Fig. 2 | ví dụ dựng hình trụ đứng từ ảnh depth (vật thấp, tán cây, đầu chưa quan sát) | `src/perception`, `tests/test_cylinders.m` | 🔧 cần vẽ từ dữ liệu có sẵn hoặc chạy một khung đơn lẻ (cần tác giả đồng ý) |
-| Fig. 3 | ví dụ ba kịch bản SN / SH / SE | `docs/figures/plot_scene.py` | 🔧 nhãn tiếng Anh, bỏ tiêu đề |
-| Fig. 4 | tỉ lệ va chạm tĩnh theo `f_max` (mỗi kịch bản, 4 phương án) | `final_tables.py` | 🔧 |
-| Fig. 5 | đánh đổi số suy luận ↔ tỉ lệ va chạm (E_COV và FR_SAFE theo `f_max`) | `final_tables.py` | 🔧 |
-| Fig. 6 | tốc độ và tần số chụp theo mật độ vật cản | dòng `DENS` | 🔧 |
-| Fig. 7 | so sánh camera theo `f_max` | `final_tables.py` | 🔧 |
-| Fig. 8 | ví dụ cơ chế va chạm (cắt ngang và cắt đứng, khoảng cách theo thời gian) | `docs/figures/plot_collision.py`, `raw/collisions/` | 🔧 nhãn tiếng Anh, bỏ tiêu đề trong hình, chuyển sang vector |
+Bản thảo tiếng Việt: [`vi/manuscript_vi.tex`](vi/manuscript_vi.tex) (PDF: [`vi/manuscript_vi.pdf`](vi/manuscript_vi.pdf)).
+Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–7, chỉ từ dữ liệu đã có) và
+`xelatex Fig1_vi.tex` trong `docs/paper/figures/` (Fig. 1, TikZ); danh mục tài liệu sinh bằng
+`python3 docs/paper/build_refs.py docs/paper/vi/manuscript_vi.tex docs/paper/vi/refs_auto.tex` từ
+[`references.py`](references.py) (chỉ các bài đã đọc toàn văn).
 
-Hình hiện có (`docs/figures/*.png`, `docs/figures/collisions/*.png`) dùng nhãn tiếng Việt, có tiêu đề trong hình và là
-PNG: cần một bộ script xuất hình riêng cho bài (tiếng Anh, EPS / PDF vector, kích thước và phông đúng yêu cầu).
+| Hình | Nội dung | Vai trò trong lập luận |
+|---|---|---|
+| Fig. 1 | kiến trúc vòng kín đa tần số (khối theo phân hệ, nhãn tần số) | vị trí của bộ lập lịch trong vòng kín |
+| Fig. 2 | điều kiện phủ: đoạn cần quan sát trong / ngoài vùng trống đã quan sát | định nghĩa trực quan của (5), Hình 2b dùng ở Luận điểm 4 |
+| Fig. 3 | một nhiệm vụ SN: quỹ đạo, tốc độ, số suy luận tích luỹ, khoảng cách | cơ chế: số khung theo không gian chưa quan sát |
+| Fig. 4 | tỉ lệ va chạm theo `f_max`; tần số chụp thực tế của COV | Luận điểm 1 (ngưỡng, bão hoà) |
+| Fig. 5 | tần số chụp và tốc độ theo mật độ vật cản (FR, RA, COV) | Luận điểm 3 và 4 |
+| Fig. 6 | tỉ lệ va chạm theo `f_max` cho bốn camera | Luận điểm 5 |
+| Fig. 7 | một va chạm phát lại: hình trụ trong bộ nhớ trước / sau cập nhật, khoảng cách | Luận điểm 6 |
 
 | Bảng | Nội dung | Nguồn |
 |---|---|---|
 | Table 1 | tham số chính (vật lý, camera, lập lịch, bộ nhớ, MPC, CBF) | `dart_default_config.m`, `dart_camera_preset.m` |
-| Table 2 | thiết kế lưới thử nghiệm | `results.md` đầu tài liệu |
-| Table 3 | kết quả gộp theo phương án (va chạm tĩnh, kẹt, số suy luận, khung/s) | `results.md` Mục 3.1 |
-| Table 4 | so sánh từng cặp với giá trị p (Fisher) và so sánh cùng ngân sách | `results.md` Mục 3.2–3.3 |
-| Table 5 | thông số và kết quả camera | `results.md` Mục 5 |
-| Table 6 | cơ chế va chạm (34 trường hợp) | `collision_trace.py` |
+| Table 2 | kịch bản và lưới thử nghiệm | `results.md` đầu tài liệu |
+| Table 3 | so sánh bộ lập lịch, gộp 1.5–5 Hz: va chạm tĩnh, p (Fisher) so với COV, kẹt, khung/s | `results.md` Mục 3.1–3.2 |
+| Table 4 | cấu hình camera và tỉ lệ va chạm | `results.md` Mục 5 |
+| Table 5 | cơ chế va chạm (34 trường hợp phát lại) | `collision_trace.py` |
 
 ## 5. Tài liệu bổ sung (Online Resource)
 

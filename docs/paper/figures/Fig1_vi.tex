@@ -1,0 +1,102 @@
+% Fig. 1: closed-loop multi-rate architecture (Vietnamese labels). Build: xelatex Fig1_vi.tex -> Fig1_vi.pdf
+% Style: subsystems as pastel blocks with a darker border of the same hue, grouped by dashed rounded frames with a
+% coloured title (cf. system overviews in T-RO / RA-L papers); the proposed block is orange (the colour of COV in all
+% result figures); rates as small tags on the blocks.
+\documentclass[border=1pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{Liberation Sans}
+\usepackage{amsmath}
+\usepackage[italic]{mathastext}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,backgrounds,fit,shapes.misc}
+\definecolor{ink}{HTML}{262626}
+\definecolor{perB}{HTML}{2F6EBA}\definecolor{perF}{HTML}{DCEAF7}   % perception
+\definecolor{estB}{HTML}{4E8A2E}\definecolor{estF}{HTML}{E2F0D8}   % estimation / memory
+\definecolor{covB}{HTML}{D95319}\definecolor{covF}{HTML}{FBE3D6}   % proposed scheduler
+\definecolor{ctlB}{HTML}{6A4C93}\definecolor{ctlF}{HTML}{EAE3F3}   % control
+\definecolor{plaB}{HTML}{595959}\definecolor{plaF}{HTML}{E9E9E9}   % plant
+\begin{document}
+\fontsize{8}{9.6}\selectfont
+\begin{tikzpicture}[x=1cm, y=1cm, >={Stealth[length=4pt,width=3pt]},
+  blk/.style={rectangle, rounded corners=1.5pt, line width=0.7pt, minimum height=10.5mm, minimum width=25mm,
+              align=center, inner sep=2pt, text=ink},
+  per/.style={blk, draw=perB, fill=perF},
+  est/.style={blk, draw=estB, fill=estF},
+  cov/.style={blk, draw=covB, fill=covF, line width=1.1pt},
+  ctl/.style={blk, draw=ctlB, fill=ctlF},
+  pla/.style={blk, draw=plaB, fill=plaF},
+  grp/.style={rounded corners=4pt, dashed, line width=0.7pt, inner xsep=3.5pt},
+  gtitle/.style={font=\fontsize{7.5}{9}\selectfont\bfseries, inner sep=1pt},
+  tag/.style={rounded rectangle, fill=#1, text=white, font=\fontsize{6.2}{7}\selectfont\bfseries,
+              inner xsep=2.5pt, inner ysep=1.2pt, minimum height=3.2mm},
+  sig/.style={->, line width=0.6pt, draw=ink},
+  evt/.style={->, line width=0.8pt, draw=covB, dash pattern=on 3pt off 1.6pt},
+  lab/.style={font=\fontsize{7}{8}\selectfont, inner sep=1.5pt, text=ink},
+  dot/.style={circle, fill=ink, inner sep=0pt, minimum size=3pt}]
+  % ---------------------------------------------------------------- icons
+  \newcommand{\camicon}{\begin{tikzpicture}[x=1mm,y=1mm,line width=0.5pt]
+      \draw[perB, fill=white, rounded corners=0.3mm] (0,0) rectangle (4.2,2.8);
+      \draw[perB, fill=white] (0.9,2.8) rectangle (1.9,3.3);
+      \draw[perB, fill=perF] (2.4,1.4) circle (0.85);\end{tikzpicture}}
+  \newcommand{\quadicon}{\begin{tikzpicture}[x=1mm,y=1mm,line width=0.5pt]
+      \draw[plaB] (0,0) -- (3.6,3.6) (0,3.6) -- (3.6,0);
+      \foreach \p in {(0,0),(3.6,3.6),(0,3.6),(3.6,0)} \draw[plaB, fill=white] \p circle (0.95);
+      \fill[plaB] (1.8,1.8) circle (0.55);\end{tikzpicture}}
+  % ---------------------------------------------------------------- blocks
+  \node[per] (cam)   at (14.0, 3.6) {\camicon\\[1pt]Camera};
+  \node[per] (net)   at (10.5, 3.6) {Mạng depth\\đơn mắt};
+  \node[per] (cyl)   at ( 7.0, 3.6) {Tự phân đoạn,\\hình trụ đứng};
+  \node[cov] (sch)   at ( 3.5, 3.6) {\textbf{Lập lịch phủ}\\vùng trống đã quan sát};
+  \node[est] (mem)   at ( 7.0, 1.8) {Bộ nhớ vật cản\\Kalman tại $t_c$};
+  \node[ctl] (ref)   at ( 0.0, 0.0) {Tham chiếu: quỹ đạo\\đặt, đường vòng,\\giới hạn tốc độ};
+  \node[ctl] (mpc)   at ( 3.5, 0.0) {MPC tầm dự báo\\thích nghi};
+  \node[ctl] (cbf)   at ( 7.0, 0.0) {Bộ lọc an toàn\\CBF};
+  \node[ctl] (att)   at (10.5, 0.0) {Điều khiển\\tư thế SO(3)};
+  \node[pla] (plant) at (14.0, 0.0) {\quadicon\\[1pt]Quadrotor 6 bậc tự do};
+  % ---------------------------------------------------------------- rate tags
+  \node[tag=perB, anchor=south east] at ($(cam.north east)+(-0.1,-0.16)$) {$\le f_{\max}$};
+  \node[tag=perB, anchor=south east] at ($(net.north east)+(-0.1,-0.16)$) {$\tau \approx 0.1$ s};
+  \node[tag=covB, anchor=south east] at ($(sch.north east)+(-0.1,-0.16)$) {đề xuất};
+  \node[tag=ctlB, anchor=south east] at ($(mpc.north east)+(-0.1,-0.16)$) {20 Hz};
+  \node[tag=ctlB, anchor=south east] at ($(cbf.north east)+(-0.1,-0.16)$) {100 Hz};
+  \node[tag=ctlB, anchor=south east] at ($(att.north east)+(-0.1,-0.16)$) {500 Hz};
+  % ---------------------------------------------------------------- groups
+  \begin{scope}[on background layer]
+    \node[grp, draw=perB, fill=perF!30, fit=(cyl)(net)(cam), inner ysep=5pt,
+          label={[gtitle, text=perB, anchor=north]south:Nhận thức theo sự kiện}] (gper) {};
+    \node[grp, draw=ctlB, fill=ctlF!35, fit=(ref)(mpc)(cbf)(att), inner ysep=5pt,
+          label={[gtitle, text=ctlB, anchor=north west]south west:Điều khiển đa tần số}] (gctl) {};
+  \end{scope}
+  % ------------------------------------------------------ perception branch
+  \draw[sig] (plant.north) -- node[lab, right] {cảnh} (cam.south);
+  \draw[sig] (cam.west) -- node[lab, above] {ảnh, $t_c$} (net.east);
+  \draw[sig, dash pattern=on 3pt off 1.6pt] (net.west) -- node[lab, above] {$t_c+\tau$} (cyl.east);
+  \draw[sig] (cyl.south) -- node[lab, right, pos=0.72] {hình trụ, $R_y$} (mem.north);
+  % grid -> scheduler (over the top)
+  \draw[sig, dash pattern=on 3pt off 1.6pt] ($(net.north)+(0.6,0)$) |-
+        node[lab, above, pos=0.75] {lưới depth thô $18\times32$: vùng trống của khung} ($(sch.north)+(0.15,0.62)$)
+        -- ($(sch.north)+(0.15,0)$);
+  % trigger: scheduler -> camera (event)
+  \draw[evt] ($(sch.north west)+(0.45,0)$) -- ++(0,1.02) -| node[lab, above, pos=0.25, text=covB] {\textbf{kích hoạt suy luận}}
+        ($(cam.north)+(-0.6,0)$);
+  % ------------------------------------------------------ memory fan-out
+  \draw[sig] (mem.south) -- node[lab, right, pos=0.3] {vật cản} (cbf.north);
+  \draw[line width=0.6pt, draw=ink] (mem.west) -- (0.0, 1.8);
+  \draw[sig] (0.0, 1.8) -- (ref.north);
+  \draw[sig] (3.5, 1.8) node[dot] {} -- (mpc.north);
+  \draw[sig] (4.6, 1.8) node[dot] {} -- ($(sch.south)+(1.1,0)$);
+  % planned path -> scheduler
+  \draw[sig] ($(mpc.north)+(-0.8,0)$) -- node[lab, left, pos=0.6] {đường đi dự kiến} ($(sch.south)+(-0.8,0)$);
+  % ------------------------------------------------------ control branch
+  \draw[sig] (ref.east) -- node[lab, above] {$p^r, v^r$} (mpc.west);
+  \draw[sig] (mpc.east) -- node[lab, above] {$a_{\mathrm{ref}}$} (cbf.west);
+  \draw[sig] (cbf.east) -- node[lab, above] {$a_{\mathrm{safe}}, \psi$} (att.west);
+  \draw[sig] (att.east) -- node[lab, above, pos=0.62] {$f, \boldsymbol{\tau}_B$} (plant.west);
+  % state feedback
+  \draw[line width=0.6pt, draw=ink] (plant.south) -- ++(0,-0.95) -- node[lab, below, pos=0.42]
+        {trạng thái ước lượng $\hat p, \hat v, \hat R$ (VIO/INS), bộ đệm tư thế} (3.5, -1.48);
+  \draw[sig] (3.5, -1.48) -- (mpc.south);
+  \draw[sig] (7.0, -1.48) node[dot] {} -- (cbf.south);
+  \draw[sig] (10.5, -1.48) node[dot] {} -- (att.south);
+\end{tikzpicture}
+\end{document}

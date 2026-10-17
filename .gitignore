@@ -26,3 +26,9 @@ docs/method/*.synctex.gz
 docs/literature/**/*.pdf
 docs/literature/*.pdf
 __pycache__/
+# LaTeX build files of the manuscript and figure sources
+docs/paper/**/*.aux
+docs/paper/**/*.log
+docs/paper/**/*.out
+docs/paper/**/*.synctex.gz
+docs/paper/vi/build.log
