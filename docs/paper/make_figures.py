@@ -1,10 +1,11 @@
 """Figures of the manuscript (docs/paper), from stored results only (no new simulation).
 
 Usage: python3 docs/paper/make_figures.py [vi|en]     (default: vi)
-Writes vector PDF files docs/paper/figures/Fig3.pdf ... Fig7.pdf; Fig. 1-2 are TikZ drawings in the manuscript.
-Data: the final grid logs (docs/results/raw, via final_tables.py), one representative mission
+Writes vector PDF files Fig2.pdf ... Fig6.pdf to docs/paper/figures (vi) or docs/paper/en/figures (en, submission);
+Fig. 1 is a TikZ drawing (Fig1_vi.tex, en/figures/Fig1.tex).
+Data: the final grid logs (docs/results/raw, via final_tables.py) and one representative mission
 (docs/paper/data/case_SN_v10_s22_*.json: SN world 22, 10 m/s, f_max = 3 Hz, final algorithm 2a536b1, identical to
-the grid runs) and one replayed collision (docs/results/raw/collisions).
+the grid runs).
 Style: MATLAB-like line plots (box, grid, inward ticks), Arial-type lettering 8 pt, 84 / 174 mm wide.
 """
 import contextlib
@@ -24,7 +25,7 @@ from matplotlib.patches import Circle, Polygon, Rectangle  # noqa: E402
 
 LANG = sys.argv[1] if len(sys.argv) > 1 else 'vi'
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(ROOT, 'docs', 'paper', 'figures')
+OUT = os.path.join(ROOT, 'docs', 'paper', *(['en', 'figures'] if LANG == 'en' else ['figures']))
 os.makedirs(OUT, exist_ok=True)
 MM = 1 / 25.4
 W1, W2 = 84 * MM, 174 * MM
@@ -59,8 +60,6 @@ T = {
         nfr='Số lần suy luận tích luỹ', cov='COV', fr='FR', ra='RA', path='quỹ đạo đặt', trig='thời điểm chụp (COV)', vdes='$v_{\\mathrm{des}}$',
         fbound='$1/f_{\\max}$', margin='$d_s - r_b$',
         SN='SN', SH='SH', SE='SE', ident='FR: $f = f_{\\max}$',
-        true='UAV – vật thật', bel='UAV – bộ nhớ', qmem='điểm chạm – bộ nhớ', frame='lần chụp',
-        obst='vật thật', cyl='hình trụ trong bộ nhớ', uav='UAV', cpt='điểm chạm',
         cam={1: 'v2 (62°)', 2: 'Module 3 (66°)', 3: 'Module 3 Wide (102°)', 4: 'Wide (102°), mạng 640×360'},
         reff='$R$', f2obst='vật cản', f2free='vùng trống đã quan sát', f2unobs='chưa quan sát', f2path='đường đi dự kiến',
         f2a='đoạn cần nằm trong vùng đã quan sát:\nbỏ qua suy luận',
@@ -74,8 +73,6 @@ T = {
         nfr='Cumulative inferences', cov='COV', fr='FR', ra='RA', path='set path', trig='frame instants (COV)', vdes='$v_{\\mathrm{des}}$',
         fbound='$1/f_{\\max}$', margin='$d_s - r_b$',
         SN='SN', SH='SH', SE='SE', ident='FR: $f = f_{\\max}$',
-        true='UAV – true obstacle', bel='UAV – memory', qmem='contact point – memory', frame='frames',
-        obst='true obstacle', cyl='cylinder in memory', uav='UAV', cpt='contact point',
         cam={1: 'v2 (62°)', 2: 'Module 3 (66°)', 3: 'Module 3 Wide (102°)', 4: 'Wide (102°), 640×360 net'},
         reff='$R$', f2obst='obstacle', f2free='observed free space', f2unobs='unobserved', f2path='planned path',
         f2a='needed stretch inside observed space:\ninference skipped',
@@ -348,93 +345,3 @@ ax.set_xlim(0.3, 5.2); ax.set_ylim(0, 65); ax.set_xticks([0.5, 1, 2, 3, 4, 5])
 ax.set_xlabel(T['fmax']); ax.set_ylabel(T['coll'])
 ax.legend(loc='upper right')
 save(fig, 'Fig6.pdf')
-
-# ======================================================================== Fig. 7: failure mechanism (replayed case)
-CD = os.path.join(ROOT, 'docs', 'results', 'raw', 'collisions')
-tag = 'SH_E_COV_v6_s1'
-case = json.load(open(os.path.join(CD, f'case_{tag}.json')))
-dg = json.load(open(os.path.join(CD, f'diag_{tag}.json')))
-q = np.array(dg['contact']['q'], float)
-
-
-def cyl_dist(Pt, c, rho, zl, zh):
-    dh = math.hypot(Pt[0] - c[0], Pt[1] - c[1]) - rho
-    dz = max(zl - Pt[2], Pt[2] - zh)
-    if dz <= 0:
-        return dh if dh > 0 else max(dh, dz)
-    return math.hypot(max(dh, 0), dz) if dh > 0 else dz
-
-
-S = case['snaps']
-for s in S:
-    s['c'] = arr(s['c'], 3); s['rho'] = arr(s['rho']).ravel(); s['zl'] = arr(s['zl']).ravel()
-    s['zh'] = arr(s['zh']).ravel(); s['p'] = arr(s['p']).ravel()
-dq = np.array([min([cyl_dist(q, s['c'][:, k], s['rho'][k], s['zl'][k], s['zh'][k]) for k in range(s['rho'].size)],
-                   default=np.inf) for s in S])
-Ts = np.array([s['t'] for s in S])
-i_last = np.where((dq <= 0.25)[:-1])[0][-1]
-w = case['world']
-w_c0, w_dim, w_type, w_yaw = arr(w['c0'], 3), arr(w['dim'], 3), arr(w['type']).ravel(), arr(w['yaw']).ravel()
-
-
-def section(ax, s):
-    p = s['p']; u = q[:2] - p[:2]; u = u / np.linalg.norm(u)
-    xs = np.linspace(-1.5, 9, 421); zs = np.linspace(0, 8, 321)
-    X, Z = np.meshgrid(xs, zs)
-    occ = np.zeros_like(X, dtype=bool)
-    for i in range(w_type.size):
-        c, typ, dim = w_c0[:, i], int(w_type[i]), w_dim[:, i]
-        Px, Py, Pz = p[0] + X * u[0] - c[0], p[1] + X * u[1] - c[1], Z - c[2]
-        if typ == 1:
-            occ |= Px ** 2 + Py ** 2 + Pz ** 2 <= dim[0] ** 2
-        elif typ == 2:
-            cy, sy = math.cos(w_yaw[i]), math.sin(w_yaw[i])
-            occ |= (abs(cy * Px + sy * Py) <= dim[0]) & (abs(-sy * Px + cy * Py) <= dim[1]) & (abs(Pz) <= dim[2])
-        else:
-            occ |= (Px ** 2 + Py ** 2 <= dim[0] ** 2) & (abs(Pz) <= dim[1])
-    ax.contourf(X, Z, occ.astype(float), levels=[0.5, 1.5], colors=[OB_HIT])
-    ax.contour(X, Z, occ.astype(float), levels=[0.5], colors=[OB_EDGE], linewidths=0.4)
-    for k in range(s['rho'].size):
-        c, rho = s['c'][:, k], s['rho'][k]
-        a = (c[0] - p[0]) * u[0] + (c[1] - p[1]) * u[1]
-        b = abs(-(c[0] - p[0]) * u[1] + (c[1] - p[1]) * u[0])
-        if b >= rho:
-            continue
-        h = math.sqrt(rho ** 2 - b ** 2)
-        zl, zh = max(s['zl'][k], -0.5), min(s['zh'][k], 8.5)
-        ax.add_patch(Rectangle((a - h, zl), 2 * h, zh - zl, fc=FR_C, alpha=0.10, ec='none', zorder=3))
-        ax.add_patch(Rectangle((a - h, zl), 2 * h, zh - zl, fc='none', ec=FR_C, lw=1.1, zorder=4))
-    ax.plot(0, p[2], 'o', color=K, ms=4.5, zorder=6)
-    qa = (q[0] - p[0]) * u[0] + (q[1] - p[1]) * u[1]
-    ax.plot(qa, q[2], 'x', color=COV_C, ms=6, mew=1.5, zorder=7)
-    ax.set_xlim(-1.5, 9); ax.set_ylim(0, 8); ax.set_aspect('equal')
-    ax.set_xlabel(T['along']); ax.set_ylabel(T['alt'])
-    ax.text(0.03, 0.96, f"$t$ = {s['t']:.1f} s", transform=ax.transAxes, ha='left', va='top', fontsize=7.5)
-
-
-fig = plt.figure(figsize=(W2, 64 * MM))
-ax1 = fig.add_axes([0.06, 0.16, 0.26, 0.70]); ax2 = fig.add_axes([0.35, 0.16, 0.26, 0.70])
-ax3 = fig.add_axes([0.69, 0.16, 0.30, 0.70])
-section(ax1, S[i_last]); section(ax2, S[i_last + 1])
-panel(ax1, 'a'); panel(ax2, 'b')
-ax2.set_ylabel(''); ax2.set_yticklabels([])
-rows = np.array(dg['rows'], float)
-t_end = dg['t_end']
-k = Ts >= t_end - 4
-ax3.plot(rows[:, 0], rows[:, 1], color=K, lw=1.1, label=T['true'])
-ax3.plot(rows[:, 0], rows[:, 2], color=FR_C, lw=1.1, label=T['bel'])
-ax3.plot(Ts[k], np.clip(dq[k], -1.5, 4), color=COV_C, lw=1.1, label=T['qmem'])
-trig = np.array(case['trig_t'], float)
-tt = trig[trig >= t_end - 4]
-ax3.plot(tt, np.full(tt.size, -1.45), '|', color='#595959', ms=6, mew=0.8, label=T['frame'])
-ax3.axhline(0, color='#262626', lw=0.6, ls='--')
-ax3.set_xlim(t_end - 4, t_end + 0.1); ax3.set_ylim(-1.6, 4.4)
-ax3.set_xlabel(T['t']); ax3.set_ylabel(T['d'])
-ax3.legend(loc='lower center', bbox_to_anchor=(0.5, 1.01), fontsize=6.6, ncol=2, columnspacing=0.8, frameon=False)
-panel(ax3, 'c')
-fig.legend(handles=[plt.Rectangle((0, 0), 1, 1, fc=OB_HIT, ec=OB_EDGE, lw=0.4, label=T['obst']),
-                    plt.Rectangle((0, 0), 1, 1, fc=(0, 0.447, 0.741, 0.10), ec=FR_C, lw=1.1, label=T['cyl']),
-                    plt.Line2D([], [], color=K, marker='o', ls='none', ms=4.5, label=T['uav']),
-                    plt.Line2D([], [], color=COV_C, marker='x', ls='none', ms=6, mew=1.5, label=T['cpt'])],
-           loc='lower center', bbox_to_anchor=(0.33, 0.88), ncol=4, frameon=False, fontsize=6.8)
-save(fig, 'Fig7.pdf')

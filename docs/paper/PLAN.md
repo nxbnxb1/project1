@@ -56,8 +56,8 @@ barrier function; obstacle avoidance.
 | 3 System model | quadrotor 6-DOF và giới hạn vật lý; mô hình camera và sai số depth; độ trễ; giả thiết vật cản tĩnh | README Mục 2.1, 2.7; `src/plant`, `src/perception` |
 | 4 Method | 4.1 phân đoạn và hình trụ đứng; 4.2 bộ nhớ vật cản bù trễ; 4.3 lập lịch coverage với trần `f_max`; 4.4 giới hạn tốc độ; 4.5 MPC và bộ lọc CBF | README Mục 2; mã nguồn tương ứng |
 | 5 Experimental setup | kịch bản SN / SH / SE, lưới 36 000 lượt, phương án đối chứng, camera, độ đo, kiểm định Fisher, cài đặt (MATLAB / Simulink, GitHub Actions) | `docs/results/results.md` đầu tài liệu, README Mục 3.2, 4 |
-| 6 Results | 6.1 ràng buộc tần số và tỉ lệ kẹt; 6.2 ảnh hưởng của `f_max`; 6.3 so sánh phương án và chi phí tính toán; 6.4 thích nghi theo mật độ; 6.5 camera; 6.6 phân tích va chạm | `results.md` Mục 1–5 |
-| 7 Discussion | ý nghĩa cho phần cứng, so sánh với vòng trước (nếu cần), phạm vi và hạn chế (chỉ mô phỏng, vật tĩnh, cơ chế cập nhật bộ nhớ, không có chứng minh hình thức cho bộ lập lịch) | `results.md` Mục 6–7 |
+| 6 Results | 6.1 ràng buộc tần số và tỉ lệ kẹt; 6.2 ảnh hưởng của `f_max`; 6.3 so sánh phương án và chi phí tính toán; 6.4 thích nghi theo mật độ; 6.5 camera | `results.md` Mục 1–5 |
+| 7 Discussion | ý nghĩa cho phần cứng, so sánh với vòng trước (nếu cần), phạm vi và hạn chế (chỉ mô phỏng, vật tĩnh, mức va chạm nền chung cho các bộ lập lịch, không có chứng nhận hình thức cho vòng kín) | `results.md` Mục 6–7 |
 | 8 Conclusion | | |
 | Statements and Declarations | Funding, Competing interests, Data availability, Code availability, Author contributions | Mục 7 |
 | References | | Mục 6 |
@@ -65,7 +65,10 @@ barrier function; obstacle avoidance.
 Đóng góp dự kiến (cần đối chiếu lại với prior art đã đọc toàn văn trước khi chốt câu chữ):
 1. Bộ lập lịch suy luận depth theo vùng trống đã quan sát (coverage), với trần tần số cứng và chế độ chụp khi đứng yên.
 2. Biểu diễn vật cản bằng hình trụ đứng có đầu chưa quan sát, dùng nhất quán cho CBF, MPC và lập đường vòng.
-3. Đánh giá đồng bộ 36 000 lượt (3 kịch bản, 10 mức trần, 3 tốc độ, 4 camera) kèm phân tích cơ chế va chạm.
+3. Đánh giá đồng bộ 36 000 lượt (3 kịch bản, 10 mức trần, 3 tốc độ, 4 camera).
+
+Phần phân tích cơ chế va chạm (phát lại, bảng cơ chế, hình phát lại) đã được bỏ khỏi bài theo yêu cầu của tác giả
+(2026-10-18); hình cũ lưu ở `figures/archive/Fig7_collision_replay_vi.pdf`, dữ liệu vẫn ở `docs/results/raw/collisions`.
 
 ## 4. Hình và bảng
 
@@ -76,7 +79,7 @@ có dấu chấm sau số và cuối câu; phần hình ký hiệu a, b, c; màu
 màu, bản in đen trắng); tương phản chữ ≥ 4.5:1; không nói tới màu trong chú thích nếu bản in đen trắng.
 
 Bản thảo tiếng Việt: [`vi/manuscript_vi.tex`](vi/manuscript_vi.tex) (PDF: [`vi/manuscript_vi.pdf`](vi/manuscript_vi.pdf)).
-Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–7, chỉ từ dữ liệu đã có) và
+Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–6, chỉ từ dữ liệu đã có; `en` ghi bản tiếng Anh vào `en/figures/`) và
 `xelatex Fig1_vi.tex` trong `docs/paper/figures/` (Fig. 1, TikZ); danh mục tài liệu sinh bằng
 `python3 docs/paper/build_refs.py docs/paper/vi/manuscript_vi.tex docs/paper/vi/refs_auto.tex` từ
 [`references.py`](references.py) (chỉ các bài đã đọc toàn văn).
@@ -89,7 +92,6 @@ Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–7, chỉ 
 | Fig. 4 | tỉ lệ va chạm theo `f_max`; tần số chụp thực tế của COV | Luận điểm 1 (ngưỡng, bão hoà) |
 | Fig. 5 | tần số chụp và tốc độ theo mật độ vật cản (FR, RA, COV) | Luận điểm 3 và 4 |
 | Fig. 6 | tỉ lệ va chạm theo `f_max` cho bốn camera | Luận điểm 5 |
-| Fig. 7 | một va chạm phát lại: hình trụ trong bộ nhớ trước / sau cập nhật, khoảng cách | Luận điểm 6 |
 
 | Bảng | Nội dung | Nguồn |
 |---|---|---|
@@ -97,13 +99,12 @@ Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–7, chỉ 
 | Table 2 | kịch bản và lưới thử nghiệm | `results.md` đầu tài liệu |
 | Table 3 | so sánh bộ lập lịch, gộp 1.5–5 Hz: va chạm tĩnh, p (Fisher) so với COV, kẹt, khung/s | `results.md` Mục 3.1–3.2 |
 | Table 4 | cấu hình camera và tỉ lệ va chạm | `results.md` Mục 5 |
-| Table 5 | cơ chế va chạm (34 trường hợp phát lại) | `collision_trace.py` |
 
 ## 5. Tài liệu bổ sung (Online Resource)
 
 | Tệp | Nội dung |
 |---|---|
-| ESM_1.zip | kết quả từng lượt (CSV chuyển từ log `raw/f*`), dữ liệu chẩn đoán va chạm |
+| ESM_1.zip | kết quả từng lượt (CSV chuyển từ log `raw/f*`) |
 | ESM_2.pdf | toàn bộ bảng của `results.md` (theo từng kịch bản, mức trần, tốc độ, camera) |
 | ESM_3.mp4 (tuỳ chọn) | hoạt hình một lượt bay dựng từ JSON đã có (16:9, không nhấp nháy quá 3 lần/giây) |
 
@@ -125,7 +126,7 @@ Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–7, chỉ 
 * **Funding**: ❓ (ví dụ: "No funding was received for conducting this study.")
 * **Competing interests**: ❓ (ví dụ: "The authors have no competing interests to declare that are relevant to the
   content of this article.")
-* **Data availability**: dữ liệu kết quả (log từng lượt, dữ liệu chẩn đoán) và script lập bảng có trong kho GitHub
+* **Data availability**: dữ liệu kết quả (log từng lượt) và script lập bảng có trong kho GitHub
   `nxbnxb1/project1`; 🔧 đề xuất lưu trữ một bản phát hành cố định trên Zenodo để có DOI và trích dẫn DOI đó.
 * **Code availability**: mã MATLAB / Simulink, workflow GitHub Actions — cùng kho và cùng DOI.
 * **Author contributions**: ❓ theo CRediT (Conceptualization, Methodology, Software, Formal analysis, Writing…).

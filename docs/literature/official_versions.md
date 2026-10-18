@@ -15,6 +15,12 @@ Cách kiểm tra:
   "Def. 7" thay "Def. 8"), là siêu dữ liệu arXiv, hoặc nằm ở phụ lục không in trong bản hội nghị; mọi nhận định mà
   bản thảo dùng đều có trong bản chính thức.
 
+Rà soát nội dung (2026-10-18): mọi câu có trích dẫn trong bản thảo được đối chiếu với trích dẫn nguyên văn của ghi chú
+đọc (110 cặp câu–tài liệu: 95 đúng, 14 phát biểu rộng hơn hoặc sai phạm vi so với bài gốc, 1 gán nhầm bài); tất cả 15
+chỗ đã được sửa trong bản thảo (ví dụ: phạm vi trễ một chu kỳ của Bar-Shalom, điều kiện chính xác của García-Fernández,
+biên hằng ε của Yaghoubi, bối cảnh cập nhật điều khiển của Taylor, tính toán ngoài máy bay của MonoNav, kịch bản bám xe
+của Suraksha, RoboRun dùng tầm nhìn chứ không dùng khoảng cách tới vật).
+
 Cột "Bản đã đọc": `published` = đọc chính bản xuất bản; `accepted` = đọc bản đã được chấp nhận / camera-ready;
 `checked` = đọc bản trước khi chấp nhận, rồi đối chiếu trích dẫn với bản chính thức.
 
@@ -42,7 +48,6 @@ Cột "Bản đã đọc": `published` = đọc chính bản xuất bản; `acce
 | C1 | `falanga2018` | Falanga, D., Foehn, P., Lu, P., Scaramuzza, D.: PAMPC: Perception-aware model predictive control for quadrotors. In: Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), pp. 1–8 (2018). | accepted (arXiv v2, journal ref IROS 2018) |
 | C6 | `zhu2019` | Zhu, H., Alonso-Mora, J.: Chance-constrained collision avoidance for MAVs in dynamic environments. IEEE Robot. Autom. Lett. 4(2), 776–783 (2019). | published (final published version, TU Delft repository) |
 | C7 | `lin2020` | Lin, J., Zhu, H., Alonso-Mora, J.: Robust vision-based obstacle avoidance for micro aerial vehicles in dynamic environments. In: Proc. IEEE Int. Conf. Robot. Autom. (ICRA), pp. 2682–2688 (2020). | accepted (arXiv v2, "to be published in ICRA 2020") |
-| C9 | `roelofsen2017` | Roelofsen, S., Gillet, D., Martinoli, A.: Collision avoidance with limited field of view sensing: A velocity obstacle approach. In: Proc. IEEE Int. Conf. Robot. Autom. (ICRA), pp. 1922–1927 (2017). | accepted (authors' copy deposited in the EPFL repository for the ICRA 2017 record) |
 | E1 | `ames2017` | Ames, A.D., Xu, X., Grizzle, J.W., Tabuada, P.: Control barrier function based quadratic programs for safety critical systems. IEEE Trans. Autom. Control 62(8), 3861–3876 (2017). | accepted (arXiv v2, Dec 2016, DOI of the TAC paper) |
 | E2 | `ames2019` | Ames, A.D., Coogan, S., Egerstedt, M., Notomista, G., Sreenath, K., Tabuada, P.: Control barrier functions: Theory and applications. In: Proc. 18th Eur. Control Conf. (ECC), pp. 3420–3431 (2019). | checked (ECC 2019 copy hosted by a co-author: claims used are present) |
 | E3 | `xiao2019` | Xiao, W., Belta, C.: Control barrier functions for systems with high relative degree. In: Proc. IEEE 58th Conf. Decis. Control (CDC), pp. 474–479 (2019). | checked (CDC 2019 PDF with the IEEE header: claims used are present; quotes differ only in definition numbers) |
@@ -81,3 +86,4 @@ Cột "Bản đã đọc": `published` = đọc chính bản xuất bản; `acce
 | N15 | Shahsavari et al., T-RO 2025 | robot mặt đất, mục tiêu năng lượng; không hỗ trợ nhận định cụ thể nào của bài |
 | B6 | Xue et al., *DepthART* (arXiv:2607.17099) | được chấp nhận ở ACM MM 2026 nhưng chưa có bản xuất bản |
 | G9, D7 | Kishida (CDC 2024); Gräfe et al. (IFAC-PapersOnLine 2022) | liên quan hẹp; không cần cho lập luận hiện tại |
+| C9 | Roelofsen et al., ICRA 2017 | bản đã đọc (kho EPFL) không in nơi đăng, không xác nhận được là bản chính thức; nhận định về trường nhìn hạn chế đã được E8 (Misyats et al., ICUAS 2025) hỗ trợ |

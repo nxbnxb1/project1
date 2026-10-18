@@ -87,9 +87,6 @@ REFS = {
     'lin2020': r"Lin, J., Zhu, H., Alonso-Mora, J.: Robust vision-based obstacle avoidance for micro aerial vehicles "
                r"in dynamic environments. In: Proc. IEEE Int. Conf. Robot. Autom. (ICRA), pp. 2682--2688 (2020). "
                r"\url{https://doi.org/10.1109/ICRA40945.2020.9197481}",
-    'roelofsen2017': r"Roelofsen, S., Gillet, D., Martinoli, A.: Collision avoidance with limited field of view "
-                     r"sensing: A velocity obstacle approach. In: Proc. IEEE Int. Conf. Robot. Autom. (ICRA), "
-                     r"pp. 1922--1927 (2017). \url{https://doi.org/10.1109/ICRA.2017.7989223}",
     # ------------------------------------------------------------- CBF, sampling, delay, uncertainty
     'ames2017': r"Ames, A.D., Xu, X., Grizzle, J.W., Tabuada, P.: Control barrier function based quadratic programs "
                 r"for safety critical systems. IEEE Trans. Autom. Control \textbf{62}(8), 3861--3876 (2017). "
@@ -176,7 +173,6 @@ VERSION = {
     'falanga2018': 'accepted (arXiv v2, journal ref IROS 2018)',
     'zhu2019': 'published (final published version, TU Delft repository)',
     'lin2020': 'accepted (arXiv v2, "to be published in ICRA 2020")',
-    'roelofsen2017': 'accepted (authors\' copy deposited in the EPFL repository for the ICRA 2017 record)',
     'ames2017': 'accepted (arXiv v2, Dec 2016, DOI of the TAC paper)',
     'ames2019': 'checked (ECC 2019 copy hosted by a co-author: claims used are present)',
     'xiao2019': 'checked (CDC 2019 PDF with the IEEE header: claims used are present; quotes differ only in definition numbers)',
