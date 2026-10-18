@@ -32,3 +32,6 @@ docs/paper/**/*.log
 docs/paper/**/*.out
 docs/paper/**/*.synctex.gz
 docs/paper/*/build.log
+
+# Personal data of the author and the full submitted package (kept out of the public repository)
+docs/paper/private/

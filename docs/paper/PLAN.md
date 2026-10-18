@@ -134,15 +134,13 @@ Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–6, chỉ 
 
 ## 7. Các tuyên bố (đã điền theo thông tin tác giả, 2026-10-18)
 
-* **Tác giả**: Xuan Bach Nguyen (tác giả duy nhất, tác giả liên hệ), ORCID 0009-0003-5194-8790;
-  (a) School of Electrical and Electronic Engineering, Hanoi University of Science and Technology, No. 1 Dai Co Viet,
-  Hanoi, Vietnam; (b) Faculty of Law, Foreign Trade University, 91 Chua Lang Street, Hanoi, Vietnam.
+* **Tác giả, cơ quan, ORCID**: lưu riêng (`docs/paper/private/`, không đưa lên repo công khai).
 * **Acknowledgements**: không có (đã bỏ mục).
 * **Funding**: "No funding was received for conducting this study."
 * **Competing interests**: "The author has no competing interests to declare that are relevant to the content of this
   article."
 * **Ethics**: không áp dụng (mô phỏng).
-* **E-mail tác giả liên hệ**: nguyenxuanbach513@gmail.com.
+* **E-mail tác giả liên hệ**: lưu riêng.
 * **Data / Code availability**: không dùng Zenodo; mã nguồn, kết quả từng lượt và script ghi trong bài tại
   https://github.com/nxbnxb1/project1 (tác giả yêu cầu ghi link, 2026-10-18).
 * **Author contributions**: tác giả duy nhất.

@@ -1,46 +1,32 @@
 # Hồ sơ nộp bài — International Journal of Intelligent Robotics and Applications (Springer)
 
-Nộp qua Editorial Manager (nút "Submit manuscript" trên https://link.springer.com/journal/41315).
+Đã nộp qua Editorial Manager ngày 2026-10-18.
 
-## Tệp tải lên
+## Bản đã nộp và bản công khai
 
-| Tệp | Loại mục trên Editorial Manager | Ghi chú |
-|---|---|---|
-| `IJIRA_submission_Nguyen.zip` | Manuscript (LaTeX source, zip) | gồm `manuscript.tex`, `sn-jnl.cls`, `manuscript.pdf`, `figures/Fig1–Fig6.pdf`, `figures/author_photo.png`; đã thử biên dịch từ zip, cả khi bị làm phẳng thư mục |
-| `cover_letter.pdf` | Cover Letter | nguồn: `cover_letter.tex` |
+* Bản trong repo ([`../en/manuscript.tex`](../en/manuscript.tex)) **trùng với bản đã nộp**, chỉ khác các trường thông
+  tin cá nhân của tác giả (tên, cơ quan, e-mail, ORCID, câu đóng góp của tác giả, tiểu sử, ảnh), được thay bằng
+  "[withheld in the public copy]".
+* Bộ hồ sơ đầy đủ đã nộp (zip LaTeX, thư gửi biên tập, ảnh tác giả, nội dung form có thông tin tác giả) được giữ riêng,
+  không đưa lên repo: thư mục `docs/paper/private/` nằm trong `.gitignore`. Tác giả giữ bản gốc của mình; khi sửa bài
+  theo phản biện, khôi phục các trường cá nhân từ bản đó.
+* Khi nộp, câu Author Contributions dùng chữ viết tắt được nhập trên form của hệ thống (form thay cho câu trong bản
+  thảo khi xuất bản).
 
-Nếu hệ thống không nhận zip cho mục Manuscript, tải từng tệp trong zip:
+## Tệp đã tải lên Editorial Manager
 
 | Tệp | Loại mục |
 |---|---|
-| `manuscript.tex` | Manuscript (LaTeX source file) |
-| `sn-jnl.cls` | LaTeX supplementary / support file |
-| `Fig1.pdf` … `Fig6.pdf` | Figure (đúng thứ tự 1–6) |
-| `author_photo.png` | Author photo (hoặc Figure / Supplementary nếu không có mục riêng) |
-| `manuscript.pdf` | Manuscript PDF (nếu có mục này; hệ thống thường tự dựng PDF từ LaTeX) |
+| zip LaTeX: `manuscript.tex`, `sn-jnl.cls`, `manuscript.pdf`, `figures/Fig1–Fig6.pdf`, ảnh tác giả | Manuscript |
+| thư gửi biên tập (PDF) | Cover Letter |
 
-Sau khi tải lên, Editorial Manager dựng một bản PDF: kiểm tra bản đó (hình, bảng, tài liệu tham khảo) trước khi bấm Approve.
+Thông tin gõ vào form: [`form_answers.md`](form_answers.md) (bản công khai, đã bỏ thông tin tác giả).
 
-## Thông tin gõ vào form
-
-Chép từ [`form_answers.md`](form_answers.md): tiêu đề, tiêu đề ngắn, tác giả và cơ quan, e-mail, ORCID, tóm tắt
-(246 từ), từ khoá, Funding, Competing interests, Author contributions, Data / Code availability. Theo hướng dẫn của tạp
-chí, Author Contribution và Competing Interest **phải** nhập qua giao diện nộp bài (chỉ thông tin trong giao diện được
-dùng cho bản xuất bản).
-
-## Lựa chọn trên form (tác giả tự quyết)
-
-* Loại bài: Regular paper (bài có tiểu sử và ảnh tác giả ở cuối) hoặc Focused Section (nếu có lời mời, cần ghi trong
-  thư gửi biên tập).
-* Đề xuất / loại trừ người phản biện: không bắt buộc; nếu đề xuất, phải là người độc lập và cần e-mail cơ quan.
-* Cover letter khẳng định bài chưa công bố và không gửi song song nơi khác — tác giả xác nhận trước khi nộp.
-
-## Dựng lại
+## Dựng lại bản công khai
 
 ```
 python3 -I docs/paper/make_figures.py en                       # Fig. 2–6
 cd docs/paper/en/figures && xelatex Fig1.tex                    # Fig. 1
 python3 docs/paper/build_refs.py docs/paper/en/manuscript.tex --inline
 cd docs/paper/en && pdflatex manuscript && pdflatex manuscript
-cd docs/paper/submission && pdflatex cover_letter
 ```
