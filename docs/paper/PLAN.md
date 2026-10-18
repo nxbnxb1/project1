@@ -78,6 +78,16 @@ tên tệp `Fig1.eps`…; chữ Helvetica / Arial 8–12 pt, cỡ chữ đồng 
 có dấu chấm sau số và cuối câu; phần hình ký hiệu a, b, c; màu RGB 8 bit; dùng thêm ký hiệu / kiểu nét ngoài màu (người mù
 màu, bản in đen trắng); tương phản chữ ≥ 4.5:1; không nói tới màu trong chú thích nếu bản in đen trắng.
 
+**Bản nộp tiếng Anh** (2026-10-18): [`en/manuscript.tex`](en/manuscript.tex) (PDF: [`en/manuscript.pdf`](en/manuscript.pdf)),
+mẫu Springer Nature `sn-jnl.cls` phiên bản 3.1 (12/2024, tải từ trang LaTeX author support của Springer Nature),
+một tệp .tex duy nhất (danh mục tài liệu chèn sẵn bằng `build_refs.py --inline`), hình `en/figures/Fig1.pdf`…`Fig6.pdf`.
+Đã theo hướng dẫn: tóm tắt 248 từ, không viết tắt chưa định nghĩa; 6 từ khoá; tiêu đề mục tối đa 3 cấp; chú thích
+hình "Fig. n" không có dấu câu cuối, không nhắc tới màu; chú thích bảng bằng chữ thường mũ; DOI dạng link đầy đủ;
+khai báo dùng công cụ AI trong Mục 5 (tác giả xác nhận); "Statements and Declarations" trước danh mục tài liệu;
+Acknowledgements và ORCID ngay sau khối tiêu đề; chỗ cho tiểu sử, ảnh tác giả ở cuối. Các mục chữ đỏ trong ngoặc
+vuông là phần tác giả phải điền (Mục 9) hoặc tài liệu còn chờ tải (RAPTOR, Lee et al. CDC 2010, Camera Module v2).
+Biên dịch: `pdflatex manuscript` hai lần trong `docs/paper/en`.
+
 Bản thảo tiếng Việt: [`vi/manuscript_vi.tex`](vi/manuscript_vi.tex) (PDF: [`vi/manuscript_vi.pdf`](vi/manuscript_vi.pdf)).
 Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–6, chỉ từ dữ liệu đã có; `en` ghi bản tiếng Anh vào `en/figures/`) và
 `xelatex Fig1_vi.tex` trong `docs/paper/figures/` (Fig. 1, TikZ); danh mục tài liệu sinh bằng

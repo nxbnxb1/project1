@@ -31,4 +31,4 @@ docs/paper/**/*.aux
 docs/paper/**/*.log
 docs/paper/**/*.out
 docs/paper/**/*.synctex.gz
-docs/paper/vi/build.log
+docs/paper/*/build.log

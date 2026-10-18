@@ -137,7 +137,8 @@ REFS = {
                  r"\url{https://doi.org/10.15607/RSS.2020.XVI.096}",
     # ------------------------------------------------------------- hardware documentation
     'rpi_cm3': r"Raspberry Pi Ltd: Raspberry Pi Camera Module 3 (Standard, NoIR, Wide, NoIR Wide), product brief "
-               r"(2024). \url{https://datasheets.raspberrypi.com/camera/camera-module-3-product-brief.pdf}",
+               r"(2024). \url{https://datasheets.raspberrypi.com/camera/camera-module-3-product-brief.pdf}. "
+               r"Accessed 18 October 2026",
     # ------------------------------------------------------------- estimation, solver
     'barshalom2002': r"Bar-Shalom, Y.: Update with out-of-sequence measurements in tracking: Exact solution. IEEE "
                      r"Trans. Aerosp. Electron. Syst. \textbf{38}(3), 769--777 (2002). "
