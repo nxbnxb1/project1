@@ -155,7 +155,7 @@ tích và bản nháp đầu tiên được chuẩn bị với trợ giúp của
 ## 9. Thông tin còn thiếu
 
 1. E-mail của tác giả liên hệ.
-2. Tiểu sử ngắn và ảnh tác giả (bài Regular).
+2. Ảnh tác giả (bài Regular); tiểu sử đã có (2026-10-18).
 3. Loại bài (Regular paper hay Focused Section).
 
 ## 10. Thứ tự thực hiện đề xuất
