@@ -149,7 +149,8 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 
 | ID | Tài liệu | Toàn văn | Trạng thái | Vai trò |
 |---|---|---|---|---|
-| R1 | Raspberry Pi Ltd, *Raspberry Pi Camera Module 3 (Standard, NoIR, Wide, NoIR Wide)*, product brief, 06/2024 | 7/7 trang, Claude tự đọc ([`notes/g9d_rpi_camera.md`](notes/g9d_rpi_camera.md)) | đã đọc – dùng | Góc nhìn Module 3: 66° × 41°; Module 3 Wide: 102° × 67° → preset camera 2, 3 và Bảng 4 của bản thảo. Camera Module v2: **cần tải tay** (trang chính thức bị proxy chặn). |
+| R1 | Raspberry Pi Ltd, *Raspberry Pi Camera Module 3 (Standard, NoIR, Wide, NoIR Wide)*, product brief, 06/2024 | 7/7 trang, Claude tự đọc ([`notes/g9d_rpi_camera.md`](notes/g9d_rpi_camera.md)) | đã đọc – dùng | Góc nhìn Module 3: 66° × 41°; Module 3 Wide: 102° × 67° → preset camera 2, 3 và Bảng 4 của bản thảo. Camera Module v2: xem R2. |
+| R2 | Raspberry Pi Ltd, *Camera* (trang tài liệu chính thức, mục Hardware specifications), truy cập 18/10/2026 | toàn văn do bạn dán vào hội thoại ([`notes/g9d_rpi_camera.md`](notes/g9d_rpi_camera.md)) | đã đọc – dùng | Camera Module 2: 62.2° × 48.8°, IMX219, chế độ 1640 × 1232p41 → preset `v2` và Bảng 4; xác nhận chế độ 1536 × 864p120 của Module 3 / 3 Wide. |
 
 ## Ứng viên tìm thấy nhưng **chưa đọc** (không được dùng cho tới khi đọc toàn văn)
 

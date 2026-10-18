@@ -85,7 +85,7 @@ một tệp .tex duy nhất (danh mục tài liệu chèn sẵn bằng `build_re
 hình "Fig. n" không có dấu câu cuối, không nhắc tới màu; chú thích bảng bằng chữ thường mũ; DOI dạng link đầy đủ;
 khai báo dùng công cụ AI trong Mục 5 (tác giả xác nhận); "Statements and Declarations" trước danh mục tài liệu;
 Acknowledgements và ORCID ngay sau khối tiêu đề; chỗ cho tiểu sử, ảnh tác giả ở cuối. Các mục chữ đỏ trong ngoặc
-vuông là phần tác giả phải điền (Mục 9) hoặc tài liệu còn chờ tải (nguồn thông số Camera Module v2). RAPTOR (T-RO 2021) và Lee et al. (CDC 2010) đã được đọc
+vuông là phần tác giả phải điền (Mục 9). Nguồn thông số Camera Module v2: trang tài liệu chính thức của Raspberry Pi (`rpi_doc`, 2026-10-18). RAPTOR (T-RO 2021) và Lee et al. (CDC 2010) đã được đọc
 toàn văn bản chính thức và trích dẫn (2026-10-18, `../literature/notes/g10_raptor_lee.md`).
 Biên dịch: `pdflatex manuscript` hai lần trong `docs/paper/en`.
 

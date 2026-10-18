@@ -142,6 +142,9 @@ REFS = {
     'rpi_cm3': r"Raspberry Pi Ltd: Raspberry Pi Camera Module 3 (Standard, NoIR, Wide, NoIR Wide), product brief "
                r"(2024). \url{https://datasheets.raspberrypi.com/camera/camera-module-3-product-brief.pdf}. "
                r"Accessed 18 October 2026",
+    'rpi_doc': r"Raspberry Pi Ltd: Camera (Raspberry Pi documentation, hardware specifications). "
+               r"\url{https://www.raspberrypi.com/documentation/accessories/camera.html} (2026). "
+               r"Accessed 18 October 2026",
     # ------------------------------------------------------------- estimation, solver
     'barshalom2002': r"Bar-Shalom, Y.: Update with out-of-sequence measurements in tracking: Exact solution. IEEE "
                      r"Trans. Aerosp. Electron. Syst. \textbf{38}(3), 769--777 (2002). "
@@ -197,6 +200,7 @@ VERSION = {
     'misyats2025': 'accepted (arXiv v1, "accepted for publication at ICUAS 2025")',
     'laine2020': 'checked (RSS proceedings PDF: claims used are present)',
     'rpi_cm3': 'published (manufacturer document)',
+    'rpi_doc': 'published (manufacturer documentation page; full text supplied by the user)',
     'barshalom2002': 'published (user-supplied IEEE PDF)',
     'garcia2021': 'accepted (arXiv v2, journal ref IEEE TSP 69)',
     'zhou2021': 'published (user-supplied IEEE PDF)',
