@@ -107,8 +107,9 @@ the estimator jointly with a predictive controller~\cite{pant2021}. These approa
 computational effort of a periodic stream of frames; Zhuyi and D3 derive this need from objects that have already
 been detected, and accounting for occlusions and for objects not yet detected is left open by
 Zhuyi~\cite{hsiao2022}. In motion planning, safety in unknown environments is ensured by always keeping a stopping or
-back-up trajectory inside the space known to be free~\cite{liu2016,tordesillas2021}; these methods use that condition
-to shape the trajectory, not to decide when to sense. Testing whether a point lies in the free space of recent depth
+back-up trajectory inside the space known to be free~\cite{liu2016,tordesillas2021}, or by refining the trajectory so
+that the unknown space it enters is observed early enough to stop~\cite{zhou2021}; these methods use such conditions
+to shape the motion, not to decide when to sense. Testing whether a point lies in the free space of recent depth
 images, without fusing them into a map, has also been used for collision queries in fast flight~\cite{florence2018},
 but not to decide when to capture. The question of this paper is: \emph{with a delayed and expensive depth network,
 when must an inference be run so that the UAV always keeps a way to stop inside observed space?}
@@ -180,7 +181,11 @@ space as occupied ensures that the UAV can always stop~\cite{liu2016}, but requi
 be free can severely limit the speed~\cite{tordesillas2021}; MonoNav, conversely, treats unexplored space as
 free~\cite{simon2023}. In the worst case, an obstacle may lie just behind the boundary of the observed
 space~\cite{liu2016}; FASTER therefore always keeps a back-up trajectory that stops in the space known to be free,
-assuming a noise-free map and a static world~\cite{tordesillas2021}. NanoMap does not fuse depth images into a map but
+assuming a noise-free map and a static world~\cite{tordesillas2021}. RAPTOR locates the point at which the planned
+trajectory leaves the known-free space, where in the worst case an unknown obstacle may lie, checks whether the
+quadrotor can still stop before that point once it becomes visible, and otherwise refines the trajectory so that the
+point is seen earlier; it also plans the yaw angle to observe the unknown regions relevant to the
+flight~\cite{zhou2021}. NanoMap does not fuse depth images into a map but
 keeps a history of recent images with their relative pose transforms, and tests whether a point is free by projecting
 it into the images (within the horizontal and vertical field of view, not occluded, not beyond the sensor
 range)~\cite{florence2018}. Lin et al.\ constrain the planned trajectory to the current field of view and sensing
@@ -189,10 +194,9 @@ objectives in MPC to shape the motion for visual estimation~\cite{falanga2018}. 
 motion has to be restricted so as not to run into the blind region of the sensor, and with a field of view narrower
 than $180^\circ$ completely safe navigation without a map cannot be achieved for arbitrary
 motions~\cite{misyats2025}. The observed free space in this paper uses the same per-image test
-as~\cite{florence2018} and the same worst-case reasoning about unobserved space as~\cite{liu2016,tordesillas2021},
-but for a different purpose: instead of answering collision queries or constraining the trajectory, it decides when
-the observed space must be extended by an inference. \todo{Add RAPTOR (IEEE T-RO 37(6), 2021) after reading the
-official full text.}
+as~\cite{florence2018} and the same worst-case reasoning about unobserved space
+as~\cite{liu2016,tordesillas2021,zhou2021}, but for a different purpose: instead of answering collision queries or
+shaping the motion, it decides when the observed space must be extended by an inference.
 
 \subsection{Control barrier functions with sampling, delay and uncertainty}
 
@@ -556,9 +560,10 @@ rows~\eqref{eq:cbfrow}, two altitude rows and ``blind-motion'' rows that keep th
 direction below 1.5~m/s and the speed out of the field-of-view edges below 1~m/s, similar to the constraint that keeps
 the velocity within the sensor's field of view in~\cite{misyats2025}. The slack $\epsilon$ is nonzero only when the
 rows are incompatible; the solution is then the least-violating one~\cite{yaghoubi2021}, and $h \ge 0$ is no longer
-guaranteed. The safe acceleration and the yaw angle are converted into thrust and desired attitude for a geometric
-controller on SO(3) \todo{cite Lee, Leok, McClamroch, IEEE CDC 2010 after reading the full text} in simplified form (no
-angular-velocity feed-forward, with a tilt limit and drag compensation), running at 500~Hz.
+guaranteed. The safe acceleration and the yaw angle are converted into the total thrust and the desired attitude of
+the geometric tracking controller of~\cite{lee2010}, used in simplified form (zero desired angular velocity, so that its
+feed-forward terms vanish; per-axis gains; tilt and thrust limits; drag compensation) at 500~Hz; the stability results
+of~\cite{lee2010} are not claimed for this simplified form.
 
 \subsection{Baselines}\label{sec:baselines}
 
@@ -801,6 +806,9 @@ object nearby (2.24 and 1.76~frames/s) and less in dense regions (2.35 and 2.59~
 consistent with the mechanism of condition~\eqref{eq:cov}: when the path turns away from the current flight direction
 to go around an object, it enters the unobserved space behind the object (Fig.~\ref{fig:cov}b) and the coverage
 condition triggers a frame, whereas the remaining safe time with respect to known objects does not depend on the path.
+The same situation is decisive in the flight experiments of RAPTOR: an obstacle placed behind a corner was avoided only
+by the planner that enforced visibility of the unknown region and turned the camera toward it, while the other three
+planners collided~\cite{zhou2021}.
 
 \runin{Conclusion.} The results support placing the trigger criterion on the planned path and the observed space
 rather than on the distance to known objects.
@@ -876,7 +884,9 @@ the path, and thus directly addresses the occluded space that~\cite{hsiao2022} l
 deadline from visibility and stopping distance and adapts the decision rate to the heterogeneity of
 space~\cite{boroujerdian2021}, without relying on the unobserved space along the path. Compared with planners that
 keep a stopping trajectory in known free space~\cite{liu2016,tordesillas2021}, it uses the same reasoning to decide
-when to measure. Compared with NanoMap~\cite{florence2018}, the free-space test is the same, but here it decides the
+when to measure. Compared with RAPTOR~\cite{zhou2021}, which adapts the trajectory and the yaw angle so that the point
+where the path leaves known free space is observed early enough to stop, the coverage condition leaves the motion to the
+planner and decides when to run the inference. Compared with NanoMap~\cite{florence2018}, the free-space test is the same, but here it decides the
 timing of inference. The saturation of the collision rate from about 2~Hz agrees with the observations in automated
 driving that the required processing rate is finite and scenario-dependent~\cite{zhao2021,hsiao2022}.
 
@@ -972,6 +982,8 @@ writing--original draft, writing--review and editing).}
 
 \bibitem{tordesillas2021} Tordesillas, J., Lopez, B.T., Everett, M., How, J.P.: FASTER: Fast and safe trajectory planner for navigation in unknown environments. IEEE Trans. Robot. \textbf{38}(2), 922--938 (2022). \url{https://doi.org/10.1109/TRO.2021.3100142}
 
+\bibitem{zhou2021} Zhou, B., Pan, J., Gao, F., Shen, S.: RAPTOR: Robust and perception-aware trajectory replanning for quadrotor fast flight. IEEE Trans. Robot. \textbf{37}(6), 1992--2009 (2021). \url{https://doi.org/10.1109/TRO.2021.3071527}
+
 \bibitem{florence2018} Florence, P.R., Carter, J., Ware, J., Tedrake, R.: NanoMap: Fast, uncertainty-aware proximity queries with lazy search over local 3D data. In: Proc. IEEE Int. Conf. Robot. Autom. (ICRA), pp. 7631--7638 (2018). \url{https://doi.org/10.1109/ICRA.2018.8463195}
 
 \bibitem{aldana2023} Aldana-L\'opez, R., Arag\"u\'es, R., Sag\"u\'es, C.: Latency vs precision: Stability preserving perception scheduling. Automatica \textbf{155}, 111123 (2023). \url{https://doi.org/10.1016/j.automatica.2023.111123}
@@ -1031,6 +1043,8 @@ writing--original draft, writing--review and editing).}
 \bibitem{bhattacharya2024} Bhattacharya, A., Cannici, M., Rao, N., Tao, Y., Kumar, V., Matni, N., Scaramuzza, D.: Monocular event-based vision for obstacle avoidance with a quadrotor. In: Proc. 8th Conf. Robot Learning (CoRL), PMLR \textbf{270}, 4826--4843 (2025)
 
 \bibitem{mehrotra1992} Mehrotra, S.: On the implementation of a primal--dual interior point method. SIAM J. Optim. \textbf{2}(4), 575--601 (1992). \url{https://doi.org/10.1137/0802028}
+
+\bibitem{lee2010} Lee, T., Leok, M., McClamroch, N.H.: Geometric tracking control of a quadrotor UAV on SE(3). In: Proc. 49th IEEE Conf. Decis. Control (CDC), pp. 5420--5425 (2010). \url{https://doi.org/10.1109/CDC.2010.5717652}
 
 % END AUTO REFS
 \end{thebibliography}

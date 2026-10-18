@@ -72,6 +72,9 @@ REFS = {
     'zhou2019': r"Zhou, B., Gao, F., Wang, L., Liu, C., Shen, S.: Robust and efficient quadrotor trajectory "
                 r"generation for fast autonomous flight. IEEE Robot. Autom. Lett. \textbf{4}(4), 3529--3536 (2019). "
                 r"\url{https://doi.org/10.1109/LRA.2019.2927938}",
+    'zhou2021': r"Zhou, B., Pan, J., Gao, F., Shen, S.: RAPTOR: Robust and perception-aware trajectory replanning "
+                r"for quadrotor fast flight. IEEE Trans. Robot. \textbf{37}(6), 1992--2009 (2021). "
+                r"\url{https://doi.org/10.1109/TRO.2021.3071527}",
     'tordesillas2021': r"Tordesillas, J., Lopez, B.T., Everett, M., How, J.P.: FASTER: Fast and safe trajectory "
                        r"planner for navigation in unknown environments. IEEE Trans. Robot. \textbf{38}(2), 922--938 "
                        r"(2022). \url{https://doi.org/10.1109/TRO.2021.3100142}",
@@ -146,6 +149,9 @@ REFS = {
     'garcia2021': r"Garc\'ia-Fern\'andez, \'A.F., Yi, W.: Continuous-discrete multiple target tracking with "
                   r"out-of-sequence measurements. IEEE Trans. Signal Process. \textbf{69}, 4699--4709 (2021). "
                   r"\url{https://doi.org/10.1109/TSP.2021.3100999}",
+    'lee2010': r"Lee, T., Leok, M., McClamroch, N.H.: Geometric tracking control of a quadrotor UAV on SE(3). In: "
+               r"Proc. 49th IEEE Conf. Decis. Control (CDC), pp. 5420--5425 (2010). "
+               r"\url{https://doi.org/10.1109/CDC.2010.5717652}",
     'mehrotra1992': r"Mehrotra, S.: On the implementation of a primal--dual interior point method. SIAM J. Optim. "
                     r"\textbf{2}(4), 575--601 (1992). \url{https://doi.org/10.1137/0802028}",
 }
@@ -193,6 +199,8 @@ VERSION = {
     'rpi_cm3': 'published (manufacturer document)',
     'barshalom2002': 'published (user-supplied IEEE PDF)',
     'garcia2021': 'accepted (arXiv v2, journal ref IEEE TSP 69)',
+    'zhou2021': 'published (user-supplied IEEE PDF)',
+    'lee2010': 'published (user-supplied IEEE PDF)',
     'mehrotra1992': 'published (user-supplied SIAM PDF)',
 }
 assert set(VERSION) == set(REFS)

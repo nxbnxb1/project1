@@ -44,6 +44,7 @@ Cột "Bản đã đọc": `published` = đọc chính bản xuất bản; `acce
 | B5 | `simon2023` | Simon, N., Majumdar, A.: MonoNav: MAV navigation via monocular depth estimation and reconstruction. In: Ang Jr, M.H., Khatib, O. (eds.) Experimental Robotics (ISER 2023). Springer Proc. Adv. Robot., pp. 415–426. Springer, Cham (2024). | accepted (arXiv v1, version presented at ISER 2023) |
 | C4 | `zhou2019` | Zhou, B., Gao, F., Wang, L., Liu, C., Shen, S.: Robust and efficient quadrotor trajectory generation for fast autonomous flight. IEEE Robot. Autom. Lett. 4(4), 3529–3536 (2019). | accepted (arXiv v2, "ACCEPTED JUNE, 2019") |
 | C3 | `tordesillas2021` | Tordesillas, J., Lopez, B.T., Everett, M., How, J.P.: FASTER: Fast and safe trajectory planner for navigation in unknown environments. IEEE Trans. Robot. 38(2), 922–938 (2022). | accepted (arXiv v2, "accepted for publication in IEEE T-RO") |
+| C2 | `zhou2021` | Zhou, B., Pan, J., Gao, F., Shen, S.: RAPTOR: Robust and perception-aware trajectory replanning for quadrotor fast flight. IEEE Trans. Robot. 37(6), 1992–2009 (2021). | published (user-supplied IEEE PDF, 2026-10-18) |
 | C8 | `florence2018` | Florence, P.R., Carter, J., Ware, J., Tedrake, R.: NanoMap: Fast, uncertainty-aware proximity queries with lazy search over local 3D data. In: Proc. IEEE Int. Conf. Robot. Autom. (ICRA), pp. 7631–7638 (2018). | accepted (arXiv v1, "To Appear at ICRA 2018") |
 | C1 | `falanga2018` | Falanga, D., Foehn, P., Lu, P., Scaramuzza, D.: PAMPC: Perception-aware model predictive control for quadrotors. In: Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), pp. 1–8 (2018). | accepted (arXiv v2, journal ref IROS 2018) |
 | C6 | `zhu2019` | Zhu, H., Alonso-Mora, J.: Chance-constrained collision avoidance for MAVs in dynamic environments. IEEE Robot. Autom. Lett. 4(2), 776–783 (2019). | published (final published version, TU Delft repository) |
@@ -67,6 +68,7 @@ Cột "Bản đã đọc": `published` = đọc chính bản xuất bản; `acce
 | R1 | `rpi_cm3` | Raspberry Pi Ltd: Raspberry Pi Camera Module 3 (Standard, NoIR, Wide, NoIR Wide), product brief (2024). | published (manufacturer document) |
 | H1 | `barshalom2002` | Bar-Shalom, Y.: Update with out-of-sequence measurements in tracking: Exact solution. IEEE Trans. Aerosp. Electron. Syst. 38(3), 769–777 (2002). | published (user-supplied IEEE PDF) |
 | H3 | `garcia2021` | Garcia-Fernandez, A.F., Yi, W.: Continuous-discrete multiple target tracking with out-of-sequence measurements. IEEE Trans. Signal Process. 69, 4699–4709 (2021). | accepted (arXiv v2, journal ref IEEE TSP 69) |
+| I1 | `lee2010` | Lee, T., Leok, M., McClamroch, N.H.: Geometric tracking control of a quadrotor UAV on SE(3). In: Proc. 49th IEEE Conf. Decis. Control (CDC), pp. 5420–5425 (2010). | published (user-supplied IEEE PDF, 2026-10-18) |
 | M1 | `mehrotra1992` | Mehrotra, S.: On the implementation of a primal–dual interior point method. SIAM J. Optim. 2(4), 575–601 (1992). | published (user-supplied SIAM PDF) |
 
 ## Không trích dẫn nữa (và lý do)
@@ -76,8 +78,6 @@ Cột "Bản đã đọc": `published` = đọc chính bản xuất bản; `acce
 | A4 | Zhao et al., *Towards Safety-Aware Computing System Design in Autonomous Vehicles* (arXiv:1905.08453) | chỉ có bản preprint; không có bản xuất bản |
 | A5 | Vyas et al., *TAPAS* (arXiv:2607.17317) | được chấp nhận ở ESWEEK-CODES 2026 nhưng chưa có bản xuất bản (không có bản ghi Crossref) |
 | G8 | Han et al., *Risk-Aware Belief CBFs over Random Finite Sets* (arXiv:2607.15016) | chỉ có bản preprint |
-| I1 | Lee, Leok, McClamroch, arXiv:1003.2005 | chỉ có bản preprint; thay bằng bài IEEE CDC 2010 khi có toàn văn (**cần tải tay**) |
-| C2 | Zhou et al., *RAPTOR* (arXiv:2007.03465v1) | bản chính thức IEEE T-RO 37(6):1992–2009, 2021 khác bản v1 đã đọc; chỉ trích lại sau khi đọc toàn văn bản T-RO (**cần tải tay**) |
 | F2 | Singletary et al., CDC 2020 (arXiv:2005.06418v1) | đã đọc bản nộp; bản CDC không có bản mở; nội dung được thay bằng F10 (Bahati et al., ACC 2024, đã đối chiếu bản chính thức) |
 | G7 | Jian et al., ICRA 2023 (arXiv:2209.08539v1) | đã đọc bản nộp; bản ICRA không có bản mở; nhận định trùng với C6 (Zhu & Alonso-Mora, đã đọc bản xuất bản) |
 | E5b | Wang et al., ACC 2016 (arXiv:1609.00651) | bản arXiv là bản mở rộng 8 trang, khác bài ACC 6 trang; nhận định trùng với E5 (T-RO 2017, đã đọc bản xuất bản) |

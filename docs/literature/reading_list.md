@@ -51,7 +51,7 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | ID | Bài | Toàn văn | Trạng thái | Vai trò |
 |---|---|---|---|---|
 | C1 | D. Falanga et al., *PAMPC*, IROS 2018 (arXiv:1804.04811) | 8/8 | đã đọc – dùng (hẹp) | Hướng ngược với DART: định hình chuyển động để VIO thấy tốt; không có vật cản, không có latency. |
-| C2 | B. Zhou et al., *RAPTOR* (arXiv:2007.03465v1) | 16/16 | đã đọc – dùng | Kiểm tra quãng phanh tới biên vùng đã thấy (Eq. 6) → gần nhất với ràng buộc frontier; RAPTOR định hình quỹ đạo/yaw, không lập lịch perception, không latency/bất định. Có thử nghiệm thật. |
+| C2 | B. Zhou, J. Pan, F. Gao, S. Shen, *RAPTOR*, IEEE T-RO 37(6):1992–2009, 2021 (bản chính thức do bạn cung cấp; trước đó đã đọc arXiv v1) | 18/18 ([`notes/g10_raptor_lee.md`](notes/g10_raptor_lee.md)) | đã đọc – dùng | Điểm quỹ đạo rời vùng đã biết là trống, giả thiết xấu nhất vật cản nằm ngay sau đó, kiểm tra quãng phanh (Eq. 6) → gần nhất với điều kiện phủ; RAPTOR điều chỉnh quỹ đạo/yaw, không lập lịch perception, không mô hình độ trễ. Thử nghiệm vật sau góc khuất (Table II). |
 | C3 | J. Tordesillas et al., *FASTER*, IEEE T-RO (arXiv:2001.04420) | 17/17 | đã đọc – dùng | Luôn giữ quỹ đạo dừng an toàn trong vùng đã biết là trống; chứng minh với bản đồ không nhiễu. Ablation Safe-Trajectory (Table V) là mẫu cho ablation của DART. |
 | C4 | B. Zhou et al., *Fast-Planner*, RA-L 2019 (arXiv:1907.01531) | 8/8 | đã đọc – dùng | Bối cảnh/baseline planner dựa trên bản đồ, tĩnh, không bất định/latency. |
 | C5 | X. Zhou et al., *EGO-Planner*, RA-L 2020 (arXiv:2008.08835) | 8/8 | đã đọc – dùng | Bối cảnh/baseline; thiết kế cho môi trường tĩnh (vật cản < 0.5 m/s). |
@@ -86,7 +86,7 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | E6 | J. Zeng, B. Zhang, K. Sreenath, *Safety-Critical MPC with Discrete-Time CBF*, ACC 2021 (arXiv:2007.11718) | 9/9 | đã đọc – dùng | Cơ sở hàng DCBF trong MPC; bài toán là NLP trừ khi barrier tuyến tính (ủng hộ nửa không gian tiếp tuyến). |
 | E7 | U. Rosolia, A. D. Ames, *Multi-Rate Control Design Leveraging CBFs and MPC Policies*, IEEE L-CSS 5(3), 2020 (arXiv:2004.01761) | 6/6 | đã đọc – dùng | Kiến trúc MPC chậm + CBF nhanh có bảo đảm đa tần số; không có perception/latency. (Sửa tác giả: không có Singletary.) |
 | E8 | M. Misyats, M. Harms, M. Nissov, M. Jacquet, K. Alexis, *Embedded Safe Reactive Navigation for Multirotors Systems using Control Barrier Functions* (arXiv:2504.15850v1; PDF không in nơi đăng) | 8/8 ([`notes/g9b_fov_cbf_multirotor.md`](notes/g9b_fov_cbf_multirotor.md), FV2) | đã đọc – dùng | Bộ lọc CBF chạy hoàn toàn onboard multirotor thật (VOXL2 mini, ToF, 100 điểm ở 15 Hz, vòng vị trí PX4 100 Hz); ràng buộc mềm giữ vận tốc trong vùng nhìn của cảm biến → tiền lệ cho hàng "chuyển động mù"; tự nêu thiếu thông tin ngoài FOV và bộ nhớ ngắn hạn là hướng tương lai. Không có thống kê va chạm. |
-| I1 | T. Lee, M. Leok, N. H. McClamroch, *Control of Complex Maneuvers for a Quadrotor UAV using Geometric Methods on SE(3)* (arXiv:1003.2005) | 12/12 | đã đọc – dùng (cài đặt) | Tham chiếu cho vòng attitude; DART bỏ feed-forward, thêm giới hạn nghiêng/lực đẩy/bù cản → kết quả ổn định của I1 không áp dụng trực tiếp. |
+| I1 | T. Lee, M. Leok, N. H. McClamroch, *Geometric Tracking Control of a Quadrotor UAV on SE(3)*, IEEE CDC 2010, 5420–5425 (bản chính thức do bạn cung cấp; trước đó đã đọc arXiv:1003.2005) | 6/6 ([`notes/g10_raptor_lee.md`](notes/g10_raptor_lee.md)) | đã đọc – dùng (cài đặt) | Lực đẩy (15) và mô-men (16) của vòng tư thế; mã dùng Ω_d = 0 (không feed-forward), hệ số theo trục, giới hạn nghiêng/lực đẩy, bù cản → các mệnh đề ổn định của bài không được viện dẫn cho dạng đơn giản hoá. |
 
 ## F. CBF với độ trễ, lấy mẫu, kích hoạt theo sự kiện, sai số perception
 
@@ -154,8 +154,6 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 ## Ứng viên tìm thấy nhưng **chưa đọc** (không được dùng cho tới khi đọc toàn văn)
 
 * Sun et al. 2019 (self-triggered MPC với horizon thích nghi); bài SPIE 6699, 66990V (2007), *Adaptive horizon sensor resource management: validating the core concept* (có thể là "Page et al.", tác giả chưa xác nhận; **cần tải tay**).
-* Bản tạp chí của RAPTOR (IEEE T-RO 37(6), 2021; khác bản arXiv v1 đã đọc) — **cần tải tay**.
-* T. Lee, M. Leok, N. H. McClamroch, *Geometric tracking control of a quadrotor UAV on SE(3)*, IEEE CDC 2010 — **cần tải tay**.
 * E. Cho et al., *Obstacle Avoidance of a UAV Using Fast Monocular Depth Estimation for a Wide Stereo Camera*, IEEE TIE 72(2), 2025 — **cần tải tay**.
 * Snowball từ nhóm g9 (chưa đọc): Zhang, Leng & Govindaraju, Robotica 2016 (FOV nhỏ và xác suất va chạm); Wu & Sreenath 2016 (CBF quadrotor 3-D với cảm nhận giới hạn tầm); Harms et al., ICRA 2025 (arXiv:2502.04101, CBF hợp thành); Zymler et al. 2013 (CVaR xấu nhất, nguồn của dạng đóng nêu trong ghi chú G9).
 * NanoMap; Safety Score (IV 2020); RSS (Shalev-Shwartz et al. 2017); Safety Force Field (2019).
