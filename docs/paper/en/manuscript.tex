@@ -4,7 +4,7 @@
 %        cd docs/paper/en/figures && xelatex Fig1.tex                   (Fig. 1)
 %        python3 docs/paper/build_refs.py docs/paper/en/manuscript.tex --inline
 %        cd docs/paper/en && pdflatex manuscript && pdflatex manuscript
-% Items in red brackets (\todo) are to be completed by the author before submission.
+% \todo marks open items; none remain.
 \documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
 
 \usepackage{graphicx}
@@ -14,7 +14,7 @@
 \usepackage{xcolor}
 \usepackage{textcomp}
 \usepackage{booktabs}
-\graphicspath{{figures/}}
+\graphicspath{{figures/}{./}}% also works if the submission system flattens folders
 
 \theoremstyle{thmstyleone}
 \newtheorem{proposition}{Proposition}
