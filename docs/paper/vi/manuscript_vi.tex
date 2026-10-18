@@ -44,9 +44,10 @@
 \begin{center}
 {\Large\bfseries Khi nào cần suy luận depth? Lập lịch nhận thức theo vùng trống đã quan sát cho quadrotor chi phí thấp dùng depth đơn mắt có độ trễ\par}
 \vspace{10pt}
-\todo{Tác giả 1}\textsuperscript{1*}, \todo{Tác giả 2}\textsuperscript{1}\\[3pt]
-{\small \textsuperscript{1}\todo{Đơn vị, cơ quan, thành phố, quốc gia}\\
-\textsuperscript{*}Tác giả liên hệ: \todo{e-mail}; ORCID: \todo{0000-0000-0000-0000}}
+Xuan Bach Nguyen\textsuperscript{a,b,*}\\[3pt]
+{\small \textsuperscript{a}School of Electrical and Electronic Engineering, Hanoi University of Science and Technology, No. 1 Dai Co Viet, Hanoi, Vietnam\\
+\textsuperscript{b}Faculty of Law, Foreign Trade University, 91 Chua Lang Street, Hanoi, Vietnam\\
+\textsuperscript{*}Tác giả liên hệ: \todo{e-mail}; ORCID: 0009-0003-5194-8790}
 \end{center}
 
 \begin{abstract}
@@ -282,7 +283,9 @@ Tư thế & tần số; tích phân mô hình & 500~Hz; RK4, 2~ms \\
 
 \paragraph{Kết cục và độ đo.} Một lượt kết thúc khi tới đích, va chạm (khoảng cách từ thân tới vật bằng 0) hoặc kẹt (tiến dưới 1~m dọc quỹ đạo đặt trong 60~s); thời gian bay không bị giới hạn. Độ đo gồm tỉ lệ va chạm với vật tĩnh, tỉ lệ kẹt, số lần suy luận mỗi nhiệm vụ, tần số chụp thực tế và thời gian tới đích. Các tỉ lệ được so sánh bằng kiểm định Fisher chính xác hai phía trên số lượt. Khi so sánh các phương án, các mức trần 1.5--5~Hz được gộp, vì Mục~\ref{sec:r1} cho thấy đây là vùng mà tỉ lệ va chạm không còn phụ thuộc trần. Không hiệu chỉnh cho kiểm định bội, nên các giá trị $p$ gần 0.05 được diễn giải thận trọng.
 
-\paragraph{Cài đặt.} Toàn bộ thuật toán được viết bằng MATLAB, và mô hình Simulink được sinh từ cùng mã. Lưới thử nghiệm chạy bằng một động cơ mô phỏng MATLAB dùng cùng các hàm và cùng cấu trúc đa tần số với mô hình Simulink, trên GitHub Actions; mô hình quadrotor được tích phân bằng Runge--Kutta bậc 4 với bước 2~ms. Mã nguồn, kết quả từng lượt và các script lập bảng, vẽ hình được công bố cùng bài (mục Khai báo). \todo{Khai báo sử dụng công cụ AI theo yêu cầu của tạp chí --- tác giả hoàn thiện.}
+\paragraph{Cài đặt.} Toàn bộ thuật toán được viết bằng MATLAB, và mô hình Simulink được sinh từ cùng mã. Lưới thử nghiệm chạy bằng một động cơ mô phỏng MATLAB dùng cùng các hàm và cùng cấu trúc đa tần số với mô hình Simulink, trên GitHub Actions; mô hình quadrotor được tích phân bằng Runge--Kutta bậc 4 với bước 2~ms. Mã nguồn, kết quả từng lượt và các script lập bảng, vẽ hình sẽ được công bố công khai khi bài được chấp nhận (mục Khai báo).
+
+\paragraph{Sử dụng công cụ AI.} Một phần mã mô phỏng, các script phân tích và bản nháp đầu tiên của bản thảo được chuẩn bị với sự trợ giúp của một trợ lý lập trình AI dựa trên mô hình ngôn ngữ lớn (Claude, Anthropic). Tác giả xác định phương pháp và các thí nghiệm, kiểm tra và chạy thử mã, đối chiếu các số liệu báo cáo với log mô phỏng đã lưu và các nhận định được trích dẫn với toàn văn của các công trình được trích, và chịu toàn bộ trách nhiệm về nội dung.
 
 \begin{table}[t]
 \centering
@@ -470,12 +473,11 @@ Bài báo đặt câu hỏi khi nào một quadrotor chi phí thấp cần chạ
 % =====================================================================================================
 \section*{Khai báo}
 
-\paragraph{Tài trợ.} \todo{Ví dụ: Không có tài trợ cho nghiên cứu này.}
-\paragraph{Xung đột lợi ích.} \todo{Ví dụ: Các tác giả không có xung đột lợi ích liên quan tới nội dung bài báo.}
-\paragraph{Dữ liệu.} Kết quả từng lượt và các script lập bảng, vẽ hình có tại kho \url{https://github.com/nxbnxb1/project1} \todo{lưu bản phát hành cố định trên Zenodo để có DOI và trích dẫn DOI đó}.
-\paragraph{Mã nguồn.} Mã MATLAB/Simulink và các workflow GitHub Actions có tại cùng kho.
-\paragraph{Đóng góp của tác giả.} \todo{Theo CRediT.}
-\paragraph{Sử dụng công cụ AI.} \todo{Tác giả hoàn thiện theo Mục 8 của docs/paper/PLAN.md.}
+\paragraph{Tài trợ.} Nghiên cứu này không nhận tài trợ.
+\paragraph{Xung đột lợi ích.} Tác giả không có xung đột lợi ích liên quan tới nội dung bài báo.
+\paragraph{Dữ liệu.} Kết quả từng lượt của 36\,000 lượt bay mô phỏng và các script lập bảng, vẽ hình sẽ được công bố công khai trên GitHub khi bài được chấp nhận.
+\paragraph{Mã nguồn.} Mã MATLAB/Simulink và các workflow GitHub Actions dùng để chạy thử nghiệm sẽ được công bố trong cùng kho khi bài được chấp nhận.
+\paragraph{Đóng góp của tác giả.} Xuan Bach Nguyen là tác giả duy nhất, thực hiện toàn bộ việc hình thành ý tưởng, phương pháp, phần mềm, mô phỏng, phân tích và viết bản thảo (về việc dùng công cụ AI: xem Mục~\ref{sec:setup}).
 
 \begin{thebibliography}{99}
 \small

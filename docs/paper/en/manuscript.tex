@@ -4,7 +4,7 @@
 %        cd docs/paper/en/figures && xelatex Fig1.tex                   (Fig. 1)
 %        python3 docs/paper/build_refs.py docs/paper/en/manuscript.tex --inline
 %        cd docs/paper/en && pdflatex manuscript && pdflatex manuscript
-% Items in red brackets (\todo) are to be completed by the authors before submission.
+% Items in red brackets (\todo) are to be completed by the author before submission.
 \documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
 
 \usepackage{graphicx}
@@ -38,12 +38,13 @@
 \title[Observed-free-space perception scheduling]{When to run depth inference? Observed-free-space perception
 scheduling for low-cost quadrotors with delayed monocular depth}
 
-\author*[1]{\fnm{\todo{First}} \sur{\todo{Author}}}\email{\todo{corresponding.author@institution}}
+\author*[1,2]{\fnm{Xuan Bach} \sur{Nguyen}}\email{\todo{e-mail of the corresponding author}}
 
-\author[1]{\fnm{\todo{Second}} \sur{\todo{Author}}}\email{\todo{second.author@institution}}
+\affil*[1]{\orgdiv{School of Electrical and Electronic Engineering}, \orgname{Hanoi University of Science and
+Technology}, \orgaddress{\street{No. 1 Dai Co Viet}, \city{Hanoi}, \country{Vietnam}}}
 
-\affil*[1]{\orgdiv{\todo{Department}}, \orgname{\todo{Institution}}, \orgaddress{\city{\todo{City}},
-\country{\todo{Country}}}}
+\affil[2]{\orgdiv{Faculty of Law}, \orgname{Foreign Trade University}, \orgaddress{\street{91 Chua Lang Street},
+\city{Hanoi}, \country{Vietnam}}}
 
 \abstract{Low-cost quadrotors often obtain obstacle information from one camera and a monocular depth network,
 the most computationally expensive stage of the control loop, with a latency of about 0.1~s. Running it at
@@ -66,14 +67,10 @@ Control barrier function}
 
 \maketitle
 
-% Title-page items required by the journal: acknowledgements as a separate section of the title page, and the ORCID
-% of each author. Placed directly after the title block, before the Introduction.
-\bmhead{Acknowledgements}
-\todo{Acknowledgements of people, grants and funds (funding organizations written in full), or delete this
-heading.}
-
+% Title-page item required by the journal: the ORCID of the author, directly after the title block (no
+% acknowledgements).
 \bmhead{ORCID}
-\todo{First Author: 0000-0000-0000-0000; Second Author: 0000-0000-0000-0000}
+Xuan Bach Nguyen: \url{https://orcid.org/0009-0003-5194-8790}
 
 % =====================================================================================================================
 \section{Introduction}\label{sec:intro}
@@ -624,14 +621,14 @@ interpreted with caution.
 \runin{Implementation.} All algorithms are written in MATLAB, and the Simulink model is generated from the same code.
 The test grid is run with a MATLAB simulation engine that uses the same functions and the same multi-rate structure as
 the Simulink model, on GitHub Actions; the quadrotor model is integrated by fourth-order Runge--Kutta with a 2~ms step.
-The source code, the per-run results and the scripts that produce the tables and figures are publicly available (see
-Statements and Declarations).
+The source code, the per-run results and the scripts that produce the tables and figures will be made publicly
+available upon acceptance (see Statements and Declarations).
 
-\runin{Use of AI tools.} \todo{Authors to confirm or revise.} Parts of the simulation code, the analysis scripts and
+\runin{Use of AI tools.} Parts of the simulation code, the analysis scripts and
 the first draft of this manuscript were prepared with the assistance of an AI coding assistant based on a large
-language model (Claude, Anthropic). The authors specified the method and the experiments, reviewed and tested the
+language model (Claude, Anthropic). The author specified the method and the experiments, reviewed and tested the
 code, checked the reported numbers against the stored simulation logs and the cited statements against the full texts
-of the cited works, and take full responsibility for the content.
+of the cited works, and takes full responsibility for the content.
 
 \begin{table}[t]
 \caption{Scenarios and test grid}\label{tab:grid}
@@ -934,27 +931,25 @@ term in the coverage condition and to verify the approach on hardware.
 \section*{Statements and Declarations}
 
 \bmhead{Funding}
-\todo{For example: No funding was received for conducting this study.}
+No funding was received for conducting this study.
 
 \bmhead{Competing interests}
-\todo{For example: The authors have no competing interests to declare that are relevant to the content of this
-article.}
+The author has no competing interests to declare that are relevant to the content of this article.
 
 \bmhead{Ethics approval and consent}
 Not applicable: the study is a simulation study without human or animal participants.
 
 \bmhead{Data availability}
-The per-run results of the 36\,000 simulated flights and the scripts that produce the tables and figures are
-available in the repository \url{https://github.com/nxbnxb1/project1}. \todo{Archive a fixed release on Zenodo and
-cite its DOI here and in the reference list.}
+The per-run results of the 36\,000 simulated flights and the scripts that produce the tables and figures will be made
+publicly available in a GitHub repository upon acceptance of this article.
 
 \bmhead{Code availability}
-The MATLAB/Simulink implementation and the GitHub Actions workflows used to run the experiments are available in the
-same repository.
+The MATLAB/Simulink implementation and the GitHub Actions workflows used to run the experiments will be made
+publicly available in the same repository upon acceptance of this article.
 
 \bmhead{Author contributions}
-\todo{Contribution of each author (e.g.\ CRediT: conceptualization, methodology, software, formal analysis,
-writing--original draft, writing--review and editing).}
+Xuan Bach Nguyen is the sole author and carried out the conceptualization, methodology, software, simulations,
+formal analysis and writing of the manuscript (use of AI tools: see Section~\ref{sec:setup}).
 
 \begin{thebibliography}{99}
 % BEGIN AUTO REFS (generated by docs/paper/build_refs.py --inline from docs/paper/references.py; do not edit)
@@ -1051,7 +1046,7 @@ writing--original draft, writing--review and editing).}
 % END AUTO REFS
 \end{thebibliography}
 
-\section*{Author biographies}
-\todo{Regular papers: a short biography and a photo of each author.}
+\section*{Author biography}
+\todo{Regular papers: a short biography and a photo of the author.}
 
 \end{document}

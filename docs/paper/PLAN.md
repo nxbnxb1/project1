@@ -132,33 +132,31 @@ Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–6, chỉ 
 * Bổ sung DOI đầy đủ; tên tạp chí viết tắt theo LTWA.
 * Dữ liệu và mã của bài được trích trong danh mục tài liệu (DataCite: tác giả, tiêu đề, kho, năm, DOI).
 
-## 7. Khung các tuyên bố (tác giả hoàn thiện)
+## 7. Các tuyên bố (đã điền theo thông tin tác giả, 2026-10-18)
 
-* **Funding**: ❓ (ví dụ: "No funding was received for conducting this study.")
-* **Competing interests**: ❓ (ví dụ: "The authors have no competing interests to declare that are relevant to the
-  content of this article.")
-* **Data availability**: dữ liệu kết quả (log từng lượt) và script lập bảng có trong kho GitHub
-  `nxbnxb1/project1`; 🔧 đề xuất lưu trữ một bản phát hành cố định trên Zenodo để có DOI và trích dẫn DOI đó.
-* **Code availability**: mã MATLAB / Simulink, workflow GitHub Actions — cùng kho và cùng DOI.
-* **Author contributions**: ❓ theo CRediT (Conceptualization, Methodology, Software, Formal analysis, Writing…).
-* **Ethics / consent**: không áp dụng (không có người hoặc động vật tham gia).
+* **Tác giả**: Xuan Bach Nguyen (tác giả duy nhất, tác giả liên hệ), ORCID 0009-0003-5194-8790;
+  (a) School of Electrical and Electronic Engineering, Hanoi University of Science and Technology, No. 1 Dai Co Viet,
+  Hanoi, Vietnam; (b) Faculty of Law, Foreign Trade University, 91 Chua Lang Street, Hanoi, Vietnam.
+* **Acknowledgements**: không có (đã bỏ mục).
+* **Funding**: "No funding was received for conducting this study."
+* **Competing interests**: "The author has no competing interests to declare that are relevant to the content of this
+  article."
+* **Ethics**: không áp dụng (mô phỏng).
+* **Data / Code availability**: không dùng Zenodo; mã nguồn, kết quả từng lượt và script được công bố công khai trên
+  GitHub khi bài được chấp nhận.
+* **Author contributions**: tác giả duy nhất.
 
 ## 8. Khai báo sử dụng công cụ AI
 
-Theo hướng dẫn, việc dùng LLM ngoài mức chỉnh sửa câu chữ phải được mô tả trong mục Methods, và LLM không đứng tên
-tác giả. Lịch sử repo ghi nhận mã, phân tích và tài liệu được phát triển với trợ giúp của một trợ lý AI (dòng
-`Co-Authored-By` trong commit). ❓ Tác giả quyết định nội dung khai báo; ví dụ: "Parts of the simulation code, the
-analysis scripts and the first draft of the text were developed with the assistance of an AI coding assistant (Claude,
-Anthropic). The authors reviewed, tested and take full responsibility for all code, results and text."
+Tác giả đã xác nhận nội dung khai báo trong Mục 5 của bản thảo ("Use of AI tools"): một phần mã mô phỏng, script phân
+tích và bản nháp đầu tiên được chuẩn bị với trợ giúp của Claude (Anthropic); tác giả xác định phương pháp, kiểm tra mã,
+đối chiếu số liệu và trích dẫn, và chịu toàn bộ trách nhiệm.
 
-## 9. Thông tin cần tác giả cung cấp
+## 9. Thông tin còn thiếu
 
-1. Danh sách tác giả, thứ tự, cơ quan (đơn vị, thành phố, nước), tác giả liên hệ và e-mail, ORCID.
-2. Loại bài (Regular paper hay Focused Section) — bài Regular cần tiểu sử và ảnh tác giả.
-3. Funding, competing interests, lời cảm ơn.
-4. Nội dung khai báo sử dụng công cụ AI (Mục 8).
-5. Đồng ý lưu trữ bản phát hành trên Zenodo (DOI) cho dữ liệu và mã.
-6. Phương án tiêu đề, giới hạn độ dài mong muốn (hướng dẫn không quy định số trang).
+1. E-mail của tác giả liên hệ.
+2. Tiểu sử ngắn và ảnh tác giả (bài Regular).
+3. Loại bài (Regular paper hay Focused Section).
 
 ## 10. Thứ tự thực hiện đề xuất
 
