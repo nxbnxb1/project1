@@ -44,6 +44,7 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | B3 | L. Yang et al., *Depth Anything V2*, NeurIPS 2024 (arXiv:2406.09414) | 30/30 | đã đọc – dùng | Latency V100: 60 ms (Small) – 213 ms (Large) (đọc từ Fig. 1) → cơ sở cho giả thiết trễ hàng chục–hàng trăm ms; có bản fine-tune metric. |
 | B4 | D. Wofk et al., *FastDepth*, ICRA 2019 (arXiv:1903.03273) | 8/8 | đã đọc – dùng | Số liệu Jetson TX2: 5.6–319 ms (GPU), 3.8–12.2 W tuỳ mạng; FastDepth rất nhanh (5.6 ms) → DART cần lập luận cho mô hình lớn / tính toán chia sẻ. |
 | B5 | N. Simon, A. Majumdar, *MonoNav*, ISER 2023 (arXiv:2311.14100) | 13/13 | đã đọc – dùng | Hệ MAV gần nhất: ZoeDepth 0.11–0.16 s + trễ camera 0.12 s, 3–4 Hz; va chạm khi coi vùng chưa thám hiểm là trống; bảo thủ vì biên cố định. |
+| B6 | Xue et al., *DepthART: Scaling Foundation Monocular Depth to Tiny Models* (arXiv:2607.17099v1, chưa bình duyệt) | 11/11 ([`notes/g9a_nanomap_depthart.md`](notes/g9a_nanomap_depthart.md), G9a-2) | đã đọc – dùng (hẹp) | Độ trễ đo trên Jetson Orin NX: mô hình nhỏ 12–21 ms (224²) đến 40–67 ms (448²) FP32; Depth Anything V2-S ở 512² là 127 ms đầu–cuối (Table 6b) → cùng bậc với giả thiết ~80 ms. Không có vòng kín; không nói rõ "end-to-end" gồm gì. |
 
 ## C. Perception-aware planning, planner cục bộ, tránh vật cản có bất định
 
@@ -56,6 +57,8 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | C5 | X. Zhou et al., *EGO-Planner*, RA-L 2020 (arXiv:2008.08835) | 8/8 | đã đọc – dùng | Bối cảnh/baseline; thiết kế cho môi trường tĩnh (vật cản < 0.5 m/s). |
 | C6 | H. Zhu, J. Alonso-Mora, *Chance-Constrained Collision Avoidance for MAVs in Dynamic Environments*, RA-L 4(2):776–783, 2019 | bản xuất bản cuối, TU Delft repository, 10/10 | đã đọc – dùng | Cơ sở hình thức cho nửa không gian tiếp tuyến + phồng theo hiệp phương sai; track CV Kalman; không có latency, horizon cố định 1 s, không có safety filter. |
 | C7 | J. Lin, H. Zhu, J. Alonso-Mora, *Robust Vision-based Obstacle Avoidance for MAVs in Dynamic Environments*, ICRA 2020 (arXiv:2002.04920) | 7/7 | đã đọc – dùng | Pipeline gần nhất: depth → ellipsoid có hiệp phương sai → track CV → chance-constrained MPC; perception mỗi frame 60 Hz (~8 ms) → baseline "luôn perception". |
+| C8 | P. R. Florence, J. Carter, J. Ware, R. Tedrake, *NanoMap: Fast, Uncertainty-Aware Proximity Queries with Lazy Search over Local 3D Data* (arXiv:1802.09076v1; PDF không in nơi đăng) | 8/8 ([`notes/g9a_nanomap_depthart.md`](notes/g9a_nanomap_depthart.md), G9a-1) | đã đọc – dùng | Tiền lệ gần nhất cho vùng trống từ K khung gần nhất: giữ lịch sử khung depth theo tư thế lúc chụp, không hợp nhất bản đồ; kiểm tra điểm trống bằng chiếu vào ảnh (trong FOV, trước bề mặt đo, trong tầm). Dùng cho truy vấn va chạm, không để quyết định khi nào suy luận; không mô hình sai số depth. |
+| C9 | S. Roelofsen, D. Gillet, A. Martinoli, *Collision Avoidance with Limited Field of View Sensing: A Velocity Obstacle Approach* (bản kho EPFL; PDF không in nơi đăng, ICRA 2017 theo kết quả tìm kiếm) | 6/6 ([`notes/g9b_fov_cbf_multirotor.md`](notes/g9b_fov_cbf_multirotor.md), FV1) | đã đọc – dùng (hẹp) | FOV hẹp buộc giới hạn vận tốc trong nón nhìn thấy; nửa góc nhìn dưới 90° thì không có bảo đảm va chạm (tr. 2). Robot–robot phẳng, FOV mô phỏng từ motion capture. |
 
 ## D. MPC horizon thích nghi
 
@@ -67,6 +70,7 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | D4 | L. Mümken et al., *Conflict-Predictive Variable Horizons in Multi-Drone Distributed MPC* (arXiv:2609.13270, đang review) | 15/15 | đã đọc – dùng (preprint) | Prior art trực tiếp nhất cho horizon theo rủi ro: horizon theo thời gian tới xung đột, horizon tối thiểu bao quãng phanh, có chứng minh khả thi. Không có perception/latency. |
 | D5 | S. Gupta et al., *RL-based Variable Horizon MPC of Multi-Robot Systems* (arXiv:2308.07071) | 7/7 | đã đọc – dùng (hẹp) | Vấn đề xung đột nằm ngoài horizon khi horizon co lại. |
 | D6 | K. Stachowicz, E. Theodorou, *Optimal-Horizon MPC with DDP* (arXiv:2111.09207) | 7/7 | **đã đọc – loại** | "Horizon" là thời gian kết thúc tự do của nhiệm vụ, không phải tầm nhìn theo rủi ro. |
+| D7 | F. Gräfe, M. Eickhoff, S. Trimpe, *Event-triggered and distributed MPC for guaranteed collision avoidance in UAV swarms*, accepted IFAC NecSys 2022 (arXiv:2206.11020v1) | 7/7 ([`notes/g9c_kf_cvar_samplehold_etmpc.md`](notes/g9c_kf_cvar_samplehold_etmpc.md), ET1) | đã đọc – dùng (hẹp) | Trigger chọn UAV nào được lập lại kế hoạch (không phải trigger cảm nhận); ràng buộc dừng cuối làm an toàn độc lập với trigger; thêm lề cho khoảng giữa hai điểm ràng buộc. |
 
 ## E. Control Barrier Function: nền tảng
 
@@ -81,6 +85,7 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | E5b | L. Wang, A. D. Ames, M. Egerstedt, *Safety Barrier Certificates for Heterogeneous Multi-Robot Systems*, ACC 2016 (arXiv:1609.00651) | 8/8 | đã đọc – dùng | Dạng chính xác của braking barrier h = sqrt(2(α_i+α_j)(‖Δp‖−D_s)) + (Δpᵀ/‖Δp‖)Δv (eq. 8); với α_j = 0 và D_s → d(t) ta suy ra h của DART (suy diễn của chúng ta). |
 | E6 | J. Zeng, B. Zhang, K. Sreenath, *Safety-Critical MPC with Discrete-Time CBF*, ACC 2021 (arXiv:2007.11718) | 9/9 | đã đọc – dùng | Cơ sở hàng DCBF trong MPC; bài toán là NLP trừ khi barrier tuyến tính (ủng hộ nửa không gian tiếp tuyến). |
 | E7 | U. Rosolia, A. D. Ames, *Multi-Rate Control Design Leveraging CBFs and MPC Policies*, IEEE L-CSS 5(3), 2020 (arXiv:2004.01761) | 6/6 | đã đọc – dùng | Kiến trúc MPC chậm + CBF nhanh có bảo đảm đa tần số; không có perception/latency. (Sửa tác giả: không có Singletary.) |
+| E8 | M. Misyats, M. Harms, M. Nissov, M. Jacquet, K. Alexis, *Embedded Safe Reactive Navigation for Multirotors Systems using Control Barrier Functions* (arXiv:2504.15850v1; PDF không in nơi đăng) | 8/8 ([`notes/g9b_fov_cbf_multirotor.md`](notes/g9b_fov_cbf_multirotor.md), FV2) | đã đọc – dùng | Bộ lọc CBF chạy hoàn toàn onboard multirotor thật (VOXL2 mini, ToF, 100 điểm ở 15 Hz, vòng vị trí PX4 100 Hz); ràng buộc mềm giữ vận tốc trong vùng nhìn của cảm biến → tiền lệ cho hàng "chuyển động mù"; tự nêu thiếu thông tin ngoài FOV và bộ nhớ ngắn hạn là hướng tương lai. Không có thống kê va chạm. |
 | I1 | T. Lee, M. Leok, N. H. McClamroch, *Control of Complex Maneuvers for a Quadrotor UAV using Geometric Methods on SE(3)* (arXiv:1003.2005) | 12/12 | đã đọc – dùng (cài đặt) | Tham chiếu cho vòng attitude; DART bỏ feed-forward, thêm giới hạn nghiêng/lực đẩy/bù cản → kết quả ổn định của I1 không áp dụng trực tiếp. |
 
 ## F. CBF với độ trễ, lấy mẫu, kích hoạt theo sự kiện, sai số perception
@@ -96,6 +101,7 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | F7 | S. Yang, G. J. Pappas, R. Mangharam, L. Lindemann, *Safe Perception-Based Control under Stochastic Sensor Uncertainty using Conformal Prediction*, CDC 2023 (arXiv:2304.00194) | 15/15 | đã đọc – dùng | **Gần nhất trong nhóm:** perception học + CBF bền vững + khoảng lấy mẫu suy ra từ cận sai số và tốc độ tối đa — nhưng khoảng đó **hằng**, latency 0, không có bộ nhớ/bộ lọc → baseline tần số cố định cho scheduler. |
 | F8 | G. Yang, C. Belta, R. Tron, *Self-triggered Control for Safety Critical Systems using CBFs*, ACC 2019 (arXiv:1903.03692) | 7/7 | đã đọc – dùng | "Safe period" — tương đương hình thức gần nhất của khoảng mở an toàn tối đa; trigger cập nhật điều khiển với trạng thái chính xác. |
 | F9 | F. Laine, C.-Y. Chiu, C. Tomlin, *Eyes-Closed Safety Kernels*, RSS 2020 (arXiv:2005.07144) | 9/9 | đã đọc – dùng (khái niệm) | An toàn khi không có quan sát thêm, kể cả vật cản ngoài tầm cảm biến (≈ frontier); offline, xấu nhất, tốn tính toán. |
+| F10 | G. Bahati, P. Ong, A. D. Ames, *Sample-and-Hold Safety with Control Barrier Functions* (arXiv:2304.08685v2, chưa in nơi đăng) | 8/8 ([`notes/g9c_kf_cvar_samplehold_etmpc.md`](notes/g9c_kf_cvar_samplehold_etmpc.md), SH1) | đã đọc – dùng | Bộ lọc CBF giữ mẫu (ZOH) vi phạm an toàn ở mọi tần số thử (10–50 Hz), vi phạm nhỏ; với mọi lề d tồn tại chu kỳ lấy mẫu đủ nhỏ giữ tập mở rộng bất biến (Thm 2) → tài liệu cho hạn chế "bộ lọc 100 Hz không có bảo đảm giữa các bước". Không xét biến bù và sai số đo. |
 
 ## G. CBF với bất định ước lượng / vật cản bất định
 
@@ -109,6 +115,7 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | G6 | B. Dai et al., *Differentiable Optimization Based Time-Varying CBFs for Dynamic Obstacle Avoidance* (arXiv:2309.17226) | 8/8 | đã đọc – dùng | TV-CBF với vật cản động theo dõi bằng EKF, dịch k-sigma + phồng theo tốc độ tiếp cận; gần thành phần 4–5 của DART, không latency. |
 | G7 | Z. Jian et al., *Dynamic CBF-based MPC to Safety-Critical Obstacle-Avoidance of Mobile Robot* (arXiv:2209.08539) | 7/7 | đã đọc – dùng | MPC + hàng DCBF với vật cản Kalman, ellipse phồng theo hiệp phương sai dọc horizon → baseline gần nhất của thành phần MPC; không latency. |
 | G8 | S. Han et al., *Risk-Aware Belief CBFs over Random Finite Sets* (arXiv:2607.15016) | 8/8 | đã đọc – dùng | Điều kiện an toàn qua một lần cập nhật (Prop. 1) nhưng việc **khôi phục trước lần cập nhật kế tiếp** bỏ ngỏ (Remark 4) — đúng khoảng trống mà scheduler của DART nhắm tới. |
+| G9 | M. Kishida, *Risk-Aware Control of Discrete-Time Stochastic Systems: Integrating Kalman Filter and Worst-case CVaR in CBFs* (arXiv:2312.15638v4) | 6/6 ([`notes/g9c_kf_cvar_samplehold_etmpc.md`](notes/g9c_kf_cvar_samplehold_etmpc.md), KC1) | đã đọc – dùng (hẹp) | Trung bình và hiệp phương sai Kalman + CVaR xấu nhất → ràng buộc CBF siết, tuyến tính theo u với tập nửa không gian; dùng riêng giá trị kỳ vọng không đủ an toàn (tr. 5). Hệ tuyến tính, đo mỗi bước, ví dụ 1-D. Dạng đóng CVaR ↔ bội số σ **không có trong bài** (ghi chú đánh dấu, chưa dùng). |
 
 ## H. Ước lượng với phép đo trễ
 
@@ -138,11 +145,18 @@ PDF không được đưa lên GitHub (bản quyền; `.gitignore` chặn `docs/
 | N15 | S. Shahsavari et al., *A Coordinated Approach to Control Mechanical and Computing Resources in Mobile Robots*, IEEE T-RO 41, 2025 | PDF người dùng, 17/17 | đã đọc – dùng (hẹp) | Đồng quản lý tốc độ rover + DVFS CPU để tiết kiệm năng lượng (tới 36.34%); không có an toàn; năng lượng tính toán có thể chiếm ưu thế ở rover nhỏ chạy chậm (tr. 351). |
 | N12 | Y. Xia et al., *Energy-Efficient Autonomous Driving with Adaptive Perception and Robust Decision* (EneAD, arXiv:2510.25205) | 14/14 | đã đọc – dùng | Bỏ khung theo lớp độ khó của cảnh, vòng kín nhưng không có cận an toàn. |
 
+## R. Tài liệu phần cứng
+
+| ID | Tài liệu | Toàn văn | Trạng thái | Vai trò |
+|---|---|---|---|---|
+| R1 | Raspberry Pi Ltd, *Raspberry Pi Camera Module 3 (Standard, NoIR, Wide, NoIR Wide)*, product brief, 06/2024 | 7/7 trang, Claude tự đọc ([`notes/g9d_rpi_camera.md`](notes/g9d_rpi_camera.md)) | đã đọc – dùng | Góc nhìn Module 3: 66° × 41°; Module 3 Wide: 102° × 67° → preset camera 2, 3 và Bảng 4 của bản thảo. Camera Module v2: **cần tải tay** (trang chính thức bị proxy chặn). |
+
 ## Ứng viên tìm thấy nhưng **chưa đọc** (không được dùng cho tới khi đọc toàn văn)
 
-* arXiv:2504.15850 — bộ lọc an toàn CBF onboard với cảm biến depth cho multirotor (PX4).
-* arXiv:2312.15638 — Kishida, Kalman filter + worst-case CVaR trong CBF.
-* arXiv:2304.08685 — an toàn sample-and-hold với CBF (phía cơ cấu chấp hành).
-* Gräfe et al. 2022 (event-triggered distributed MPC cho UAV); Sun et al. 2019 (self-triggered MPC với horizon thích nghi); Page et al. 2006 (adaptive-horizon MPC cho quản lý cảm biến).
+* Sun et al. 2019 (self-triggered MPC với horizon thích nghi); bài SPIE 6699, 66990V (2007), *Adaptive horizon sensor resource management: validating the core concept* (có thể là "Page et al.", tác giả chưa xác nhận; **cần tải tay**).
+* Bản tạp chí của RAPTOR (IEEE T-RO 37(6), 2021; khác bản arXiv v1 đã đọc) — **cần tải tay**.
+* T. Lee, M. Leok, N. H. McClamroch, *Geometric tracking control of a quadrotor UAV on SE(3)*, IEEE CDC 2010 — **cần tải tay**.
+* E. Cho et al., *Obstacle Avoidance of a UAV Using Fast Monocular Depth Estimation for a Wide Stereo Camera*, IEEE TIE 72(2), 2025 — **cần tải tay**.
+* Snowball từ nhóm g9 (chưa đọc): Zhang, Leng & Govindaraju, Robotica 2016 (FOV nhỏ và xác suất va chạm); Wu & Sreenath 2016 (CBF quadrotor 3-D với cảm nhận giới hạn tầm); Harms et al., ICRA 2025 (arXiv:2502.04101, CBF hợp thành); Zymler et al. 2013 (CVaR xấu nhất, nguồn của dạng đóng nêu trong ghi chú G9).
 * NanoMap; Safety Score (IV 2020); RSS (Shalev-Shwartz et al. 2017); Safety Force Field (2019).
 * Báo cáo kỹ thuật trực tuyến của Pant et al. (UPenn-ESE-04-19, 2019).
