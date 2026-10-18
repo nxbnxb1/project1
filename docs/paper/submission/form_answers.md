@@ -28,7 +28,7 @@ No funding was received for conducting this study.
 The author has no competing interests to declare that are relevant to the content of this article.
 
 ## Author contributions
-Xuan Bach Nguyen is the sole author and carried out the conceptualization, methodology, software, simulations, formal analysis and writing of the manuscript (use of AI tools: see Section 5).
+X.B.N. conceived the study, developed the method and the software, performed the simulations and the analysis, prepared all figures and tables, and wrote and reviewed the manuscript.
 
 ## Ethics approval and consent
 Not applicable: the study is a simulation study without human or animal participants.
