@@ -134,6 +134,9 @@ REFS = {
                r"\url{https://arxiv.org/abs/2607.15016} (2026)",
     'laine2020': r"Laine, F., Chiu, C.-Y., Tomlin, C.: Eyes-closed safety kernels: Safety of autonomous systems under "
                  r"loss of observability. In: Robotics: Science and Systems (RSS) (2020). arXiv:2005.07144",
+    # ------------------------------------------------------------- hardware documentation
+    'rpi_cm3': r"Raspberry Pi Ltd: Raspberry Pi Camera Module 3 (Standard, NoIR, Wide, NoIR Wide), product brief "
+               r"(2024). \url{https://datasheets.raspberrypi.com/camera/camera-module-3-product-brief.pdf}",
     # ------------------------------------------------------------- estimation, attitude, solver
     'barshalom2002': r"Bar-Shalom, Y.: Update with out-of-sequence measurements in tracking: Exact solution. IEEE "
                      r"Trans. Aerosp. Electron. Syst. \textbf{38}(3), 769--777 (2002). "
