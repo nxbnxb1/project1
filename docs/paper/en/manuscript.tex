@@ -53,9 +53,9 @@ coverage-triggered scheduler: an inference is triggered only when the planned pa
 to stop after the next result arrives, is no longer contained in the free space observed by the most recent frames.
 The scheduler has a hard rate cap and is integrated with a perception-range speed limit, a memory of vertical
 cylinders updated by a Kalman filter at the capture time, a 20~Hz model predictive controller and a 100~Hz control
-barrier function filter. We show that, under stated assumptions, the coverage condition ensures that skipping an
-inference does not remove the ability to stop within observed free space, and we test its consequences in 36\,000
-paired simulated flights (three scenario families, ten rate caps, three commanded speeds, four camera
+barrier function filter. Under stated assumptions, the coverage condition ensures that skipping an inference does
+not remove the ability to stop within observed free space; its consequences are tested in 36\,000 paired simulated
+flights (three scenario families, ten rate caps, three commanded speeds, four camera
 configurations). At the same rate cap, the scheduler uses 50--72\,\% of the inferences of fixed-rate perception in
 the nominal and everyday scenarios, with no statistically significant difference in collision rate; its frame rate
 increases with obstacle density; and at an equal low computational budget, failed missions in the nominal scenarios
