@@ -142,8 +142,9 @@ Hình sinh bằng `python3 -I docs/paper/make_figures.py vi` (Fig. 2–6, chỉ 
 * **Competing interests**: "The author has no competing interests to declare that are relevant to the content of this
   article."
 * **Ethics**: không áp dụng (mô phỏng).
-* **Data / Code availability**: không dùng Zenodo; mã nguồn, kết quả từng lượt và script được công bố công khai trên
-  GitHub khi bài được chấp nhận.
+* **E-mail tác giả liên hệ**: nguyenxuanbach513@gmail.com.
+* **Data / Code availability**: không dùng Zenodo; mã nguồn, kết quả từng lượt và script ghi trong bài tại
+  https://github.com/nxbnxb1/project1 (tác giả yêu cầu ghi link, 2026-10-18).
 * **Author contributions**: tác giả duy nhất.
 
 ## 8. Khai báo sử dụng công cụ AI
@@ -154,9 +155,7 @@ tích và bản nháp đầu tiên được chuẩn bị với trợ giúp của
 
 ## 9. Thông tin còn thiếu
 
-1. E-mail của tác giả liên hệ.
-2. Ảnh tác giả (bài Regular); tiểu sử đã có (2026-10-18).
-3. Loại bài (Regular paper hay Focused Section).
+1. Loại bài (Regular paper hay Focused Section). E-mail, tiểu sử và ảnh tác giả đã có (2026-10-18).
 
 ## 10. Thứ tự thực hiện đề xuất
 
